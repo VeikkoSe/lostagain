@@ -1,0 +1,168 @@
+<html>
+
+<head>
+    <title>Copypasteroids 2</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf8">
+    <link href="js/jquery-ui-1.11.0.custom/jquery-ui.min.css" type="text/css" rel="stylesheet"/>
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="js/gl/glMatrix-0.9.5.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.11.0.custom/external/jquery/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/gl/webgl-utils.js"></script>
+    <script type="text/javascript" src="js/gl/webgl-debug.js"></script>
+    <script type="text/javascript" src="bower_components/traceur-runtime/traceur-runtime.js"></script>
+    <script type="text/javascript" src="js/unproject.js"></script>
+
+    <script type="text/javascript" src="out/src/Common/EntityManager.js"></script>
+    <script type="text/javascript" src="out/src/Common/EntityFactory.js"></script>
+    <script type="text/javascript" src="out/src/Common/functions.js"></script>
+    <script type="text/javascript" src="out/src/Common/Plane.js"></script>
+    <script type="text/javascript" src="out/src/Common/Helpers.js"></script>
+    <script type="text/javascript" src="out/src/Common/Camera.js"></script>
+    <script type="text/javascript" src="out/src/Common/StateEngine.js"></script>
+    <script type="text/javascript" src="out/src/Common/GameState.js"></script>
+    <script type="text/javascript" src="out/src/Common/Texture.js"></script>
+    <script type="text/javascript" src="out/src/Common/Mesh.js"></script>
+    <script type="text/javascript" src="out/src/Common/MeshManager.js"></script>
+    <script type="text/javascript" src="out/src/Common/Sprite.js"></script>
+    <script type="text/javascript" src="out/src/Common/Globals.js"></script>
+    <script type="text/javascript" src="out/src/Common/Picker.js"></script>
+    <script type="text/javascript" src="out/src/Common/Game.js"></script>
+    <script type="text/javascript" src="out/src/Common/Cube.js"></script>
+
+    <!--<script type="text/javascript" src="out/src/Common/Terrain.js"></script>-->
+    <script type='text/javascript' src='js/javascript-astar/astar.js'></script>
+    <script type="text/javascript" src="out/src/Common/AstarManager.js"></script>
+    <script type="text/javascript" src="out/src/Common/BlockManager.js"></script>
+
+    <script type="text/javascript" src="out/src/Entities/Entity.js"></script>
+    <!--<script type="text/javascript" src="out/src/Entities/Medic.js"></script>-->
+
+    <script type="text/javascript" src="out/src/Components/Component.js"></script>
+    <script type="text/javascript" src="out/src/Components/AIControlled.js"></script>
+    <script type="text/javascript" src="out/src/Components/Controllable.js"></script>
+    <script type="text/javascript" src="out/src/Components/Movable.js"></script>
+    <script type="text/javascript" src="out/src/Components/MomentumMovable.js"></script>
+    <script type="text/javascript" src="out/src/Components/Renderable.js"></script>
+    <script type="text/javascript" src="out/src/Components/MultiRenderable.js"></script>
+    <script type="text/javascript" src="out/src/Components/CameraController.js"></script>
+    <script type="text/javascript" src="out/src/Components/Selectable.js"></script>
+    <script type="text/javascript" src="out/src/Components/MeshComponent.js"></script>
+    <script type="text/javascript" src="out/src/Components/PlaneComponent.js"></script>
+    <script type="text/javascript" src="out/src/Components/SpriteComponent.js"></script>
+    <script type="text/javascript" src="out/src/Components/Health.js"></script>
+    <script type="text/javascript" src="out/src/Components/Shield.js"></script>
+    <script type="text/javascript" src="out/src/Components/JumpArea.js"></script>
+
+    <script type="text/javascript" src="out/src/Processors/Processor.js"></script>
+    <script type="text/javascript" src="out/src/Processors/LinearMovementProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processors/MomentumMovementProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processors/RenderProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processors/PlaneProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processors/HealthProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processors/ShieldProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processors/CameraControllerProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processors/PrimitiveProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processors/ActionMapper.js"></script>
+
+
+<style>
+    #canvas {
+        cursor:url(resources/images/pointer.gif),url(''),auto;
+    }
+</style>
+
+
+
+
+
+
+
+</head>
+<body >
+<div style="margin-bottom:50px;">
+<canvas id="canvas" width="1280" height="720"></canvas>
+
+<div id="bottom" >
+    <table>
+        <tr>
+            <td>light X:</td>
+            <td id='slider-x-value' width='30px'>0</td>
+            <td width="150px">
+                <div id="slider-x"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>light Y:</td>
+            <td id="slider-y-value" width="30px">68</td>
+            <td width="150px">
+                <div id="slider-y"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>light Z:</td>
+            <td id="slider-z-value" width="30px">50</td>
+            <td width="150px">
+                <div id="slider-z"></div>
+            </td>
+        </tr>
+    </table>
+
+Allow offscreen movement:  <input type="checkbox" value="x" id="controlEdgeMovement" name="controlEdgeMovement" />
+Control camera: <input type="checkbox" value="x"  id="controlCamera" name="controlCamera" />
+    <table>
+        <tr>
+            <td>Camera X:</td>
+            <td id='cslider-x-value' width='30px'>0</td>
+            <td width="150px">
+                <div id="cslider-x"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Camera Y:</td>
+            <td id="cslider-y-value" width="30px">0</td>
+            <td width="150px">
+                <div id="cslider-y"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Camera Z:</td>
+            <td id="cslider-z-value" width="30px">0</td>
+            <td width="150px">
+                <div id="cslider-z"></div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Camera rot:</td>
+            <td id="rotslider-x-value" width="30px">0</td>
+            <td width="150px">
+                <div id="rslider-x"></div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<div id="debugarea"></div>
+<div id="fps"></div>
+    <div style="clear:both;"></div>
+</div>
+<div id="disqus_thread" ></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'webglholes'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+</body>
+</html>
