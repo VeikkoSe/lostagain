@@ -9,13 +9,10 @@ class RenderProcess extends Processor {
         this.cube = new Cube();
 
 
-
-
         this.elapsedTotal = 0;
 
 
         this.lastTime = 0;
-
 
 
         this.combinedMeshes = {};
@@ -61,7 +58,6 @@ class RenderProcess extends Processor {
             this.vertexPositionBuffer.nums += verts.length / 3;
 
 
-
         }
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
@@ -83,59 +79,54 @@ class RenderProcess extends Processor {
     randomIntFromInterval(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-    getRandomInt (min, max) {
+
+    getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+
     draw() {
 
         //for (var e = 0; e < em.entities.length; e++) {
-         //   var le = em.entities[e];
+        // var le = em.entities[e];
 
 
-           // if (le.components.MultiRenderable) {
+        //if (le.components.MultiRenderable) {
 
-          //      var mrc = le.components.MultiRenderable;
-
-
+                //      var mrc = le.components.MultiRenderable;
 
 
-        var timeNow = new Date().getTime();
+                var timeNow = new Date().getTime();
 
-        if (this.lastTime != 0) {
+                if (this.lastTime != 0) {
 
-            var elapsed = timeNow - this.lastTime;
-            this.elapsedTotal += elapsed;
-            gl.uniform1f(ambientProgram.uElapsed, this.elapsedTotal.toFixed(1));
-
-
-        }
-        this.lastTime = timeNow;
+                    var elapsed = timeNow - this.lastTime;
+                    this.elapsedTotal += elapsed;
+                    gl.uniform1f(ambientProgram.uElapsed, this.elapsedTotal.toFixed(1));
 
 
-
-        gl.activeTexture(gl.TEXTURE0);
-
-        var texture = monstermap;
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.uniform1i(ambientProgram.uVisibility, 0);
+                }
+                this.lastTime = timeNow;
 
 
+                gl.activeTexture(gl.TEXTURE0);
+
+                var texture = monstermap;
+                gl.bindTexture(gl.TEXTURE_2D, texture);
+                gl.uniform1i(ambientProgram.uVisibility, 0);
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
                 gl.vertexAttribPointer(ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
                 gl.vertexAttribPointer(ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
                 gl.vertexAttribPointer(ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
 
 
+                gl.drawArrays(gl.TRIANGLES, 0, this.vertexPositionBuffer.nums);
 
-
-                gl.drawArrays(gl.TRIANGLES, 0,this.vertexPositionBuffer.nums);
-
-       // gl.deleteTexture(texture);
-            //}
-
+                // gl.deleteTexture(texture);
         //}
+
+        // }
 
 
     }

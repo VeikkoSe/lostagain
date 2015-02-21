@@ -3,6 +3,7 @@ class GameState extends StateEngine {
     constructor(canvas) {
 
         this.renderProcess = new RenderProcess();
+        this.simpleRenderProcess = new SimpleRenderProcess();
 
         this.planeProcess = new PlaneProcess();
         this.healthProcess = new HealthProcess();
@@ -23,10 +24,10 @@ class GameState extends StateEngine {
 
     init() {
 
-        //particleProgram = initParticleShaders("particle");
+        particleProgram = initParticleShaders("particle");
 
         //simplestProgram = initSimplestShaders("simplest");
-        //shaderProgram = initShaders("per-fragment-lighting");
+        shaderProgram = initShaders("per-fragment-lighting");
         ambientProgram = initAmbientShaders('ambient');
 
         //Light uniforms
@@ -52,8 +53,8 @@ class GameState extends StateEngine {
         //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
         //this.ef.createPlane();
-        //this.ef.createMotherShip();
-        //this.ef.createShip();
+        this.ef.createMotherShip();
+        this.ef.createShip();
         //for(var i=0;i<500;i++)
         this.ef.createBox();
 
@@ -61,18 +62,17 @@ class GameState extends StateEngine {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
 
-        gl.useProgram(ambientProgram);
+
         //camera.move();
 
         mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 5000.0, camera.pMatrix);
         mat4.identity(camera.mvMatrix);
         //mat4.rotate(camera.mvMatrix, camera.rotation, [1, 0, 0]);
-        mat4.translate(camera.mvMatrix, [0, 0, -1000]);
-        mat4.multiply(camera.pMatrix, camera.mvMatrix, camera.pvMatrix);
+        mat4.translate(camera.mvMatrix, [camera.x, camera.y, camera.z]);
+        //mat4.multiply(camera.pMatrix, camera.mvMatrix, camera.pvMatrix);
 
 
-        gl.uniform3fv(ambientProgram.uCameraPos,  [0,0,-100]);
-        gl.uniformMatrix4fv(ambientProgram.uPMatrix, false, camera.pMatrix);
+
 
 
     }
@@ -81,16 +81,21 @@ class GameState extends StateEngine {
     animate() {
 
         var timeNow = new Date().getTime();
+
         this.frameCount++;
+
+        //if(this.frameCount>200)
+        //    this.frameCount = 200;
+
         if (this.lastTime != 0) {
             var elapsed = timeNow - this.lastTime;
             this.elapsedTotal += elapsed;
             //this.characterProcess.update(elapsed);
-            //this.linearMovementProcess.update(elapsed);
-            //this.momentumMovementProcess.update(elapsed);
-            //this.cameraControllerProcess.update(elapsed);
+            this.linearMovementProcess.update(elapsed);
+            this.momentumMovementProcess.update(elapsed);
+            this.cameraControllerProcess.update(elapsed);
             this.createTexture(elapsed);
-            //actionMapper.handleKeys();
+            actionMapper.handleKeys();
 
 
             if (this.elapsedTotal >= 1000) {
@@ -167,30 +172,22 @@ class GameState extends StateEngine {
     render() {
 
 
-        //first we draw to framebuffer with solid colors for picking
-        //then we draw the frame
-
-
-        //gl.uniform3f(shaderProgram.uLightPosition, camera.x, camera.y, camera.z);
-        //gl.uniform3f(shaderProgram.uLightAmbient, 0, 0, 0);
-        //gl.uniform3f(shaderProgram.uLightDiffuse, 0.8, 0.8, 0.8);
-        //gl.uniform3f(shaderProgram.uLightSpecular, 0.8, 0.8, 0.8);
-
-        //gl.uniform1i(shaderProgram.uUseLighting, 0);
-        //gl.uniform1f(shaderProgram.alphaUniform, 1);
-        //gl.uniform1f(shaderProgram.uMaterialShininess, 200.0);
-        //gl.uniform1i(shaderProgram.samplerUniform, 0);
-        //gl.uniform1i(shaderProgram.uDrawColors, 0);
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        //gl.enable(gl.DEPTH_TEST);
-        //gl.disable(gl.BLEND);
-        //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
+        mat4.identity(camera.mvMatrix);
+        mat4.translate(camera.mvMatrix, [camera.x, camera.y, camera.z]);
 
+        gl.useProgram(shaderProgram);
+        gl.uniform1i(shaderProgram.uDrawColors, 0);
+        this.simpleRenderProcess.draw();
 
-
+        gl.useProgram(ambientProgram);
+        gl.uniformMatrix4fv(ambientProgram.uPMatrix, false, camera.pMatrix);
+        gl.uniform3fv(ambientProgram.uCameraPos,  [camera.x,camera.y,camera.z]);
         this.renderProcess.draw();
+
+
 
 
 
@@ -204,9 +201,9 @@ class GameState extends StateEngine {
 
         //this.drawScene();
 
-        //gl.useProgram(particleProgram);
-        //this.healthProcess.draw();
-        //this.shieldProcess.draw();
+        gl.useProgram(particleProgram);
+        this.healthProcess.draw();
+        this.shieldProcess.draw();
 
 
        // gl.useProgram(simplestProgram);

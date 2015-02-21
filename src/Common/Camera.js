@@ -1,6 +1,6 @@
 class Camera {
     constructor() {
-
+/*
 
         $('#slider-x').slider({
             value: 0.0,
@@ -54,6 +54,7 @@ class Camera {
 
         $('#rslider-x').slider({value: 0, min: 0, max: 360, step: 0.1, slide: updateRotation, change: updateRotation});
 
+*/
 
         this.mvMatrix = mat4.create();
         this.pMatrix = mat4.create();
@@ -69,8 +70,8 @@ class Camera {
         //initial pos
         this.x = 0;
         this.y = 0;
-        this.z = -10;
-        this.rotation = helpers.degToRad(50);
+        this.z = -120;
+        this.rotation = 0;//helpers.degToRad(0);
 
         this.slideLeft = false;
         this.slideRight = false;

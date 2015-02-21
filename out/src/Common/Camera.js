@@ -1,61 +1,5 @@
 var Camera = function Camera() {
   "use strict";
-  $('#slider-x').slider({
-    value: 0.0,
-    min: -100,
-    max: 100,
-    step: 0.1,
-    slide: updateLightPosition,
-    change: updateLightPosition
-  });
-  $('#slider-y').slider({
-    value: 0.0,
-    min: -100,
-    max: 100,
-    step: 0.1,
-    slide: updateLightPosition,
-    change: updateLightPosition
-  });
-  $('#slider-z').slider({
-    value: 0,
-    min: -100,
-    max: 100,
-    step: 0.1,
-    slide: updateLightPosition,
-    change: updateLightPosition
-  });
-  $('#cslider-x').slider({
-    value: 0,
-    min: -100,
-    max: 100,
-    step: 0.1,
-    slide: updateCameraPosition,
-    change: updateCameraPosition
-  });
-  $('#cslider-y').slider({
-    value: 0,
-    min: -100,
-    max: 100,
-    step: 0.1,
-    slide: updateCameraPosition,
-    change: updateCameraPosition
-  });
-  $('#cslider-z').slider({
-    value: -100,
-    min: -100,
-    max: 200,
-    step: 0.1,
-    slide: updateCameraPosition,
-    change: updateCameraPosition
-  });
-  $('#rslider-x').slider({
-    value: 0,
-    min: 0,
-    max: 360,
-    step: 0.1,
-    slide: updateRotation,
-    change: updateRotation
-  });
   this.mvMatrix = mat4.create();
   this.pMatrix = mat4.create();
   this.cMatrix = mat4.create();
@@ -66,8 +10,8 @@ var Camera = function Camera() {
   this.clickPosition = null;
   this.x = 0;
   this.y = 0;
-  this.z = -10;
-  this.rotation = helpers.degToRad(50);
+  this.z = -120;
+  this.rotation = 0;
   this.slideLeft = false;
   this.slideRight = false;
   this.slideUp = false;

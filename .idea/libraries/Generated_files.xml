@@ -24,6 +24,7 @@
         <item url="file://$PROJECT_DIR$/out/src/Common/Billboard.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/Components/JumpArea.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Processors/SimpleRenderProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Cube.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processors/SimpleRender.js" />
         <item url="file://$PROJECT_DIR$/out/src/Components/Component.js" />
@@ -58,14 +59,14 @@
         <item url="file://$PROJECT_DIR$/out/src/Components/MultiRenderable.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Terrain.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processors/TwoDRenderProcess.js" />
-        <item url="file://$PROJECT_DIR$/out/src/Processors/ShieldProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Particle.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Processors/ShieldProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processors/CharacterProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Sprite.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processors/PlaneProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processors/3dRebderProcess.js" />
-        <item url="file://$PROJECT_DIR$/out/src/Common/Plane.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processors/ThreeDRenderProcess.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/Plane.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -198,6 +199,7 @@
       <root url="file://$PROJECT_DIR$/out/src/Common/Game.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Components/JumpArea.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Processors/SimpleRenderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Cube.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/SimpleRender.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/PrimitiveProcess.js" />
@@ -232,14 +234,14 @@
       <root url="file://$PROJECT_DIR$/out/src/Components/PlaneComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/TwoDRenderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Terrain.js" />
-      <root url="file://$PROJECT_DIR$/out/src/Common/Particle.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/ShieldProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/Particle.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/CharacterProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Sprite.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/3dRebderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/PlaneProcess.js" />
-      <root url="file://$PROJECT_DIR$/out/src/Processors/ThreeDRenderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Plane.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Processors/ThreeDRenderProcess.js" />
     </CLASSES>
     <SOURCES />
   </library>
