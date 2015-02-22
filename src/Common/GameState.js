@@ -26,17 +26,14 @@ class GameState extends StateEngine {
 
         particleProgram = initParticleShaders("particle");
 
-        //simplestProgram = initSimplestShaders("simplest");
+        simplestProgram = initSimplestShaders("simplest");
         shaderProgram = initShaders("per-fragment-lighting");
         ambientProgram = initAmbientShaders('ambient');
 
         //Light uniforms
         //var x = $('#slider-x').slider("value");
-       // var y = $('#slider-y').slider("value");
+        // var y = $('#slider-y').slider("value");
         //var z = $('#slider-z').slider("value");
-
-
-
 
 
         //shaderProgram = initShaders("per-fragment-lighting");
@@ -62,17 +59,11 @@ class GameState extends StateEngine {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
 
-
-
-
         mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 5000.0, camera.pMatrix);
         mat4.identity(camera.mvMatrix);
         mat4.rotate(camera.mvMatrix, camera.rotation, [1, 0, 0]);
         mat4.translate(camera.mvMatrix, [camera.x, camera.y, camera.z]);
         //mat4.multiply(camera.pMatrix, camera.mvMatrix, camera.pvMatrix);
-
-
-
 
 
     }
@@ -84,8 +75,6 @@ class GameState extends StateEngine {
 
         this.frameCount++;
 
-        //if(this.frameCount>200)
-        //    this.frameCount = 200;
 
         if (this.lastTime != 0) {
             var elapsed = timeNow - this.lastTime;
@@ -94,7 +83,7 @@ class GameState extends StateEngine {
             this.linearMovementProcess.update(elapsed);
             this.momentumMovementProcess.update(elapsed);
             this.cameraControllerProcess.update(elapsed);
-            //this.createTexture(elapsed);
+            this.createTexture(elapsed);
             actionMapper.handleKeys();
 
 
@@ -113,53 +102,47 @@ class GameState extends StateEngine {
         this.lastTime = timeNow;
 
 
-
-
     }
-    randomIntFromInterval(min,max)
-    {
-        return Math.floor(Math.random()*(max-min+1)+min);
+
+    randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     createTexture(elapsed) {
         this.megaElapsedTotal += elapsed;
-        if(this.megaElapsedTotal>1000 || monstermap == null)
-        {
+        if (this.megaElapsedTotal > 1000 || monstermap == null) {
 
             this.megaElapsedTotal = 0;
-        var b = new ArrayBuffer(128*128*4);
-        var v1 = new Uint8Array(b);
-        var g = 0;
-        for ( var i=0; i<128*128; i++ )
-        {
-            if(this.randomIntFromInterval(0,1)==1)
-            {
+            var b = new ArrayBuffer(128 * 128 * 4);
+            var v1 = new Uint8Array(b);
+            var g = 0;
+            for (var i = 0; i < 128 * 128; i++) {
+                if (this.randomIntFromInterval(0, 1) == 1) {
 
-            v1[g++] = 255;
-            v1[g++] = 255;
-            v1[g++] = 255;
-            v1[g++] = 255;
+                    v1[g++] = 255;
+                    v1[g++] = 255;
+                    v1[g++] = 255;
+                    v1[g++] = 255;
+                }
+                else {
+
+                    v1[g++] = 0;
+                    v1[g++] = 0;
+                    v1[g++] = 0;
+                    v1[g++] = 0;
+                }
             }
-            else
-            {
-
-            v1[g++] = 0;
-            v1[g++] = 0;
-            v1[g++] = 0;
-            v1[g++] = 0;
-            }
-        }
 
 
-        var texture = gl.createTexture () ;
-        gl.bindTexture  ( gl.TEXTURE_2D, texture ) ;
-        //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR ) ;
-        //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR ) ;
-        //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT ) ;
-        //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT ) ;
-        gl.texImage2D (gl.TEXTURE_2D, 0, gl.RGBA, 128, 128, 0, gl.RGBA,
-            gl.UNSIGNED_BYTE, v1);
-        gl.generateMipmap ( gl.TEXTURE_2D ) ;
+            var texture = gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR ) ;
+            //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR ) ;
+            //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT ) ;
+            //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT ) ;
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 128, 128, 0, gl.RGBA,
+                gl.UNSIGNED_BYTE, v1);
+            gl.generateMipmap(gl.TEXTURE_2D);
 
             monstermap = texture;
 
@@ -170,7 +153,6 @@ class GameState extends StateEngine {
 
 
     render() {
-
 
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -188,19 +170,14 @@ class GameState extends StateEngine {
         gl.uniform1f(shaderProgram.alphaUniform, 1);
 
 
-
-
         gl.uniform1i(shaderProgram.uDrawColors, 0);
         this.simpleRenderProcess.draw();
 
         /* asteroids  */
         gl.useProgram(ambientProgram);
         gl.uniformMatrix4fv(ambientProgram.uPMatrix, false, camera.pMatrix);
-        gl.uniform3fv(ambientProgram.uCameraPos,  [0,0,-400]);
+        gl.uniform3fv(ambientProgram.uCameraPos, [0, 0, -400]);
         this.renderProcess.draw();
-
-
-
 
 
         //off-screen rendering
@@ -218,9 +195,9 @@ class GameState extends StateEngine {
         this.shieldProcess.draw();
 
 
-       // gl.useProgram(simplestProgram);
+        gl.useProgram(simplestProgram);
         //this.planeProcess.draw();
-        //this.primitiveProcess.draw();
+        this.primitiveProcess.draw();
     }
 
     drawScene() {

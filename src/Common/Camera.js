@@ -1,60 +1,60 @@
 class Camera {
     constructor() {
-/*
+        /*
 
-        $('#slider-x').slider({
-            value: 0.0,
-            min: -100,
-            max: 100,
-            step: 0.1,
-            slide: updateLightPosition,
-            change: updateLightPosition
-        });
-        $('#slider-y').slider({
-            value: 0.0,
-            min: -100,
-            max: 100,
-            step: 0.1,
-            slide: updateLightPosition,
-            change: updateLightPosition
-        });
-        $('#slider-z').slider({
-            value: 0,
-            min: -100,
-            max: 100,
-            step: 0.1,
-            slide: updateLightPosition,
-            change: updateLightPosition
-        });
+         $('#slider-x').slider({
+         value: 0.0,
+         min: -100,
+         max: 100,
+         step: 0.1,
+         slide: updateLightPosition,
+         change: updateLightPosition
+         });
+         $('#slider-y').slider({
+         value: 0.0,
+         min: -100,
+         max: 100,
+         step: 0.1,
+         slide: updateLightPosition,
+         change: updateLightPosition
+         });
+         $('#slider-z').slider({
+         value: 0,
+         min: -100,
+         max: 100,
+         step: 0.1,
+         slide: updateLightPosition,
+         change: updateLightPosition
+         });
 
-        $('#cslider-x').slider({
-            value: 0,
-            min: -100,
-            max: 100,
-            step: 0.1,
-            slide: updateCameraPosition,
-            change: updateCameraPosition
-        });
-        $('#cslider-y').slider({
-            value: 0,
-            min: -100,
-            max: 100,
-            step: 0.1,
-            slide: updateCameraPosition,
-            change: updateCameraPosition
-        });
-        $('#cslider-z').slider({
-            value: -100,
-            min: -100,
-            max: 200,
-            step: 0.1,
-            slide: updateCameraPosition,
-            change: updateCameraPosition
-        });
+         $('#cslider-x').slider({
+         value: 0,
+         min: -100,
+         max: 100,
+         step: 0.1,
+         slide: updateCameraPosition,
+         change: updateCameraPosition
+         });
+         $('#cslider-y').slider({
+         value: 0,
+         min: -100,
+         max: 100,
+         step: 0.1,
+         slide: updateCameraPosition,
+         change: updateCameraPosition
+         });
+         $('#cslider-z').slider({
+         value: -100,
+         min: -100,
+         max: 200,
+         step: 0.1,
+         slide: updateCameraPosition,
+         change: updateCameraPosition
+         });
 
-        $('#rslider-x').slider({value: 0, min: 0, max: 360, step: 0.1, slide: updateRotation, change: updateRotation});
+         $('#rslider-x').slider({value: 0, min: 0, max: 360, step: 0.1, slide: updateRotation, change: updateRotation});
 
-*/
+         */
 
         this.mvMatrix = mat4.create();
         this.pMatrix = mat4.create();
@@ -153,7 +153,6 @@ class Camera {
             printMessage(this.x);
 
 
-
         }
 
         if (determineCenter) {
@@ -168,8 +167,6 @@ class Camera {
             //console.log(block);
 
         }
-
-
 
 
         mat4.translate(this.mvMatrix, [this.x, this.y, this.z]);

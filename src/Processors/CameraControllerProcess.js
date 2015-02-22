@@ -13,9 +13,8 @@ class CameraControllerProcess extends Processor {
                 var re = le.components.Renderable;
 
 
-                    camera.x = -1 * re.xPos;
-                    camera.z = -1 * re.zPos-220;
-
+                camera.x = -1 * re.xPos;
+                camera.z = -1 * re.zPos - 220;
 
 
             }

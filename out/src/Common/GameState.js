@@ -19,6 +19,7 @@ var GameState = function GameState(canvas) {
   init: function() {
     "use strict";
     particleProgram = initParticleShaders("particle");
+    simplestProgram = initSimplestShaders("simplest");
     shaderProgram = initShaders("per-fragment-lighting");
     ambientProgram = initAmbientShaders('ambient');
     gl.enable(gl.CULL_FACE);
@@ -45,6 +46,7 @@ var GameState = function GameState(canvas) {
       this.linearMovementProcess.update(elapsed);
       this.momentumMovementProcess.update(elapsed);
       this.cameraControllerProcess.update(elapsed);
+      this.createTexture(elapsed);
       actionMapper.handleKeys();
       if (this.elapsedTotal >= 1000) {
         var fps = this.frameCount;
@@ -108,6 +110,8 @@ var GameState = function GameState(canvas) {
     gl.useProgram(particleProgram);
     this.healthProcess.draw();
     this.shieldProcess.draw();
+    gl.useProgram(simplestProgram);
+    this.primitiveProcess.draw();
   },
   drawScene: function() {
     "use strict";

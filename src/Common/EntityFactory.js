@@ -11,8 +11,8 @@ class EntityFactory {
         var mesh = mm.getOrAdd('ship');
         e.addComponent(new MeshComponent(mesh));
 
-        e.addComponent(new MomentumMovable(30,15,0,0));
-        e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos,1,-180 ,0,-90));
+        e.addComponent(new MomentumMovable(30, 15, 0, 0));
+        e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos, 1, -180, 0, -90));
         //e.addComponent(new Selectable());
         e.addComponent(new Controllable());
 
@@ -21,23 +21,25 @@ class EntityFactory {
 
 
     }
+
     createMotherShip() {
 
-    var e = em.addNew();
-    var mesh = mm.getOrAdd('mothership');
-    e.addComponent(new MeshComponent(mesh,1,6));
+        var e = em.addNew();
+        var mesh = mm.getOrAdd('mothership');
+        e.addComponent(new MeshComponent(mesh, 1, 6));
 
-    e.addComponent(new Movable(12));
-    e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos,2));
-    e.addComponent(new Selectable());
-    e.addComponent(new Controllable());
-    //can be only one. Camera follows this entity
-    e.addComponent(new CameraController());
-    e.addComponent(new JumpArea());
+        e.addComponent(new Movable(12));
+        e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos, 2));
+        e.addComponent(new Selectable());
+        e.addComponent(new Controllable());
+        //can be only one. Camera follows this entity
+        e.addComponent(new CameraController());
+        e.addComponent(new JumpArea());
 
 
-}
-    getRandomInt (min, max) {
+    }
+
+    getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
@@ -45,8 +47,8 @@ class EntityFactory {
 
         var e = em.addNew();
         var mesh = mm.getOrAdd('asteroid');
-        e.addComponent(new MeshComponent(mesh,1,6));
-        e.addComponent(new Renderable(this.getRandomInt(-20), 0, this.getRandomInt(20),2));
+        e.addComponent(new MeshComponent(mesh, 1, 6));
+        e.addComponent(new Renderable(this.getRandomInt(-20), 0, this.getRandomInt(20), 2));
 
 
     }
@@ -69,38 +71,37 @@ class EntityFactory {
         var verts = cube.vertices();
 
         vertexPositionBuffer.nums = 0;
-        for(var g=0;g<10000;g++)
-        {
-        var x = this.getRandomInt(-50,50);
-        var z = this.getRandomInt(-50,50);
-        var y = this.getRandomInt(-50,50);
-        //alert(verts.length/3);
-            for(var i=0;i<verts.length;i+=3) {
+        for (var g = 0; g < 10000; g++) {
+            var x = this.getRandomInt(-50, 50);
+            var z = this.getRandomInt(-50, 50);
+            var y = this.getRandomInt(-50, 50);
+            //alert(verts.length/3);
+            for (var i = 0; i < verts.length; i += 3) {
 
 
                 var newVerts = [];
 
 
-                    //object coordinates
-                    newVerts.push(verts[i]);
-                    newVerts.push(verts[i+1]);
-                    newVerts.push(verts[i+2]);
+                //object coordinates
+                newVerts.push(verts[i]);
+                newVerts.push(verts[i + 1]);
+                newVerts.push(verts[i + 2]);
                 //world xyx
-                    newVerts.push(x);
-                    newVerts.push(y);
-                    newVerts.push(z);
+                newVerts.push(x);
+                newVerts.push(y);
+                newVerts.push(z);
                 //number of the object
                 newVerts.push(g);
                 newVerts.push(g);
                 newVerts.push(g);
 
-                combinedMeshes.vertices.push.apply(combinedMeshes.vertices,newVerts);
+                combinedMeshes.vertices.push.apply(combinedMeshes.vertices, newVerts);
 
 
             }
 
 
-            vertexPositionBuffer.nums += verts.length/3;
+            vertexPositionBuffer.nums += verts.length / 3;
         }
 
 
@@ -113,10 +114,7 @@ class EntityFactory {
         //e.addComponent(new MultiRenderable(combinedMeshes));
 
 
-
     }
-
-
 
 
     createBackground() {
@@ -133,19 +131,15 @@ class EntityFactory {
     }
 
 
-
-
-
     createPlane() {
 
 
-                var e = em.addNew();
+        var e = em.addNew();
 
-                e.addComponent(new PlaneComponent(new Plane(80)));
+        e.addComponent(new PlaneComponent(new Plane(80)));
 
 
     }
-
 
 
 }

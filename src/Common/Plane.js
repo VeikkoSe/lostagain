@@ -19,130 +19,130 @@ class Plane {
 
         this.plane = this.createHeightMap(size);
     }
-createHeightMap(size) {
+
+    createHeightMap(size) {
 
 
-    //var heightData = this.getHeightData(this.texture.loadedTexture.image);
+        //var heightData = this.getHeightData(this.texture.loadedTexture.image);
 
-    var squares = size;
-    var width = size;
+        var squares = size;
+        var width = size;
 
-    var xLength = squares;
-    var yLength = squares;
+        var xLength = squares;
+        var yLength = squares;
 
-    var heightMapVertexData = [];
-    var hd = [];
+        var heightMapVertexData = [];
+        var hd = [];
 
-    var part = width / squares;
+        var part = width / squares;
 
-    var c = 0;
-    // First, build the data for the vertex buffer
-    for (var x = 0; x < xLength; x++) {
+        var c = 0;
+        // First, build the data for the vertex buffer
+        for (var x = 0; x < xLength; x++) {
 
-        for (var y = 0; y < yLength; y++) {
+            for (var y = 0; y < yLength; y++) {
 
-            //first triangle of square
-            var xPosition1 = x + 1;
-            var yPosition1 = y;
+                //first triangle of square
+                var xPosition1 = x + 1;
+                var yPosition1 = y;
 
-            var xPosition2 = x + 1;
-            var yPosition2 = y + 1;
+                var xPosition2 = x + 1;
+                var yPosition2 = y + 1;
 
-            var xPosition3 = x;
-            var yPosition3 = y;
+                var xPosition3 = x;
+                var yPosition3 = y;
 
-            //second triangle of square
-            var xPosition4 = x;
-            var yPosition4 = y;
+                //second triangle of square
+                var xPosition4 = x;
+                var yPosition4 = y;
 
-            var xPosition5 = x + 1;
-            var yPosition5 = y + 1;
+                var xPosition5 = x + 1;
+                var yPosition5 = y + 1;
 
-            var xPosition6 = x;
-            var yPosition6 = y + 1;
+                var xPosition6 = x;
+                var yPosition6 = y + 1;
 
 
-            // Position
-            hd[c++] = [xPosition1, yPosition1];
-            hd[c++] = [xPosition2, yPosition2];
-            hd[c++] = [xPosition3, yPosition3];
+                // Position
+                hd[c++] = [xPosition1, yPosition1];
+                hd[c++] = [xPosition2, yPosition2];
+                hd[c++] = [xPosition3, yPosition3];
 
-            hd[c++] = [xPosition4, yPosition4];
-            hd[c++] = [xPosition5, yPosition5];
-            hd[c++] = [xPosition6, yPosition6];
+                hd[c++] = [xPosition4, yPosition4];
+                hd[c++] = [xPosition5, yPosition5];
+                hd[c++] = [xPosition6, yPosition6];
 
+            }
         }
+
+        c = 0;
+        //keeps the indices;
+        var iloop = [];
+        //indice order number
+        var il = 0;
+        //if we have already used a vertice don't add it again
+        //just link the original with index
+        var added = {};
+
+
+        //we create indexbuffer
+        for (var i = 0; i < hd.length; i++) {
+            var alreadyAdded = false;
+
+            if (hd[i][0] + ',' + hd[i][1] in added) {
+
+                iloop.push(added[hd[i][0] + ',' + hd[i][1]]);
+                alreadyAdded = true;
+
+            }
+
+            if (!alreadyAdded) {
+                //x y z
+                //y is determined from heightmap value in same xy position
+                heightMapVertexData[c++] = hd[i][1] * part; //z
+
+                heightMapVertexData[c++] = 0;//heightData[hd[i][1]][hd[i][0]]; //y
+                heightMapVertexData[c++] = hd[i][0] * part; //x
+
+                added[hd[i][0] + ',' + hd[i][1]] = il;
+                iloop.push(il);
+
+                il++;
+            }
+        }
+
+        var normals = this.createNormals(heightMapVertexData, iloop);
+
+
+        // var fakeTexture = [];
+        //  var c = 0;
+        // for (var i = 0; i < normals.length; i++) {
+        //     fakeTexture[c] = 0;
+        //     c++;
+        //     fakeTexture[c] = 1;
+        //    c++;
+
+        //}
+        //console.log(fakeTexture);
+        //console.log(normals);
+
+
+        //gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
+        //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(fakeTexture), gl.STATIC_DRAW);
+
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(heightMapVertexData), gl.STATIC_DRAW);
+
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexPositionBuffer);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(iloop), gl.STATIC_DRAW);
+        this.indexPositionBuffer.numItems = iloop.length;
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.normalPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+
+        return;
     }
-
-    c = 0;
-    //keeps the indices;
-    var iloop = [];
-    //indice order number
-    var il = 0;
-    //if we have already used a vertice don't add it again
-    //just link the original with index
-    var added = {};
-
-
-    //we create indexbuffer
-    for (var i = 0; i < hd.length; i++) {
-        var alreadyAdded = false;
-
-        if (hd[i][0] + ',' + hd[i][1] in added) {
-
-            iloop.push(added[hd[i][0] + ',' + hd[i][1]]);
-            alreadyAdded = true;
-
-        }
-
-        if (!alreadyAdded) {
-            //x y z
-            //y is determined from heightmap value in same xy position
-            heightMapVertexData[c++] = hd[i][1] * part; //z
-
-            heightMapVertexData[c++] = 0;//heightData[hd[i][1]][hd[i][0]]; //y
-            heightMapVertexData[c++] = hd[i][0] * part; //x
-
-            added[hd[i][0] + ',' + hd[i][1]] = il;
-            iloop.push(il);
-
-            il++;
-        }
-    }
-
-    var normals = this.createNormals(heightMapVertexData, iloop);
-
-
-
-   // var fakeTexture = [];
-  //  var c = 0;
-   // for (var i = 0; i < normals.length; i++) {
-   //     fakeTexture[c] = 0;
-   //     c++;
-   //     fakeTexture[c] = 1;
-    //    c++;
-
-    //}
-    //console.log(fakeTexture);
-    //console.log(normals);
-
-
-    //gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
-    //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(fakeTexture), gl.STATIC_DRAW);
-
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(heightMapVertexData), gl.STATIC_DRAW);
-
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexPositionBuffer);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(iloop), gl.STATIC_DRAW);
-    this.indexPositionBuffer.numItems = iloop.length;
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.normalPositionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
-
-    return;
-}
 
 
     createNormals(vs, ind) {

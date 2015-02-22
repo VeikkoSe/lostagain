@@ -6,8 +6,6 @@ class ActionMapper {
     }
 
 
-
-
     handleKeyDown(event) {
 
         currentlyPressedKeys[event.keyCode] = true;
@@ -23,7 +21,6 @@ class ActionMapper {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
-
 
 
             if (le.components.MomentumMovable) {
@@ -57,8 +54,6 @@ class ActionMapper {
             }
         }
     }
-
-
 
 
     getMousePos(canvas, evt) {

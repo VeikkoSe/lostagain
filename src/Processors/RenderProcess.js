@@ -86,47 +86,34 @@ class RenderProcess extends Processor {
 
     draw() {
 
-        //for (var e = 0; e < em.entities.length; e++) {
-        // var le = em.entities[e];
+
+        var timeNow = new Date().getTime();
+
+        if (this.lastTime != 0) {
+
+            var elapsed = timeNow - this.lastTime;
+            this.elapsedTotal += elapsed;
+            gl.uniform1f(ambientProgram.uElapsed, this.elapsedTotal.toFixed(1));
 
 
-        //if (le.components.MultiRenderable) {
-
-                //      var mrc = le.components.MultiRenderable;
-
-
-                var timeNow = new Date().getTime();
-
-                if (this.lastTime != 0) {
-
-                    var elapsed = timeNow - this.lastTime;
-                    this.elapsedTotal += elapsed;
-                    gl.uniform1f(ambientProgram.uElapsed, this.elapsedTotal.toFixed(1));
+        }
+        this.lastTime = timeNow;
 
 
-                }
-                this.lastTime = timeNow;
+        gl.activeTexture(gl.TEXTURE0);
+
+        var texture = monstermap;
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.uniform1i(ambientProgram.uVisibility, 0);
 
 
-                gl.activeTexture(gl.TEXTURE0);
-
-                var texture = monstermap;
-                gl.bindTexture(gl.TEXTURE_2D, texture);
-                gl.uniform1i(ambientProgram.uVisibility, 0);
-
-
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-                gl.vertexAttribPointer(ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
-                gl.vertexAttribPointer(ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
-                gl.vertexAttribPointer(ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+        gl.vertexAttribPointer(ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
+        gl.vertexAttribPointer(ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
+        gl.vertexAttribPointer(ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
 
 
-                gl.drawArrays(gl.TRIANGLES, 0, this.vertexPositionBuffer.nums);
-
-                // gl.deleteTexture(texture);
-        //}
-
-        // }
+        gl.drawArrays(gl.TRIANGLES, 0, this.vertexPositionBuffer.nums);
 
 
     }

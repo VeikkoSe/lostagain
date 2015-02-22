@@ -3,16 +3,10 @@ class LinearMovementProcess extends Processor {
     isClose(currentCoord, newCoord) {
 
 
-
-        if (currentCoord < newCoord + 0.1 && currentCoord > newCoord - 0.1)
-        {
+        if (currentCoord < newCoord + 0.1 && currentCoord > newCoord - 0.1) {
 
             return true;
         }
-
-
-
-
 
 
         return false;
@@ -61,11 +55,10 @@ class LinearMovementProcess extends Processor {
 
 
                     var angR = Math.atan2(dirX, dirZ);
-                    var deg = (angR/Math.PI*180) + (angR > 0 ? 0 : 360);
+                    var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
 
                     dirX /= hyp;
                     dirZ /= hyp;
-
 
 
                     //if(ang<0)
@@ -73,8 +66,8 @@ class LinearMovementProcess extends Processor {
 
 
                     //Add that vector to the enemy's position, multiplied by the speed you want the enemy to move:
-                    re.xPos += dirX * me.speed * (deltatime/1000);
-                    re.zPos += dirZ * me.speed * (deltatime/1000);
+                    re.xPos += dirX * me.speed * (deltatime / 1000);
+                    re.zPos += dirZ * me.speed * (deltatime / 1000);
                     re.yPos = 1;
 
                     re.angleY = deg;

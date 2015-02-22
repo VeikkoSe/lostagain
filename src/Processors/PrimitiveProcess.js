@@ -10,7 +10,7 @@ class PrimitiveProcess extends Processor {
         var y = 0;
         for (var d = 0; d <= (2 * Math.PI) - stepSize; d += stepSize) {
             points.push(((Math.sin(d) * radius) + center.x)
-                ,y,(Math.cos(d) * radius) + center.z);
+                , y, (Math.cos(d) * radius) + center.z);
         }
         return points;
     }

@@ -1,5 +1,5 @@
 class MomentumMovable extends Component {
-    constructor(speed = 0.01,routeEndXpos= false,routeEndYpos = false,routeEndZpos= false) {
+    constructor(speed = 0.01, routeEndXpos = false, routeEndYpos = false, routeEndZpos = false) {
 
         this.name = "MomentumMovable";
 
@@ -26,7 +26,6 @@ class MomentumMovable extends Component {
         this.velocityZ = 0;
 
     }
-
 
 
 }

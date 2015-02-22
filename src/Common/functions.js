@@ -41,11 +41,8 @@ function initAmbientShaders(id) {
     gl.enableVertexAttribArray(program.aVertexPosition);
 
 
-
-
     program.aWorldCoordinates = gl.getAttribLocation(program, "aWorldCoordinates");
     gl.enableVertexAttribArray(program.aWorldCoordinates);
-
 
 
     program.aCubeNumber = gl.getAttribLocation(program, "aCubeNumber");
@@ -62,7 +59,7 @@ function initAmbientShaders(id) {
     program.uVisibility = gl.getUniformLocation(program, "uVisibility");
 
 
-    program.uCameraPos = gl.getUniformLocation(program,"uCameraPos");
+    program.uCameraPos = gl.getUniformLocation(program, "uCameraPos");
 
     return program;
 
@@ -217,9 +214,6 @@ function webGLStart() {
     var canvas = document.getElementById("canvas");
     initGL(canvas);
 
-    //var t = new Terrain("heightmap_1024");
-    //t.createHeightMap();
-    //return;
 
     //astarManager = new AstarManager();
 

@@ -114,8 +114,6 @@ class Picker {
                 var sel = le.components.Selectable;
 
 
-
-
                 if (sel.selected) {
                     oldSelected = sel;
                 }
@@ -127,8 +125,6 @@ class Picker {
             }
 
 
-
-
         }
         if (newSelected) {
 
@@ -136,8 +132,7 @@ class Picker {
             camera.clickPosition = null;
             return true;
         }
-        else if (oldSelected)
-        {
+        else if (oldSelected) {
             oldSelected.selected = true;
         }
         return false;

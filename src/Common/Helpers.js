@@ -19,6 +19,7 @@ class Helpers {
     isNumeric(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
+
     mouseY(e) {
         if (e.pageY) return e.pageY;
         else if (e.clientY)

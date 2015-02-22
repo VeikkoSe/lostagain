@@ -1,5 +1,5 @@
 class MeshComponent extends Component {
-    constructor(mesh, width=1) {
+    constructor(mesh, width = 1) {
         this.name = "MeshComponent";
         this.mesh = mesh;
 
