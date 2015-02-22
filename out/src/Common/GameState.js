@@ -32,6 +32,7 @@ var GameState = function GameState(canvas) {
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 5000.0, camera.pMatrix);
     mat4.identity(camera.mvMatrix);
+    mat4.rotate(camera.mvMatrix, camera.rotation, [1, 0, 0]);
     mat4.translate(camera.mvMatrix, [camera.x, camera.y, camera.z]);
   },
   animate: function() {
@@ -44,7 +45,6 @@ var GameState = function GameState(canvas) {
       this.linearMovementProcess.update(elapsed);
       this.momentumMovementProcess.update(elapsed);
       this.cameraControllerProcess.update(elapsed);
-      this.createTexture(elapsed);
       actionMapper.handleKeys();
       if (this.elapsedTotal >= 1000) {
         var fps = this.frameCount;
@@ -95,13 +95,15 @@ var GameState = function GameState(canvas) {
     "use strict";
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     mat4.identity(camera.mvMatrix);
-    mat4.translate(camera.mvMatrix, [camera.x, camera.y, camera.z]);
+    camera.move();
     gl.useProgram(shaderProgram);
+    gl.uniform1i(shaderProgram.uUseLighting, 0);
+    gl.uniform1f(shaderProgram.alphaUniform, 1);
     gl.uniform1i(shaderProgram.uDrawColors, 0);
     this.simpleRenderProcess.draw();
     gl.useProgram(ambientProgram);
     gl.uniformMatrix4fv(ambientProgram.uPMatrix, false, camera.pMatrix);
-    gl.uniform3fv(ambientProgram.uCameraPos, [camera.x, camera.y, camera.z]);
+    gl.uniform3fv(ambientProgram.uCameraPos, [0, 0, -400]);
     this.renderProcess.draw();
     gl.useProgram(particleProgram);
     this.healthProcess.draw();

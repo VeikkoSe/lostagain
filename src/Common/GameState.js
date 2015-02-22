@@ -63,11 +63,11 @@ class GameState extends StateEngine {
 
 
 
-        //camera.move();
+
 
         mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 5000.0, camera.pMatrix);
         mat4.identity(camera.mvMatrix);
-        //mat4.rotate(camera.mvMatrix, camera.rotation, [1, 0, 0]);
+        mat4.rotate(camera.mvMatrix, camera.rotation, [1, 0, 0]);
         mat4.translate(camera.mvMatrix, [camera.x, camera.y, camera.z]);
         //mat4.multiply(camera.pMatrix, camera.mvMatrix, camera.pvMatrix);
 
@@ -94,7 +94,7 @@ class GameState extends StateEngine {
             this.linearMovementProcess.update(elapsed);
             this.momentumMovementProcess.update(elapsed);
             this.cameraControllerProcess.update(elapsed);
-            this.createTexture(elapsed);
+            //this.createTexture(elapsed);
             actionMapper.handleKeys();
 
 
@@ -176,15 +176,27 @@ class GameState extends StateEngine {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         mat4.identity(camera.mvMatrix);
-        mat4.translate(camera.mvMatrix, [camera.x, camera.y, camera.z]);
+
+        //mat4.translate(camera.mvMatrix, [camera.x, camera.y, camera.z]);
+
+        camera.move();
 
         gl.useProgram(shaderProgram);
+
+
+        gl.uniform1i(shaderProgram.uUseLighting, 0);
+        gl.uniform1f(shaderProgram.alphaUniform, 1);
+
+
+
+
         gl.uniform1i(shaderProgram.uDrawColors, 0);
         this.simpleRenderProcess.draw();
 
+        /* asteroids  */
         gl.useProgram(ambientProgram);
         gl.uniformMatrix4fv(ambientProgram.uPMatrix, false, camera.pMatrix);
-        gl.uniform3fv(ambientProgram.uCameraPos,  [camera.x,camera.y,camera.z]);
+        gl.uniform3fv(ambientProgram.uCameraPos,  [0,0,-400]);
         this.renderProcess.draw();
 
 

@@ -71,7 +71,7 @@ class Camera {
         this.x = 0;
         this.y = 0;
         this.z = -120;
-        this.rotation = 0;//helpers.degToRad(0);
+        this.rotation = helpers.degToRad(0);
 
         this.slideLeft = false;
         this.slideRight = false;
@@ -170,10 +170,11 @@ class Camera {
         }
 
 
-        mat4.identity(this.mvMatrix);
-        mat4.rotate(this.mvMatrix, this.rotation, [1, 0, 0]);
+
+
         mat4.translate(this.mvMatrix, [this.x, this.y, this.z]);
-        mat4.multiply(this.pMatrix, this.mvMatrix, this.pvMatrix);
+        mat4.rotate(this.mvMatrix, this.rotation, [1, 0, 0]);
+        //mat4.multiply(this.pMatrix, this.mvMatrix, this.pvMatrix);
 
     }
 
