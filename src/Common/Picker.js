@@ -11,6 +11,7 @@ class Picker {
         this.configure();
     }
 
+
     createColor() {
 
 
@@ -115,8 +116,10 @@ class Picker {
 
 
                 if (sel.selected) {
+
                     oldSelected = sel;
                 }
+
 
                 if (this.compareColors(readout, sel.color)) {
                     newSelected = sel;

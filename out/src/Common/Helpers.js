@@ -6,6 +6,13 @@ var Helpers = function Helpers() {
     "use strict";
     return degrees * Math.PI / 180;
   },
+  isClose: function(currentCoord, newCoord) {
+    "use strict";
+    if (currentCoord <= newCoord + 0.1 && currentCoord >= newCoord - 0.1) {
+      return true;
+    }
+    return false;
+  },
   mouseX: function(e) {
     "use strict";
     if (e.pageX)

@@ -20,6 +20,7 @@ class Plane {
         this.plane = this.createHeightMap(size);
     }
 
+
     createHeightMap(size) {
 
 

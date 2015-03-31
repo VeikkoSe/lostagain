@@ -8,7 +8,7 @@
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />
       <option name="immediateSync" value="true" />
-      <option name="name" value="Traceur compiler" />
+      <option name="name" value="Traceur common" />
       <option name="output" value="out/$FilePathRelativeToProjectRoot$" />
       <option name="outputFilters">
         <array />
@@ -22,13 +22,13 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\Components\\\$FileName$ --script src\\\Components\\\$FileName$ " />
+      <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\Component\\\$FileName$ --script src\\\Component\\\$FileName$ " />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />
       <option name="immediateSync" value="true" />
-      <option name="name" value="Traceur compiler Copy" />
+      <option name="name" value="Traceur Component" />
       <option name="output" value="out/$FilePathRelativeToProjectRoot$" />
       <option name="outputFilters">
         <array />
@@ -36,19 +36,19 @@
       <option name="outputFromStdout" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="program" value="E:/runtraceur.bat" />
-      <option name="scopeName" value="Components" />
+      <option name="scopeName" value="Component" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$ProjectFileDir$" />
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\Entities\\\$FileName$ --script src\\\Entities\\\$FileName$ " />
+      <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\State\\\$FileName$ --script src\\\State\\\$FileName$ " />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />
       <option name="immediateSync" value="true" />
-      <option name="name" value="Traceur compiler Copy Copy" />
+      <option name="name" value="Traceur State" />
       <option name="output" value="out/$FilePathRelativeToProjectRoot$" />
       <option name="outputFilters">
         <array />
@@ -56,19 +56,19 @@
       <option name="outputFromStdout" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="program" value="E:/runtraceur.bat" />
-      <option name="scopeName" value="Entities" />
+      <option name="scopeName" value="State" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$ProjectFileDir$" />
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\Processors\\\$FileName$ --script src\\\Processors\\\$FileName$ " />
+      <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\Processor\\\$FileName$ --script src\\\Processor\\\$FileName$ " />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />
       <option name="immediateSync" value="true" />
-      <option name="name" value="Traceur compiler Copy Copy" />
+      <option name="name" value="Traceur Processor" />
       <option name="output" value="out/$FilePathRelativeToProjectRoot$" />
       <option name="outputFilters">
         <array />
@@ -76,7 +76,27 @@
       <option name="outputFromStdout" value="false" />
       <option name="passParentEnvs" value="true" />
       <option name="program" value="E:/runtraceur.bat" />
-      <option name="scopeName" value="Processors" />
+      <option name="scopeName" value="Processor" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$ProjectFileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\ActionMapper\\\$FileName$ --script src\\\ActionMapper\\\$FileName$ " />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="js" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="Traceur am" />
+      <option name="output" value="out/$FilePathRelativeToProjectRoot$" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="passParentEnvs" value="true" />
+      <option name="program" value="E:/runtraceur.bat" />
+      <option name="scopeName" value="Actionmapper" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$ProjectFileDir$" />
       <envs />

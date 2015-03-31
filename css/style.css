@@ -2,13 +2,16 @@
  paddin:0;
     margin:0;
     float:left;
-
+    cursor:url('../resources/images/pointer.gif'),url(''),auto;
 }
 #bottom {
-    float:left;
+
 }
 body {
     paddin:0;
     margin:0;
 
+}
+#fps {
+    float:left;
 }

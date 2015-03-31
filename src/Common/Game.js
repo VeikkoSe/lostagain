@@ -9,7 +9,7 @@ class Game {
         this.camera = new Camera();
         this.stateEngine = new StateEngine();
 
-        this.stateEngine.changeState("gamestate");
+        this.stateEngine.changeState("introstate");
         this.tick();
 
     }
@@ -22,8 +22,9 @@ class Game {
             that.tick()
         });
 
-        this.stateEngine.currentState.animate();
-        this.stateEngine.currentState.render();
+        this.stateEngine.currentState.update();
+
+        this.stateEngine.currentState.draw();
 
     }
 

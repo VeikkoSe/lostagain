@@ -24,8 +24,6 @@ class Terrain {
 
 
         this.terrainData = this.createHeightMap();
-
-
     }
 
     getHeightData(img) {

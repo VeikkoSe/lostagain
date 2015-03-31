@@ -1,5 +1,7 @@
 class Mesh {
     constructor(name) {
+
+        // var that = this;
         this.name = name;
         this.vertices = null;
         this.texturecoordinates = [];
@@ -9,11 +11,14 @@ class Mesh {
         this.yPos = 0;
         this.zPos = 0;
         this.batch = 0;
+        this.meshLoaded = false;
+        levelManager.loadTotal++;
 
 
         this.ambient = null;
         this.diffuse = null;
         this.specular = null;
+
 
         this.rotation = 0;
 
@@ -37,11 +42,23 @@ class Mesh {
 
 
         var request = new XMLHttpRequest();
-        request.open("GET", "resources/models/" + this.name + ".js", false);
+        request.open("GET", "resources/models/" + this.name + ".js", true);
         request.send();
+        var that = this;
 
-        this.inputData(request.responseText);
-        this.buildBuffers();
+        request.onreadystatechange = function () {
+
+
+            if (request.readyState == 4 && request.status == 200) {
+
+                that.inputData(request.responseText);
+                that.buildBuffers();
+                levelManager.loadTotal--;
+
+                //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+            }
+        }
+
 
     }
 

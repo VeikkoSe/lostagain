@@ -7,6 +7,18 @@ class Helpers {
         return degrees * Math.PI / 180;
     }
 
+
+    isClose(currentCoord, newCoord) {
+
+
+        if (currentCoord <= newCoord + 0.1 && currentCoord >= newCoord - 0.1) {
+
+            return true;
+        }
+
+        return false;
+    }
+
     mouseX(e) {
         if (e.pageX) return e.pageX;
         else if (e.clientX)
@@ -39,6 +51,7 @@ class Helpers {
     }
 
     setMatrixUniforms() {
+
 
         gl.uniformMatrix4fv(shaderProgram.uPMatrix, false, camera.pMatrix);
         gl.uniformMatrix4fv(shaderProgram.uMVMatrix, false, camera.mvMatrix);

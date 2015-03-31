@@ -8,15 +8,15 @@ var Camera = function Camera() {
   this.mvMatrixStack = [];
   this.eye = vec3.create([0, 0, 0]);
   this.clickPosition = null;
+  this.distance = 100;
   this.x = 0;
-  this.y = 0;
-  this.z = -120;
-  this.rotation = helpers.degToRad(0);
+  this.y = -1 * this.distance;
+  this.z = -1 * this.distance;
+  this.rotation = helpers.degToRad(45);
   this.slideLeft = false;
   this.slideRight = false;
   this.slideUp = false;
   this.slideDown = false;
-  this.rotation = helpers.degToRad(60);
   this.centerPosition = false;
   this.home = [this.x, this.y, this.z];
   mat4.identity(this.mvMatrix);
@@ -26,9 +26,25 @@ var Camera = function Camera() {
   mat4.identity(this.pMatrix);
 };
 ($traceurRuntime.createClass)(Camera, {
+  setDistance: function(d) {
+    "use strict";
+    this.distance = d;
+  },
+  setRotation: function(rot) {
+    "use strict";
+    this.rotation = rot;
+  },
+  setPos: function(x, y, z, rot) {
+    "use strict";
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.rotation = rot;
+    this.distance = z;
+  },
   setPerspective: function() {
     "use strict";
-    mat4.perspective(80, gl.viewportWidth / gl.viewportHeight, 0.1, 1000.0, this.pMatrix);
+    mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 20000.0, camera.pMatrix);
   },
   slideCameraLeft: function(xAddition) {
     "use strict";
@@ -48,34 +64,9 @@ var Camera = function Camera() {
   },
   move: function() {
     "use strict";
-    mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 5000.0, this.pMatrix);
-    var determineCenter = false;
-    if (this.slideLeft) {
-      this.slideCameraLeft(0.1);
-      determineCenter = true;
-    }
-    if (this.slideRight) {
-      this.slideCameraRight(0.1);
-      determineCenter = true;
-    }
-    if (this.slideUp) {
-      this.slideCameraUp(0.1);
-      determineCenter = true;
-    }
-    if (this.slideDown) {
-      this.slideCameraDown(0.1);
-      determineCenter = true;
-    }
-    if ($('#controlCamera').prop('checked')) {
-      this.x = $('#cslider-x').slider("value");
-      this.y = $('#cslider-y').slider("value");
-      this.z = $('#cslider-z').slider("value");
-      this.rotation = helpers.degToRad($('#rslider-x').slider("value"));
-      printMessage(this.x);
-    }
-    if (determineCenter) {}
-    mat4.translate(this.mvMatrix, [this.x, this.y, this.z]);
+    mat4.identity(camera.mvMatrix);
     mat4.rotate(this.mvMatrix, this.rotation, [1, 0, 0]);
+    mat4.translate(this.mvMatrix, [this.x, this.y, this.z]);
   },
   mvPushMatrix: function() {
     "use strict";

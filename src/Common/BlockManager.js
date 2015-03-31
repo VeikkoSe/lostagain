@@ -12,6 +12,7 @@ class BlockManager {
 
         var d = 0;
 
+
         var cnt = this.part * this.part;
         for (var s = 0; s < cnt; s++) {
 

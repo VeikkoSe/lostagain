@@ -1,0 +1,31 @@
+<html>
+<head>
+
+
+</head>
+<body>
+
+<progress id='pa' max='70'><span>0</span>%</progress>
+
+<script type="text/javascript">
+
+
+
+    var updateProgress = function(value) {
+        var pBar = document.getElementById('pa');
+        pBar.value = value;
+        pBar.getElementsByTagName('span')[0].innerHTML = Math.floor((100 / 100) * value);
+    }
+
+        setInterval(updateProgress(50), 3000);
+
+
+
+</script>
+
+</body>
+</html>
+
+
+
+

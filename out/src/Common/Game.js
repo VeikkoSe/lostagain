@@ -4,7 +4,7 @@ var Game = function Game(canvas) {
   this.stateEngine = null;
   this.camera = new Camera();
   this.stateEngine = new StateEngine();
-  this.stateEngine.changeState("gamestate");
+  this.stateEngine.changeState("introstate");
   this.tick();
 };
 ($traceurRuntime.createClass)(Game, {tick: function() {
@@ -13,6 +13,6 @@ var Game = function Game(canvas) {
     requestAnimFrame(function() {
       that.tick();
     });
-    this.stateEngine.currentState.animate();
-    this.stateEngine.currentState.render();
+    this.stateEngine.currentState.update();
+    this.stateEngine.currentState.draw();
   }}, {});

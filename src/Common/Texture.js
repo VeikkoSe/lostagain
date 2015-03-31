@@ -3,22 +3,26 @@
  */
 class Texture {
 
-    constructor(name) {
+    constructor(name, noflip = false) {
         this.name = name;
         this.loadedTexture = null;
         this.loaded = 0;
+        this.noflip = noflip;
+        levelManager.loadTotal++;
         this.initTexture(this.name);
     }
 
     handleLoadedTexture() {
-
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        if (!this.noflip) {
+            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        }
         gl.bindTexture(gl.TEXTURE_2D, this.loadedTexture);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.loadedTexture.image);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
         gl.bindTexture(gl.TEXTURE_2D, null);
         this.loaded = 1;
+        levelManager.loadTotal--;
     }
 
 

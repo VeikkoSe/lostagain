@@ -1,6 +1,11 @@
 var StateEngine = function StateEngine() {
   "use strict";
+  this.initState = new IntroState();
+  this.endState = new EndState();
+  this.menuState = new MenuState();
   this.gameState = new GameState();
+  this.warpRoomState = new WarpRoomState();
+  this.pauseState = new PauseState();
   this.running = true;
   this.states = [];
   this.currentState = null;

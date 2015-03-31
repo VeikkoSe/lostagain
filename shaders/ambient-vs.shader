@@ -27,7 +27,7 @@ mat4 cameraPos = mat4(  vec4(1,0,0,0),
 
 uWorldCoordinates = aWorldCoordinates;
 
-uWorldCoordinates[0] = uWorldCoordinates[0]+= uElapsed/1000.0;
+uWorldCoordinates[0] = uWorldCoordinates[0]+= uElapsed/100.0;
 
  if(color[0]==1.0)
    uWorldCoordinates = vec3(-1000,0,0);

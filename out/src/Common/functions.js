@@ -1,6 +1,25 @@
 function printMessage(msg) {
   $('#debugarea').html(msg);
 }
+function initFontShaders(id) {
+  var program = gl.createProgram();
+  getShader(id, program);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    alert("Could not initialise shaders");
+  }
+  program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+  gl.enableVertexAttribArray(program.aVertexPosition);
+  program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+  gl.enableVertexAttribArray(program.textureCoordAttribute);
+  program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+  program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+  program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+  return program;
+}
+function pInt(nro) {
+  return parseInt(nro, 10);
+}
 function initSimplestShaders(id) {
   var program = gl.createProgram();
   getShader(id, program);
@@ -12,7 +31,39 @@ function initSimplestShaders(id) {
   gl.enableVertexAttribArray(program.aVertexPosition);
   program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
   program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
-  program.uNMatrix = gl.getUniformLocation(program, "uNMatrix");
+  return program;
+}
+function initVerticalBlurShaders(id) {
+  var program = gl.createProgram();
+  getShader(id, program);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    alert("Could not initialise shaders");
+  }
+  program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+  gl.enableVertexAttribArray(program.aVertexPosition);
+  program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+  gl.enableVertexAttribArray(program.textureCoordAttribute);
+  program.uResolution = gl.getUniformLocation(program, "uResolution");
+  program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+  return program;
+}
+function initBlurShaders(id) {
+  var program = gl.createProgram();
+  getShader(id, program);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    alert("Could not initialise shaders");
+  }
+  program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+  gl.enableVertexAttribArray(program.aVertexPosition);
+  program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+  gl.enableVertexAttribArray(program.textureCoordAttribute);
+  program.uResolution = gl.getUniformLocation(program, "uResolution");
+  if (id == 'blurhorizontal') {
+    program.samplerUniform2 = gl.getUniformLocation(program, "uSampler2");
+  }
+  program.samplerUniform = gl.getUniformLocation(program, "uSampler");
   return program;
 }
 function initAmbientShaders(id) {
@@ -46,6 +97,22 @@ function initParticleShaders(id) {
   program.positionUniform = gl.getUniformLocation(program, "uPosition");
   program.samplerUniform = gl.getUniformLocation(program, "sTexture");
   program.colorUniform = gl.getUniformLocation(program, "uColor");
+  program.pointSize = gl.getUniformLocation(program, "uPointsize");
+  return program;
+}
+function initStarShaders(id) {
+  var program = gl.createProgram();
+  getShader(id, program);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    alert("Could not initialise shaders");
+  }
+  program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+  gl.enableVertexAttribArray(program.aVertexPosition);
+  program.aPointSize = gl.getAttribLocation(program, "aPointSize");
+  gl.enableVertexAttribArray(program.aPointSize);
+  program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+  program.uView = gl.getUniformLocation(program, "uView");
   return program;
 }
 function initShaders(id) {
@@ -143,15 +210,10 @@ function webGLStart() {
   initGL(canvas);
   helpers = new Helpers();
   em = new EntityManager();
-  mm = new MeshManager();
+  mm = new AssetManager();
   camera = new Camera();
   picker = new Picker(canvas);
-  actionMapper = new ActionMapper();
   game = new Game(canvas);
-  document.onkeydown = actionMapper.handleKeyDown;
-  document.onkeyup = actionMapper.handleKeyUp;
-  document.onmousemove = actionMapper.handleMouseMove;
-  document.onmousedown = actionMapper.handleMouseDown;
 }
 function updateLightPosition() {
   var x = $('#slider-x').slider("value");
@@ -250,7 +312,7 @@ function objectLabelGenerator() {
 }
 function initGL(canvas) {
   try {
-    gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl"));
+    gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
     gl.viewportWidth = canvas.width;
     gl.viewportHeight = canvas.height;
   } catch (e) {}

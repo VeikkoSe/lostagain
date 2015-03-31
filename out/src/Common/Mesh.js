@@ -9,6 +9,8 @@ var Mesh = function Mesh(name) {
   this.yPos = 0;
   this.zPos = 0;
   this.batch = 0;
+  this.meshLoaded = false;
+  levelManager.loadTotal++;
   this.ambient = null;
   this.diffuse = null;
   this.specular = null;
@@ -26,10 +28,16 @@ var Mesh = function Mesh(name) {
   loadMesh: function() {
     "use strict";
     var request = new XMLHttpRequest();
-    request.open("GET", "resources/models/" + this.name + ".js", false);
+    request.open("GET", "resources/models/" + this.name + ".js", true);
     request.send();
-    this.inputData(request.responseText);
-    this.buildBuffers();
+    var that = this;
+    request.onreadystatechange = function() {
+      if (request.readyState == 4 && request.status == 200) {
+        that.inputData(request.responseText);
+        that.buildBuffers();
+        levelManager.loadTotal--;
+      }
+    };
   },
   inputData: function(data) {
     "use strict";

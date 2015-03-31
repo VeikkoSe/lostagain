@@ -6,42 +6,27 @@ class EntityManager {
 
     }
 
-    addNew() {
+    addNew(name = false) {
         this.maxId++;
-        var ent = new Entity(this.maxId);
+        var ent = new Entity(this.maxId, name);
 
         this.entities.push(ent);
         return ent;
 
     }
 
-    /*
-     getAllEntitiesPosessingComponent(name) {
+
+    getEntityByName(name) {
+        for (var e = 0; e < this.entities.length; e++) {
+            if (this.entities[e].name == name)
+                return this.entities[e];
+        }
+    }
+
+    clearAll() {
+        this.entities = [];
+        this.maxId = 0;
+    }
 
 
-     var entities = [];
-     for (var e = 0; e < this.entities.length; e++) {
-
-     for (var c = 0; c < this.entities[e].components.length; c++) {
-
-     if (this.entities[e].components[c].name == name)
-     entities.push(this.entities[e]);
-     }
-     }
-     return entities;
-     }
-
-     searchComponentForEntity(entity, component) {
-
-     for (var c = 0; c < entity.components.length; c++) {
-
-     if (entity.components[c].name == component) {
-
-     return entity.components[c];
-     }
-     }
-     return false;
-
-     }
-     */
 }
