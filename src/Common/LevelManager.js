@@ -18,38 +18,26 @@ class LevelManager {
 
     loadAllAssets(name) {
         this.nextState = false;
-        es = [];
+       // mh = new MasterHandler();
         em.clearAll();
 
 
         this.loading = true;
-        if (name == 2) {
+        if (name == 1) {
 
             //  es.push(new RenderProcess());
-            es.push(new SimpleRenderProcess());
-            /*
-             es.push(new PlaneProcess());
-             es.push(new HealthProcess());
-             es.push(new ShieldProcess());
-             es.push(new TextProcess());
-             es.push(new LinearMovementProcess());
-             es.push(new MomentumMovementProcess());
-             es.push(new CameraControllerProcess());
-             es.push(new PrimitiveProcess());
-             es.push(new TeleportProcess());
-             es.push(new StarProcess());
-             es.push(new EnemyProcess());
-             es.push(new GunProcess());
-             es.push(new PostProcess());
-             es.push(new LaserProcess());
-             */
 
-            particleProgram = initParticleShaders("particle");
-            simplestProgram = initSimplestShaders("simplest");
-            blurVerticalProgram = initBlurShaders("blurvertical");
-            blurHorizontalProgram = initBlurShaders("blurhorizontal");
-            shaderProgram = initShaders("per-fragment-lighting");
-            ambientProgram = initAmbientShaders('ambient');
+            //handler = new Handler();
+
+            //es.uniforms.push(gl.uniform1i(shaderProgram.uDrawColors, 0));
+            //gl.uniform1i(shaderProgram.uDrawColors, 0);
+
+            //es.uniforms.push(new SimpleRenderProcess());
+
+
+
+
+
 
 
             ef.createFuel();
@@ -65,19 +53,13 @@ class LevelManager {
 
         }
 
-        if (name == 1) {
+        if (name == 2) {
 
 
             //  es.push(new RenderProcess());
-            es.push(new SimpleRenderProcess());
+            //es.push(new SimpleRenderProcess());
 
 
-            particleProgram = initParticleShaders("particle");
-            simplestProgram = initSimplestShaders("simplest");
-            blurVerticalProgram = initBlurShaders("blurvertical");
-            blurHorizontalProgram = initBlurShaders("blurhorizontal");
-            shaderProgram = initShaders("per-fragment-lighting");
-            ambientProgram = initAmbientShaders('ambient');
 
 
             ef.createFuel();

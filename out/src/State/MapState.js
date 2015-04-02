@@ -7,8 +7,6 @@ var MapState = function MapState(canvas) {
 ($traceurRuntime.createClass)(MapState, {
   draw: function() {
     "use strict";
-    gl.useProgram(starProgram);
-    this.starProcess.draw();
     gl.useProgram(shaderProgram);
     gl.disable(gl.BLEND);
     gl.enable(gl.DEPTH_TEST);
@@ -38,9 +36,6 @@ var MapState = function MapState(canvas) {
     document.onkeyup = actionMapper.handleKeyUp;
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
-    shaderProgram = initShaders("per-fragment-lighting");
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    camera.setPerspective();
     mat4.identity(camera.mvMatrix);
     mat4.translate(camera.mvMatrix, [0, 0, -90]);
   },

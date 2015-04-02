@@ -127,7 +127,7 @@ class StarProcess extends Processor {
 
 
     draw() {
-
+        gl.useProgram(starProgram);
         camera.mvPushMatrix();
         gl.uniform3fv(starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
 

@@ -31,9 +31,9 @@ var helpers = null;
 var colorset = {};
 var em = null;
 var actionMapper = null;
-var astarManager = null;
+
 var astar = null;
-var blockManager = null;
+
 
 
 

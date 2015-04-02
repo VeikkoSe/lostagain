@@ -33,7 +33,6 @@ var MenuState = function MenuState(canvas) {
     document.onkeyup = actionMapper.handleKeyUp;
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
-    shaderProgram = initShaders("per-fragment-lighting");
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);

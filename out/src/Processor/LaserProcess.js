@@ -25,6 +25,7 @@ var LaserProcess = function LaserProcess() {
   },
   draw: function() {
     "use strict";
+    gl.useProgram(simplestProgram);
     var points = [];
     points = this.railXY(-1500);
     camera.mvPushMatrix();

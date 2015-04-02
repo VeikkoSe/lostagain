@@ -14,17 +14,9 @@ var LevelManager = function LevelManager() {
   loadAllAssets: function(name) {
     "use strict";
     this.nextState = false;
-    es = [];
     em.clearAll();
     this.loading = true;
-    if (name == 2) {
-      es.push(new SimpleRenderProcess());
-      particleProgram = initParticleShaders("particle");
-      simplestProgram = initSimplestShaders("simplest");
-      blurVerticalProgram = initBlurShaders("blurvertical");
-      blurHorizontalProgram = initBlurShaders("blurhorizontal");
-      shaderProgram = initShaders("per-fragment-lighting");
-      ambientProgram = initAmbientShaders('ambient');
+    if (name == 1) {
       ef.createFuel();
       ef.createMotherShip();
       ef.createShip();
@@ -32,14 +24,7 @@ var LevelManager = function LevelManager() {
       this.nextState = 'gamestate';
       this.maxLoad = this.loadTotal;
     }
-    if (name == 1) {
-      es.push(new SimpleRenderProcess());
-      particleProgram = initParticleShaders("particle");
-      simplestProgram = initSimplestShaders("simplest");
-      blurVerticalProgram = initBlurShaders("blurvertical");
-      blurHorizontalProgram = initBlurShaders("blurhorizontal");
-      shaderProgram = initShaders("per-fragment-lighting");
-      ambientProgram = initAmbientShaders('ambient');
+    if (name == 2) {
       ef.createFuel();
       this.nextState = 'gamestate';
       this.maxLoad = this.loadTotal;

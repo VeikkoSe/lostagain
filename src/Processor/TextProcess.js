@@ -33,7 +33,7 @@ class TextProcess extends Processor {
 
 
     draw(text) {
-
+        gl.useProgram(fontProgram);
         camera.mvPushMatrix();
         mat4.scale(camera.mvMatrix, [0.2, 0.2, 0.2]);
 

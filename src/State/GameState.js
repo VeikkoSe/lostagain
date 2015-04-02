@@ -11,6 +11,27 @@ class GameState extends StateEngine {
         this.lastTime = 0;
 
 
+        //mh.addHandler(handler);
+
+        this.processList = [];
+        this.processList.push(new RenderProcess());
+
+        //this.processList.push(new PlaneProcess());
+        this.processList.push(new HealthProcess());
+        this.processList.push(new ShieldProcess());
+        this.processList.push(new TextProcess());
+        this.processList.push(new LinearMovementProcess());
+        this.processList.push(new MomentumMovementProcess());
+        this.processList.push(new CameraControllerProcess());
+        this.processList.push(new PrimitiveProcess());
+        this.processList.push(new TeleportProcess());
+        this.processList.push(new StarProcess());
+        this.processList.push(new EnemyProcess());
+        //this.processList.push(new GunProcess());
+        //this.processList.push(new PostProcess());
+        this.processList.push(new LaserProcess());
+
+
     }
 
     init() {
@@ -69,13 +90,20 @@ class GameState extends StateEngine {
         //mat4.translate(camera.mvMatrix, [0, 0, -50]);
         //gl.useProgram(shaderProgram);
 
+        mat4.identity(camera.mvMatrix);
+        mat4.translate(camera.mvMatrix, [0, 0, -300]);
+
     }
 
 
     update() {
 
-        actionMapper.handleKeys();
-        /*
+        //actionMapper.handleKeys();
+
+
+
+
+
          var timeNow = new Date().getTime();
 
          this.frameCount++;
@@ -86,6 +114,10 @@ class GameState extends StateEngine {
          var elapsed = timeNow - this.lastTime;
          this.elapsedTotal += elapsed;
 
+             for (var i = 0; i < this.processList.length; i++) {
+                 this.processList[i].update(elapsed);
+             }
+             /*
          this.teleportProcess.update(elapsed);
          this.linearMovementProcess.update(elapsed);
          this.momentumMovementProcess.update(elapsed);
@@ -95,7 +127,7 @@ class GameState extends StateEngine {
          this.textProcess.update(elapsed);
          this.gunProcess.update(elapsed);
 
-         //this.createTexture(elapsed);
+         //this.createTexture(elapsed);*/
          actionMapper.handleKeys();
 
 
@@ -113,7 +145,7 @@ class GameState extends StateEngine {
          }
          }
          this.lastTime = timeNow;
-         */
+
 
     }
 
@@ -175,12 +207,12 @@ class GameState extends StateEngine {
         //gl.clearColor(0, 0, 0, 1.0);
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        camera.move();
+        //camera.move();
         // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         //  gl.disable(gl.BLEND);
 
-        gl.useProgram(shaderProgram);
+        //gl.useProgram(shaderProgram);
 
 
         //off-screen rendering
@@ -189,10 +221,10 @@ class GameState extends StateEngine {
         //this.simpleRenderProcess.draw();
 
 
-        gl.uniform1f(shaderProgram.alphaUniform, 1);
-        gl.uniform1i(shaderProgram.uDrawColors, 0);
+        //gl.uniform1f(shaderProgram.alphaUniform, 1);
+        //gl.uniform1i(shaderProgram.uDrawColors, 0);
 
-        this.simpleRenderProcess.draw();
+        //this.simpleRenderProcess.draw();
 
         /*
          gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -231,9 +263,9 @@ class GameState extends StateEngine {
         //this.gunProcess.draw();
         //gl.useProgram(simplestProgram);
 
-        gl.useProgram(simplestProgram);
-        this.primitiveProcess.draw();
-        this.laserProcess.draw();
+        //gl.useProgram(simplestProgram);
+       // this.primitiveProcess.draw();
+        //this.laserProcess.draw();
 
     }
 
@@ -247,12 +279,10 @@ class GameState extends StateEngine {
 
         //  gl.disable(gl.BLEND);
 
-        gl.useProgram(shaderProgram);
-        gl.uniform1f(shaderProgram.alphaUniform, 1);
-        gl.uniform1i(shaderProgram.uDrawColors, 0);
-        for (var i = 0; i < es.length; es++) {
-            es[i].draw();
+        for (var i = 0; i < this.processList.length; i++) {
+            this.processList[i].draw();
         }
+
 
         //gl.enable(gl.BLEND);
         //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);

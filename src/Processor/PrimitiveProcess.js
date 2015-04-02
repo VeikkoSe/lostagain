@@ -17,7 +17,7 @@ class PrimitiveProcess extends Processor {
 
 
     draw() {
-
+        gl.useProgram(simplestProgram);
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 

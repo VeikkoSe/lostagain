@@ -1,120 +1,102 @@
 class RenderProcess extends Processor {
     constructor() {
-        this.normalMatrix = mat3.create();
-
-
-        this.lastTime = 0;
-        this.vertexPositionBuffer = gl.createBuffer();
-        this.vertexPositionBuffer.nums = 0;
-        this.cube = new Cube();
-
-
-        this.elapsedTotal = 0;
-
-
-        this.lastTime = 0;
-
-
-        this.combinedMeshes = {};
-        this.combinedMeshes.vertices = [];
-        this.vertexPositionBuffer.nums = 0;
-
-
-        var verts = this.cube.vertices();
-
-
-        for (var g = 0; g < 10000; g++) {
-            var x = this.getRandomInt(-2000, -500);
-            var z = this.getRandomInt(0, 0);
-            var y = this.getRandomInt(-1200, 5200);
-            //var x =0;
-            //var y = 0;
-            //var z = 0;
-            for (var i = 0; i < verts.length; i += 3) {
-
-
-                var newVerts = [];
-
-
-                //object coordinates
-                newVerts.push(verts[i]);
-                newVerts.push(verts[i + 1]);
-                newVerts.push(verts[i + 2]);
-                //world xyx
-                newVerts.push(x);
-                newVerts.push(y);
-                newVerts.push(z);
-                //number of the object
-                newVerts.push(g);
-                newVerts.push(g);
-                newVerts.push(g);
-
-                this.combinedMeshes.vertices.push.apply(this.combinedMeshes.vertices, newVerts);
-
-
-            }
-
-
-            this.vertexPositionBuffer.nums += verts.length / 3;
-
-
-        }
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.combinedMeshes.vertices), gl.STATIC_DRAW);
+        this.deltatime = null;
+        this.rotation = null;
 
     }
 
-    textureFromPixelArray(dataArray, type, width, height) {
-        var dataTypedArray = new Uint8Array(dataArray); // Don't need to do this if the data is already in a typed array
-        var texture = gl.createTexture();
-        gl.bindTexture(gl.TEXTURE_2D, texture);
 
-        gl.texImage2D(gl.TEXTURE_2D, 0, type, width, height, 0, type, gl.UNSIGNED_BYTE, dataTypedArray);
-        // Other texture setup here, like filter modes and mipmap generation
-        return texture;
-    }
+    update(deltatime) {
+        if (this.rotation > 360)
+            this.rotation = 0;
+        this.rotation += (90 * deltatime) / 1000.0;
 
-
-    randomIntFromInterval(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     draw() {
 
+        gl.useProgram(shaderProgram);
+        //handler.addUniform('1f','alphaUniform',1);
+        //handler.addUniform('1i','uDrawColors',0);
 
-        var timeNow = new Date().getTime();
+        gl.uniform1f(shaderProgram.alphaUniform, 1);
+        gl.uniform1i(shaderProgram.uDrawColors, 0);
 
-        if (this.lastTime != 0) {
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
-            var elapsed = timeNow - this.lastTime;
-            this.elapsedTotal += elapsed;
-            gl.uniform1f(ambientProgram.uElapsed, this.elapsedTotal.toFixed(1));
+            if (le.components.Renderable && le.components.MeshComponent) {
 
 
+                var rc = le.components.Renderable;
+                var mc = le.components.MeshComponent;
+
+                camera.mvPushMatrix();
+
+                gl.uniform3fv(shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
+
+
+                if (le.components.Selectable) {
+
+                    gl.uniform3fv(shaderProgram.uDrawColor, le.components.Selectable.color);
+                }
+                else {
+
+
+                    gl.uniform3fv(shaderProgram.uDrawColor, [0.5, 0.5, 0.5]);
+                }
+
+                mat4.translate(camera.mvMatrix, [rc.xPos, rc.yPos, rc.zPos]);
+
+                mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleX), [1, 0, 0]);
+                mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleY), [0, 1, 0]);
+                mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleZ), [0, 0, 1]);
+
+                if (rc.scale != 1) {
+                    mat4.scale(camera.mvMatrix, [rc.scale, rc.scale, rc.scale]);
+                }
+                var xRot = 0;
+                var yRot = 0;
+                var zRot = 0;
+                if (le.components.ConstantRotation && this.rotation) {
+                    if (le.components.ConstantRotation.x > 0) {
+                        xRot = 1;
+                    }
+                    if (le.components.ConstantRotation.y > 0) {
+                        yRot = 1;
+                    }
+
+                    if (le.components.ConstantRotation.z > 0) {
+                        zRot = 1;
+                    }
+                    mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotation), [xRot, yRot, zRot]);
+                }
+
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.vertexPositionBuffer);
+                gl.vertexAttribPointer(shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.normalPositionBuffer);
+                gl.vertexAttribPointer(shaderProgram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
+
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.texturePositionBuffer);
+                gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, mc.mesh.texture);
+                gl.uniform1i(shaderProgram.samplerUniform, 0);
+
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.mesh.indexPositionBuffer);
+
+                helpers.setMatrixUniforms();
+
+
+                gl.drawElements(gl.TRIANGLES, mc.mesh.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+
+                camera.mvPopMatrix();
+
+            }
         }
-        this.lastTime = timeNow;
-
-
-        gl.activeTexture(gl.TEXTURE0);
-
-        var texture = monstermap;
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.uniform1i(ambientProgram.uVisibility, 0);
-
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-        gl.vertexAttribPointer(ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
-        gl.vertexAttribPointer(ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
-        gl.vertexAttribPointer(ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
-
-
-        gl.drawArrays(gl.TRIANGLES, 0, this.vertexPositionBuffer.nums);
-
-
     }
 }

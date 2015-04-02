@@ -35,7 +35,7 @@ class LoadState extends StateEngine {
 
 
         //fontProgram = initFontShaders('font');
-        simplestProgram = initSimplestShaders('simplest');
+        //simplestProgram = initSimplestShaders('simplest');
         this.currentLevel += 1;
         if (this.currentLevel > 2) {
             this.currentLevel = 1;

@@ -39,12 +39,14 @@
         <item url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
         <item url="file://$PROJECT_DIR$/out/src/ActionMapper/IntroStateActionMapper.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Processor/OptimizedBoxRenderProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/Processor.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/RenderProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/PlaneProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/PrimitiveProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/LinearMovementProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/MomentumMovementProcess.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/EntitySystem.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/GunProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/HealthProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Entity.js" />
@@ -53,6 +55,7 @@
         <item url="file://$PROJECT_DIR$/out/src/Common/Text.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/BlockManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/Entities/Entity.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/ShaderManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/PostProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/AssetManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/LoadState.js" />
@@ -339,6 +342,7 @@
       <root url="file://$PROJECT_DIR$/out/src/ActionMapper/MenuStateActionMapper.js" />
       <root url="file://$PROJECT_DIR$/out/src/ActionMapper/IntroStateActionMapper.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Processor/OptimizedBoxRenderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/Processor.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/RenderProcess.js" />
@@ -347,6 +351,7 @@
       <root url="file://$PROJECT_DIR$/out/src/Processor/LinearMovementProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/MomentumMovementProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/GunProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/EntitySystem.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/HealthProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Entity.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
@@ -354,6 +359,7 @@
       <root url="file://$PROJECT_DIR$/out/src/Common/Text.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/BlockManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Entities/Entity.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/ShaderManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/PostProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/AssetManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/LoadState.js" />

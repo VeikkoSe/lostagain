@@ -5,6 +5,19 @@ var GameState = function GameState(canvas) {
   this.megaElapsedTotal = 0;
   this.frameCount = 0;
   this.lastTime = 0;
+  this.processList = [];
+  this.processList.push(new RenderProcess());
+  this.processList.push(new HealthProcess());
+  this.processList.push(new ShieldProcess());
+  this.processList.push(new TextProcess());
+  this.processList.push(new LinearMovementProcess());
+  this.processList.push(new MomentumMovementProcess());
+  this.processList.push(new CameraControllerProcess());
+  this.processList.push(new PrimitiveProcess());
+  this.processList.push(new TeleportProcess());
+  this.processList.push(new StarProcess());
+  this.processList.push(new EnemyProcess());
+  this.processList.push(new LaserProcess());
 };
 ($traceurRuntime.createClass)(GameState, {
   init: function() {
@@ -19,10 +32,32 @@ var GameState = function GameState(canvas) {
     gl.enable(gl.CULL_FACE);
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
+    mat4.identity(camera.mvMatrix);
+    mat4.translate(camera.mvMatrix, [0, 0, -300]);
   },
   update: function() {
     "use strict";
-    actionMapper.handleKeys();
+    var timeNow = new Date().getTime();
+    this.frameCount++;
+    if (this.lastTime != 0) {
+      var elapsed = timeNow - this.lastTime;
+      this.elapsedTotal += elapsed;
+      for (var i = 0; i < this.processList.length; i++) {
+        this.processList[$traceurRuntime.toProperty(i)].update(elapsed);
+      }
+      actionMapper.handleKeys();
+      if (this.elapsedTotal >= 1000) {
+        var fps = this.frameCount;
+        this.frameCount = 0;
+        this.elapsedTotal -= 1000;
+        if (fps < 59)
+          document.getElementById('fps').style.color = 'red';
+        else
+          document.getElementById('fps').style.color = 'green';
+        document.getElementById('fps').innerHTML = fps;
+      }
+    }
+    this.lastTime = timeNow;
   },
   randomIntFromInterval: function(min, max) {
     "use strict";
@@ -51,23 +86,12 @@ var GameState = function GameState(canvas) {
   },
   drawAll: function() {
     "use strict";
-    camera.move();
-    gl.useProgram(shaderProgram);
-    gl.uniform1f(shaderProgram.alphaUniform, 1);
-    gl.uniform1i(shaderProgram.uDrawColors, 0);
-    this.simpleRenderProcess.draw();
-    gl.useProgram(simplestProgram);
-    this.primitiveProcess.draw();
-    this.laserProcess.draw();
   },
   draw: function() {
     "use strict";
     camera.move();
-    gl.useProgram(shaderProgram);
-    gl.uniform1f(shaderProgram.alphaUniform, 1);
-    gl.uniform1i(shaderProgram.uDrawColors, 0);
-    for (var i = 0; i < es.length; es++) {
-      es[$traceurRuntime.toProperty(i)].draw();
+    for (var i = 0; i < this.processList.length; i++) {
+      this.processList[$traceurRuntime.toProperty(i)].draw();
     }
   },
   cleanup: function() {

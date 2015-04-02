@@ -21,7 +21,6 @@ var LoadState = function LoadState(canvas) {
     this.loadPercent = 0;
     this.rotationSpeed = 50;
     this.rotationAngle = 0;
-    simplestProgram = initSimplestShaders('simplest');
     this.currentLevel += 1;
     if (this.currentLevel > 2) {
       this.currentLevel = 1;

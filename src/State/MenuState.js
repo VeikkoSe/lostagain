@@ -71,7 +71,7 @@ class MenuState extends StateEngine {
 
 
         //simplestProgram = initSimplestShaders("simplest");
-        shaderProgram = initShaders("per-fragment-lighting");
+        //shaderProgram = initShaders("per-fragment-lighting");
 
 
         //gl.clearColor(1, 0, 0, 1.0);

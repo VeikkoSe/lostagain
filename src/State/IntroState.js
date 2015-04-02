@@ -75,7 +75,7 @@ class IntroState extends StateEngine {
 
 
         //simplestProgram = initSimplestShaders("simplest");
-        shaderProgram = initShaders("per-fragment-lighting");
+        //shaderProgram = initShaders("per-fragment-lighting");
 
         //this.background = new Mesh('start');
 
@@ -110,10 +110,7 @@ class IntroState extends StateEngine {
 
 
     update() {
-
         actionMapper.handleKeys();
-
-
     }
 
 

@@ -47,7 +47,7 @@ class LaserProcess extends Processor {
 
     draw() {
 
-
+        gl.useProgram(simplestProgram);
 
         // gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         /*

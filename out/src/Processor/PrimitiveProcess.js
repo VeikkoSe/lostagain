@@ -15,6 +15,7 @@ var PrimitiveProcess = function PrimitiveProcess() {
   },
   draw: function() {
     "use strict";
+    gl.useProgram(simplestProgram);
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.JumpArea && le.components.Renderable) {

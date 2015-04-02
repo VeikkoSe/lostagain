@@ -11,17 +11,8 @@ class MapState extends StateEngine {
 
     draw() {
 
-
-
-
-        //console.log('s');
-
-
-        //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-
-        gl.useProgram(starProgram);
-        this.starProcess.draw();
+        //gl.useProgram(starProgram);
+        //this.starProcess.draw();
 
 
         gl.useProgram(shaderProgram);
@@ -37,10 +28,6 @@ class MapState extends StateEngine {
 
 
         camera.mvPushMatrix();
-
-        //mat4.translate(camera.mvMatrix, [0, 0, -50]);
-        //mat4.scale(camera.mvMatrix, [0.05, 0.05, 0.05]);
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.wall.vertexPositionBuffer);
         gl.vertexAttribPointer(shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
@@ -73,7 +60,7 @@ class MapState extends StateEngine {
 
 
     init() {
-        //global
+
 
 
         console.log('init');
@@ -87,7 +74,7 @@ class MapState extends StateEngine {
 
 
         //simplestProgram = initSimplestShaders("simplest");
-        shaderProgram = initShaders("per-fragment-lighting");
+        //shaderProgram = initShaders("per-fragment-lighting");
 
 
         //gl.clearColor(1, 0, 0, 1.0);
@@ -96,20 +83,14 @@ class MapState extends StateEngine {
         //gl.clearDepth(1.0);
 
 
-        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+        //gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
 
-        camera.setPerspective();
+        //camera.setPerspective();
 
 
         mat4.identity(camera.mvMatrix);
         mat4.translate(camera.mvMatrix, [0, 0, -90]);
-        //mat4.rotate(camera.mvMatrix, helpers.degToRad(-45),[0, 1, 0]);
-        //mat4.rotate(camera.mvMatrix, helpers.degToRad(-70),[1, 0, 0]);
-        //
-
-
-        //gl.useProgram(shaderProgram);
 
 
     }
@@ -118,8 +99,6 @@ class MapState extends StateEngine {
     update() {
 
         actionMapper.handleKeys();
-
-
     }
 
     cleanup() {

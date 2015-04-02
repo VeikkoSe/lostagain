@@ -48,4 +48,4 @@ var MomentumMovementProcess = function MomentumMovementProcess() {
         re.zPos += mm.velocityZ * (deltatime / 1000);
       }
     }
-  }}, {});
+  }}, {}, Processor);

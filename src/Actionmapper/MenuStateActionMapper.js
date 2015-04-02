@@ -22,7 +22,7 @@ class MenuStateActionMapper {
 
         if (currentlyPressedKeys[32]) {
 
-            game.stateEngine.changeState("mapstate");
+            game.stateEngine.changeState("loadtate");
         }
     }
 

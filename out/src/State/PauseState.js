@@ -35,7 +35,6 @@ var PauseState = function PauseState(canvas) {
     document.onkeyup = actionMapper.handleKeyUp;
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
-    shaderProgram = initShaders("per-fragment-lighting");
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     camera.setPos(0, 0, -10, 0);

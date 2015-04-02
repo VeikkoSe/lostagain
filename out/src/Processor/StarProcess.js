@@ -38,6 +38,7 @@ var StarProcess = function StarProcess() {
   },
   draw: function() {
     "use strict";
+    gl.useProgram(starProgram);
     camera.mvPushMatrix();
     gl.uniform3fv(starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);

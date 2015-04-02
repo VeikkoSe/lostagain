@@ -67,7 +67,7 @@ class Camera {
         this.eye = vec3.create([0, 0, 0]);  // negation of actual eye position
         this.clickPosition = null;
 
-        this.distance = 100;
+        this.distance = 500;
 
         //initial pos
         this.x = 0;
