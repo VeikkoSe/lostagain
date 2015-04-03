@@ -21,7 +21,7 @@ class IntroStateActionMapper {
 
         if (currentlyPressedKeys[32]) {
 
-            game.stateEngine.changeState("loadstate");
+            game.stateEngine.changeState("gamestate");
 
         }
 
@@ -30,7 +30,7 @@ class IntroStateActionMapper {
 
     handleMouseDown(event) {
 
-        game.stateEngine.changeState("loadstate");
+        game.stateEngine.changeState("gamestate");
     }
 
 

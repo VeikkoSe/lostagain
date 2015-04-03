@@ -2,6 +2,7 @@ var RenderProcess = function RenderProcess() {
   "use strict";
   this.deltatime = null;
   this.rotation = null;
+  this.shaderProgram = sm.init("per-fragment-lighting");
 };
 ($traceurRuntime.createClass)(RenderProcess, {
   update: function(deltatime) {
@@ -12,20 +13,20 @@ var RenderProcess = function RenderProcess() {
   },
   draw: function() {
     "use strict";
-    gl.useProgram(shaderProgram);
-    gl.uniform1f(shaderProgram.alphaUniform, 1);
-    gl.uniform1i(shaderProgram.uDrawColors, 0);
+    gl.useProgram(this.shaderProgram);
+    gl.uniform1f(this.shaderProgram.alphaUniform, 1);
+    gl.uniform1i(this.shaderProgram.uDrawColors, 0);
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.Renderable && le.components.MeshComponent) {
         var rc = le.components.Renderable;
         var mc = le.components.MeshComponent;
         camera.mvPushMatrix();
-        gl.uniform3fv(shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
+        gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
         if (le.components.Selectable) {
-          gl.uniform3fv(shaderProgram.uDrawColor, le.components.Selectable.color);
+          gl.uniform3fv(this.shaderProgram.uDrawColor, le.components.Selectable.color);
         } else {
-          gl.uniform3fv(shaderProgram.uDrawColor, [0.5, 0.5, 0.5]);
+          gl.uniform3fv(this.shaderProgram.uDrawColor, [0.5, 0.5, 0.5]);
         }
         mat4.translate(camera.mvMatrix, [rc.xPos, rc.yPos, rc.zPos]);
         mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleX), [1, 0, 0]);
@@ -50,16 +51,21 @@ var RenderProcess = function RenderProcess() {
           mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotation), [xRot, yRot, zRot]);
         }
         gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.vertexPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(this.shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
         gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.normalPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(this.shaderProgram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
         gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.texturePositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(this.shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, mc.mesh.texture);
-        gl.uniform1i(shaderProgram.samplerUniform, 0);
+        gl.uniform1i(this.shaderProgram.samplerUniform, 0);
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.mesh.indexPositionBuffer);
-        helpers.setMatrixUniforms();
+        gl.uniformMatrix4fv(this.shaderProgram.uPMatrix, false, camera.pMatrix);
+        gl.uniformMatrix4fv(this.shaderProgram.uMVMatrix, false, camera.mvMatrix);
+        var normalMatrix = mat3.create();
+        mat4.toInverseMat3(camera.mvMatrix, normalMatrix);
+        mat3.transpose(normalMatrix);
+        gl.uniformMatrix3fv(this.shaderProgram.uNMatrix, false, normalMatrix);
         gl.drawElements(gl.TRIANGLES, mc.mesh.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
         camera.mvPopMatrix();
       }

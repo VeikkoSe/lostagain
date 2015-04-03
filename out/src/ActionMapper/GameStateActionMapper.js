@@ -28,8 +28,13 @@ var GameStateActionMapper = function GameStateActionMapper() {
   },
   handleKeys: function() {
     "use strict";
-    if (currentlyPressedKeys[32]) {
-      game.stateEngine.changeState("loadstate");
+    if (currentlyPressedKeys[49]) {
+      levelManager.loadLevel('first');
+      game.currentLevel = 'first';
+    }
+    if (currentlyPressedKeys[50]) {
+      levelManager.loadLevel('second');
+      game.currentLevel = 'second';
     }
     if (currentlyPressedKeys[77]) {
       game.stateEngine.changeState("mapstate");

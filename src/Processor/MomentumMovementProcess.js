@@ -1,4 +1,4 @@
-class MomentumMovementProcess extends Processor{
+class MomentumMovementProcess extends Processor {
     constructor() {
 
 

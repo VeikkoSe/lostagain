@@ -49,63 +49,70 @@ class LaserProcess extends Processor {
 
         gl.useProgram(simplestProgram);
 
-        // gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-        /*
-         gl.bindTexture(gl.TEXTURE_2D, this.texture);
-         gl.generateMipmap(gl.TEXTURE_2D);
-         gl.bindTexture(gl.TEXTURE_2D, null);
-         */
+
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
+
+            if (le.components.LaserComponent) {
+
+                // gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+                /*
+                 gl.bindTexture(gl.TEXTURE_2D, this.texture);
+                 gl.generateMipmap(gl.TEXTURE_2D);
+                 gl.bindTexture(gl.TEXTURE_2D, null);
+                 */
 
 
-        var points = [];
+                var points = [];
 
-        // var timeNow = new Date().getTime();
-
-
-        //if (this.lastTime != 0) {
+                // var timeNow = new Date().getTime();
 
 
-        //var elapsed = timeNow - this.lastTime;
-        //this.elapsedTotal += elapsed;
-
-        points = this.railXY(-1500);
+                //if (this.lastTime != 0) {
 
 
-        //gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
+                //var elapsed = timeNow - this.lastTime;
+                //this.elapsedTotal += elapsed;
+
+                points = this.railXY(-1500);
 
 
-        //gl.clearColor(0, 0, 0, 1.0);
-        //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                //gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
 
 
-        //gl.clearColor(1, 1, 0, 1.0);
-        //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                //gl.clearColor(0, 0, 0, 1.0);
+                //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 
-        camera.mvPushMatrix();
+                //gl.clearColor(1, 1, 0, 1.0);
+                //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+                camera.mvPushMatrix();
 
 
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
 
 
-        gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-
-        gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
-        gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
-        gl.drawArrays(gl.LINES, 0, 2);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
 
 
-        camera.mvPopMatrix();
+                gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+
+                gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
+                gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
+                gl.drawArrays(gl.LINES, 0, 2);
 
 
-        //}
-        //this.lastTime = timeNow;
+                camera.mvPopMatrix();
 
 
+                //}
+                //this.lastTime = timeNow;
+
+
+            }
+
+        }
     }
-
-
 }

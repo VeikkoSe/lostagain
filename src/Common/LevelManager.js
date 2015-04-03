@@ -8,71 +8,56 @@ class LevelManager {
     }
 
     loadLevel(name) {
-
-        this.loading = true;
-
-        this.loadAllAssets(name);
+        //console.log(game.stateEngine);
+        game.stateEngine.loadS(name);
+        //game.stateEngine.changeState("loadstate");
+        //this.loading = true;
+        //this.loadAllAssets(name);
 
     }
 
 
     loadAllAssets(name) {
+        //console.log(name);
         this.nextState = false;
-       // mh = new MasterHandler();
+        // mh = new MasterHandler();
         em.clearAll();
 
 
         this.loading = true;
-        if (name == 1) {
+        switch (name) {
+            case ('first') :
 
-            //  es.push(new RenderProcess());
+                ef.createStars();
+                ef.createFuel();
+                ef.createEnemy();
+                //this.ef.createPlane();
+                ef.createMotherShip();
+                ef.createShip();
+                ef.createTerrain();
 
-            //handler = new Handler();
+                //this.ef.createBox();
 
-            //es.uniforms.push(gl.uniform1i(shaderProgram.uDrawColors, 0));
-            //gl.uniform1i(shaderProgram.uDrawColors, 0);
-
-            //es.uniforms.push(new SimpleRenderProcess());
-
+                //this.nextState = 'gamestate';
+                this.maxLoad = this.loadTotal;
+            case ('second') :
 
 
+                ef.createFuel();
 
 
+                this.nextState = 'gamestate';
+                this.maxLoad = this.loadTotal;
 
+                break;
 
-            ef.createFuel();
-            //this.ef.createPlane();
-            ef.createMotherShip();
-            ef.createShip();
-            ef.createTerrain();
-
-            //this.ef.createBox();
-
-            this.nextState = 'gamestate';
-            this.maxLoad = this.loadTotal;
 
         }
 
-        if (name == 2) {
-
-
-            //  es.push(new RenderProcess());
-            //es.push(new SimpleRenderProcess());
-
-
-
-
-            ef.createFuel();
-
-
-            this.nextState = 'gamestate';
-            this.maxLoad = this.loadTotal;
-
-        }
 
         this.loading = false;
-        // levelManager.loaded(nextState);
     }
+
 
     destroyAllCurrentAssets() {
 

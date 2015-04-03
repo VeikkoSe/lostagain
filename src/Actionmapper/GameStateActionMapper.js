@@ -38,10 +38,15 @@ class GameStateActionMapper {
 
     handleKeys() {
 
-        if (currentlyPressedKeys[32]) {
+        if (currentlyPressedKeys[49]) {
 
-            game.stateEngine.changeState("loadstate");
+            levelManager.loadLevel('first');
+            game.currentLevel = 'first';
+        }
+        if (currentlyPressedKeys[50]) {
 
+            levelManager.loadLevel('second');
+            game.currentLevel = 'second';
         }
 
         if (currentlyPressedKeys[77]) {

@@ -3,9 +3,11 @@ class Processor {
 
 
     }
+
     update() {
 
     }
+
     draw() {
 
     }

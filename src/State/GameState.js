@@ -10,10 +10,12 @@ class GameState extends StateEngine {
         this.frameCount = 0;
         this.lastTime = 0;
 
-
+        this.currentLevel = null;
         //mh.addHandler(handler);
 
         this.processList = [];
+
+
         this.processList.push(new RenderProcess());
 
         //this.processList.push(new PlaneProcess());
@@ -32,9 +34,25 @@ class GameState extends StateEngine {
         this.processList.push(new LaserProcess());
 
 
+        this.shaderProgram = null;
+
+
     }
 
     init() {
+
+
+        if (game.currentLevel == null) {
+
+            levelManager.loadLevel('first');
+            game.currentLevel = 'first';
+
+            return;
+        }
+
+
+        //else
+        //    levelManager.loadLevel(this.currentLevel);
 
 
         actionMapper = new GameStateActionMapper();
@@ -50,7 +68,7 @@ class GameState extends StateEngine {
 
         //starProgram = initStarShaders('star');
 
-        // fontProgram = initFontShaders("font");
+        //fontProgram = initFontShaders("font");
 
 
         //Light uniforms
@@ -101,50 +119,46 @@ class GameState extends StateEngine {
         //actionMapper.handleKeys();
 
 
+        var timeNow = new Date().getTime();
+
+        this.frameCount++;
 
 
+        if (this.lastTime != 0) {
 
-         var timeNow = new Date().getTime();
+            var elapsed = timeNow - this.lastTime;
+            this.elapsedTotal += elapsed;
 
-         this.frameCount++;
+            for (var i = 0; i < this.processList.length; i++) {
+                this.processList[i].update(elapsed);
+            }
+            /*
+             this.teleportProcess.update(elapsed);
+             this.linearMovementProcess.update(elapsed);
+             this.momentumMovementProcess.update(elapsed);
+             this.cameraControllerProcess.update(elapsed);
+             this.enemyProcess.update(elapsed);
+             this.simpleRenderProcess.update(elapsed);
+             this.textProcess.update(elapsed);
+             this.gunProcess.update(elapsed);
 
-
-         if (this.lastTime != 0) {
-
-         var elapsed = timeNow - this.lastTime;
-         this.elapsedTotal += elapsed;
-
-             for (var i = 0; i < this.processList.length; i++) {
-                 this.processList[i].update(elapsed);
-             }
-             /*
-         this.teleportProcess.update(elapsed);
-         this.linearMovementProcess.update(elapsed);
-         this.momentumMovementProcess.update(elapsed);
-         this.cameraControllerProcess.update(elapsed);
-         this.enemyProcess.update(elapsed);
-         this.simpleRenderProcess.update(elapsed);
-         this.textProcess.update(elapsed);
-         this.gunProcess.update(elapsed);
-
-         //this.createTexture(elapsed);*/
-         actionMapper.handleKeys();
+             //this.createTexture(elapsed);*/
+            actionMapper.handleKeys();
 
 
+            if (this.elapsedTotal >= 1000) {
+                var fps = this.frameCount;
+                this.frameCount = 0;
+                this.elapsedTotal -= 1000;
 
-         if (this.elapsedTotal >= 1000) {
-         var fps = this.frameCount;
-         this.frameCount = 0;
-         this.elapsedTotal -= 1000;
-
-         if (fps < 59)
-         document.getElementById('fps').style.color = 'red';
-         else
-         document.getElementById('fps').style.color = 'green';
-         document.getElementById('fps').innerHTML = fps;
-         }
-         }
-         this.lastTime = timeNow;
+                if (fps < 59)
+                    document.getElementById('fps').style.color = 'red';
+                else
+                    document.getElementById('fps').style.color = 'green';
+                document.getElementById('fps').innerHTML = fps;
+            }
+        }
+        this.lastTime = timeNow;
 
 
     }
@@ -264,7 +278,7 @@ class GameState extends StateEngine {
         //gl.useProgram(simplestProgram);
 
         //gl.useProgram(simplestProgram);
-       // this.primitiveProcess.draw();
+        // this.primitiveProcess.draw();
         //this.laserProcess.draw();
 
     }

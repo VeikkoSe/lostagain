@@ -23,7 +23,7 @@ class MapStateActionMapper {
 
         if (currentlyPressedKeys[77]) {
 
-            game.stateEngine.changeState("loadstate");
+            game.stateEngine.changeState("gamestate");
         }
     }
 

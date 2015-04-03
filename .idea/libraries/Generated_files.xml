@@ -36,10 +36,11 @@
         <item url="file://$PROJECT_DIR$/out/src/Processor/CameraControllerProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/EnemyProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/ActionMapper/MenuStateActionMapper.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/StarComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
         <item url="file://$PROJECT_DIR$/out/src/ActionMapper/IntroStateActionMapper.js" />
-        <item url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/OptimizedBoxRenderProcess.js" />
+        <item url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/Processor.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/RenderProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/PlaneProcess.js" />
@@ -342,8 +343,9 @@
       <root url="file://$PROJECT_DIR$/out/src/ActionMapper/MenuStateActionMapper.js" />
       <root url="file://$PROJECT_DIR$/out/src/ActionMapper/IntroStateActionMapper.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
-      <root url="file://$PROJECT_DIR$/out/src/Processor/OptimizedBoxRenderProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/StarComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Processor/OptimizedBoxRenderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/Processor.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/RenderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/PlaneProcess.js" />

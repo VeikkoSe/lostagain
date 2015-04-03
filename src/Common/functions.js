@@ -1,15 +1,11 @@
-
-
 function printMessage(msg) {
     $('#debugarea').html(msg);
 }
 
 
-
 function pInt(nro) {
     return parseInt(nro, 10);
 }
-
 
 
 function logGLCall(functionName, args) {
@@ -41,7 +37,7 @@ function webGLStart() {
     var canvas = document.getElementById("canvas");
     initGL(canvas);
 
-    var sp = new ShaderManager();
+    sm = new ShaderManager();
 
     //astarManager = new AstarManager();
 
@@ -68,6 +64,7 @@ function updateLightPosition() {
     $('#slider-y-value').html(y);
     $('#slider-z-value').html(z);
 }
+
 
 function updateCameraPosition() {
     var x = $('#cslider-x').slider("value");

@@ -30,7 +30,6 @@ var MapState = function MapState(canvas) {
   },
   init: function() {
     "use strict";
-    console.log('init');
     actionMapper = new MapStateActionMapper();
     document.onkeydown = actionMapper.handleKeyDown;
     document.onkeyup = actionMapper.handleKeyUp;

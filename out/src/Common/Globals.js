@@ -7,6 +7,7 @@ var starProgram = null;
 var fontProgram = null;
 var blurVerticalProgram = null;
 var blurHorizontalProgram = null;
+var sm = null;
 var mm = null;
 var currentlyPressedKeys = {};
 var game = null;

@@ -5,6 +5,7 @@ var GameState = function GameState(canvas) {
   this.megaElapsedTotal = 0;
   this.frameCount = 0;
   this.lastTime = 0;
+  this.currentLevel = null;
   this.processList = [];
   this.processList.push(new RenderProcess());
   this.processList.push(new HealthProcess());
@@ -18,10 +19,16 @@ var GameState = function GameState(canvas) {
   this.processList.push(new StarProcess());
   this.processList.push(new EnemyProcess());
   this.processList.push(new LaserProcess());
+  this.shaderProgram = null;
 };
 ($traceurRuntime.createClass)(GameState, {
   init: function() {
     "use strict";
+    if (game.currentLevel == null) {
+      levelManager.loadLevel('first');
+      game.currentLevel = 'first';
+      return;
+    }
     actionMapper = new GameStateActionMapper();
     document.onkeydown = actionMapper.handleKeyDown;
     document.onkeyup = actionMapper.handleKeyUp;

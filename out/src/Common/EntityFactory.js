@@ -14,11 +14,17 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new ShieldComponent(10, new Sprite("shield", -0.9, -0.74)));
     e.addComponent(new BulletComponent(new Sprite("bigbullet", 0, 0)));
   },
+  createStars: function() {
+    "use strict";
+    var e = em.addNew('stars');
+    e.addComponent(new StarComponent());
+  },
   createEnemy: function() {
     "use strict";
     var e = em.addNew('enemymirror');
     var mesh = mm.getOrAddMesh('enemy');
     e.addComponent(new MeshComponent(mesh));
+    e.addComponent(new EnemyComponent());
     e.addComponent(new Renderable(-100, mesh.yPos, -100, 1, -180, 90, -90));
   },
   createMotherShip: function() {
@@ -40,16 +46,12 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos));
   },
-  getRandomInt: function(min, max) {
-    "use strict";
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  },
   createAsteroid: function() {
     "use strict";
     var e = em.addNew();
     var mesh = mm.getOrAddMesh('asteroid');
     e.addComponent(new MeshComponent(mesh, 1, 6));
-    e.addComponent(new Renderable(this.getRandomInt(-20), 0, this.getRandomInt(20), 2));
+    e.addComponent(new Renderable(helpers.getRandomInt(-20), 0, helpers.getRandomInt(20), 2));
   },
   createBox: function() {
     "use strict";
@@ -65,9 +67,9 @@ var EntityFactory = function EntityFactory() {
     var verts = cube.vertices();
     vertexPositionBuffer.nums = 0;
     for (var g = 0; g < 10000; g++) {
-      var x = this.getRandomInt(-50, 50);
-      var z = this.getRandomInt(-50, 50);
-      var y = this.getRandomInt(-50, 50);
+      var x = helpers.getRandomInt(-50, 50);
+      var z = helpers.getRandomInt(-50, 50);
+      var y = helpers.getRandomInt(-50, 50);
       for (var i = 0; i < verts.length; i += 3) {
         var newVerts = [];
         newVerts.push(verts[$traceurRuntime.toProperty(i)]);
@@ -96,7 +98,7 @@ var EntityFactory = function EntityFactory() {
     var e = em.addNew();
     var mesh = mm.getOrAddMesh('fuel');
     e.addComponent(new MeshComponent(mesh));
-    e.addComponent(new Renderable(110, mesh.yPos, 50, 50));
+    e.addComponent(new Renderable(110, 0, 50, 50));
     e.addComponent(new ConstantRotation(10, 10, 10));
   },
   createPlane: function() {

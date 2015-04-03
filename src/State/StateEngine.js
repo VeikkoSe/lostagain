@@ -91,6 +91,25 @@ class StateEngine {
         this.states[this.states.length - 1].init();
     }
 
+
+    loadS(nextState) {
+
+        //var state = this.determineState(stateStr);
+
+        // cleanup the current state
+        if (this.states.length > 0) {
+
+            this.states[this.states.length - 1].cleanup();
+            this.states.pop();
+        }
+
+        // store and init the new state
+        this.states.push(this.loadState);
+        this.currentState = this.loadState;
+        this.states[this.states.length - 1].init(nextState);
+    }
+
+
     pushState(stateStr) {
         var state = this.determineState(stateStr);
 

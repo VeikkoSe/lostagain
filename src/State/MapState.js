@@ -63,7 +63,7 @@ class MapState extends StateEngine {
 
 
 
-        console.log('init');
+        //console.log('init');
 
         actionMapper = new MapStateActionMapper();
 

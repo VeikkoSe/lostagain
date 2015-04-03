@@ -29,7 +29,7 @@ function viewport() {
 function webGLStart() {
   var canvas = document.getElementById("canvas");
   initGL(canvas);
-  var sp = new ShaderManager();
+  sm = new ShaderManager();
   helpers = new Helpers();
   em = new EntityManager();
   mm = new AssetManager();

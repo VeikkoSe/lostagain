@@ -59,6 +59,16 @@ var StateEngine = function StateEngine() {
     this.currentState = state;
     this.states[$traceurRuntime.toProperty(this.states.length - 1)].init();
   },
+  loadS: function(nextState) {
+    "use strict";
+    if (this.states.length > 0) {
+      this.states[$traceurRuntime.toProperty(this.states.length - 1)].cleanup();
+      this.states.pop();
+    }
+    this.states.push(this.loadState);
+    this.currentState = this.loadState;
+    this.states[$traceurRuntime.toProperty(this.states.length - 1)].init(nextState);
+  },
   pushState: function(stateStr) {
     "use strict";
     var state = this.determineState(stateStr);

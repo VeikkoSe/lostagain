@@ -5,6 +5,7 @@ class StarProcess extends Processor {
         this.startPositions = [];
         this.colors = [];
         this.initBuffers();
+        this.starProgram = sm.init('star');
 
     }
 
@@ -57,7 +58,7 @@ class StarProcess extends Processor {
             this.startPositions.push(this.randomBetween(-5000, 5000));
             this.startPositions.push(this.randomBetween(-5000, 5000));
             //pointsize
-            this.startPositions.push(this.randomBetween(1, 2));
+            this.startPositions.push(this.randomBetween(1, 1));
         }
 
 
@@ -127,26 +128,34 @@ class StarProcess extends Processor {
 
 
     draw() {
-        gl.useProgram(starProgram);
-        camera.mvPushMatrix();
-        gl.uniform3fv(starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
+        gl.useProgram(this.starProgram);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
-        //gl.vertexAttribPointer(starProgram.pointStartPositionAttribute, 1, gl.FLOAT, false, 15, 0);
-        //gl.vertexAttribPointer(starProgram.aWorldCoordinates, 3, gl.FLOAT, false, 18,3);
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
-        gl.vertexAttribPointer(starProgram.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
-        gl.vertexAttribPointer(starProgram.aPointSize, 1, gl.FLOAT, false, 16, 12);
+            if (le.components.StarComponent) {
 
-        // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.startPositions), gl.STATIC_DRAW);
+                camera.mvPushMatrix();
+                gl.uniform3fv(this.starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
 
-        gl.uniformMatrix4fv(starProgram.uPMatrix, false, camera.pMatrix);
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
+                //gl.vertexAttribPointer(starProgram.pointStartPositionAttribute, 1, gl.FLOAT, false, 15, 0);
+                //gl.vertexAttribPointer(starProgram.aWorldCoordinates, 3, gl.FLOAT, false, 18,3);
 
-        //gl.uniformMatrix4fv(starProgram.uMVMatrix, false, camera.mvMatrix);
-        //console.log(this.pointStartPositionsBuffer.numItems);
+                gl.vertexAttribPointer(this.starProgram.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
+                gl.vertexAttribPointer(this.starProgram.aPointSize, 1, gl.FLOAT, false, 16, 12);
 
-        gl.drawArrays(gl.POINTS, 0, this.pointStartPositionsBuffer.numItems);
-        camera.mvPopMatrix();
+                // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.startPositions), gl.STATIC_DRAW);
+
+                gl.uniformMatrix4fv(this.starProgram.uPMatrix, false, camera.pMatrix);
+
+                //gl.uniformMatrix4fv(starProgram.uMVMatrix, false, camera.mvMatrix);
+                //console.log(this.pointStartPositionsBuffer.numItems);
+
+                gl.drawArrays(gl.POINTS, 0, this.pointStartPositionsBuffer.numItems);
+                camera.mvPopMatrix();
+            }
+        }
 
     }
 

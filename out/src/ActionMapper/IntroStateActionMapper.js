@@ -13,11 +13,11 @@ var IntroStateActionMapper = function IntroStateActionMapper() {
   handleKeys: function() {
     "use strict";
     if (currentlyPressedKeys[32]) {
-      game.stateEngine.changeState("loadstate");
+      game.stateEngine.changeState("gamestate");
     }
   },
   handleMouseDown: function(event) {
     "use strict";
-    game.stateEngine.changeState("loadstate");
+    game.stateEngine.changeState("gamestate");
   }
 }, {});

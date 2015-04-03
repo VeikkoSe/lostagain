@@ -52,6 +52,10 @@ var Helpers = function Helpers() {
     mat3.transpose(normalMatrix);
     gl.uniformMatrix3fv(shaderProgram.uNMatrix, false, normalMatrix);
   },
+  getRandomInt: function(min, max) {
+    "use strict";
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
   buildPlane: function(width, squares) {
     "use strict";
     var xLength = squares;

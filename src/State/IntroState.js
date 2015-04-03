@@ -2,7 +2,7 @@ class IntroState extends StateEngine {
 
     constructor(canvas) {
         this.background = null;
-
+        this.shaderProgram = null;
 
     }
 
@@ -20,8 +20,8 @@ class IntroState extends StateEngine {
         //mat4.translate(camera.mvMatrix, [0, 0, -10]);
 
 
-        gl.uniform1f(shaderProgram.alphaUniform, 1);
-        gl.uniform1i(shaderProgram.uDrawColors, 0);
+        gl.uniform1f(this.shaderProgram.alphaUniform, 1);
+        gl.uniform1i(this.shaderProgram.uDrawColors, 0);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         //this.simpleRenderProcess.draw();
 
@@ -34,25 +34,31 @@ class IntroState extends StateEngine {
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.intro.vertexPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(this.shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.intro.normalPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(this.shaderProgram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.intro.texturePositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(this.shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.intro.texture);
 
 
-        gl.uniform1i(shaderProgram.samplerUniform, 0);
+        gl.uniform1i(this.shaderProgram.samplerUniform, 0);
 
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.intro.indexPositionBuffer);
 
-        helpers.setMatrixUniforms();
+        gl.uniformMatrix4fv(this.shaderProgram.uPMatrix, false, camera.pMatrix);
+        gl.uniformMatrix4fv(this.shaderProgram.uMVMatrix, false, camera.mvMatrix);
+
+        var normalMatrix = mat3.create();
+        mat4.toInverseMat3(camera.mvMatrix, normalMatrix);
+        mat3.transpose(normalMatrix);
+        gl.uniformMatrix3fv(this.shaderProgram.uNMatrix, false, normalMatrix);
 
 
         gl.drawElements(gl.TRIANGLES, this.intro.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
@@ -75,7 +81,7 @@ class IntroState extends StateEngine {
 
 
         //simplestProgram = initSimplestShaders("simplest");
-        //shaderProgram = initShaders("per-fragment-lighting");
+        this.shaderProgram = sm.init("per-fragment-lighting");
 
         //this.background = new Mesh('start');
 
@@ -94,7 +100,7 @@ class IntroState extends StateEngine {
         //camera.setPos(0,0,-10,0);
         mat4.identity(camera.mvMatrix);
         mat4.translate(camera.mvMatrix, [0, 0, -10]);
-        gl.useProgram(shaderProgram);
+        gl.useProgram(this.shaderProgram);
 
     }
 

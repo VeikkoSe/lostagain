@@ -1,15 +1,39 @@
 var ShaderManager = function ShaderManager() {
   "use strict";
-  particleProgram = this.initParticleShaders("particle");
-  simplestProgram = this.initSimplestShaders("simplest");
-  blurVerticalProgram = this.initBlurShaders("blurvertical");
-  blurHorizontalProgram = this.initBlurShaders("blurhorizontal");
-  shaderProgram = this.initShaders("per-fragment-lighting");
-  ambientProgram = this.initAmbientShaders('ambient');
-  fontProgram = this.initFontShaders('font');
-  starProgram = this.initStarShaders('star');
 };
 ($traceurRuntime.createClass)(ShaderManager, {
+  init: function(name) {
+    "use strict";
+    switch (name) {
+      case "particle":
+        return this.initParticleShaders("particle");
+        break;
+      case "simplest":
+        return this.initSimplestShaders("simplest");
+        break;
+      case "blurvertical":
+        return this.initBlurShaders("blurhorizontal");
+        break;
+      case "blurvertical":
+        return this.initBlurShaders("blurvertical");
+        break;
+      case "blurhorizontal":
+        return this.initBlurShaders("blurhorizontal");
+        break;
+      case "per-fragment-lighting":
+        return this.initShaders("per-fragment-lighting");
+        break;
+      case "ambient":
+        return this.initAmbientShaders('ambient');
+        break;
+      case "font":
+        return this.initFontShaders('font');
+        break;
+      case "star":
+        return this.initStarShaders('star');
+        break;
+    }
+  },
   initSimplestShaders: function(id) {
     "use strict";
     var program = gl.createProgram();

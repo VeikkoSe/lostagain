@@ -8,26 +8,27 @@ var LevelManager = function LevelManager() {
 ($traceurRuntime.createClass)(LevelManager, {
   loadLevel: function(name) {
     "use strict";
-    this.loading = true;
-    this.loadAllAssets(name);
+    game.stateEngine.loadS(name);
   },
   loadAllAssets: function(name) {
     "use strict";
     this.nextState = false;
     em.clearAll();
     this.loading = true;
-    if (name == 1) {
-      ef.createFuel();
-      ef.createMotherShip();
-      ef.createShip();
-      ef.createTerrain();
-      this.nextState = 'gamestate';
-      this.maxLoad = this.loadTotal;
-    }
-    if (name == 2) {
-      ef.createFuel();
-      this.nextState = 'gamestate';
-      this.maxLoad = this.loadTotal;
+    switch (name) {
+      case ('first'):
+        ef.createStars();
+        ef.createFuel();
+        ef.createEnemy();
+        ef.createMotherShip();
+        ef.createShip();
+        ef.createTerrain();
+        this.maxLoad = this.loadTotal;
+      case ('second'):
+        ef.createFuel();
+        this.nextState = 'gamestate';
+        this.maxLoad = this.loadTotal;
+        break;
     }
     this.loading = false;
   },

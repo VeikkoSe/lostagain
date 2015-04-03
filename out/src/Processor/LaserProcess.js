@@ -26,15 +26,20 @@ var LaserProcess = function LaserProcess() {
   draw: function() {
     "use strict";
     gl.useProgram(simplestProgram);
-    var points = [];
-    points = this.railXY(-1500);
-    camera.mvPushMatrix();
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
-    gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-    gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
-    gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
-    gl.drawArrays(gl.LINES, 0, 2);
-    camera.mvPopMatrix();
+    for (var e = 0; e < em.entities.length; e++) {
+      var le = em.entities[$traceurRuntime.toProperty(e)];
+      if (le.components.LaserComponent) {
+        var points = [];
+        points = this.railXY(-1500);
+        camera.mvPushMatrix();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
+        gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+        gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
+        gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
+        gl.drawArrays(gl.LINES, 0, 2);
+        camera.mvPopMatrix();
+      }
+    }
   }
 }, {}, Processor);

@@ -2,12 +2,13 @@ class Game {
     constructor(canvas) {
 
         this.running = true;
-
+        this.currentLevel = null;
         this.stateEngine = null;
 
 
         this.camera = new Camera();
         this.stateEngine = new StateEngine();
+
 
         this.stateEngine.changeState("introstate");
         this.tick();

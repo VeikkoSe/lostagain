@@ -13,7 +13,7 @@ var MapStateActionMapper = function MapStateActionMapper() {
   handleKeys: function() {
     "use strict";
     if (currentlyPressedKeys[77]) {
-      game.stateEngine.changeState("loadstate");
+      game.stateEngine.changeState("gamestate");
     }
   },
   handleMouseDown: function(event) {
