@@ -16,20 +16,20 @@ var LevelManager = function LevelManager() {
     em.clearAll();
     this.loading = true;
     switch (name) {
-      case ('first'):
+      case ('second'):
+        camera.setDistance(400);
         ef.createStars();
-        ef.createFuel();
+        ef.createFuel(false);
         ef.createEnemy();
         ef.createMotherShip();
         ef.createShip();
-        ef.createTerrain();
-        this.maxLoad = this.loadTotal;
-      case ('second'):
-        ef.createFuel();
-        this.nextState = 'gamestate';
-        this.maxLoad = this.loadTotal;
+        break;
+      case ('first'):
+        camera.setDistance(100);
+        ef.createShip();
         break;
     }
+    this.maxLoad = this.loadTotal;
     this.loading = false;
   },
   destroyAllCurrentAssets: function() {

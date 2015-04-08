@@ -27,18 +27,18 @@ class readObjFile {
   
     if(strpos($a,"-")===0 && strpos($b,"-")!==0)
 	{
-	  echo $truef .=" false(eka)\n";
+	  //echo $truef .=" false(eka)\n";
 	  return false;
 	}
 	  
     if($a+0.01>=$b && $a-0.01<=$b)
 	{
-	  echo $truef .=" true(eka)\n";
+	  //echo $truef .=" true(eka)\n";
 	  return true;
 	}
 	  
 	  
-	echo $truef .=" false(toka)\n";  
+	//echo $truef .=" false(toka)\n";  
 	return false;  
   }
   
@@ -167,8 +167,7 @@ class readObjFile {
 
 		}
     }
-	var_dump($this->ret);
-	exit;
+
 	
   }
 
@@ -203,7 +202,21 @@ $cd  = $r->getConvertedData();
 
 
 //print_r($arr);
-file_put_contents("test.js",json_encode($arr));
+	$f = explode(".",$file);
+	$newFile = $f[0]."."."js";
+	//var_dump($newFile);
+
+	$arr['ambient'] = array(0.5,0.5,0.5);
+	$arr['diffuse'] = array(0.9,0.9,0.9);
+	$arr['specular'] = array(1.0,1.0,1.0);
+	$arr['x'] = 0;
+	$arr['y'] = 0;
+	$arr['z'] = 0;
+	$arr['name'] = $f[0];
+
+
+  echo $newFile ." created!";
+file_put_contents($newFile,json_encode($arr));
 
 
 

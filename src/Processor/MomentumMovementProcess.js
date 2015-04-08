@@ -15,7 +15,7 @@ class MomentumMovementProcess extends Processor {
 
             if (le.components.MomentumMovable) {
 
-
+/*
                 if ((helpers.isNumeric(mm.routeEndXpos) && helpers.isNumeric(mm.routeEndZpos)) &&
                     (helpers.isClose(re.xPos, mm.routeEndXpos) && helpers.isClose(re.zPos, mm.routeEndZpos))) {
 
@@ -51,10 +51,13 @@ class MomentumMovementProcess extends Processor {
 
                 }
 
-
+*/
+                //console.log(re.angleY);
                 if (mm.accelerationOn) {
 
+
                     var dirVectorX = Math.cos(helpers.degToRad(re.angleY));
+                    //prolly wrong calculation, result works but re.zPos is division instead of add in the end
                     var dirVectorZ = Math.sin(helpers.degToRad(re.angleY));
 
 
@@ -71,7 +74,7 @@ class MomentumMovementProcess extends Processor {
                     if (re.angleY < 0)
                         re.angleY = 360;
 
-                    re.angleY += 600 * (deltatime / 1000);
+                    re.angleY -= 600 * (deltatime / 1000);
                 }
                 if (mm.rotateLeft) {
 
@@ -80,11 +83,11 @@ class MomentumMovementProcess extends Processor {
 
                     if (re.angleY < 0)
                         re.angleY = 360;
-                    re.angleY -= 600 * (deltatime / 1000);
+                    re.angleY += 600 * (deltatime / 1000);
                 }
 
                 re.xPos += mm.velocityX * (deltatime / 1000);
-                re.zPos += mm.velocityZ * (deltatime / 1000);
+                re.zPos -= mm.velocityZ * (deltatime / 1000);
             }
 
         }

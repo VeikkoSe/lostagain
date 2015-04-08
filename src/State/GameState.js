@@ -19,20 +19,24 @@ class GameState extends StateEngine {
         this.processList.push(new RenderProcess());
 
         //this.processList.push(new PlaneProcess());
+        /*
         this.processList.push(new HealthProcess());
         this.processList.push(new ShieldProcess());
         this.processList.push(new TextProcess());
         this.processList.push(new LinearMovementProcess());
+        this.processList.push(new DrivingMovementProcess());
         this.processList.push(new MomentumMovementProcess());
         this.processList.push(new CameraControllerProcess());
         this.processList.push(new PrimitiveProcess());
         this.processList.push(new TeleportProcess());
         this.processList.push(new StarProcess());
         this.processList.push(new EnemyProcess());
-        //this.processList.push(new GunProcess());
+        this.processList.push(new PhotonTorpedoProcess());
         //this.processList.push(new PostProcess());
         this.processList.push(new LaserProcess());
-
+        */
+        this.processList.push(new MomentumMovementProcess());
+        this.processList.push(new ExhaustProcess());
 
         this.shaderProgram = null;
 
@@ -78,7 +82,7 @@ class GameState extends StateEngine {
 
 
         //gl.enable(gl.DEPTH_TEST);
-        gl.enable(gl.CULL_FACE);
+        //gl.enable(gl.CULL_FACE);
 
         //gl.clearColor(1, 1, 1, 1.0);
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -132,17 +136,7 @@ class GameState extends StateEngine {
             for (var i = 0; i < this.processList.length; i++) {
                 this.processList[i].update(elapsed);
             }
-            /*
-             this.teleportProcess.update(elapsed);
-             this.linearMovementProcess.update(elapsed);
-             this.momentumMovementProcess.update(elapsed);
-             this.cameraControllerProcess.update(elapsed);
-             this.enemyProcess.update(elapsed);
-             this.simpleRenderProcess.update(elapsed);
-             this.textProcess.update(elapsed);
-             this.gunProcess.update(elapsed);
 
-             //this.createTexture(elapsed);*/
             actionMapper.handleKeys();
 
 
@@ -286,6 +280,12 @@ class GameState extends StateEngine {
 
     draw() {
 
+
+        gl.clearColor(0, 0, 0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        gl.enable(gl.BLEND);
+        gl.disable(gl.DEPTH_TEST);
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
         //if(this.postProcessState) {
         camera.move();

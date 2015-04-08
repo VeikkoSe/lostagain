@@ -41,6 +41,9 @@ class ShaderManager {
             case "star":
                 return this.initStarShaders('star');
                 break;
+            case "particle3d":
+                return this.initParticleShaders3d('particle3d');
+                break;
         }
 
 
@@ -192,6 +195,36 @@ class ShaderManager {
         return program;
 
     }
+
+
+    initParticleShaders3d(id) {
+
+        var program = gl.createProgram();
+
+        this.getShader(id, program);
+
+        gl.linkProgram(program);
+
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            alert("Could not initialise shaders");
+        }
+
+        //program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
+        //gl.enableVertexAttribArray(program.pointStartPositionAttribute);
+
+        program.positionUniform = gl.getUniformLocation(program, "uPosition");
+        program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+        program.colorUniform = gl.getUniformLocation(program, "uColor");
+        program.pointSize = gl.getUniformLocation(program, "uPointsize");
+
+        program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+        program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+
+
+        return program;
+
+    }
+
 
     initStarShaders(id) {
 

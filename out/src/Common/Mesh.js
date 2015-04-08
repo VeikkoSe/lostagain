@@ -28,7 +28,7 @@ var Mesh = function Mesh(name) {
   loadMesh: function() {
     "use strict";
     var request = new XMLHttpRequest();
-    request.open("GET", "resources/models/" + this.name + ".js", true);
+    request.open("GET", "resources/models/" + this.name + ".js?" + Math.random(), true);
     request.send();
     var that = this;
     request.onreadystatechange = function() {

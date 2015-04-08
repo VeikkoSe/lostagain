@@ -26,33 +26,42 @@ class LevelManager {
 
         this.loading = true;
         switch (name) {
-            case ('first') :
+            case ('second') :
 
+                camera.setDistance(400);
                 ef.createStars();
-                ef.createFuel();
-                ef.createEnemy();
+                ef.createFuel(false);
+                //for (var i = 0; i < 50; i++) {
+                    ef.createEnemy();
+                //}
                 //this.ef.createPlane();
                 ef.createMotherShip();
                 ef.createShip();
-                ef.createTerrain();
+
 
                 //this.ef.createBox();
 
-                //this.nextState = 'gamestate';
-                this.maxLoad = this.loadTotal;
-            case ('second') :
+                break;
+            case ('first') :
+
+                camera.setDistance(100);
+               // ef.createMotherShip();
+                ef.createShip();
+                /*
+                 for (var i = 0; i < 5; i++) {
+
+                 ef.createFuel(true);
+
+                 }
+                 */
 
 
-                ef.createFuel();
-
-
-                this.nextState = 'gamestate';
-                this.maxLoad = this.loadTotal;
 
                 break;
 
 
         }
+        this.maxLoad = this.loadTotal;
 
 
         this.loading = false;

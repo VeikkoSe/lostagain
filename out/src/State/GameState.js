@@ -8,17 +8,8 @@ var GameState = function GameState(canvas) {
   this.currentLevel = null;
   this.processList = [];
   this.processList.push(new RenderProcess());
-  this.processList.push(new HealthProcess());
-  this.processList.push(new ShieldProcess());
-  this.processList.push(new TextProcess());
-  this.processList.push(new LinearMovementProcess());
   this.processList.push(new MomentumMovementProcess());
-  this.processList.push(new CameraControllerProcess());
-  this.processList.push(new PrimitiveProcess());
-  this.processList.push(new TeleportProcess());
-  this.processList.push(new StarProcess());
-  this.processList.push(new EnemyProcess());
-  this.processList.push(new LaserProcess());
+  this.processList.push(new ExhaustProcess());
   this.shaderProgram = null;
 };
 ($traceurRuntime.createClass)(GameState, {
@@ -36,7 +27,6 @@ var GameState = function GameState(canvas) {
     document.onmousedown = actionMapper.handleMouseDown;
     var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
     window.addEventListener(event, this.handleMouseWheel);
-    gl.enable(gl.CULL_FACE);
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);
@@ -96,6 +86,11 @@ var GameState = function GameState(canvas) {
   },
   draw: function() {
     "use strict";
+    gl.clearColor(0, 0, 0, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.enable(gl.BLEND);
+    gl.disable(gl.DEPTH_TEST);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     camera.move();
     for (var i = 0; i < this.processList.length; i++) {
       this.processList[$traceurRuntime.toProperty(i)].draw();

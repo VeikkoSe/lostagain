@@ -18,6 +18,7 @@ var game = null;
 //var screenHeight = 90; //worldcoordinates
 var resolutionWidth = 512;
 var resolutionHeight = 512;
+
 var texture = null;
 var camera = null;
 var picker = null;
@@ -34,6 +35,7 @@ var em = null;
 var actionMapper = null;
 
 var astar = null;
+
 
 
 

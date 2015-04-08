@@ -50,9 +50,11 @@ class RenderProcess extends Processor {
 
                 mat4.translate(camera.mvMatrix, [rc.xPos, rc.yPos, rc.zPos]);
 
-                mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleX), [1, 0, 0]);
+                //console.log(rc.angleY);
                 mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleY), [0, 1, 0]);
                 mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleZ), [0, 0, 1]);
+                mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleX), [1, 0, 0]);
+
 
                 if (rc.scale != 1) {
                     mat4.scale(camera.mvMatrix, [rc.scale, rc.scale, rc.scale]);

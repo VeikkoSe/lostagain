@@ -40,6 +40,7 @@
     <script type="text/javascript" src="out/src/Common/Plane.js"></script>
     <script type="text/javascript" src="out/src/Common/Helpers.js"></script>
     <script type="text/javascript" src="out/src/Common/Camera.js"></script>
+    <script type="text/javascript" src="out/src/Common/PhotonTorpedo.js"></script>
 
     <script type="text/javascript" src="out/src/Common/LevelManager.js"></script>
     <script type="text/javascript" src="out/src/Common/Texture.js"></script>
@@ -55,7 +56,7 @@
 
 
 
-    <script type="text/javascript" src="out/src/Component/StarComponent.js"></script>
+
     <script type="text/javascript" src="out/src/Component/Component.js"></script>
     <script type="text/javascript" src="out/src/Component/AIControlled.js"></script>
     <script type="text/javascript" src="out/src/Component/Controllable.js"></script>
@@ -71,12 +72,17 @@
     <script type="text/javascript" src="out/src/Component/HealthComponent.js"></script>
     <script type="text/javascript" src="out/src/Component/ShieldComponent.js"></script>
     <script type="text/javascript" src="out/src/Component/EnemyComponent.js"></script>
-    <script type="text/javascript" src="out/src/Component/BulletComponent.js"></script>
+    <script type="text/javascript" src="out/src/Component/PhotonTorpedoComponent.js"></script>
+    <script type="text/javascript" src="out/src/Component/GunComponent.js"></script>
     <script type="text/javascript" src="out/src/Component/ConstantRotation.js"></script>
     <script type="text/javascript" src="out/src/Component/JumpArea.js"></script>
+    <script type="text/javascript" src="out/src/Component/StarComponent.js"></script>
+    <script type="text/javascript" src="out/src/Component/Drivable.js"></script>
+    <script type="text/javascript" src="out/src/Component/ExhaustComponent.js"></script>
 
     <script type="text/javascript" src="out/src/Processor/Processor.js"></script>
     <script type="text/javascript" src="out/src/Processor/LinearMovementProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processor/DrivingMovementProcess.js"></script>
     <script type="text/javascript" src="out/src/Processor/MomentumMovementProcess.js"></script>
     <script type="text/javascript" src="out/src/Processor/OptimizedBoxRenderProcess.js"></script>
     <script type="text/javascript" src="out/src/Processor/RenderProcess.js"></script>
@@ -89,15 +95,16 @@
     <script type="text/javascript" src="out/src/Processor/StarProcess.js"></script>
     <script type="text/javascript" src="out/src/Processor/EnemyProcess.js"></script>
     <script type="text/javascript" src="out/src/Processor/TextProcess.js"></script>
-    <script type="text/javascript" src="out/src/Processor/GunProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processor/PhotonTorpedoProcess.js"></script>
     <script type="text/javascript" src="out/src/Processor/PostProcess.js"></script>
     <script type="text/javascript" src="out/src/Processor/LaserProcess.js"></script>
+    <script type="text/javascript" src="out/src/Processor/ExhaustProcess.js"></script>
 
 
 </head>
 <body >
 
-<canvas id="canvas" style="background: red;" width="512" height="512"></canvas>
+<canvas id="canvas"></canvas>
     <div id="debugarea"></div>
 <div id="fps"></div>
     <!--

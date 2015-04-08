@@ -1,4 +1,4 @@
-var BulletComponent = function BulletComponent(sprite) {
+var PhotonTorpedoComponent = function PhotonTorpedoComponent(sprite) {
   "use strict";
   this.name = 'BulletComponent';
   this.birthTime = null;
@@ -11,4 +11,4 @@ var BulletComponent = function BulletComponent(sprite) {
   this.deathtime = 1500;
   this.sprite = sprite;
 };
-($traceurRuntime.createClass)(BulletComponent, {}, {}, Component);
+($traceurRuntime.createClass)(PhotonTorpedoComponent, {}, {}, Component);

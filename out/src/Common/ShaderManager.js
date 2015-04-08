@@ -32,6 +32,9 @@ var ShaderManager = function ShaderManager() {
       case "star":
         return this.initStarShaders('star');
         break;
+      case "particle3d":
+        return this.initParticleShaders3d('particle3d');
+        break;
     }
   },
   initSimplestShaders: function(id) {
@@ -117,6 +120,22 @@ var ShaderManager = function ShaderManager() {
     program.samplerUniform = gl.getUniformLocation(program, "sTexture");
     program.colorUniform = gl.getUniformLocation(program, "uColor");
     program.pointSize = gl.getUniformLocation(program, "uPointsize");
+    return program;
+  },
+  initParticleShaders3d: function(id) {
+    "use strict";
+    var program = gl.createProgram();
+    this.getShader(id, program);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      alert("Could not initialise shaders");
+    }
+    program.positionUniform = gl.getUniformLocation(program, "uPosition");
+    program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+    program.colorUniform = gl.getUniformLocation(program, "uColor");
+    program.pointSize = gl.getUniformLocation(program, "uPointsize");
+    program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+    program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     return program;
   },
   initStarShaders: function(id) {
