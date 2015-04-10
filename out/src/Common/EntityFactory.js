@@ -14,7 +14,8 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new ShieldComponent(10, new Sprite("shield", -0.9, -0.74)));
     e.addComponent(new PhotonTorpedoComponent(new Sprite("bigbullet", 0, 0)));
     e.addComponent(new GunComponent());
-    e.addComponent(new ExhaustComponent(new Sprite("exhausttrail", 0, 0)));
+    var t = new Texture('maps', false, true);
+    e.addComponent(new ExhaustComponent(t.loadedTexture));
   },
   createStars: function() {
     "use strict";

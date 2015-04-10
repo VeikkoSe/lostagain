@@ -44,7 +44,7 @@ class LevelManager {
                 break;
             case ('first') :
 
-                camera.setDistance(100);
+                camera.setDistance(50);
                // ef.createMotherShip();
                 ef.createShip();
                 /*

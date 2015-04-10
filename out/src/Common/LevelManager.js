@@ -25,7 +25,7 @@ var LevelManager = function LevelManager() {
         ef.createShip();
         break;
       case ('first'):
-        camera.setDistance(100);
+        camera.setDistance(50);
         ef.createShip();
         break;
     }

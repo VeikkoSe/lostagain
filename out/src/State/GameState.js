@@ -27,6 +27,7 @@ var GameState = function GameState(canvas) {
     document.onmousedown = actionMapper.handleMouseDown;
     var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
     window.addEventListener(event, this.handleMouseWheel);
+    gl.enable(gl.CULL_FACE);
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);

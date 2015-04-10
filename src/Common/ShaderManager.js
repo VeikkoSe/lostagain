@@ -44,8 +44,38 @@ class ShaderManager {
             case "particle3d":
                 return this.initParticleShaders3d('particle3d');
                 break;
+            case "exhaust":
+                return this.initExhaustShaders('exhaust');
+                break;
         }
 
+
+    }
+
+    initExhaustShaders(id) {
+
+        var program = gl.createProgram();
+
+        this.getShader(id, program);
+
+        gl.linkProgram(program);
+
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            alert("Could not initialise shaders");
+        }
+
+        program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+        gl.enableVertexAttribArray(program.aVertexPosition);
+
+        program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+        gl.enableVertexAttribArray(program.textureCoordAttribute);
+
+        program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+        program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+
+        program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+
+        return program;
 
     }
 
