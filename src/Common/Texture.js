@@ -3,7 +3,7 @@
  */
 class Texture {
 
-    constructor(name, noflip = false,repeat = false) {
+    constructor(name, noflip = false, repeat = false) {
         this.name = name;
         this.loadedTexture = null;
         this.loaded = 0;
@@ -21,8 +21,7 @@ class Texture {
 
         gl.bindTexture(gl.TEXTURE_2D, this.loadedTexture);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.loadedTexture.image);
-        if(this.repeat)
-        {
+        if (this.repeat) {
 
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
@@ -31,8 +30,7 @@ class Texture {
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 
         }
-        else
-        {
+        else {
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
         }

@@ -13,8 +13,5 @@ class PhotonTorpedoComponent extends Component {
         this.sprite = sprite;
 
 
-
-
-
     }
 }

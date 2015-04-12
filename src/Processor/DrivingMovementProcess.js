@@ -11,7 +11,6 @@ class DrivingMovementProcess extends Processor {
             var le = em.entities[e];
 
 
-
             if (le.components.Drivable) {
 
                 var mm = le.components.Drivable;

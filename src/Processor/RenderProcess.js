@@ -17,17 +17,19 @@ class RenderProcess extends Processor {
 
     draw() {
 
-        gl.useProgram(this.shaderProgram);
-        //handler.addUniform('1f','alphaUniform',1);
-        //handler.addUniform('1i','uDrawColors',0);
-
-        gl.uniform1f(this.shaderProgram.alphaUniform, 1);
-        gl.uniform1i(this.shaderProgram.uDrawColors, 0);
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if (le.components.Renderable && le.components.MeshComponent) {
+
+
+                gl.useProgram(this.shaderProgram);
+                //handler.addUniform('1f','alphaUniform',1);
+                //handler.addUniform('1i','uDrawColors',0);
+
+                gl.uniform1f(this.shaderProgram.alphaUniform, 1);
+                gl.uniform1i(this.shaderProgram.uDrawColors, 0);
 
 
                 var rc = le.components.Renderable;
@@ -103,7 +105,7 @@ class RenderProcess extends Processor {
 
 
                 gl.drawElements(gl.TRIANGLES, mc.mesh.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-
+                camera.drawCalls++;
                 camera.mvPopMatrix();
 
             }

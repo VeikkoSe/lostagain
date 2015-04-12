@@ -25,10 +25,10 @@ var LaserProcess = function LaserProcess() {
   },
   draw: function() {
     "use strict";
-    gl.useProgram(simplestProgram);
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.LaserComponent) {
+        gl.useProgram(simplestProgram);
         var points = [];
         points = this.railXY(-1500);
         camera.mvPushMatrix();
@@ -38,6 +38,7 @@ var LaserProcess = function LaserProcess() {
         gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
         gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
         gl.drawArrays(gl.LINES, 0, 2);
+        camera.drawCalls++;
         camera.mvPopMatrix();
       }
     }

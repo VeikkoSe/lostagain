@@ -18,6 +18,7 @@ var $PlaneProcess = PlaneProcess;
         gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ftc.plane.indexPositionBuffer);
         gl.drawElements(gl.LINES, ftc.plane.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+        camera.drawCalls++;
         camera.mvPopMatrix();
       }
     }

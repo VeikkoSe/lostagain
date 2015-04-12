@@ -1,5 +1,6 @@
 var Camera = function Camera() {
   "use strict";
+  this.drawCalls = 0;
   this.mvMatrix = mat4.create();
   this.pMatrix = mat4.create();
   this.cMatrix = mat4.create();

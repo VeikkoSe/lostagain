@@ -39,10 +39,10 @@ var StarProcess = function StarProcess() {
   },
   draw: function() {
     "use strict";
-    gl.useProgram(this.starProgram);
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.StarComponent) {
+        gl.useProgram(this.starProgram);
         camera.mvPushMatrix();
         gl.uniform3fv(this.starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
@@ -50,6 +50,7 @@ var StarProcess = function StarProcess() {
         gl.vertexAttribPointer(this.starProgram.aPointSize, 1, gl.FLOAT, false, 16, 12);
         gl.uniformMatrix4fv(this.starProgram.uPMatrix, false, camera.pMatrix);
         gl.drawArrays(gl.POINTS, 0, this.pointStartPositionsBuffer.numItems);
+        camera.drawCalls++;
         camera.mvPopMatrix();
       }
     }

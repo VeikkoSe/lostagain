@@ -187,7 +187,7 @@ class PostProcess extends Processor {
 
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
-
+        camera.drawCalls++;
 
     }
 

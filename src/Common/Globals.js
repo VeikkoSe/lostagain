@@ -14,8 +14,10 @@ var sm = null;
 var mm = null;
 var currentlyPressedKeys = {};
 var game = null;
-//var screenWidth = 155; //worldcoordinates
-//var screenHeight = 90; //worldcoordinates
+
+//var resolutionWidth = 1920;
+//var resolutionHeight = 1080;
+
 var resolutionWidth = 512;
 var resolutionHeight = 512;
 

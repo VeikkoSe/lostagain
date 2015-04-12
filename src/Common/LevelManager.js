@@ -26,13 +26,13 @@ class LevelManager {
 
         this.loading = true;
         switch (name) {
-            case ('second') :
+            case ('first') :
 
-                camera.setDistance(400);
+                camera.setDistance(200);
                 ef.createStars();
                 ef.createFuel(false);
                 //for (var i = 0; i < 50; i++) {
-                    ef.createEnemy();
+                ef.createEnemy();
                 //}
                 //this.ef.createPlane();
                 ef.createMotherShip();
@@ -42,10 +42,10 @@ class LevelManager {
                 //this.ef.createBox();
 
                 break;
-            case ('first') :
+            case ('second') :
 
                 camera.setDistance(50);
-               // ef.createMotherShip();
+                // ef.createMotherShip();
                 ef.createShip();
                 /*
                  for (var i = 0; i < 5; i++) {
@@ -56,8 +56,31 @@ class LevelManager {
                  */
 
 
+                break;
+
+            case ('third') :
+
+                //camera.setDistance(50);
+                // ef.createMotherShip();
+
+                camera.setDistance(200);
+                ef.createAsteroidField();
+
+
+
+
+                ef.createStars();
+                //ef.createFuel(false);
+                //for (var i = 0; i < 50; i++) {
+                //ef.createEnemy();
+                //}
+                //this.ef.createPlane();
+                ef.createMotherShip();
+                ef.createShip();
+
 
                 break;
+
 
 
         }

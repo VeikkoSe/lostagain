@@ -52,12 +52,12 @@ var PhotonTorpedoProcess = function PhotonTorpedoProcess() {
   },
   draw: function() {
     "use strict";
-    gl.useProgram(this.particleProgram3d);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.PhotonTorpedoComponent) {
+        gl.useProgram(this.particleProgram3d);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
         for (var i = 0; i < this.bulletsAmount; i++) {
           if (this.bullets[$traceurRuntime.toProperty(i)].visible != 1) {
             continue;
@@ -75,6 +75,7 @@ var PhotonTorpedoProcess = function PhotonTorpedoProcess() {
           gl.uniformMatrix4fv(this.particleProgram3d.uPMatrix, false, camera.pMatrix);
           gl.uniformMatrix4fv(this.particleProgram3d.uMVMatrix, false, camera.mvMatrix);
           gl.drawArrays(gl.POINTS, 0, 1);
+          camera.drawCalls++;
           camera.mvPopMatrix();
         }
       }

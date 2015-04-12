@@ -13,10 +13,10 @@ var HealthProcess = function HealthProcess() {
   },
   draw: function() {
     "use strict";
-    gl.useProgram(this.particleProgram);
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.HealthComponent && le.components.HealthComponent.sprite) {
+        gl.useProgram(this.particleProgram);
         var hp = le.components.HealthComponent;
         for (var g = 0; g < hp.amount; g++) {
           camera.mvPushMatrix();
@@ -29,6 +29,7 @@ var HealthProcess = function HealthProcess() {
           gl.uniform1f(this.particleProgram.pointSize, 16.0);
           gl.uniform4f(this.particleProgram.colorUniform, 1, 1, 1, 1);
           gl.drawArrays(gl.POINTS, 0, 1);
+          camera.drawCalls++;
           camera.mvPopMatrix();
         }
       }

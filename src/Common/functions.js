@@ -91,7 +91,6 @@ $(document).ready(function () {
     document.getElementById('canvas').height = resolutionHeight;
 
 
-
     $('#slider-x').slider({
         value: -20.0,
         min: -500,

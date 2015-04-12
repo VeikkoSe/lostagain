@@ -128,13 +128,13 @@ class StarProcess extends Processor {
 
 
     draw() {
-        gl.useProgram(this.starProgram);
+
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if (le.components.StarComponent) {
-
+                gl.useProgram(this.starProgram);
                 camera.mvPushMatrix();
                 gl.uniform3fv(this.starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
 
@@ -153,6 +153,7 @@ class StarProcess extends Processor {
                 //console.log(this.pointStartPositionsBuffer.numItems);
 
                 gl.drawArrays(gl.POINTS, 0, this.pointStartPositionsBuffer.numItems);
+                camera.drawCalls++;
                 camera.mvPopMatrix();
             }
         }

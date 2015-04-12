@@ -191,7 +191,7 @@ class ShaderManager {
 
         //program.uNMatrix = gl.getUniformLocation(program, "uNMatrix");
 
-        //program.uVisibility = gl.getUniformLocation(program, "uVisibility");
+
         program.uVisibility = gl.getUniformLocation(program, "uVisibility");
 
 

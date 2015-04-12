@@ -16,16 +16,23 @@ var LevelManager = function LevelManager() {
     em.clearAll();
     this.loading = true;
     switch (name) {
-      case ('second'):
-        camera.setDistance(400);
+      case ('first'):
+        camera.setDistance(200);
         ef.createStars();
         ef.createFuel(false);
         ef.createEnemy();
         ef.createMotherShip();
         ef.createShip();
         break;
-      case ('first'):
+      case ('second'):
         camera.setDistance(50);
+        ef.createShip();
+        break;
+      case ('third'):
+        camera.setDistance(200);
+        ef.createAsteroidField();
+        ef.createStars();
+        ef.createMotherShip();
         ef.createShip();
         break;
     }

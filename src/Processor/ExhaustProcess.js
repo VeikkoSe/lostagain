@@ -34,18 +34,13 @@ class ExhaustProcess extends Processor {
         this.texturecoordinates = [];
 
 
-
         this.texturePositionBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
 
         //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.points), gl.STATIC_DRAW);
 
 
-
-
     }
-
-
 
 
     pushArray(arr, arr2) {
@@ -81,6 +76,18 @@ class ExhaustProcess extends Processor {
 
                 //drop from the end of array
 
+                if ((ec.flow.length / 3) == 30) {
+                    ec.flow.shift();
+                    ec.flow.shift();
+                    ec.flow.shift();
+                    for (var i = 0; i < 18; i++)
+                        ec.points.shift();
+
+                    for (var i = 0; i < 12; i++)
+                        this.texturecoordinates.shift();
+
+                }
+
 
                 //var posX =  Math.cos(helpers.degToRad(le.components.Renderable.xPos.angleY));
                 //var posZ =  Math.sin(helpers.degToRad(le.components.Renderable.zPos.angleY));
@@ -91,7 +98,6 @@ class ExhaustProcess extends Processor {
                     ec.flow.push(rendX);
                     ec.flow.push(0);
                     ec.flow.push(rendZ);
-
 
 
                 }
@@ -107,7 +113,7 @@ class ExhaustProcess extends Processor {
                 //console.log(this.points[this.points.length-1]);
 
                 //when to create new
-                if (distance > 30) {
+                if (distance > 2) {
 
 
                     if (ec.flow.length > 3) {
@@ -154,8 +160,6 @@ class ExhaustProcess extends Processor {
                         ec.points.push.apply(ec.points, tp);
 
 
-
-
                         ec.flow.push(rendX);
                         ec.flow.push(0);
                         ec.flow.push(rendZ);
@@ -194,9 +198,6 @@ class ExhaustProcess extends Processor {
                         ec.flow.push(rendZ);
 
 
-                        //console.log(ec.flow);
-                        //console.log(ec.points);
-
                     }
 
                     this.texturecoordinates.push(1);
@@ -207,7 +208,6 @@ class ExhaustProcess extends Processor {
 
                     this.texturecoordinates.push(0);
                     this.texturecoordinates.push(0);
-
 
 
                     this.texturecoordinates.push(1);
@@ -234,12 +234,15 @@ class ExhaustProcess extends Processor {
     draw() {
 
 
-        //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if (le.components.ExhaustComponent) {
+
+                gl.enable(gl.BLEND);
+                //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+                gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
 
                 var ec = le.components.ExhaustComponent;
                 //for (var i = 0; i < this.exhaustAmount; i++) {
@@ -280,10 +283,6 @@ class ExhaustProcess extends Processor {
                     gl.bindTexture(gl.TEXTURE_2D, ec.sprite);
 
 
-
-
-
-
                     gl.uniform1i(this.exhaustProgram.samplerUniform, 0);
 
                     gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
@@ -303,21 +302,23 @@ class ExhaustProcess extends Processor {
                     gl.uniformMatrix4fv(this.exhaustProgram.uMVMatrix, false, camera.mvMatrix);
                     //gl.drawArrays(gl.LINE_STRIP, 0, ec.points.length/3);
                     gl.drawArrays(gl.TRIANGLES, 0, ec.points.length / 3);
+                    camera.drawCalls++;
 
                     camera.mvPopMatrix();
 
 
                 }
 
-
+                gl.enable(gl.DEPTH_TEST);
+                gl.disable(gl.BLEND);
             }
 
 
         }
+
     }
 
-    //gl.enable(gl.DEPTH_TEST);
-    //gl.disable(gl.BLEND);
+
     //}
 
 

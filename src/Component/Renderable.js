@@ -11,7 +11,6 @@ class Renderable extends Component {
         this.angleZ = angleZ;
 
 
-
         this.scale = scale;
 
         //this.block = blockManager.getBlockFromXY(imitialX, initialZ);

@@ -3,7 +3,9 @@ attribute vec3 aWorldCoordinates;
 attribute vec3 aCubeNumber;
 
 uniform mat4 uPMatrix;
+uniform mat4 uMatrix;
 uniform vec3 uCameraPos;
+
 uniform sampler2D uVisibility;
 uniform float uElapsed;
 //uniform sampler2D uSampler;
@@ -24,13 +26,18 @@ mat4 cameraPos = mat4(  vec4(1,0,0,0),
                         vec4(0,0,1,0),
                         vec4(uCameraPos,1));
 
+mat4 cameraRotx = mat4( vec4(1,0,0,0),
+                        vec4(0,cos(-0.785398163), -sin(-0.785398163),0),
+                        vec4(0,sin(-0.785398163),cos(-0.785398163),0),
+                        vec4(0,0,0,1));
+
 
 uWorldCoordinates = aWorldCoordinates;
 
-uWorldCoordinates[0] = uWorldCoordinates[0]+= uElapsed/100.0;
+uWorldCoordinates[1] = uWorldCoordinates[1]+= uElapsed/100.0;
 
- if(color[0]==1.0)
-   uWorldCoordinates = vec3(-1000,0,0);
+ //if(color[0]==1.0)
+ //  uWorldCoordinates = vec3(-1000,0,0);
 
 
     //uWorldCoordinates[0] = uWorldCoordinates[0]+(0.0001*uTime);
@@ -41,10 +48,9 @@ uWorldCoordinates[0] = uWorldCoordinates[0]+= uElapsed/100.0;
                         vec4(0,1,0,0),
                         vec4(0,0,1,0),
                         vec4(uWorldCoordinates,1));
+//cameraRotx
+    mat4 worldViewProjection  =  uPMatrix  *cameraRotx * world    * cameraPos    ;
 
-    mat4 worldViewProjection  = uPMatrix * world * cameraPos;
-
-    //vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
 
     gl_Position = worldViewProjection * vec4(aVertexPosition, 1.0);
 

@@ -42,7 +42,7 @@ class Mesh {
 
 
         var request = new XMLHttpRequest();
-        request.open("GET", "resources/models/" + this.name + ".js?"+Math.random(), true);
+        request.open("GET", "resources/models/" + this.name + ".js?" + Math.random(), true);
         request.send();
         var that = this;
 

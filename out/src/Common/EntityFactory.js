@@ -14,7 +14,7 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new ShieldComponent(10, new Sprite("shield", -0.9, -0.74)));
     e.addComponent(new PhotonTorpedoComponent(new Sprite("bigbullet", 0, 0)));
     e.addComponent(new GunComponent());
-    var t = new Texture('maps', false, true);
+    var t = new Texture('exhausttrail', false, true);
     e.addComponent(new ExhaustComponent(t.loadedTexture));
   },
   createStars: function() {
@@ -30,6 +30,14 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new EnemyComponent());
     e.addComponent(new Renderable(helpers.getRandomInt(-800, 700), 0, helpers.getRandomInt(-800, 700), 1));
   },
+  createGUI: function() {
+    "use strict";
+    var e = em.addNew();
+    var sprites = [];
+    sprites.push(new Sprite("radar", 0.5, 0.5));
+    sprites.push(new Sprite("currency", 0.2, 0.2));
+    e.addComponent(new GuiComponent(sprites));
+  },
   createMotherShip: function() {
     "use strict";
     var e = em.addNew('mothership');
@@ -41,6 +49,10 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new Drivable());
     e.addComponent(new CameraController());
     e.addComponent(new JumpArea());
+    e.addComponent(new HealthComponent(10, new Sprite("hp", 0.9, 0.8)));
+    e.addComponent(new ShieldComponent(2, new Sprite("shield", 0.9, 0.74)));
+    var t = new Texture('exhausttrailm', false, true);
+    e.addComponent(new ExhaustComponent(t.loadedTexture));
   },
   createTerrain: function() {
     "use strict";
@@ -49,45 +61,10 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos));
   },
-  createAsteroid: function() {
+  createAsteroidField: function() {
     "use strict";
     var e = em.addNew();
-    var mesh = mm.getOrAddMesh('asteroid');
-    e.addComponent(new MeshComponent(mesh, 1, 6));
-    e.addComponent(new Renderable(helpers.getRandomInt(-20), 0, helpers.getRandomInt(20), 2));
-  },
-  createBox: function() {
-    "use strict";
-    var e = em.addNew();
-    var mesh = mm.getOrAddMesh('box2');
-    var vertexPositionBuffer = gl.createBuffer();
-    var rends = [];
-    var combinedMeshes = {};
-    combinedMeshes.vertices = [];
-    combinedMeshes.indices = [];
-    combinedMeshes.worldCoordinates = [];
-    var cube = new Cube();
-    var verts = cube.vertices();
-    vertexPositionBuffer.nums = 0;
-    for (var g = 0; g < 10000; g++) {
-      var x = helpers.getRandomInt(-50, 50);
-      var z = helpers.getRandomInt(-50, 50);
-      var y = helpers.getRandomInt(-50, 50);
-      for (var i = 0; i < verts.length; i += 3) {
-        var newVerts = [];
-        newVerts.push(verts[$traceurRuntime.toProperty(i)]);
-        newVerts.push(verts[$traceurRuntime.toProperty(i + 1)]);
-        newVerts.push(verts[$traceurRuntime.toProperty(i + 2)]);
-        newVerts.push(x);
-        newVerts.push(y);
-        newVerts.push(z);
-        newVerts.push(g);
-        newVerts.push(g);
-        newVerts.push(g);
-        combinedMeshes.vertices.push.apply(combinedMeshes.vertices, newVerts);
-      }
-      vertexPositionBuffer.nums += verts.length / 3;
-    }
+    e.addComponent(new AsteroidComponent());
   },
   createBackground: function() {
     "use strict";

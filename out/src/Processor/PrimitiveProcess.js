@@ -15,17 +15,17 @@ var PrimitiveProcess = function PrimitiveProcess() {
   },
   draw: function() {
     "use strict";
-    gl.useProgram(simplestProgram);
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.JumpArea && le.components.Renderable) {
+        gl.useProgram(simplestProgram);
         var re = le.components.Renderable;
         var p = {
           x: re.xPos,
           y: re.yPos,
           z: re.zPos
         };
-        this.points = this.circleXY(p, le.components.JumpArea.radius, 250);
+        this.points = this.circleXY(p, le.components.JumpArea.radius, 200);
         camera.mvPushMatrix();
         gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
         gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
@@ -33,7 +33,8 @@ var PrimitiveProcess = function PrimitiveProcess() {
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.points), gl.STATIC_DRAW);
         gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
         gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-        gl.drawArrays(gl.POINTS, 0, this.points.length / 3);
+        gl.drawArrays(gl.LINES, 0, this.points.length / 3);
+        camera.drawCalls++;
         camera.mvPopMatrix();
       }
     }

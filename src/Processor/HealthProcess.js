@@ -15,13 +15,13 @@ class HealthProcess extends Processor {
 
     draw() {
 
-        gl.useProgram(this.particleProgram);
+
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if (le.components.HealthComponent && le.components.HealthComponent.sprite) {
                 //  console.log(le.components.HealthComponent);
-
+                gl.useProgram(this.particleProgram);
 
                 var hp = le.components.HealthComponent;
                 for (var g = 0; g < hp.amount; g++) {
@@ -42,7 +42,7 @@ class HealthProcess extends Processor {
 
 
                     gl.drawArrays(gl.POINTS, 0, 1);
-
+                    camera.drawCalls++;
 
                     camera.mvPopMatrix();
                 }

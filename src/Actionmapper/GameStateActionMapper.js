@@ -49,12 +49,17 @@ class GameStateActionMapper {
             game.currentLevel = 'second';
         }
 
+        if (currentlyPressedKeys[51]) {
+
+            levelManager.loadLevel('third');
+            game.currentLevel = 'second';
+        }
+
 
         //not working (will be the part where hyperjump is made
         if (currentlyPressedKeys[77]) {
             game.stateEngine.changeState("mapstate");
         }
-
 
 
         for (var e = 0; e < em.entities.length; e++) {
@@ -69,7 +74,6 @@ class GameStateActionMapper {
 
                 le.components.Drivable.rotateLeft = 0;
                 le.components.Drivable.rotateRight = 0;
-
 
 
                 //w
@@ -94,8 +98,6 @@ class GameStateActionMapper {
                 }
 
 
-
-
             }
 
 
@@ -111,7 +113,6 @@ class GameStateActionMapper {
 
                     le.components.MomentumMovable.accelerationOn = 1;
                 }
-
 
 
                 //down

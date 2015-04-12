@@ -7,7 +7,6 @@ class ExhaustComponent extends Component {
         this.flow = [];
 
 
-
     }
 
 

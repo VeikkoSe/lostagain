@@ -6,7 +6,7 @@ class GameState extends StateEngine {
 
 
         this.elapsedTotal = 0;
-        this.megaElapsedTotal = 0;
+
         this.frameCount = 0;
         this.lastTime = 0;
 
@@ -15,28 +15,27 @@ class GameState extends StateEngine {
 
         this.processList = [];
 
-
-        this.processList.push(new RenderProcess());
-
+        this.processList.push(new AsteroidRenderProcess());
         //this.processList.push(new PlaneProcess());
-        /*
+        //this.processList.push(new PostProcess());
+        this.processList.push(new RenderProcess());
         this.processList.push(new HealthProcess());
         this.processList.push(new ShieldProcess());
         this.processList.push(new TextProcess());
         this.processList.push(new LinearMovementProcess());
         this.processList.push(new DrivingMovementProcess());
-        this.processList.push(new MomentumMovementProcess());
         this.processList.push(new CameraControllerProcess());
         this.processList.push(new PrimitiveProcess());
         this.processList.push(new TeleportProcess());
         this.processList.push(new StarProcess());
         this.processList.push(new EnemyProcess());
         this.processList.push(new PhotonTorpedoProcess());
-        //this.processList.push(new PostProcess());
         this.processList.push(new LaserProcess());
-        */
         this.processList.push(new MomentumMovementProcess());
         this.processList.push(new ExhaustProcess());
+        this.processList.push(new ExplosionProcess());
+        this.processList.push(new GuiProcess());
+
 
         this.shaderProgram = null;
 
@@ -82,7 +81,7 @@ class GameState extends StateEngine {
 
 
         //gl.enable(gl.DEPTH_TEST);
-        gl.enable(gl.CULL_FACE);
+        //gl.enable(gl.CULL_FACE);
 
         //gl.clearColor(1, 1, 1, 1.0);
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -92,9 +91,6 @@ class GameState extends StateEngine {
         //gl.depthFunc(gl.LESS);
 
 
-        //gl.enable(gl.BLEND);
-
-        //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
@@ -146,10 +142,10 @@ class GameState extends StateEngine {
                 this.elapsedTotal -= 1000;
 
                 if (fps < 59)
-                    document.getElementById('fps').style.color = 'red';
+                    $('#fps').css('color','red');
                 else
-                    document.getElementById('fps').style.color = 'green';
-                document.getElementById('fps').innerHTML = fps;
+                    $('#fps').css('color','green');
+                $('#fps').html(fps);
             }
         }
         this.lastTime = timeNow;
@@ -161,49 +157,7 @@ class GameState extends StateEngine {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    createTexture(elapsed) {
-        this.megaElapsedTotal += elapsed;
-        if (this.megaElapsedTotal > 1000 || monstermap == null) {
 
-            this.megaElapsedTotal = 0;
-            var b = new ArrayBuffer(128 * 128 * 4);
-            var v1 = new Uint8Array(b);
-            var g = 0;
-            for (var i = 0; i < 128 * 128; i++) {
-                /*
-                 if (this.randomIntFromInterval(0, 1) == 1) {
-
-                 v1[g++] = 255;
-                 v1[g++] = 255;
-                 v1[g++] = 255;
-                 v1[g++] = 255;
-                 }
-                 else {
-                 */
-                v1[g++] = 0;
-                v1[g++] = 0;
-                v1[g++] = 0;
-                v1[g++] = 0;
-                //              }
-            }
-
-
-            var texture = gl.createTexture();
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR ) ;
-            //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR ) ;
-            //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT ) ;
-            //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT ) ;
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 128, 128, 0, gl.RGBA,
-                gl.UNSIGNED_BYTE, v1);
-            gl.generateMipmap(gl.TEXTURE_2D);
-
-            monstermap = texture;
-
-        }
-
-
-    }
 
     drawAll() {
 
@@ -239,14 +193,7 @@ class GameState extends StateEngine {
 
          //on-screen rendering
 
-         /*
-         //asteroids
-         gl.useProgram(ambientProgram);
-         //console.log(camera.z);
-         gl.uniform3fv(ambientProgram.uCameraPos, [camera.x, camera.y,  camera.z]);
-         gl.uniformMatrix4fv(ambientProgram.uPMatrix, false, camera.pMatrix);
 
-         this.renderProcess.draw();
          */
 
 
@@ -283,9 +230,9 @@ class GameState extends StateEngine {
 
         gl.clearColor(0, 0, 0, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        gl.enable(gl.BLEND);
-        gl.disable(gl.DEPTH_TEST);
-        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+        //gl.enable(gl.BLEND);
+        //gl.disable(gl.DEPTH_TEST);
+        //gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
         //if(this.postProcessState) {
         camera.move();
@@ -296,6 +243,9 @@ class GameState extends StateEngine {
         for (var i = 0; i < this.processList.length; i++) {
             this.processList[i].draw();
         }
+        //console.log(camera.drawCalls);
+        camera.drawCalls = 0;
+
 
 
         //gl.enable(gl.BLEND);

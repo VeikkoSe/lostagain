@@ -13,12 +13,12 @@ var RenderProcess = function RenderProcess() {
   },
   draw: function() {
     "use strict";
-    gl.useProgram(this.shaderProgram);
-    gl.uniform1f(this.shaderProgram.alphaUniform, 1);
-    gl.uniform1i(this.shaderProgram.uDrawColors, 0);
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.Renderable && le.components.MeshComponent) {
+        gl.useProgram(this.shaderProgram);
+        gl.uniform1f(this.shaderProgram.alphaUniform, 1);
+        gl.uniform1i(this.shaderProgram.uDrawColors, 0);
         var rc = le.components.Renderable;
         var mc = le.components.MeshComponent;
         camera.mvPushMatrix();
@@ -67,6 +67,7 @@ var RenderProcess = function RenderProcess() {
         mat3.transpose(normalMatrix);
         gl.uniformMatrix3fv(this.shaderProgram.uNMatrix, false, normalMatrix);
         gl.drawElements(gl.TRIANGLES, mc.mesh.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+        camera.drawCalls++;
         camera.mvPopMatrix();
       }
     }

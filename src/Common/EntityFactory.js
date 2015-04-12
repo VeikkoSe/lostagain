@@ -12,7 +12,7 @@ class EntityFactory {
         e.addComponent(new MeshComponent(mesh));
 
         e.addComponent(new MomentumMovable(30, 15, 0, 0));
-        e.addComponent(new Renderable(1, 0, 1, 1,0,-90,0));
+        e.addComponent(new Renderable(1, 0, 1, 1, 0, -90, 0));
         //e.addComponent(new Selectable());
         e.addComponent(new Controllable());
 
@@ -21,7 +21,7 @@ class EntityFactory {
         e.addComponent(new PhotonTorpedoComponent(new Sprite("bigbullet", 0, 0)));
         e.addComponent(new GunComponent());
 
-        var t = new Texture('maps',false,true);
+        var t = new Texture('exhausttrail', false, true);
 
         //t.repeat = true;
         e.addComponent(new ExhaustComponent(t.loadedTexture));
@@ -56,6 +56,18 @@ class EntityFactory {
 
     }
 
+    createGUI() {
+        var e = em.addNew();
+        //var mesh = mm.getOrAddMesh('radar');
+
+        var sprites = [];
+
+        sprites.push(new Sprite("radar", 0.5, 0.5));
+        sprites.push(new Sprite("currency", 0.2, 0.2));
+
+        e.addComponent(new GuiComponent(sprites));
+    }
+
 
     createMotherShip() {
 
@@ -72,6 +84,14 @@ class EntityFactory {
         e.addComponent(new CameraController());
         e.addComponent(new JumpArea());
 
+        e.addComponent(new HealthComponent(10, new Sprite("hp", 0.9, 0.8)));
+        e.addComponent(new ShieldComponent(2, new Sprite("shield", 0.9, 0.74)));
+
+
+        var t = new Texture('exhausttrailm', false, true);
+
+        //t.repeat = true;
+        e.addComponent(new ExhaustComponent(t.loadedTexture));
 
     }
 
@@ -94,16 +114,16 @@ class EntityFactory {
     }
 
 
-    createAsteroid() {
+    createAsteroidField() {
 
         var e = em.addNew();
-        var mesh = mm.getOrAddMesh('asteroid');
-        e.addComponent(new MeshComponent(mesh, 1, 6));
-        e.addComponent(new Renderable(helpers.getRandomInt(-20), 0, helpers.getRandomInt(20), 2));
+        //var mesh = mm.getOrAddMesh('asteroid');
+        e.addComponent(new AsteroidComponent());
+        //e.addComponent(new Renderable(helpers.getRandomInt(-20), 0, helpers.getRandomInt(20), 2));
 
 
     }
-
+/*
     createBox() {
 
         var e = em.addNew();
@@ -166,7 +186,7 @@ class EntityFactory {
 
 
     }
-
+ */
 
     createBackground() {
 

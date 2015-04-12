@@ -94,5 +94,6 @@ var PostProcess = function PostProcess() {
     gl.bindTexture(gl.TEXTURE_2D, this.texture3);
     gl.uniform2f(blurHorizontalProgram.uResolution, gl.viewportWidth, gl.viewportHeight);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
+    camera.drawCalls++;
   }
 }, {}, Processor);

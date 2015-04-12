@@ -36,6 +36,10 @@ var GameStateActionMapper = function GameStateActionMapper() {
       levelManager.loadLevel('second');
       game.currentLevel = 'second';
     }
+    if (currentlyPressedKeys[51]) {
+      levelManager.loadLevel('third');
+      game.currentLevel = 'second';
+    }
     if (currentlyPressedKeys[77]) {
       game.stateEngine.changeState("mapstate");
     }

@@ -47,14 +47,14 @@ class LaserProcess extends Processor {
 
     draw() {
 
-        gl.useProgram(simplestProgram);
+
 
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if (le.components.LaserComponent) {
-
+                gl.useProgram(simplestProgram);
                 // gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
                 /*
                  gl.bindTexture(gl.TEXTURE_2D, this.texture);
@@ -102,7 +102,7 @@ class LaserProcess extends Processor {
                 gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
                 gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
                 gl.drawArrays(gl.LINES, 0, 2);
-
+                camera.drawCalls++;
 
                 camera.mvPopMatrix();
 

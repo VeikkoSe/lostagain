@@ -91,16 +91,20 @@ class PhotonTorpedoProcess extends Processor {
 
 
     draw() {
-        gl.useProgram(this.particleProgram3d);
 
-        gl.enable(gl.BLEND);
-
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if (le.components.PhotonTorpedoComponent) {
+
+                gl.useProgram(this.particleProgram3d);
+
+                gl.enable(gl.BLEND);
+
+                gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
+
 
                 for (var i = 0; i < this.bulletsAmount; i++) {
 
@@ -131,7 +135,7 @@ class PhotonTorpedoProcess extends Processor {
 
 
                     gl.drawArrays(gl.POINTS, 0, 1);
-
+                    camera.drawCalls++;
 
                     camera.mvPopMatrix();
                 }

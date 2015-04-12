@@ -28,6 +28,15 @@ var ExhaustProcess = function ExhaustProcess() {
         var ec = le.components.ExhaustComponent;
         var rendX = le.components.Renderable.xPos;
         var rendZ = le.components.Renderable.zPos;
+        if ((ec.flow.length / 3) == 30) {
+          ec.flow.shift();
+          ec.flow.shift();
+          ec.flow.shift();
+          for (var i = 0; i < 18; i++)
+            ec.points.shift();
+          for (var i = 0; i < 12; i++)
+            this.texturecoordinates.shift();
+        }
         if (ec.flow.length == 0) {
           ec.flow.push(rendX);
           ec.flow.push(0);
@@ -38,7 +47,7 @@ var ExhaustProcess = function ExhaustProcess() {
         var xdh = xd / 2;
         var zdh = zd / 2;
         var distance = Math.sqrt(xd * xd + zd * zd);
-        if (distance > 30) {
+        if (distance > 2) {
           if (ec.flow.length > 3) {
             var tp = [];
             tp.push(ec.points[$traceurRuntime.toProperty(ec.points.length - 6)]);
@@ -107,6 +116,8 @@ var ExhaustProcess = function ExhaustProcess() {
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.ExhaustComponent) {
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
         var ec = le.components.ExhaustComponent;
         gl.useProgram(this.exhaustProgram);
         if (ec.points.length > 8) {
@@ -123,8 +134,11 @@ var ExhaustProcess = function ExhaustProcess() {
           gl.uniformMatrix4fv(this.exhaustProgram.uPMatrix, false, camera.pMatrix);
           gl.uniformMatrix4fv(this.exhaustProgram.uMVMatrix, false, camera.mvMatrix);
           gl.drawArrays(gl.TRIANGLES, 0, ec.points.length / 3);
+          camera.drawCalls++;
           camera.mvPopMatrix();
         }
+        gl.enable(gl.DEPTH_TEST);
+        gl.disable(gl.BLEND);
       }
     }
   }
