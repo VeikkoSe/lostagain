@@ -1,14 +1,13 @@
 class Sprite {
-    constructor(name, xPos, yPos) {
-//,speed, frames, dir, once
+    constructor(name) {
 
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.width = 16;
-        this.height = 16;
+        //this.xPos = x;
+        //this.yPos = y;
+        //this.width = 16;
+        //this.height = 16;
         //this.size = size;
         this.speed = typeof speed === 'number' ? speed : 0;
-        this.frames = frames;
+        //this.frames = frames;
 
         this.name = name;
         //this.dir = dir || 'horizontal';
@@ -36,8 +35,8 @@ class Sprite {
 
         //lifetimes.push(Math.random());
 
-        startPositions.push(this.xPos);
-        startPositions.push(this.yPos);
+        startPositions.push(0);
+        startPositions.push(0);
         startPositions.push(0);
 
         //endPositions.push((Math.random() * 2) - 1);

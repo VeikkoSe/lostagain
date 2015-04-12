@@ -15,18 +15,28 @@ var LevelManager = function LevelManager() {
     this.nextState = false;
     em.clearAll();
     this.loading = true;
+    lm = [];
     switch (name) {
       case ('first'):
         camera.setDistance(200);
         ef.createStars();
         ef.createFuel(false);
-        ef.createEnemy();
         ef.createMotherShip();
         ef.createShip();
         break;
       case ('second'):
         camera.setDistance(50);
-        ef.createShip();
+        var ship = ef.createShip();
+        var radar = ef.createRadar();
+        var currency = ef.createCurrency();
+        var rt = new Layout(0.5, 0.5);
+        rt.addChildren(new Layout(5, 5, new Sprite("radar")), radar.components.RadarComponent);
+        rt.addChildren(new Layout(5, 20, new Sprite("currency")), currency.components.CurrencyComponent);
+        lm.push(rt);
+        var lb = new Layout(false, 0, 0);
+        lb.addChildren(new Layout(5, 5, new Sprite("hp"), ship.components.HealtComponent));
+        lb.addChildren(new Layout(5, 20, new Sprite("shield"), ship.components.ShieldComponent));
+        lm.push(lb);
         break;
       case ('third'):
         camera.setDistance(200);

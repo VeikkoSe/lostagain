@@ -2,9 +2,15 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/out/src/Common/LayoutManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/IntroState.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Processor/LayoutProcess.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/CurrencyComponent.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/RadarComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/AsteroidRenderProcess.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/Layout.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Billboard.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/GUIManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
@@ -322,8 +328,14 @@
       <root url="file://$PROJECT_DIR$/out/src/Processors/3dRebderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/PlaneProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/ThreeDRenderProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/LayoutManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/IntroState.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Processor/LayoutProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/CurrencyComponent.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/RadarComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/AsteroidRenderProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/Layout.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/GUIManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Billboard.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />

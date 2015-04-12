@@ -25,6 +25,10 @@ class LevelManager {
 
 
         this.loading = true;
+
+        //layoutManager
+        lm = [];
+
         switch (name) {
             case ('first') :
 
@@ -32,7 +36,7 @@ class LevelManager {
                 ef.createStars();
                 ef.createFuel(false);
                 //for (var i = 0; i < 50; i++) {
-                ef.createEnemy();
+                //ef.createEnemy();
                 //}
                 //this.ef.createPlane();
                 ef.createMotherShip();
@@ -46,14 +50,27 @@ class LevelManager {
 
                 camera.setDistance(50);
                 // ef.createMotherShip();
-                ef.createShip();
-                /*
-                 for (var i = 0; i < 5; i++) {
+                var ship = ef.createShip();
 
-                 ef.createFuel(true);
+                var radar = ef.createRadar();
+                var currency = ef.createCurrency();
 
-                 }
-                 */
+
+                //var lt = new Layout(false,0.9, 0.8);
+                //lt.addChildren(new Layout(new Sprite("hp"),5,5));
+                //lt.addChildren(new Layout(new Sprite("shield"),5,20));
+
+                var rt = new Layout(0.5, 0.5);
+                rt.addChildren(new Layout(5, 5, new Sprite("radar")),radar.components.RadarComponent);
+                rt.addChildren(new Layout(5,20, new Sprite("currency")),currency.components.CurrencyComponent);
+
+                lm.push(rt);
+
+                var lb = new Layout(false,0, 0);
+                lb.addChildren(new Layout(5,5,new Sprite("hp"),ship.components.HealtComponent));
+                lb.addChildren(new Layout(5,20,new Sprite("shield"),ship.components.ShieldComponent));
+
+                lm.push(lb);
 
 
                 break;

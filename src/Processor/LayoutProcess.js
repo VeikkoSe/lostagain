@@ -1,21 +1,48 @@
-class GuiProcess extends Processor {
+class LayoutProcess extends Processor {
 
     constructor() {
         this.particleProgram = sm.init('particle');
     }
 
     simpleWorldToViewX(x) {
-        return x / screenWidth;
+        return x / resolutionWidth;
     }
 
     simpleWorldToViewY(y) {
 
-        return y / screenHeight;
+        return y / resolutionHeight;
+    }
+
+    recursiveLayout(lloop) {
+        for(var i = 0;i<lloop.length;i++) {
+
+            if(lloop.xPos<1 && lloop.yPos<1 && lloop.rootX == null && lloop.rootY == null) {
+                lloop.rootX = simpleWorldToViewX(lloop.xPos);
+                lloop.rootY = simpleWorldToViewX(lloop.yPos);
+            }
+            else {
+                return false;
+            }
+
+            if(lloop.sprite) {
+
+
+            }
+
+
+            if(lloop[i].children.length>0)
+            {
+                this.recursiveLayout(lloop[i].children);
+            }
+        }
+
     }
 
     draw() {
 
+        this.recursiveLayout(lm);
 
+/*
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
@@ -50,7 +77,7 @@ class GuiProcess extends Processor {
             }
 
         }
-
+*/
     }
 
 

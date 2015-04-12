@@ -11,7 +11,6 @@ class IntroState extends StateEngine {
 
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-
         //camera.move();
         gl.disable(gl.BLEND);
         gl.enable(gl.DEPTH_TEST);

@@ -27,7 +27,7 @@ class AsteroidRenderProcess extends Processor {
         var verts = this.cube.vertices();
 
 
-        for (var g = 0; g < 10009; g++) {
+        for (var g = 0; g < 5000; g++) {
             var x = this.getRandomInt(-100, 100);
             var y = this.getRandomInt(0, 0);
             var z = this.getRandomInt(-100, 100);
@@ -65,7 +65,7 @@ class AsteroidRenderProcess extends Processor {
 
 
         }
-        console.log(this.combinedMeshes);
+        //console.log(this.combinedMeshes);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.combinedMeshes.vertices), gl.STATIC_DRAW);
 
