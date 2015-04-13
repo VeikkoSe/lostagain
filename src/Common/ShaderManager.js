@@ -47,6 +47,9 @@ class ShaderManager {
             case "exhaust":
                 return this.initExhaustShaders('exhaust');
                 break;
+            case "gui":
+                return this.initGuiShader('gui');
+                break;
         }
 
 
@@ -254,6 +257,42 @@ class ShaderManager {
         return program;
 
     }
+
+
+    initGuiShader(id) {
+
+        var program = gl.createProgram();
+
+        this.getShader(id, program);
+
+        gl.linkProgram(program);
+
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            alert("Could not initialise shaders");
+        }
+
+
+        program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+        gl.enableVertexAttribArray(program.aVertexPosition);
+
+        program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+        gl.enableVertexAttribArray(program.textureCoordAttribute);
+
+
+
+        //program.positionUniform = gl.getUniformLocation(program, "uPosition");
+        program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+
+
+
+        program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+
+
+
+        return program;
+
+    }
+
 
 
     initStarShaders(id) {

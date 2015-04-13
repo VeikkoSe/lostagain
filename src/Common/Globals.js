@@ -32,7 +32,7 @@ var ef = new EntityFactory();
 var es = [];
 var levelManager = new LevelManager();
 
-var lm =null;
+var lm = null;
 
 
 

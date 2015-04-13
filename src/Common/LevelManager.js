@@ -48,7 +48,7 @@ class LevelManager {
                 break;
             case ('second') :
 
-                camera.setDistance(50);
+                camera.setDistance(10);
                 // ef.createMotherShip();
                 var ship = ef.createShip();
 
@@ -61,17 +61,16 @@ class LevelManager {
                 //lt.addChildren(new Layout(new Sprite("shield"),5,20));
 
                 var rt = new Layout(0.5, 0.5);
-                rt.addChildren(new Layout(5, 5, new Sprite("radar")),radar.components.RadarComponent);
-                rt.addChildren(new Layout(5,20, new Sprite("currency")),currency.components.CurrencyComponent);
+                rt.addChildren(new Layout(5, 5, new Texture("radar")),radar.components.RadarComponent);
+                rt.addChildren(new Layout(5,20, new Texture("currency")),currency.components.CurrencyComponent);
 
                 lm.push(rt);
 
                 var lb = new Layout(false,0, 0);
-                lb.addChildren(new Layout(5,5,new Sprite("hp"),ship.components.HealtComponent));
-                lb.addChildren(new Layout(5,20,new Sprite("shield"),ship.components.ShieldComponent));
+                lb.addChildren(new Layout(5,5,new Texture("hp"),ship.components.HealtComponent));
+                lb.addChildren(new Layout(5,20,new Texture("shield"),ship.components.ShieldComponent));
 
                 lm.push(lb);
-
 
                 break;
 

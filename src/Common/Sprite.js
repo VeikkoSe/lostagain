@@ -9,6 +9,8 @@ class Sprite {
         this.speed = typeof speed === 'number' ? speed : 0;
         //this.frames = frames;
 
+
+
         this.name = name;
         //this.dir = dir || 'horizontal';
         //this.once = once;
@@ -17,6 +19,9 @@ class Sprite {
 
         this.texture = t.loadedTexture;
         this.textureLoaded = t.loaded;
+
+
+
 
         this.pointStartPositionsBuffer = gl.createBuffer();
         this.time = 0;

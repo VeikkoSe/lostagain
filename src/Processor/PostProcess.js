@@ -26,7 +26,6 @@ class PostProcess extends Processor {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
 
-// provide texture coordinates for the rectangle.
 
         this.texCoordBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);

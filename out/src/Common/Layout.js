@@ -1,12 +1,12 @@
 var Layout = function Layout(xPos, yPos) {
   "use strict";
-  var parent = arguments[2] !== (void 0) ? arguments[2] : null;
+  var sprite = arguments[2] !== (void 0) ? arguments[2] : null;
   var component = arguments[3] !== (void 0) ? arguments[3] : null;
-  this.parent = parent;
+  this.sprite = sprite;
   this.xPos = xPos;
   this.yPos = yPos;
   this.component = component;
-  this.children = null;
+  this.children = [];
   this.rootX = null;
   this.rootY = null;
 };
@@ -17,6 +17,6 @@ var Layout = function Layout(xPos, yPos) {
   },
   addChildren: function(layout) {
     "use strict";
-    this.children = layout;
+    this.children.push(layout);
   }
 }, {});

@@ -47,7 +47,6 @@ class TextProcess extends Processor {
                 //mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotation), [1, 1,1]);
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.squareBuffer);
                 gl.vertexAttribPointer(this.fontProgram.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
-
                 gl.vertexAttribPointer(this.fontProgram.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
 
                 gl.activeTexture(gl.TEXTURE0);

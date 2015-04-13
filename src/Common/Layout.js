@@ -1,10 +1,12 @@
 class Layout {
-    constructor(xPos,yPos,parent=null,component=null) {
-        this.parent = parent;
+    constructor(xPos,yPos,sprite=null,component=null) {
+
+        this.sprite = sprite;
         this.xPos = xPos;
+
         this.yPos = yPos;
         this.component = component;
-        this.children = null;
+        this.children = [];
         this.rootX = null;
         this.rootY = null;
 
@@ -16,7 +18,7 @@ class Layout {
     }
 
     addChildren(layout) {
-        this.children = layout;
+        this.children.push(layout);
     }
 
 

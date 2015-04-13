@@ -38,6 +38,9 @@ var ShaderManager = function ShaderManager() {
       case "exhaust":
         return this.initExhaustShaders('exhaust');
         break;
+      case "gui":
+        return this.initGuiShader('gui');
+        break;
     }
   },
   initExhaustShaders: function(id) {
@@ -156,6 +159,22 @@ var ShaderManager = function ShaderManager() {
     program.pointSize = gl.getUniformLocation(program, "uPointsize");
     program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+    return program;
+  },
+  initGuiShader: function(id) {
+    "use strict";
+    var program = gl.createProgram();
+    this.getShader(id, program);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      alert("Could not initialise shaders");
+    }
+    program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+    gl.enableVertexAttribArray(program.aVertexPosition);
+    program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+    gl.enableVertexAttribArray(program.textureCoordAttribute);
+    program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+    program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
     return program;
   },
   initStarShaders: function(id) {
