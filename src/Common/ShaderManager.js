@@ -281,11 +281,11 @@ class ShaderManager {
 
 
         //program.positionUniform = gl.getUniformLocation(program, "uPosition");
-        program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+        program.samplerUniform = gl.getUniformLocation(program, "uSampler");
 
 
 
-        program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+        //program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
 
 
 

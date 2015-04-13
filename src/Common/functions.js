@@ -177,8 +177,14 @@ function objectLabelGenerator() {
 
 function initGL(canvas) {
     try {
-        //gl = canvas.getContext("webgl");
+
+        //
+        if(debug) {
         gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
+        }
+        else {
+        gl = canvas.getContext("webgl");
+        }
 
         gl.viewportWidth = canvas.width;
         gl.viewportHeight = canvas.height;

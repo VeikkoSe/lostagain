@@ -17,11 +17,17 @@ var game = null;
 
 var gm = null;
 
-//var resolutionWidth = 1920;
-//var resolutionHeight = 1080;
+var resolutionWidth = 1920;
+var resolutionHeight = 1080;
 
+
+var debug = true;
+if(debug) {
 var resolutionWidth = 720;
 var resolutionHeight = 405;
+}
+
+
 
 var texture = null;
 var camera = null;

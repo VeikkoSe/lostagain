@@ -11,6 +11,7 @@ var GameState = function GameState(canvas) {
     "use strict";
     this.processList = [];
     this.processList.push(new AsteroidRenderProcess());
+    this.processList.push(new RenderProcess());
     this.processList.push(new HealthProcess());
     this.processList.push(new ShieldProcess());
     this.processList.push(new TextProcess());

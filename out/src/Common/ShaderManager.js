@@ -173,8 +173,7 @@ var ShaderManager = function ShaderManager() {
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
     gl.enableVertexAttribArray(program.textureCoordAttribute);
-    program.samplerUniform = gl.getUniformLocation(program, "sTexture");
-    program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+    program.samplerUniform = gl.getUniformLocation(program, "uSampler");
     return program;
   },
   initStarShaders: function(id) {

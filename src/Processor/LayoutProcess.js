@@ -46,36 +46,34 @@ class LayoutProcess extends Processor {
     }
 
     simpleWorldToViewY(y) {
-
         return y / resolutionHeight;
     }
 
-    recursiveLayout(lloop) {
+    recursiveLayout(lloop,parent) {
         for (var i = 0; i < lloop.length; i++) {
 
 
-/*
-            if(lloop[i].xPos<1 && lloop[i].yPos<1 && lloop[i].rootX == null && lloop[i].rootY == null) {
-                lloop.rootX = simpleWorldToViewX(lloop[i].xPos);
-                lloop.rootY = simpleWorldToViewX(lloop[i].yPos);
+            if(parent!=false)
+            {
+                //alert(parent.xPos);
+                //alert(parent.yPos);
+                //lloop[i].xPos = parent.xPos+(this.simpleWorldToViewX(1)*lloop[i].xPos);
+                //lloop[i].yPos = parent.yPos+(this.simpleWorldToViewY(1)*lloop[i].yPos);
+               // alert(lloop[i].yPos);
             }
-            else {
-                return false;
 
-            }
-*/
+            //console.log(lloop[i].super().xPos);
+            //iloop[i].masterPos = parent
+
 
 
             if(lloop[i].sprite) {
-
-
-
-
-
-              this.render(lloop[i].sprite,lloop.xPos,lloop.yPos);
+                var x =  parent.xPos+(this.simpleWorldToViewX(1)*lloop[i].xPos);
+                var y = parent.yPos+(this.simpleWorldToViewY(1)*lloop[i].yPos);
+              this.render(lloop[i].sprite,x,y);
             }
             if (lloop[i].children.length > 0) {
-                    this.recursiveLayout(lloop[i].children);
+                    this.recursiveLayout(lloop[i].children,lloop[i]);
             }
         }
     }
@@ -88,7 +86,7 @@ class LayoutProcess extends Processor {
         var y2 = y2;
 
 
-        return [
+        var ret =  [
             x2, y1,
             x1, y1,
             x1, y2,
@@ -98,6 +96,7 @@ class LayoutProcess extends Processor {
             x1, y2,
             x2, y2,
         ];
+        return ret;
 
     }
 
@@ -107,15 +106,21 @@ class LayoutProcess extends Processor {
 
 
 
-
         camera.mvPushMatrix();
         //mat4.scale(camera.mvMatrix, [0.2, 0.2, 0.2]);
         //sprite.width=64;
         //sprite.height=64;
-        var pd = this.setRectangle(-1, -1, 1,  1);
+
+        var y2 = y+(this.simpleWorldToViewY(1)*64);
+        var x2 = x+this.simpleWorldToViewX(1)*64;
+        var pd = this.setRectangle(x, y, x2,  y2);
+
+
+
+        this.vertBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
 
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
 
 
 
@@ -126,10 +131,10 @@ class LayoutProcess extends Processor {
         gl.vertexAttribPointer(this.program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, sprite.texture);
+        gl.bindTexture(gl.TEXTURE_2D, sprite.loadedTexture);
         gl.uniform1i(this.program.samplerUniform, 0);
 
-        gl.uniformMatrix4fv(this.program.uPMatrix, false, camera.pMatrix);
+        //gl.uniformMatrix4fv(this.program.uPMatrix, false, camera.pMatrix);
 
 
 
@@ -142,16 +147,15 @@ class LayoutProcess extends Processor {
 
     draw() {
 
-        mat4.identity(camera.mvMatrix);
-        mat4.translate(camera.mvMatrix, [0, 0, -10]);
+
 
         gl.useProgram(this.program);
 
-        if(lm.length>0) {
 
-        this.recursiveLayout(lm);
 
-        }
+        this.recursiveLayout(lm,false);
+
+
 
     }
 
