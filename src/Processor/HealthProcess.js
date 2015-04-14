@@ -4,18 +4,11 @@ class HealthProcess extends Processor {
         this.particleProgram = sm.init('particle');
     }
 
-    simpleWorldToViewX(x) {
-        return x / screenWidth;
-    }
 
-    simpleWorldToViewY(y) {
-
-        return y / screenHeight;
-    }
 
     draw() {
 
-
+/*
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
@@ -50,7 +43,7 @@ class HealthProcess extends Processor {
             }
 
         }
-
+        */
     }
 
 

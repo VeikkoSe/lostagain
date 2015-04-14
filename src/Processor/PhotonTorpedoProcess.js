@@ -1,7 +1,7 @@
 class PhotonTorpedoProcess extends Processor {
     constructor() {
         this.bulletsAmount = 80;
-        this.bulletReloadSpeed = 50;
+        this.bulletReloadSpeed = 250;
         this.bullets = [];
         this.bulletShot = 0;
         this.lastTime = 0;
@@ -97,7 +97,7 @@ class PhotonTorpedoProcess extends Processor {
             var le = em.entities[e];
 
             if (le.components.PhotonTorpedoComponent) {
-
+                gl.disable(gl.DEPTH_TEST);
                 gl.useProgram(this.particleProgram3d);
 
                 gl.enable(gl.BLEND);
@@ -139,7 +139,7 @@ class PhotonTorpedoProcess extends Processor {
 
                     camera.mvPopMatrix();
                 }
-
+                gl.enable(gl.DEPTH_TEST);
 
             }
         }

@@ -40,14 +40,16 @@ class LevelManager {
                 //}
                 //this.ef.createPlane();
                 ef.createMotherShip();
-                ef.createShip();
+                var ship = ef.createShip();
+
+
 
 
                 //this.ef.createBox();
 
                 break;
             case ('second') :
-
+                ef.createStars();
                 camera.setDistance(200);
                 // ef.createMotherShip();
                 var ship = ef.createShip();
@@ -58,17 +60,17 @@ class LevelManager {
 
 
 
-                var rt = new Layout(0.5, 0.5);
-                rt.addChildren(new Layout(0, 0, new Texture("hp")),radar.components.RadarComponent);
-                rt.addChildren(new Layout(64,64, new Texture("shield")),currency.components.CurrencyComponent);
-
+                var rt = new Layout(0.00, 0.00);
+                rt.addChildren(new Layout(5, 5, new Texture("hp"),radar.components.RadarComponent,8));
+                rt.addChildren(new Layout(5,13, new Texture("shield"),currency.components.CurrencyComponent,8));
                 lm.push(rt);
-
-                var lb = new Layout(0.0, 0.0);
-                lb.addChildren(new Layout(0,0,new Texture("currency"),ship.components.HealtComponent));
-                lb.addChildren(new Layout(64,64,new Texture("radar"),ship.components.ShieldComponent));
-
+                var lb = new Layout(1, 1);
+                lb.addChildren(new Layout(5,5,new Texture("radar"),radar.components.RadarComponent,55));
                 lm.push(lb);
+                var lh = new Layout(0, 1);
+                lh.addChildren(new Layout(5,5,new Texture("currency"),ship.components.HealtComponent,8));
+                lm.push(lh);
+
 
                 break;
 

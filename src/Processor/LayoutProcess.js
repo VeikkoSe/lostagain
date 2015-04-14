@@ -49,28 +49,53 @@ class LayoutProcess extends Processor {
         return y / resolutionHeight;
     }
 
+    calculatePd(x,y,xminus,yminus,layout) {
+
+        var rh = resolutionHeight / 256;
+
+        var y2 = y + (helpers.simpleWorldToViewY(1) * layout.size * rh);
+        var x2 = x + (helpers.simpleWorldToViewX(1) * layout.size * rh);
+
+        if (yminus) {
+
+            var y2 = y - (helpers.simpleWorldToViewY(1) * layout.size * rh);
+            var tmp = y;
+            y = y2;
+            y2 = tmp;
+        }
+        if(xminus) {
+            var x2 = x - (helpers.simpleWorldToViewX(1) * layout.size * rh);
+            var tmp = x;
+            x = x2;
+            x2 = tmp;
+        }
+
+        return this.setRectangle(x, y, x2,  y2);
+    }
     recursiveLayout(lloop,parent) {
         for (var i = 0; i < lloop.length; i++) {
 
-
-            if(parent!=false)
-            {
-                //alert(parent.xPos);
-                //alert(parent.yPos);
-                //lloop[i].xPos = parent.xPos+(this.simpleWorldToViewX(1)*lloop[i].xPos);
-                //lloop[i].yPos = parent.yPos+(this.simpleWorldToViewY(1)*lloop[i].yPos);
-               // alert(lloop[i].yPos);
-            }
-
-            //console.log(lloop[i].super().xPos);
-            //iloop[i].masterPos = parent
-
-
-
             if(lloop[i].sprite) {
-                var x =  parent.xPos+(this.simpleWorldToViewX(1)*lloop[i].xPos);
-                var y = parent.yPos+(this.simpleWorldToViewY(1)*lloop[i].yPos);
-              this.render(lloop[i].sprite,x,y);
+                var rh = resolutionHeight/256;
+
+                //right side of the screen, we minus so we get correct coordinates regardless of window size
+                var x =  (parent.xPos)+((this.simpleWorldToViewX(1)*lloop[i].xPos)*rh);
+                var y =  (parent.yPos)+((this.simpleWorldToViewY(1)*lloop[i].yPos)*rh);
+                var xminus = false;
+                var yminus = false;
+                if(parent.xPos==1){
+                    var x =  (parent.xPos)-((this.simpleWorldToViewX(1)*lloop[i].xPos)*rh);
+                    xminus = true;
+                }
+                if(parent.yPos==1) {
+                    var y =  (parent.yPos)-((this.simpleWorldToViewY(1)*lloop[i].yPos)*rh);
+                    yminus = true;
+                }
+
+                var pd = this.calculatePd(x,y,xminus,yminus,lloop[i]);
+                this.render(lloop[i],pd);
+
+
             }
             if (lloop[i].children.length > 0) {
                     this.recursiveLayout(lloop[i].children,lloop[i]);
@@ -102,18 +127,13 @@ class LayoutProcess extends Processor {
 
 
 
-    render(sprite,x,y) {
-
+    render(layout,pd) {
 
 
         camera.mvPushMatrix();
-        //mat4.scale(camera.mvMatrix, [0.2, 0.2, 0.2]);
-        //sprite.width=64;
-        //sprite.height=64;
 
-        var y2 = y+(this.simpleWorldToViewY(1)*64);
-        var x2 = x+this.simpleWorldToViewX(1)*64;
-        var pd = this.setRectangle(x, y, x2,  y2);
+
+
 
 
 
@@ -131,7 +151,7 @@ class LayoutProcess extends Processor {
         gl.vertexAttribPointer(this.program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, sprite.loadedTexture);
+        gl.bindTexture(gl.TEXTURE_2D, layout.sprite.loadedTexture);
         gl.uniform1i(this.program.samplerUniform, 0);
 
         //gl.uniformMatrix4fv(this.program.uPMatrix, false, camera.pMatrix);

@@ -24,14 +24,44 @@ var LayoutProcess = function LayoutProcess() {
     "use strict";
     return y / resolutionHeight;
   },
+  calculatePd: function(x, y, xminus, yminus, layout) {
+    "use strict";
+    var rh = resolutionHeight / 256;
+    var y2 = y + (helpers.simpleWorldToViewY(1) * layout.size * rh);
+    var x2 = x + (helpers.simpleWorldToViewX(1) * layout.size * rh);
+    if (yminus) {
+      var y2 = y - (helpers.simpleWorldToViewY(1) * layout.size * rh);
+      var tmp = y;
+      y = y2;
+      y2 = tmp;
+    }
+    if (xminus) {
+      var x2 = x - (helpers.simpleWorldToViewX(1) * layout.size * rh);
+      var tmp = x;
+      x = x2;
+      x2 = tmp;
+    }
+    return this.setRectangle(x, y, x2, y2);
+  },
   recursiveLayout: function(lloop, parent) {
     "use strict";
     for (var i = 0; i < lloop.length; i++) {
-      if (parent != false) {}
       if (lloop[$traceurRuntime.toProperty(i)].sprite) {
-        var x = parent.xPos + (this.simpleWorldToViewX(1) * lloop[$traceurRuntime.toProperty(i)].xPos);
-        var y = parent.yPos + (this.simpleWorldToViewY(1) * lloop[$traceurRuntime.toProperty(i)].yPos);
-        this.render(lloop[$traceurRuntime.toProperty(i)].sprite, x, y);
+        var rh = resolutionHeight / 256;
+        var x = (parent.xPos) + ((this.simpleWorldToViewX(1) * lloop[$traceurRuntime.toProperty(i)].xPos) * rh);
+        var y = (parent.yPos) + ((this.simpleWorldToViewY(1) * lloop[$traceurRuntime.toProperty(i)].yPos) * rh);
+        var xminus = false;
+        var yminus = false;
+        if (parent.xPos == 1) {
+          var x = (parent.xPos) - ((this.simpleWorldToViewX(1) * lloop[$traceurRuntime.toProperty(i)].xPos) * rh);
+          xminus = true;
+        }
+        if (parent.yPos == 1) {
+          var y = (parent.yPos) - ((this.simpleWorldToViewY(1) * lloop[$traceurRuntime.toProperty(i)].yPos) * rh);
+          yminus = true;
+        }
+        var pd = this.calculatePd(x, y, xminus, yminus, lloop[$traceurRuntime.toProperty(i)]);
+        this.render(lloop[$traceurRuntime.toProperty(i)], pd);
       }
       if (lloop[$traceurRuntime.toProperty(i)].children.length > 0) {
         this.recursiveLayout(lloop[$traceurRuntime.toProperty(i)].children, lloop[$traceurRuntime.toProperty(i)]);
@@ -47,12 +77,9 @@ var LayoutProcess = function LayoutProcess() {
     var ret = [x2, y1, x1, y1, x1, y2, x2, y1, x1, y2, x2, y2];
     return ret;
   },
-  render: function(sprite, x, y) {
+  render: function(layout, pd) {
     "use strict";
     camera.mvPushMatrix();
-    var y2 = y + (this.simpleWorldToViewY(1) * 64);
-    var x2 = x + this.simpleWorldToViewX(1) * 64;
-    var pd = this.setRectangle(x, y, x2, y2);
     this.vertBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
@@ -60,7 +87,7 @@ var LayoutProcess = function LayoutProcess() {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
     gl.vertexAttribPointer(this.program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
     gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, sprite.loadedTexture);
+    gl.bindTexture(gl.TEXTURE_2D, layout.sprite.loadedTexture);
     gl.uniform1i(this.program.samplerUniform, 0);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     camera.drawCalls++;

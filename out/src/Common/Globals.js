@@ -14,10 +14,10 @@ var game = null;
 var gm = null;
 var resolutionWidth = 1920;
 var resolutionHeight = 1080;
-var debug = true;
+var debug = false;
 if (debug) {
-  var resolutionWidth = 720;
-  var resolutionHeight = 405;
+  var resolutionWidth = 800;
+  var resolutionHeight = 800;
 }
 var texture = null;
 var camera = null;

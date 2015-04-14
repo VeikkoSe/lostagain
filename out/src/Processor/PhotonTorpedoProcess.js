@@ -1,7 +1,7 @@
 var PhotonTorpedoProcess = function PhotonTorpedoProcess() {
   "use strict";
   this.bulletsAmount = 80;
-  this.bulletReloadSpeed = 50;
+  this.bulletReloadSpeed = 250;
   this.bullets = [];
   this.bulletShot = 0;
   this.lastTime = 0;
@@ -55,6 +55,7 @@ var PhotonTorpedoProcess = function PhotonTorpedoProcess() {
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.PhotonTorpedoComponent) {
+        gl.disable(gl.DEPTH_TEST);
         gl.useProgram(this.particleProgram3d);
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
@@ -78,6 +79,7 @@ var PhotonTorpedoProcess = function PhotonTorpedoProcess() {
           camera.drawCalls++;
           camera.mvPopMatrix();
         }
+        gl.enable(gl.DEPTH_TEST);
       }
     }
     gl.disable(gl.BLEND);

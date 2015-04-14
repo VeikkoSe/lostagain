@@ -42,12 +42,12 @@ class Helpers {
     }
 
     simpleWorldToViewX(x) {
-        return x / screenWidth;
+        return x / resolutionWidth;
     }
 
     simpleWorldToViewY(y) {
 
-        return y / screenHeight;
+        return y / resolutionHeight;
     }
 
     setMatrixUniforms() {

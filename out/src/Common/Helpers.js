@@ -37,11 +37,11 @@ var Helpers = function Helpers() {
   },
   simpleWorldToViewX: function(x) {
     "use strict";
-    return x / screenWidth;
+    return x / resolutionWidth;
   },
   simpleWorldToViewY: function(y) {
     "use strict";
-    return y / screenHeight;
+    return y / resolutionHeight;
   },
   setMatrixUniforms: function() {
     "use strict";
