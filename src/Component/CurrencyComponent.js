@@ -1,6 +1,7 @@
 class CurrencyComponent extends Component {
-    constructor() {
+    constructor(sprite) {
         this.name = "CurrencyComponent";
+        this.sprite = sprite;
 
 
     }

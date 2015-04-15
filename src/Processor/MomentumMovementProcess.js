@@ -10,11 +10,11 @@ class MomentumMovementProcess extends Processor {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
-            var mm = le.components.MomentumMovable;
-            var re = le.components.Renderable;
 
-            if (le.components.MomentumMovable) {
+            if (le.components.MomentumMovable && le.components.Renderable) {
 
+                var mm = le.components.MomentumMovable;
+                var re = le.components.Renderable;
                 /*
                  if ((helpers.isNumeric(mm.routeEndXpos) && helpers.isNumeric(mm.routeEndZpos)) &&
                  (helpers.isClose(re.xPos, mm.routeEndXpos) && helpers.isClose(re.zPos, mm.routeEndZpos))) {
@@ -60,9 +60,19 @@ class MomentumMovementProcess extends Processor {
                     //prolly wrong calculation, result works but re.zPos is division instead of add in the end
                     var dirVectorZ = Math.sin(helpers.degToRad(re.angleY));
 
+                    var tx = mm.velocityX;
+                    var tz = mm.velocityZ;
 
-                    mm.velocityX += mm.acceleration * dirVectorX * (deltatime / 1000);
-                    mm.velocityZ += mm.acceleration * dirVectorZ * (deltatime / 1000);
+                    tx += mm.acceleration * dirVectorX * (deltatime / 1000);
+                    tz += mm.acceleration * dirVectorZ * (deltatime / 1000);
+                    var posX = (tx < 0) ? tx * -1 : tx;
+                    var posZ = (tz < 0) ? tz * -1 : tz;
+
+                    //we cant go past top speed on x or z axel but allow deasselerating
+                    if (posX < mm.speed && posZ < mm.speed) {
+                        mm.velocityX = tx;
+                        mm.velocityZ = tz;
+                    }
 
                     //console.log(mm.acceleration);
                 }
@@ -74,7 +84,7 @@ class MomentumMovementProcess extends Processor {
                     if (re.angleY < 0)
                         re.angleY = 360;
 
-                    re.angleY -= 600 * (deltatime / 1000);
+                    re.angleY -= mm.turnSpeed * (deltatime / 1000);
                 }
                 if (mm.rotateLeft) {
 
@@ -83,7 +93,7 @@ class MomentumMovementProcess extends Processor {
 
                     if (re.angleY < 0)
                         re.angleY = 360;
-                    re.angleY += 600 * (deltatime / 1000);
+                    re.angleY += mm.turnSpeed * (deltatime / 1000);
                 }
 
                 re.xPos += mm.velocityX * (deltatime / 1000);

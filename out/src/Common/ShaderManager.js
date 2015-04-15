@@ -189,7 +189,7 @@ var ShaderManager = function ShaderManager() {
     program.aPointSize = gl.getAttribLocation(program, "aPointSize");
     gl.enableVertexAttribArray(program.aPointSize);
     program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
-    program.uView = gl.getUniformLocation(program, "uView");
+    program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     return program;
   },
   initShaders: function(id) {

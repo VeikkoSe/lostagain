@@ -14,28 +14,28 @@ class GameState extends StateEngine {
         //mh.addHandler(handler);
 
         this.processList = [];
-/*
-        this.processList.push(new AsteroidRenderProcess());
-        //this.processList.push(new PlaneProcess());
-        //this.processList.push(new PostProcess());
-        this.processList.push(new RenderProcess());
-        this.processList.push(new HealthProcess());
-        this.processList.push(new ShieldProcess());
-        this.processList.push(new TextProcess());
-        this.processList.push(new LinearMovementProcess());
-        this.processList.push(new DrivingMovementProcess());
-        this.processList.push(new CameraControllerProcess());
-        this.processList.push(new PrimitiveProcess());
-        this.processList.push(new TeleportProcess());
-        this.processList.push(new StarProcess());
-        this.processList.push(new EnemyProcess());
-        this.processList.push(new PhotonTorpedoProcess());
-        this.processList.push(new LaserProcess());
-        this.processList.push(new MomentumMovementProcess());
-        this.processList.push(new ExhaustProcess());
-        this.processList.push(new ExplosionProcess());
-        this.processList.push(new GuiProcess());
-*/
+        /*
+         this.processList.push(new AsteroidRenderProcess());
+         //this.processList.push(new PlaneProcess());
+         //this.processList.push(new PostProcess());
+         this.processList.push(new RenderProcess());
+         this.processList.push(new HealthProcess());
+         this.processList.push(new ShieldProcess());
+         this.processList.push(new TextProcess());
+         this.processList.push(new LinearMovementProcess());
+         this.processList.push(new DrivingMovementProcess());
+         this.processList.push(new CameraControllerProcess());
+         this.processList.push(new PrimitiveProcess());
+         this.processList.push(new TeleportProcess());
+         this.processList.push(new StarProcess());
+         this.processList.push(new EnemyProcess());
+         this.processList.push(new PhotonTorpedoProcess());
+         this.processList.push(new LaserProcess());
+         this.processList.push(new MomentumMovementProcess());
+         this.processList.push(new ExhaustProcess());
+         this.processList.push(new ExplosionProcess());
+         this.processList.push(new GuiProcess());
+         */
 
         //this.shaderProgram = null;
 
@@ -43,7 +43,6 @@ class GameState extends StateEngine {
     }
 
     init() {
-
 
 
         this.processList = [];
@@ -68,16 +67,6 @@ class GameState extends StateEngine {
         this.processList.push(new ExhaustProcess());
         this.processList.push(new ExplosionProcess());
         this.processList.push(new LayoutProcess());
-
-
-
-
-
-
-
-
-
-
 
 
         if (game.currentLevel == null) {
@@ -124,8 +113,6 @@ class GameState extends StateEngine {
 
 
         //gl.depthFunc(gl.LESS);
-
-
 
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
@@ -177,9 +164,9 @@ class GameState extends StateEngine {
                 this.elapsedTotal -= 1000;
 
                 if (fps < 59)
-                    $('#fps').css('color','red');
+                    $('#fps').css('color', 'red');
                 else
-                    $('#fps').css('color','green');
+                    $('#fps').css('color', 'green');
                 $('#fps').html(fps);
             }
         }
@@ -191,7 +178,6 @@ class GameState extends StateEngine {
     randomIntFromInterval(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
 
 
     drawAll() {
@@ -280,7 +266,6 @@ class GameState extends StateEngine {
         }
         //console.log(camera.drawCalls);
         camera.drawCalls = 0;
-
 
 
         //gl.enable(gl.BLEND);

@@ -1,9 +1,10 @@
 var MomentumMovable = function MomentumMovable() {
   "use strict";
   var speed = arguments[0] !== (void 0) ? arguments[0] : 0.01;
-  var routeEndXpos = arguments[1] !== (void 0) ? arguments[1] : false;
-  var routeEndYpos = arguments[2] !== (void 0) ? arguments[2] : false;
-  var routeEndZpos = arguments[3] !== (void 0) ? arguments[3] : false;
+  var turnSpeed = arguments[1] !== (void 0) ? arguments[1] : 300;
+  var routeEndXpos = arguments[2] !== (void 0) ? arguments[2] : false;
+  var routeEndYpos = arguments[3] !== (void 0) ? arguments[3] : false;
+  var routeEndZpos = arguments[4] !== (void 0) ? arguments[4] : false;
   this.name = "MomentumMovable";
   this.newXpos = false;
   this.newYpos = false;
@@ -13,6 +14,7 @@ var MomentumMovable = function MomentumMovable() {
   this.routeEndYpos = routeEndYpos;
   this.routeEndZpos = routeEndZpos;
   this.lt = 0;
+  this.turnSpeed = turnSpeed;
   this.speed = speed;
   this.acceleration = 50;
   this.accelerationOn = 0;

@@ -27,9 +27,9 @@ var StarProcess = function StarProcess() {
     var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
     this.colors.push(color);
     for (var i = 0; i < numParticles; i++) {
-      this.startPositions.push(this.randomBetween(-5000, 5000));
-      this.startPositions.push(this.randomBetween(-5000, 5000));
-      this.startPositions.push(this.randomBetween(-5000, 5000));
+      this.startPositions.push(this.randomBetween(-4000, 4000));
+      this.startPositions.push(this.randomBetween(-600, -500));
+      this.startPositions.push(this.randomBetween(-4000, 4000));
       this.startPositions.push(this.randomBetween(1, 1));
     }
     this.pointStartPositionsBuffer = gl.createBuffer();
@@ -49,6 +49,7 @@ var StarProcess = function StarProcess() {
         gl.vertexAttribPointer(this.starProgram.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
         gl.vertexAttribPointer(this.starProgram.aPointSize, 1, gl.FLOAT, false, 16, 12);
         gl.uniformMatrix4fv(this.starProgram.uPMatrix, false, camera.pMatrix);
+        gl.uniformMatrix4fv(this.starProgram.uMVMatrix, false, camera.mvMatrix);
         gl.drawArrays(gl.POINTS, 0, this.pointStartPositionsBuffer.numItems);
         camera.drawCalls++;
         camera.mvPopMatrix();

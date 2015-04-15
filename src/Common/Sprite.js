@@ -10,7 +10,6 @@ class Sprite {
         //this.frames = frames;
 
 
-
         this.name = name;
         //this.dir = dir || 'horizontal';
         //this.once = once;
@@ -19,8 +18,6 @@ class Sprite {
 
         this.texture = t.loadedTexture;
         this.textureLoaded = t.loaded;
-
-
 
 
         this.pointStartPositionsBuffer = gl.createBuffer();

@@ -11,13 +11,13 @@ class EntityFactory {
         var mesh = mm.getOrAddMesh('ship');
         e.addComponent(new MeshComponent(mesh));
 
-        e.addComponent(new MomentumMovable(30, 15, 0, 0));
+        e.addComponent(new MomentumMovable(50, 300, 15, 0, 0));
         e.addComponent(new Renderable(1, 0, 1, 1, 0, -90, 0));
         //e.addComponent(new Selectable());
         e.addComponent(new Controllable());
 
-        //e.addComponent(new HealthComponent(5, new Sprite("hp", -0.9, -0.8)));
-        //e.addComponent(new ShieldComponent(10, new Sprite("shield", -0.9, -0.74)));
+        e.addComponent(new HealthComponent(5, new Sprite("hp", -0.9, -0.8)));
+        e.addComponent(new ShieldComponent(10, new Sprite("shield", -0.9, -0.74)));
         e.addComponent(new PhotonTorpedoComponent(new Sprite("bigbullet", 0, 0)));
         e.addComponent(new GunComponent());
 
@@ -55,28 +55,29 @@ class EntityFactory {
         return e;
 
     }
-/*
-    createGUI() {
-        var e = em.addNew();
-        //var mesh = mm.getOrAddMesh('radar');
 
-        var sprites = [];
+    /*
+     createGUI() {
+     var e = em.addNew();
+     //var mesh = mm.getOrAddMesh('radar');
 
-        sprites.push(new Sprite("radar", 0.5, 0.5));
-        sprites.push(new Sprite("currency", 0.2, 0.2));
+     var sprites = [];
 
-        e.addComponent(new GuiComponent(sprites));
-    }
-*/
+     sprites.push(new Sprite("radar", 0.5, 0.5));
+     sprites.push(new Sprite("currency", 0.2, 0.2));
+
+     e.addComponent(new GuiComponent(sprites));
+     }
+     */
     createCurrency() {
         var e = em.addNew();
-        e.addComponent(new CurrencyComponent());
+        e.addComponent(new CurrencyComponent(new Sprite("currency", 0.9, 0.74)));
         return e;
     }
 
     createRadar() {
         var e = em.addNew();
-        e.addComponent(new RadarComponent());
+        e.addComponent(new RadarComponent(new Sprite("radar", 0.9, 0.74)));
         return e;
     }
 
@@ -90,13 +91,15 @@ class EntityFactory {
         e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos, 2));
         //e.addComponent(new Selectable());
         e.addComponent(new Controllable());
-        e.addComponent(new Drivable());
+        e.addComponent(new MomentumMovable(15, 100));
+
+        //e.addComponent(new Drivable());
         //can be only one. Camera follows this entity
         e.addComponent(new CameraController());
         e.addComponent(new JumpArea());
 
-        e.addComponent(new HealthComponent(10));
-        e.addComponent(new ShieldComponent(2, new Sprite("shield", 0.9, 0.74)));
+        e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
+        e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
 
 
         var t = new Texture('exhausttrailm', false, true);

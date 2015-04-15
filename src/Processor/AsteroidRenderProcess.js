@@ -35,7 +35,7 @@ class AsteroidRenderProcess extends Processor {
 
             //var x =0;
             //var y = 0;
-           // var z = 0;
+            // var z = 0;
             for (var i = 0; i < verts.length; i += 3) {
 
 
@@ -102,21 +102,21 @@ class AsteroidRenderProcess extends Processor {
             var g = 0;
             for (var i = 0; i < 128 * 128; i++) {
 
-                 //if (this.randomIntFromInterval(0, 1) == 1) {
-/*
+                //if (this.randomIntFromInterval(0, 1) == 1) {
+                /*
                  v1[g++] = 255;
                  v1[g++] = 255;
                  v1[g++] = 255;
                  v1[g++] = 255;
                  */
-               //  }
-              //   else {
+                //  }
+                //   else {
 
                 v1[g++] = 0;
                 v1[g++] = 0;
                 v1[g++] = 0;
                 v1[g++] = 0;
-              //  }
+                //  }
             }
 
 
@@ -176,7 +176,7 @@ class AsteroidRenderProcess extends Processor {
 
                 }
 
-                 gl.uniform1f(this.ambientProgram.uElapsed, 0);
+                gl.uniform1f(this.ambientProgram.uElapsed, 0);
                 this.lastTime = timeNow;
 
 

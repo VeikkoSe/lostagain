@@ -1,7 +1,8 @@
 class RadarComponent extends Component {
-    constructor() {
+    constructor(sprite) {
         this.name = "RadarComponent";
 
+        this.sprite = sprite;
 
     }
 

@@ -179,11 +179,11 @@ function initGL(canvas) {
     try {
 
         //
-        if(debug) {
-        gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
+        if (debug) {
+            gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
         }
         else {
-        gl = canvas.getContext("webgl");
+            gl = canvas.getContext("webgl");
         }
 
         gl.viewportWidth = canvas.width;

@@ -21,12 +21,11 @@ var resolutionWidth = 1920;
 var resolutionHeight = 1080;
 
 
-var debug = false;
-if(debug) {
-var resolutionWidth = 800;
-var resolutionHeight = 800;
+var debug = true;
+if (debug) {
+    var resolutionWidth = 640;
+    var resolutionHeight = 480;
 }
-
 
 
 var texture = null;
@@ -39,7 +38,6 @@ var es = [];
 var levelManager = new LevelManager();
 
 var lm = null;
-
 
 
 var helpers = null;

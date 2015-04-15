@@ -12,7 +12,6 @@ class LayoutProcess extends Processor {
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
 
-// provide texture coordinates for the rectangle.
 
         this.texCoordBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
@@ -28,16 +27,8 @@ class LayoutProcess extends Processor {
         this.vertBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
 
-        var pd = this.setRectangle(0, 0, 1,  1);
+        var pd = this.setRectangle(0, 0, 1, 1);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
-
-
-
-
-
-
-
-
 
     }
 
@@ -49,7 +40,7 @@ class LayoutProcess extends Processor {
         return y / resolutionHeight;
     }
 
-    calculatePd(x,y,xminus,yminus,layout) {
+    calculatePd(x, y, xminus, yminus, layout) {
 
         var rh = resolutionHeight / 256;
 
@@ -63,42 +54,52 @@ class LayoutProcess extends Processor {
             y = y2;
             y2 = tmp;
         }
-        if(xminus) {
+        if (xminus) {
             var x2 = x - (helpers.simpleWorldToViewX(1) * layout.size * rh);
             var tmp = x;
             x = x2;
             x2 = tmp;
         }
-
-        return this.setRectangle(x, y, x2,  y2);
+        return this.setRectangle(x, y, x2, y2);
     }
-    recursiveLayout(lloop,parent) {
+
+    recursiveLayout(lloop, parent) {
         for (var i = 0; i < lloop.length; i++) {
 
-            if(lloop[i].sprite) {
-                var rh = resolutionHeight/256;
+            if (lloop[i].component) {
+                var rh = resolutionHeight / 256;
 
                 //right side of the screen, we minus so we get correct coordinates regardless of window size
-                var x =  (parent.xPos)+((this.simpleWorldToViewX(1)*lloop[i].xPos)*rh);
-                var y =  (parent.yPos)+((this.simpleWorldToViewY(1)*lloop[i].yPos)*rh);
+                var x = (parent.xPos) + ((this.simpleWorldToViewX(1) * lloop[i].xPos) * rh);
+                var y = (parent.yPos) + ((this.simpleWorldToViewY(1) * lloop[i].yPos) * rh);
                 var xminus = false;
                 var yminus = false;
-                if(parent.xPos==1){
-                    var x =  (parent.xPos)-((this.simpleWorldToViewX(1)*lloop[i].xPos)*rh);
+                if (parent.xPos == 1) {
+                    var x = (parent.xPos) - ((this.simpleWorldToViewX(1) * lloop[i].xPos) * rh);
                     xminus = true;
                 }
-                if(parent.yPos==1) {
-                    var y =  (parent.yPos)-((this.simpleWorldToViewY(1)*lloop[i].yPos)*rh);
+                if (parent.yPos == 1) {
+                    var y = (parent.yPos) - ((this.simpleWorldToViewY(1) * lloop[i].yPos) * rh);
                     yminus = true;
                 }
 
-                var pd = this.calculatePd(x,y,xminus,yminus,lloop[i]);
-                this.render(lloop[i],pd);
+                var loop = 1;
+                if (lloop[i].component.amount) {
+                    loop = lloop[i].component.amount;
+
+                }
+                for (var h = 0; h < loop; h++) {
+                    var add = h * (helpers.simpleWorldToViewY(1) * lloop[i].size * rh);
+
+                    var pd = this.calculatePd(x + add, y, xminus, yminus, lloop[i]);
+                    this.render(lloop[i], pd);
+                    var lastpd = pd;
+                }
 
 
             }
             if (lloop[i].children.length > 0) {
-                    this.recursiveLayout(lloop[i].children,lloop[i]);
+                this.recursiveLayout(lloop[i].children, lloop[i]);
             }
         }
     }
@@ -111,7 +112,7 @@ class LayoutProcess extends Processor {
         var y2 = y2;
 
 
-        var ret =  [
+        var ret = [
             x2, y1,
             x1, y1,
             x1, y2,
@@ -126,55 +127,42 @@ class LayoutProcess extends Processor {
     }
 
 
-
-    render(layout,pd) {
+    render(layout, pd) {
 
 
         camera.mvPushMatrix();
-
-
-
-
-
 
         this.vertBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
 
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
 
-
-
         gl.vertexAttribPointer(this.program.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
         gl.vertexAttribPointer(this.program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, layout.sprite.loadedTexture);
+        gl.bindTexture(gl.TEXTURE_2D, layout.component.sprite.texture);
         gl.uniform1i(this.program.samplerUniform, 0);
-
-        //gl.uniformMatrix4fv(this.program.uPMatrix, false, camera.pMatrix);
-
 
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         camera.drawCalls++;
 
         camera.mvPopMatrix();
+
+
     }
 
 
     draw() {
 
 
-
         gl.useProgram(this.program);
 
 
-
-        this.recursiveLayout(lm,false);
-
+        this.recursiveLayout(lm, false);
 
 
     }

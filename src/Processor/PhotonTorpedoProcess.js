@@ -18,6 +18,7 @@ class PhotonTorpedoProcess extends Processor {
     }
 
     shootBullet(renderable) {
+
         var timeNow = new Date().getTime();
 
         if (timeNow - this.bulletReloadSpeed > this.bulletShot) {
@@ -40,6 +41,7 @@ class PhotonTorpedoProcess extends Processor {
     }
 
     update(deltatime) {
+
         var timeNow = new Date().getTime();
         //var timeNow = new Date().getTime();
 
@@ -103,7 +105,6 @@ class PhotonTorpedoProcess extends Processor {
                 gl.enable(gl.BLEND);
 
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-
 
 
                 for (var i = 0; i < this.bulletsAmount; i++) {

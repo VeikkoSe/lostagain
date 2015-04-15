@@ -46,7 +46,7 @@ var LayoutProcess = function LayoutProcess() {
   recursiveLayout: function(lloop, parent) {
     "use strict";
     for (var i = 0; i < lloop.length; i++) {
-      if (lloop[$traceurRuntime.toProperty(i)].sprite) {
+      if (lloop[$traceurRuntime.toProperty(i)].component) {
         var rh = resolutionHeight / 256;
         var x = (parent.xPos) + ((this.simpleWorldToViewX(1) * lloop[$traceurRuntime.toProperty(i)].xPos) * rh);
         var y = (parent.yPos) + ((this.simpleWorldToViewY(1) * lloop[$traceurRuntime.toProperty(i)].yPos) * rh);
@@ -60,8 +60,16 @@ var LayoutProcess = function LayoutProcess() {
           var y = (parent.yPos) - ((this.simpleWorldToViewY(1) * lloop[$traceurRuntime.toProperty(i)].yPos) * rh);
           yminus = true;
         }
-        var pd = this.calculatePd(x, y, xminus, yminus, lloop[$traceurRuntime.toProperty(i)]);
-        this.render(lloop[$traceurRuntime.toProperty(i)], pd);
+        var loop = 1;
+        if (lloop[$traceurRuntime.toProperty(i)].component.amount) {
+          loop = lloop[$traceurRuntime.toProperty(i)].component.amount;
+        }
+        for (var h = 0; h < loop; h++) {
+          var add = h * (helpers.simpleWorldToViewY(1) * lloop[$traceurRuntime.toProperty(i)].size * rh);
+          var pd = this.calculatePd(x + add, y, xminus, yminus, lloop[$traceurRuntime.toProperty(i)]);
+          this.render(lloop[$traceurRuntime.toProperty(i)], pd);
+          var lastpd = pd;
+        }
       }
       if (lloop[$traceurRuntime.toProperty(i)].children.length > 0) {
         this.recursiveLayout(lloop[$traceurRuntime.toProperty(i)].children, lloop[$traceurRuntime.toProperty(i)]);
@@ -87,7 +95,7 @@ var LayoutProcess = function LayoutProcess() {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
     gl.vertexAttribPointer(this.program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
     gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, layout.sprite.loadedTexture);
+    gl.bindTexture(gl.TEXTURE_2D, layout.component.sprite.texture);
     gl.uniform1i(this.program.samplerUniform, 0);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     camera.drawCalls++;

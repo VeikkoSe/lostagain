@@ -1,5 +1,5 @@
 class MomentumMovable extends Component {
-    constructor(speed = 0.01, routeEndXpos = false, routeEndYpos = false, routeEndZpos = false) {
+    constructor(speed = 0.01, turnSpeed = 300, routeEndXpos = false, routeEndYpos = false, routeEndZpos = false) {
 
         this.name = "MomentumMovable";
 
@@ -17,6 +17,7 @@ class MomentumMovable extends Component {
 
 
         this.lt = 0;
+        this.turnSpeed = turnSpeed;
         this.speed = speed;
         this.acceleration = 50;
         this.accelerationOn = 0;

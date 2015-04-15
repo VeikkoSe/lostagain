@@ -43,43 +43,38 @@ var GameStateActionMapper = function GameStateActionMapper() {
     if (currentlyPressedKeys[77]) {
       game.stateEngine.changeState("mapstate");
     }
-    for (var e = 0; e < em.entities.length; e++) {
-      var le = em.entities[$traceurRuntime.toProperty(e)];
-      if (le.components.GunComponent)
-        le.components.GunComponent.shooting = false;
-      if (le.components.Drivable) {
-        le.components.Drivable.rotateLeft = 0;
-        le.components.Drivable.rotateRight = 0;
-        if (currentlyPressedKeys[87]) {
-          le.components.Drivable.addSpeed = 1;
-        }
-        if (currentlyPressedKeys[83]) {
-          le.components.Drivable.reduceSpeed = 1;
-        }
-        if (currentlyPressedKeys[65]) {
-          le.components.Drivable.rotateLeft = 1;
-        }
-        if (currentlyPressedKeys[68]) {
-          le.components.Drivable.rotateRight = 1;
-        }
+    var ms = em.getEntityByName('mothership');
+    if (ms) {
+      ms.components.MomentumMovable.rotateLeft = 0;
+      ms.components.MomentumMovable.rotateRight = 0;
+      ms.components.MomentumMovable.accelerationOn = 0;
+      if (currentlyPressedKeys[87]) {
+        ms.components.MomentumMovable.accelerationOn = 1;
       }
-      if (le.components.MomentumMovable) {
-        le.components.MomentumMovable.rotateLeft = 0;
-        le.components.MomentumMovable.rotateRight = 0;
-        le.components.MomentumMovable.accelerationOn = 0;
-        if (currentlyPressedKeys[38]) {
-          le.components.MomentumMovable.accelerationOn = 1;
-        }
-        if (currentlyPressedKeys[40]) {}
-        if (currentlyPressedKeys[37]) {
-          le.components.MomentumMovable.rotateLeft = 1;
-        }
-        if (currentlyPressedKeys[39]) {
-          le.components.MomentumMovable.rotateRight = 1;
-        }
-        if (currentlyPressedKeys[32]) {
-          le.components.GunComponent.shooting = true;
-        }
+      if (currentlyPressedKeys[65]) {
+        ms.components.MomentumMovable.rotateLeft = 1;
+      }
+      if (currentlyPressedKeys[68]) {
+        ms.components.MomentumMovable.rotateRight = 1;
+      }
+    }
+    var ship = em.getEntityByName('ship');
+    if (ship) {
+      ship.components.MomentumMovable.rotateLeft = 0;
+      ship.components.MomentumMovable.rotateRight = 0;
+      ship.components.MomentumMovable.accelerationOn = 0;
+      ship.components.GunComponent.shooting = false;
+      if (currentlyPressedKeys[38]) {
+        ship.components.MomentumMovable.accelerationOn = 1;
+      }
+      if (currentlyPressedKeys[37]) {
+        ship.components.MomentumMovable.rotateLeft = 1;
+      }
+      if (currentlyPressedKeys[39]) {
+        ship.components.MomentumMovable.rotateRight = 1;
+      }
+      if (currentlyPressedKeys[32]) {
+        ship.components.GunComponent.shooting = true;
       }
     }
   },

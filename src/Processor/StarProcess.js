@@ -54,9 +54,9 @@ class StarProcess extends Processor {
         for (var i = 0; i < numParticles; i++) {
 
 
-            this.startPositions.push(this.randomBetween(-5000, 5000));
-            this.startPositions.push(this.randomBetween(-5000, 5000));
-            this.startPositions.push(this.randomBetween(-5000, 5000));
+            this.startPositions.push(this.randomBetween(-4000, 4000));
+            this.startPositions.push(this.randomBetween(-600, -500));
+            this.startPositions.push(this.randomBetween(-4000, 4000));
             //pointsize
             this.startPositions.push(this.randomBetween(1, 1));
         }
@@ -149,7 +149,7 @@ class StarProcess extends Processor {
 
                 gl.uniformMatrix4fv(this.starProgram.uPMatrix, false, camera.pMatrix);
 
-                //gl.uniformMatrix4fv(starProgram.uMVMatrix, false, camera.mvMatrix);
+                gl.uniformMatrix4fv(this.starProgram.uMVMatrix, false, camera.mvMatrix);
                 //console.log(this.pointStartPositionsBuffer.numItems);
 
                 gl.drawArrays(gl.POINTS, 0, this.pointStartPositionsBuffer.numItems);

@@ -1,7 +1,6 @@
 class Layout {
-    constructor(xPos,yPos,sprite=null,component=null,size=64) {
+    constructor(xPos, yPos, component = null, size = 64) {
 
-        this.sprite = sprite;
         this.xPos = xPos;
 
         this.size = size;
@@ -21,15 +20,6 @@ class Layout {
     addChildren(layout) {
         this.children.push(layout);
     }
-
-
-
-
-
-
-
-
-
 
 
 }

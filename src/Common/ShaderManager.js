@@ -279,20 +279,16 @@ class ShaderManager {
         gl.enableVertexAttribArray(program.textureCoordAttribute);
 
 
-
         //program.positionUniform = gl.getUniformLocation(program, "uPosition");
         program.samplerUniform = gl.getUniformLocation(program, "uSampler");
-
 
 
         //program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
 
 
-
         return program;
 
     }
-
 
 
     initStarShaders(id) {
@@ -328,8 +324,8 @@ class ShaderManager {
         //program.pointSize = gl.getUniformLocation(program, "uPointSize");
 
         program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
-        program.uView = gl.getUniformLocation(program, "uView");
-        //program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+        //program.uView = gl.getUniformLocation(program, "uView");
+        program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
         //program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
 
 
