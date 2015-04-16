@@ -18,10 +18,18 @@ class EnemyProcess extends Processor {
                     (helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
 
                     //this.routeDone = true;
-                    if (ship.components.ShieldComponent.amount == 0)
+
+                    if(ship.components.HealthComponent.amount ==0 && ship.components.ShieldComponent.amount ==0)
+                    {
+                        //alert('you loose!');
+                    }
+
+                    if (ship.components.ShieldComponent.amount < 1)
                         ship.components.HealthComponent.amount--;
                     else
                         ship.components.ShieldComponent.amount--;
+
+
                 }
 
 

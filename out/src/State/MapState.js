@@ -7,7 +7,7 @@ var MapState = function MapState(canvas) {
 ($traceurRuntime.createClass)(MapState, {
   draw: function() {
     "use strict";
-    gl.useProgram(shaderProgram);
+    sm.setProgram(shaderProgram);
     gl.disable(gl.BLEND);
     gl.enable(gl.DEPTH_TEST);
     gl.uniform1f(shaderProgram.alphaUniform, 1);

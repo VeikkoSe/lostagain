@@ -93,7 +93,7 @@ class MenuState extends StateEngine {
         //
 
 
-        gl.useProgram(shaderProgram);
+        sm.setProgram(shaderProgram);
 
 
     }

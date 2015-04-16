@@ -42,7 +42,7 @@ var StarProcess = function StarProcess() {
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.StarComponent) {
-        gl.useProgram(this.starProgram);
+        sm.setProgram(this.starProgram);
         camera.mvPushMatrix();
         gl.uniform3fv(this.starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);

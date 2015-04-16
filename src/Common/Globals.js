@@ -1,14 +1,14 @@
 var gl = null;
 
 //shaders
-var shaderProgram = null;
-var particleProgram = null;
-var simplestProgram = null;
-var ambientProgram = null;
-var starProgram = null;
-var fontProgram = null;
-var blurVerticalProgram = null;
-var blurHorizontalProgram = null;
+//var shaderProgram = null;
+//var particleProgram = null;
+//var simplestProgram = null;
+//var ambientProgram = null;
+//var starProgram = null;
+//var fontProgram = null;
+//var blurVerticalProgram = null;
+//var blurHorizontalProgram = null;
 
 var sm = null;
 var mm = null;
@@ -28,13 +28,13 @@ if (debug) {
 }
 
 
-var texture = null;
+//var texture = null;
 var camera = null;
 var picker = null;
 //var monstermap = null;
 
 var ef = new EntityFactory();
-var es = [];
+//var es = [];
 var levelManager = new LevelManager();
 
 var lm = null;

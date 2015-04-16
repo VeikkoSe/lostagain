@@ -15,7 +15,7 @@ class MapState extends StateEngine {
         //this.starProcess.draw();
 
 
-        gl.useProgram(shaderProgram);
+        sm.setProgram(shaderProgram);
 
 
         gl.disable(gl.BLEND);

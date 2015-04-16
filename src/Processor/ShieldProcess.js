@@ -3,14 +3,7 @@ class ShieldProcess extends Processor {
         this.particleProgram = sm.init('particle');
     }
 
-    simpleWorldToViewX(x) {
-        return x / screenWidth;
-    }
 
-    simpleWorldToViewY(y) {
-
-        return y / screenHeight;
-    }
 
     draw() {
         /*

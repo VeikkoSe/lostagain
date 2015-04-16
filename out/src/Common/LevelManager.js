@@ -43,9 +43,8 @@ var LevelManager = function LevelManager() {
         break;
       case ('second'):
         ef.createStars();
-        camera.setDistance(200);
+        camera.setDistance(20);
         var ship = ef.createShip();
-        ef.createEnemy();
         break;
       case ('third'):
         camera.setDistance(200);

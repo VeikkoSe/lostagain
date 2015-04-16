@@ -85,6 +85,7 @@ class LayoutProcess extends Processor {
 
                 var loop = 1;
                 if (lloop[i].component.amount) {
+
                     loop = lloop[i].component.amount;
 
                 }
@@ -159,7 +160,7 @@ class LayoutProcess extends Processor {
     draw() {
 
 
-        gl.useProgram(this.program);
+        sm.setProgram(this.program);
 
 
         this.recursiveLayout(lm, false);

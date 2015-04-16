@@ -3,32 +3,24 @@ class StateEngine {
 
     constructor() {
 
-
-        this.introState = new IntroState();
-        this.endState = new EndState();
-        this.menuState = new MenuState();
-        this.loadState = new LoadState();
-        this.gameState = new GameState();
-        this.mapState = new MapState();
-        // this.warpRoomState = new WarpRoomState();
-
-        // this.pauseState = new PauseState();
-
+        this.introState = null;
+        this.endState = null;
+        this.menuState = null;
+        this.loadState = null;
+        this.gameState = null;
+        this.mapState = null;
 
         this.running = true;
         this.states = [];
+        this.allStates = [];
         this.currentState = null;
 
-
-        //this.init();
     }
 
     init() {
-
     }
 
     update() {
-
     }
 
     cleanup() {
@@ -37,46 +29,43 @@ class StateEngine {
         document.onkeyup = null;
     }
 
-    determineState(stateStr) {
-        var state = false;
+    getState(sn) {
 
-        if (stateStr == "introstate") {
 
-            state = this.introState;
-        }
-        if (stateStr == "gamestate") {
-            state = this.gameState;
-        }
-        if (stateStr == "menustate") {
-            state = this.menuState;
+        if (this.allStates[sn]) {
+            return this.allStates[sn];
         }
 
-        if (stateStr == "pausestate") {
-            state = this.pauseState;
+        switch (sn) {
+            case 'introstate':
+                this.allStates[sn] = new IntroState();
+                break;
+            case 'gamestate':
+
+                this.allStates[sn] = new GameState();
+                break;
+            case 'menustate':
+                this.allStates[sn] = new MenuState();
+                break;
+            case 'endstate':
+                this.allStates[sn] = new EndState();
+                break;
+            case 'mapstate':
+                this.allStates[sn] = new MapState();
+                break;
+            case 'loadstate':
+                this.allStates[sn] = new LoadState();
+                break;
+
         }
-        if (stateStr == "endstate") {
-            state = this.endState;
-        }
-        if (stateStr == "mapstate") {
-
-            state = this.mapState;
-
-        }
-
-        if (stateStr == "loadstate") {
-
-            state = this.loadState;
-
-        }
+        return this.allStates[sn];
 
 
-        return state;
     }
-
 
     changeState(stateStr) {
 
-        var state = this.determineState(stateStr);
+        var state = this.getState(stateStr);
 
         // cleanup the current state
         if (this.states.length > 0) {
@@ -104,14 +93,16 @@ class StateEngine {
         }
 
         // store and init the new state
-        this.states.push(this.loadState);
-        this.currentState = this.loadState;
+        var ls = this.getState('loadstate');
+        this.states.push(ls);
+        this.currentState = ls;
         this.states[this.states.length - 1].init(nextState);
     }
 
 
     pushState(stateStr) {
-        var state = this.determineState(stateStr);
+        //var state = this.determineState(stateStr);
+        var state = this.getState(stateStr);
 
         // pause current state
         if (this.states.length > 0) {

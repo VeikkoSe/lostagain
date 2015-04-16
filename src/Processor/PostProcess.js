@@ -123,7 +123,7 @@ class PostProcess extends Processor {
 
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer2);
-        gl.useProgram(blurVerticalProgram);
+        sm.setProgram(blurVerticalProgram);
 
         //gl.clearColor(0, 0, 0, 1); // red
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -158,7 +158,7 @@ class PostProcess extends Processor {
 
     three() {
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        gl.useProgram(blurHorizontalProgram);
+        sm.setProgram(blurHorizontalProgram);
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);

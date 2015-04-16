@@ -56,7 +56,7 @@ var PhotonTorpedoProcess = function PhotonTorpedoProcess() {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.PhotonTorpedoComponent) {
         gl.disable(gl.DEPTH_TEST);
-        gl.useProgram(this.particleProgram3d);
+        sm.setProgram(this.particleProgram3d);
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
         for (var i = 0; i < this.bulletsAmount; i++) {

@@ -15,13 +15,13 @@ var LoadState = function LoadState(canvas) {
 ($traceurRuntime.createClass)(LoadState, {
   init: function(wantedState) {
     "use strict";
+    this.sp = sm.init('simplest');
     this.elapsedTotal = 0;
     this.lastTime = 0;
     this.loadPercent = 0;
     this.rotationSpeed = 50;
     this.rotationAngle = 0;
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    simplestProgram = sm.init('simplest');
     levelManager.loadAllAssets(wantedState);
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
@@ -30,9 +30,7 @@ var LoadState = function LoadState(canvas) {
   },
   draw: function() {
     "use strict";
-    gl.disable(gl.BLEND);
-    gl.enable(gl.DEPTH_TEST);
-    gl.useProgram(simplestProgram);
+    sm.setProgram(this.sp);
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.clearColor(0, 0, 0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -40,12 +38,12 @@ var LoadState = function LoadState(canvas) {
     this.points.push(0.5, 0, 0);
     camera.mvPushMatrix();
     mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotationAngle), [0, 0, 1]);
-    gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
-    gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
+    gl.uniformMatrix4fv(this.sp.uPMatrix, false, camera.pMatrix);
+    gl.uniformMatrix4fv(this.sp.uMVMatrix, false, camera.mvMatrix);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.points), gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
-    gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(this.sp.aVertexPosition);
+    gl.vertexAttribPointer(this.sp.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
     var attribLocation = 1;
     gl.drawArrays(gl.LINES, 0, 2);
     camera.mvPopMatrix();

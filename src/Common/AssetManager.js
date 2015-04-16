@@ -4,7 +4,7 @@ class AssetManager {
         this.textures = [];
     }
 
-    getOrAddMesh(name, mesh) {
+    getOrAddMesh(name) {
         if (this.meshes[name])
             return this.meshes[name];
 

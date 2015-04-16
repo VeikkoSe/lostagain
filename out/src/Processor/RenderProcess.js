@@ -16,9 +16,15 @@ var RenderProcess = function RenderProcess() {
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.Renderable && le.components.MeshComponent) {
-        gl.useProgram(this.shaderProgram);
+        sm.setProgram(this.shaderProgram);
         gl.uniform1f(this.shaderProgram.alphaUniform, 1);
         gl.uniform1i(this.shaderProgram.uDrawColors, 0);
+        gl.uniform1i(this.shaderProgram.uUseLighting, true);
+        gl.uniform3f(this.shaderProgram.uLightPosition, camera.x, -1 * camera.y, -1 * camera.z);
+        gl.uniform3f(this.shaderProgram.uLightAmbient, 0, 0, 0);
+        gl.uniform3f(this.shaderProgram.uLightDiffuse, 0.8, 0.8, 0.8);
+        gl.uniform3f(this.shaderProgram.uLightSpecular, 0.8, 0.8, 0.8);
+        gl.uniform1f(this.shaderProgram.uMaterialShininess, 200.0);
         var rc = le.components.Renderable;
         var mc = le.components.MeshComponent;
         camera.mvPushMatrix();

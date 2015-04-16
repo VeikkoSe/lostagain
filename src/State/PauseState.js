@@ -92,7 +92,7 @@ class PauseState extends StateEngine {
 
 
         camera.setPos(0, 0, -10, 0);
-        gl.useProgram(shaderProgram);
+        sm.setProgram(shaderProgram);
 
     }
 

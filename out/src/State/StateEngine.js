@@ -1,13 +1,14 @@
 var StateEngine = function StateEngine() {
   "use strict";
-  this.introState = new IntroState();
-  this.endState = new EndState();
-  this.menuState = new MenuState();
-  this.loadState = new LoadState();
-  this.gameState = new GameState();
-  this.mapState = new MapState();
+  this.introState = null;
+  this.endState = null;
+  this.menuState = null;
+  this.loadState = null;
+  this.gameState = null;
+  this.mapState = null;
   this.running = true;
   this.states = [];
+  this.allStates = [];
   this.currentState = null;
 };
 ($traceurRuntime.createClass)(StateEngine, {
@@ -22,35 +23,36 @@ var StateEngine = function StateEngine() {
     document.onkeydown = null;
     document.onkeyup = null;
   },
-  determineState: function(stateStr) {
+  getState: function(sn) {
     "use strict";
-    var state = false;
-    if (stateStr == "introstate") {
-      state = this.introState;
+    if (this.allStates[$traceurRuntime.toProperty(sn)]) {
+      return this.allStates[$traceurRuntime.toProperty(sn)];
     }
-    if (stateStr == "gamestate") {
-      state = this.gameState;
+    switch (sn) {
+      case 'introstate':
+        $traceurRuntime.setProperty(this.allStates, sn, new IntroState());
+        break;
+      case 'gamestate':
+        $traceurRuntime.setProperty(this.allStates, sn, new GameState());
+        break;
+      case 'menustate':
+        $traceurRuntime.setProperty(this.allStates, sn, new MenuState());
+        break;
+      case 'endstate':
+        $traceurRuntime.setProperty(this.allStates, sn, new EndState());
+        break;
+      case 'mapstate':
+        $traceurRuntime.setProperty(this.allStates, sn, new MapState());
+        break;
+      case 'loadstate':
+        $traceurRuntime.setProperty(this.allStates, sn, new LoadState());
+        break;
     }
-    if (stateStr == "menustate") {
-      state = this.menuState;
-    }
-    if (stateStr == "pausestate") {
-      state = this.pauseState;
-    }
-    if (stateStr == "endstate") {
-      state = this.endState;
-    }
-    if (stateStr == "mapstate") {
-      state = this.mapState;
-    }
-    if (stateStr == "loadstate") {
-      state = this.loadState;
-    }
-    return state;
+    return this.allStates[$traceurRuntime.toProperty(sn)];
   },
   changeState: function(stateStr) {
     "use strict";
-    var state = this.determineState(stateStr);
+    var state = this.getState(stateStr);
     if (this.states.length > 0) {
       this.states[$traceurRuntime.toProperty(this.states.length - 1)].cleanup();
       this.states.pop();
@@ -65,13 +67,14 @@ var StateEngine = function StateEngine() {
       this.states[$traceurRuntime.toProperty(this.states.length - 1)].cleanup();
       this.states.pop();
     }
-    this.states.push(this.loadState);
-    this.currentState = this.loadState;
+    var ls = this.getState('loadstate');
+    this.states.push(ls);
+    this.currentState = ls;
     this.states[$traceurRuntime.toProperty(this.states.length - 1)].init(nextState);
   },
   pushState: function(stateStr) {
     "use strict";
-    var state = this.determineState(stateStr);
+    var state = this.getState(stateStr);
     if (this.states.length > 0) {
       this.states[$traceurRuntime.toProperty(this.states.length - 1)].pause();
     }

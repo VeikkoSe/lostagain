@@ -1,4 +1,4 @@
-attribute vec3 aTextureCoord;
+attribute vec3 aVertexPosition;
 attribute vec2 aTextureCoord;
 
 uniform mat4 uMVMatrix;

@@ -52,7 +52,7 @@ class LaserProcess extends Processor {
             var le = em.entities[e];
 
             if (le.components.LaserComponent) {
-                gl.useProgram(simplestProgram);
+                sm.setProgram(simplestProgram);
                 // gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
                 /*
                  gl.bindTexture(gl.TEXTURE_2D, this.texture);

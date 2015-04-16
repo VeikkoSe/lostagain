@@ -134,7 +134,7 @@ class StarProcess extends Processor {
             var le = em.entities[e];
 
             if (le.components.StarComponent) {
-                gl.useProgram(this.starProgram);
+                sm.setProgram(this.starProgram);
                 camera.mvPushMatrix();
                 gl.uniform3fv(this.starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
 

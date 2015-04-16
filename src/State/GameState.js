@@ -46,14 +46,14 @@ class GameState extends StateEngine {
 
 
         this.processList = [];
-
+        this.processList.push(new TextProcess());
         this.processList.push(new AsteroidRenderProcess());
-        //this.processList.push(new PlaneProcess());
+        this.processList.push(new PlaneProcess());
         //this.processList.push(new PostProcess());
         this.processList.push(new RenderProcess());
         this.processList.push(new HealthProcess());
         this.processList.push(new ShieldProcess());
-        this.processList.push(new TextProcess());
+
         this.processList.push(new LinearMovementProcess());
         this.processList.push(new DrivingMovementProcess());
         this.processList.push(new CameraControllerProcess());
@@ -78,10 +78,6 @@ class GameState extends StateEngine {
         }
 
 
-        //else
-        //    levelManager.loadLevel(this.currentLevel);
-
-
         actionMapper = new GameStateActionMapper();
 
 
@@ -91,11 +87,6 @@ class GameState extends StateEngine {
         document.onmousedown = actionMapper.handleMouseDown;
         var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
         window.addEventListener(event, this.handleMouseWheel);
-
-
-        //starProgram = initStarShaders('star');
-
-        //fontProgram = initFontShaders("font");
 
 
         //Light uniforms

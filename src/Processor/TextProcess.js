@@ -26,21 +26,19 @@ class TextProcess extends Processor {
     }
 
     update(deltatime) {
-        if (this.rotation > 360)
-            this.rotation = 0;
-        this.rotation += (90 * deltatime) / 1000.0;
+
 
     }
 
 
     draw(text) {
-        gl.useProgram(this.fontProgram);
+
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if (le.components.TextComponent) {
-
+                sm.setProgram(this.fontProgram);
                 camera.mvPushMatrix();
                 mat4.scale(camera.mvMatrix, [0.2, 0.2, 0.2]);
 

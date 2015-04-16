@@ -32,6 +32,9 @@ class LevelManager {
         switch (name) {
             case ('first'):
 
+
+
+
                 camera.setDistance(300);
                 ef.createStars();
                 ef.createFuel(false);
@@ -68,12 +71,12 @@ class LevelManager {
                 break;
             case ('second'):
                 ef.createStars();
-                camera.setDistance(200);
+                camera.setDistance(20);
                 // ef.createMotherShip();
                 var ship = ef.createShip();
 
-
-                ef.createEnemy();
+                //ef.createFuel(false);
+                //ef.createEnemy();
                 break;
 
             case ('third'):

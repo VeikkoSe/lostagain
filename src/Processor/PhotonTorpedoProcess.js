@@ -100,10 +100,9 @@ class PhotonTorpedoProcess extends Processor {
 
             if (le.components.PhotonTorpedoComponent) {
                 gl.disable(gl.DEPTH_TEST);
-                gl.useProgram(this.particleProgram3d);
+                sm.setProgram(this.particleProgram3d);
 
                 gl.enable(gl.BLEND);
-
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
 

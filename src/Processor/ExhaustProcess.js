@@ -247,7 +247,7 @@ class ExhaustProcess extends Processor {
                 var ec = le.components.ExhaustComponent;
                 //for (var i = 0; i < this.exhaustAmount; i++) {
 
-                gl.useProgram(this.exhaustProgram);
+                sm.setProgram(this.exhaustProgram);
 
                 if (ec.points.length > 8) {
 

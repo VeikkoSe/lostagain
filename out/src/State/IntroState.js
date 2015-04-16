@@ -6,6 +6,7 @@ var IntroState = function IntroState(canvas) {
 ($traceurRuntime.createClass)(IntroState, {
   draw: function() {
     "use strict";
+    sm.setProgram(this.shaderProgram);
     gl.disable(gl.BLEND);
     gl.enable(gl.DEPTH_TEST);
     gl.uniform1f(this.shaderProgram.alphaUniform, 1);
@@ -46,7 +47,6 @@ var IntroState = function IntroState(canvas) {
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);
     mat4.translate(camera.mvMatrix, [0, 0, -10]);
-    gl.useProgram(this.shaderProgram);
   },
   cleanup: function() {
     "use strict";

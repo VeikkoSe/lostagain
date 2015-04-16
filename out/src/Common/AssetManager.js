@@ -4,7 +4,7 @@ var AssetManager = function AssetManager() {
   this.textures = [];
 };
 ($traceurRuntime.createClass)(AssetManager, {
-  getOrAddMesh: function(name, mesh) {
+  getOrAddMesh: function(name) {
     "use strict";
     if (this.meshes[$traceurRuntime.toProperty(name)])
       return this.meshes[$traceurRuntime.toProperty(name)];

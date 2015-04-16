@@ -88,7 +88,7 @@ var AsteroidRenderProcess = function AsteroidRenderProcess() {
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.AsteroidComponent) {
-        gl.useProgram(this.ambientProgram);
+        sm.setProgram(this.ambientProgram);
         gl.uniform3fv(this.ambientProgram.uCameraPos, [camera.x, camera.y, camera.z]);
         gl.uniformMatrix4fv(this.ambientProgram.uPMatrix, false, camera.pMatrix);
         var timeNow = new Date().getTime();

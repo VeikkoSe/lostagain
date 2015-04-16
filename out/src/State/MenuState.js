@@ -37,7 +37,7 @@ var MenuState = function MenuState(canvas) {
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);
     mat4.translate(camera.mvMatrix, [0, 0, -90]);
-    gl.useProgram(shaderProgram);
+    sm.setProgram(shaderProgram);
   },
   update: function() {
     "use strict";

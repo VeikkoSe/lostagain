@@ -159,7 +159,7 @@ class AsteroidRenderProcess extends Processor {
             if (le.components.AsteroidComponent) {
 
 
-                gl.useProgram(this.ambientProgram);
+                sm.setProgram(this.ambientProgram);
 
                 gl.uniform3fv(this.ambientProgram.uCameraPos, [camera.x, camera.y, camera.z]);
                 //gl.uniform3fv(this.ambientProgram.uCameraPos, [0, 20, -20]);

@@ -64,7 +64,7 @@ var PostProcess = function PostProcess() {
     gl.generateMipmap(gl.TEXTURE_2D);
     gl.bindTexture(gl.TEXTURE_2D, null);
     gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer2);
-    gl.useProgram(blurVerticalProgram);
+    sm.setProgram(blurVerticalProgram);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
     gl.vertexAttribPointer(blurVerticalProgram.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
@@ -81,7 +81,7 @@ var PostProcess = function PostProcess() {
   three: function() {
     "use strict";
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-    gl.useProgram(blurHorizontalProgram);
+    sm.setProgram(blurHorizontalProgram);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
     gl.vertexAttribPointer(blurHorizontalProgram.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);

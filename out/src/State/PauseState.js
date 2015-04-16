@@ -38,7 +38,7 @@ var PauseState = function PauseState(canvas) {
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     camera.setPos(0, 0, -10, 0);
-    gl.useProgram(shaderProgram);
+    sm.setProgram(shaderProgram);
   },
   update: function() {
     "use strict";

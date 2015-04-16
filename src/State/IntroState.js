@@ -8,6 +8,7 @@ class IntroState extends StateEngine {
 
     draw() {
 
+        sm.setProgram(this.shaderProgram);
 
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -69,6 +70,7 @@ class IntroState extends StateEngine {
 
 
     init() {
+
         //global
         this.intro = mm.getOrAddMesh('start');
         actionMapper = new IntroStateActionMapper();
@@ -99,7 +101,7 @@ class IntroState extends StateEngine {
         //camera.setPos(0,0,-10,0);
         mat4.identity(camera.mvMatrix);
         mat4.translate(camera.mvMatrix, [0, 0, -10]);
-        gl.useProgram(this.shaderProgram);
+
 
     }
 

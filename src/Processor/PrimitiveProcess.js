@@ -1,6 +1,7 @@
 class PrimitiveProcess extends Processor {
     constructor() {
         this.vertexPositionBuffer = gl.createBuffer();
+        this.simplestProgram = sm.init('simplest');
 
     }
 
@@ -22,20 +23,20 @@ class PrimitiveProcess extends Processor {
             var le = em.entities[e];
 
             if (le.components.JumpArea && le.components.Renderable) {
-                gl.useProgram(simplestProgram);
+                sm.setProgram(this.simplestProgram);
                 var re = le.components.Renderable;
                 var p = {x: re.xPos, y: re.yPos, z: re.zPos};
 
                 this.points = this.circleXY(p, le.components.JumpArea.radius, 200);
 
                 camera.mvPushMatrix();
-                gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
-                gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
+                gl.uniformMatrix4fv(this.simplestProgram.uPMatrix, false, camera.pMatrix);
+                gl.uniformMatrix4fv(this.simplestProgram.uMVMatrix, false, camera.mvMatrix);
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.points), gl.STATIC_DRAW);
-                gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
-                gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+                gl.enableVertexAttribArray(this.simplestProgram.aVertexPosition);
+                gl.vertexAttribPointer(this.simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
                 gl.drawArrays(gl.LINES, 0, this.points.length / 3);

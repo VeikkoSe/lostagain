@@ -119,7 +119,7 @@ var ExhaustProcess = function ExhaustProcess() {
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
         var ec = le.components.ExhaustComponent;
-        gl.useProgram(this.exhaustProgram);
+        sm.setProgram(this.exhaustProgram);
         if (ec.points.length > 8) {
           gl.activeTexture(gl.TEXTURE0);
           gl.bindTexture(gl.TEXTURE_2D, ec.sprite);

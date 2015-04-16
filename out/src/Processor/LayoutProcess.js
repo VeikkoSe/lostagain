@@ -103,7 +103,7 @@ var LayoutProcess = function LayoutProcess() {
   },
   draw: function() {
     "use strict";
-    gl.useProgram(this.program);
+    sm.setProgram(this.program);
     this.recursiveLayout(lm, false);
   }
 }, {}, Processor);

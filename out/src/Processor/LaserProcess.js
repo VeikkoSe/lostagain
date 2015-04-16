@@ -28,7 +28,7 @@ var LaserProcess = function LaserProcess() {
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.LaserComponent) {
-        gl.useProgram(simplestProgram);
+        sm.setProgram(simplestProgram);
         var points = [];
         points = this.railXY(-1500);
         camera.mvPushMatrix();

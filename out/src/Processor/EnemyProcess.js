@@ -16,7 +16,8 @@ var $EnemyProcess = EnemyProcess;
         var ship = em.getEntityByName('ship');
         var re = le.components.Renderable;
         if ((helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
-          if (ship.components.ShieldComponent.amount == 0)
+          if (ship.components.HealthComponent.amount == 0 && ship.components.ShieldComponent.amount == 0) {}
+          if (ship.components.ShieldComponent.amount < 1)
             ship.components.HealthComponent.amount--;
           else
             ship.components.ShieldComponent.amount--;
