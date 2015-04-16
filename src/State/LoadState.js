@@ -22,8 +22,6 @@ class LoadState extends StateEngine {
         //this.currentLevel = 0;
 
 
-
-
     }
 
     init(wantedState) {

@@ -30,7 +30,7 @@ class RenderProcess extends Processor {
                 gl.uniform1i(this.shaderProgram.uDrawColors, 0);
 
                 gl.uniform1i(this.shaderProgram.uUseLighting, true);
-                gl.uniform3f(this.shaderProgram.uLightPosition, camera.x, -1*camera.y, -1*camera.z);
+                gl.uniform3f(this.shaderProgram.uLightPosition, camera.x, -1 * camera.y, -1 * camera.z);
                 gl.uniform3f(this.shaderProgram.uLightAmbient, 0, 0, 0);
                 gl.uniform3f(this.shaderProgram.uLightDiffuse, 0.8, 0.8, 0.8);
                 gl.uniform3f(this.shaderProgram.uLightSpecular, 0.8, 0.8, 0.8);

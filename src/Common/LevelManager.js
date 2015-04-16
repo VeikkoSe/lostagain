@@ -33,8 +33,6 @@ class LevelManager {
             case ('first'):
 
 
-
-
                 camera.setDistance(300);
                 ef.createStars();
                 ef.createFuel(false);

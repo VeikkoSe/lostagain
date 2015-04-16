@@ -19,8 +19,7 @@ class EnemyProcess extends Processor {
 
                     //this.routeDone = true;
 
-                    if(ship.components.HealthComponent.amount ==0 && ship.components.ShieldComponent.amount ==0)
-                    {
+                    if (ship.components.HealthComponent.amount == 0 && ship.components.ShieldComponent.amount == 0) {
                         //alert('you loose!');
                     }
 

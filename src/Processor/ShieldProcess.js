@@ -4,7 +4,6 @@ class ShieldProcess extends Processor {
     }
 
 
-
     draw() {
         /*
 

@@ -5,7 +5,7 @@ class ShaderManager {
     }
 
     setProgram(program) {
-        if(this.currentProgram!= null && this.currentProgram.name == program.name) {
+        if (this.currentProgram != null && this.currentProgram.name == program.name) {
             return true;
         }
         else {
@@ -15,12 +15,11 @@ class ShaderManager {
     }
 
     init(name) {
-        if (this.allShaders[name])
-        {
+        if (this.allShaders[name]) {
             return this.allShaders[name];
         }
 
-        switch(name) {
+        switch (name) {
             case "particle":
                 this.allShaders[name] = this.initParticleShaders("particle");
                 break;
@@ -73,12 +72,11 @@ class ShaderManager {
 
         program.name = id;
 
-}
+    }
 
     initExhaustShaders(id) {
 
         var program = this.createP(id);
-
 
 
         program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
@@ -370,7 +368,6 @@ class ShaderManager {
         gl.attachShader(program, fsshader);
 
     }
-
 
 
 }
