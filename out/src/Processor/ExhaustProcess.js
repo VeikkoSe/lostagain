@@ -116,11 +116,12 @@ var ExhaustProcess = function ExhaustProcess() {
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.ExhaustComponent) {
-        gl.enable(gl.BLEND);
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
         var ec = le.components.ExhaustComponent;
-        sm.setProgram(this.exhaustProgram);
         if (ec.points.length > 8) {
+          sm.setProgram(this.exhaustProgram);
+          gl.enable(gl.BLEND);
+          gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+          gl.disable(gl.DEPTH_TEST);
           gl.activeTexture(gl.TEXTURE0);
           gl.bindTexture(gl.TEXTURE_2D, ec.sprite);
           gl.uniform1i(this.exhaustProgram.samplerUniform, 0);
@@ -136,9 +137,9 @@ var ExhaustProcess = function ExhaustProcess() {
           gl.drawArrays(gl.TRIANGLES, 0, ec.points.length / 3);
           camera.drawCalls++;
           camera.mvPopMatrix();
+          gl.enable(gl.DEPTH_TEST);
+          gl.disable(gl.BLEND);
         }
-        gl.enable(gl.DEPTH_TEST);
-        gl.disable(gl.BLEND);
       }
     }
   }

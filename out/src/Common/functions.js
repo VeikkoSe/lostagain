@@ -35,6 +35,9 @@ function webGLStart() {
   mm = new AssetManager();
   camera = new Camera();
   picker = new Picker(canvas);
+  ef = new EntityFactory();
+  levelManager = new LevelManager();
+  pub = new Publish();
   game = new Game(canvas);
 }
 function updateLightPosition() {

@@ -5,14 +5,11 @@ class PhotonTorpedoProcess extends Processor {
         this.bullets = [];
         this.bulletShot = 0;
         this.lastTime = 0;
-        //this.particleProgram = sm.init('particle');
         this.particleProgram3d = sm.init('particle3d');
-        //this.bulletMesh = new Mesh('bigbullet');
 
         var bullet;
         for (var i = 0; i < this.bulletsAmount; i++) {
             var bullet = new PhotonTorpedo();
-            //bullet.bulletModel = this.bulletMesh;
             this.bullets.push(bullet);
         }
     }
@@ -22,7 +19,6 @@ class PhotonTorpedoProcess extends Processor {
         var timeNow = new Date().getTime();
 
         if (timeNow - this.bulletReloadSpeed > this.bulletShot) {
-
 
             for (var i = 0; i < this.bulletsAmount; i++) {
 
@@ -43,10 +39,7 @@ class PhotonTorpedoProcess extends Processor {
     update(deltatime) {
 
         var timeNow = new Date().getTime();
-        //var timeNow = new Date().getTime();
 
-        //if (this.lastTime != 0) {
-        // var elapsed = timeNow - this.lastTime;
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
@@ -61,10 +54,6 @@ class PhotonTorpedoProcess extends Processor {
                 this.bullets[i].visible = 0;
             }
             else {
-
-                //console.log(this.bullets[i].angle);
-                //console.log(this.bullets[i].speed);
-                //console.log(deltatime);
                 var posX = this.bullets[i].speed * ( deltatime / 1000.0 ) * Math.cos(helpers.degToRad(this.bullets[i].angle));
                 var posZ = this.bullets[i].speed * ( deltatime / 1000.0 ) * Math.sin(helpers.degToRad(this.bullets[i].angle));
 
@@ -72,23 +61,9 @@ class PhotonTorpedoProcess extends Processor {
                 this.bullets[i].zPos -= posZ;
             }
 
-            //if (this.bullets[i].xPos > screenWidth) {
-            //this.bullets[i].xPos = -1 * screenWidth;
 
-
-            //if (this.bullets[i].yPos > screenHeight) {
-            //this.bullets[i].yPos = -1 * screenHeight;
-            //}
-
-            //if (this.bullets[i].xPos < -1 * screenWidth) {
-            //this.bullets[i].xPos = screenWidth;
-            //}
-            //if (this.bullets[i].yPos < -1 * screenHeight) {
-            //this.bullets[i].yPos = screenHeight;
-            //}
         }
-        //  }
-        // this.lastTime = timeNow;
+
     }
 
 

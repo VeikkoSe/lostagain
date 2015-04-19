@@ -7,6 +7,11 @@ var GameState = function GameState(canvas) {
   this.processList = [];
 };
 ($traceurRuntime.createClass)(GameState, {
+  testi: function(topic, data) {
+    "use strict";
+    console.log(topic);
+    console.log(data);
+  },
   init: function() {
     "use strict";
     this.processList = [];
@@ -29,6 +34,7 @@ var GameState = function GameState(canvas) {
     this.processList.push(new ExhaustProcess());
     this.processList.push(new ExplosionProcess());
     this.processList.push(new LayoutProcess());
+    this.processList.push(new CollisionProcess());
     if (game.currentLevel == null) {
       levelManager.loadLevel('first');
       game.currentLevel = 'first';

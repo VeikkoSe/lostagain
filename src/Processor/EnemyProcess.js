@@ -4,6 +4,12 @@ class EnemyProcess extends Processor {
     }
 
     update(deltatime) {
+
+
+
+
+
+
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 

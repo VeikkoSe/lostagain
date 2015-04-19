@@ -3,42 +3,17 @@ class ExhaustProcess extends Processor {
         this.exhaustAmount = 200;
         this.exhaustInterval = 50;
         this.exhaustTrail = [];
-        //this.bulletShot = 0;
+
         this.lastTime = 0;
-        //this.particleProgram = sm.init('particle');
         this.exhaustProgram = sm.init('exhaust');
-        //this.bulletMesh = new Mesh('bigbullet');
         this.elapsedTotal = 0;
-
-
-        //this.points.push(-50, 0, 0);
-        //this.points.push(20, 0, 0);
 
         this.vertexPositionBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
 
-        /*
-
-         1,0,
-         0,0,
-         0,1,
-
-
-         1,0,
-         1,1,
-         0,1,
-
-         */
-
-
         this.texturecoordinates = [];
-
-
         this.texturePositionBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
-
-        //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.points), gl.STATIC_DRAW);
-
 
     }
 
@@ -49,14 +24,6 @@ class ExhaustProcess extends Processor {
 
     update(deltatime) {
 
-
-
-
-
-
-
-
-        //actionMapper.handleKeys();
 
 
         var timeNow = new Date().getTime();
@@ -88,17 +55,11 @@ class ExhaustProcess extends Processor {
 
                 }
 
-
-                //var posX =  Math.cos(helpers.degToRad(le.components.Renderable.xPos.angleY));
-                //var posZ =  Math.sin(helpers.degToRad(le.components.Renderable.zPos.angleY));
-
-
                 if (ec.flow.length == 0) {
 
                     ec.flow.push(rendX);
                     ec.flow.push(0);
                     ec.flow.push(rendZ);
-
 
                 }
 
@@ -109,17 +70,11 @@ class ExhaustProcess extends Processor {
                 var distance = Math.sqrt(xd * xd + zd * zd);
 
 
-                //console.log(this.points[this.points.length-2]);
-                //console.log(this.points[this.points.length-1]);
-
                 //when to create new
                 if (distance > 2) {
 
 
                     if (ec.flow.length > 3) {
-
-                        //var lastX = this.flow[this.points.length-3];
-                        //var lastZ = this.flow[this.points.length-1];
 
                         //quarter of a turn. That means if blue = (x, y), red = (-y, x)
 
@@ -239,49 +194,23 @@ class ExhaustProcess extends Processor {
 
             if (le.components.ExhaustComponent) {
 
-                gl.enable(gl.BLEND);
-                //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-                gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
 
                 var ec = le.components.ExhaustComponent;
                 //for (var i = 0; i < this.exhaustAmount; i++) {
 
-                sm.setProgram(this.exhaustProgram);
+
 
                 if (ec.points.length > 8) {
+                    sm.setProgram(this.exhaustProgram);
 
-
-                    //var points = [];
-
-                    //points.push(-50, 0, 0);
-                    //points.push(20, 0, 0);
-
-                    // var timeNow = new Date().getTime();
-
-
-                    //if (this.lastTime != 0) {
-
-
-                    //var elapsed = timeNow - this.lastTime;
-                    //this.elapsedTotal += elapsed;
-
-                    // points = this.railXY(-1500);
-
-
-                    // gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+                    gl.enable(gl.BLEND);
+                    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+                    gl.disable(gl.DEPTH_TEST);
 
                     gl.activeTexture(gl.TEXTURE0);
 
-                    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-                    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-
-                    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-                    //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-
-
                     gl.bindTexture(gl.TEXTURE_2D, ec.sprite);
-
 
                     gl.uniform1i(this.exhaustProgram.samplerUniform, 0);
 
@@ -306,11 +235,12 @@ class ExhaustProcess extends Processor {
 
                     camera.mvPopMatrix();
 
+                    gl.enable(gl.DEPTH_TEST);
+                    gl.disable(gl.BLEND);
 
                 }
 
-                gl.enable(gl.DEPTH_TEST);
-                gl.disable(gl.BLEND);
+
             }
 
 

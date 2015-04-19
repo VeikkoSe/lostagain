@@ -42,6 +42,11 @@ class GameState extends StateEngine {
 
     }
 
+    testi(topic,data) {
+        console.log(topic);
+        console.log(data);
+    }
+
     init() {
 
 
@@ -53,7 +58,6 @@ class GameState extends StateEngine {
         this.processList.push(new RenderProcess());
         this.processList.push(new HealthProcess());
         this.processList.push(new ShieldProcess());
-
         this.processList.push(new LinearMovementProcess());
         this.processList.push(new DrivingMovementProcess());
         this.processList.push(new CameraControllerProcess());
@@ -67,6 +71,7 @@ class GameState extends StateEngine {
         this.processList.push(new ExhaustProcess());
         this.processList.push(new ExplosionProcess());
         this.processList.push(new LayoutProcess());
+        this.processList.push(new CollisionProcess());
 
 
         if (game.currentLevel == null) {
@@ -89,37 +94,11 @@ class GameState extends StateEngine {
         window.addEventListener(event, this.handleMouseWheel);
 
 
-        //Light uniforms
-        //var x = $('#slider-x').slider("value");
-        // var y = $('#slider-y').slider("value");
-        //var z = $('#slider-z').slider("value");
-
-
-        //gl.enable(gl.DEPTH_TEST);
-        //gl.enable(gl.CULL_FACE);
-
-        //gl.clearColor(1, 1, 1, 1.0);
-        //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        //gl.clearDepth(1.0);
-
-
-        //gl.depthFunc(gl.LESS);
-
-
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
 
         camera.setPerspective();
 
-
-        //camera.move();
-
-        //camera.setDistance(600);
-        ///camera.setRotation(45);
-
-        //mat4.identity(camera.mvMatrix);
-        //mat4.translate(camera.mvMatrix, [0, 0, -50]);
-        //gl.useProgram(shaderProgram);
 
         mat4.identity(camera.mvMatrix);
         mat4.translate(camera.mvMatrix, [0, 0, -300]);

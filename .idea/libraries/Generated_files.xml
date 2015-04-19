@@ -11,8 +11,11 @@
         <item url="file://$PROJECT_DIR$/out/src/Common/Layout.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Billboard.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/GUIManager.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Processor/CollisionProcess.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/CollisionComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/Publish.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/AsteroidComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/GuiComponent.js" />
@@ -337,8 +340,11 @@
       <root url="file://$PROJECT_DIR$/out/src/Common/Layout.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/GUIManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Billboard.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Processor/CollisionProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/CollisionComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/Publish.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/AsteroidComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/GuiComponent.js" />
