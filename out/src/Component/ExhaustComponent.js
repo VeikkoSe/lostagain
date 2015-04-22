@@ -4,5 +4,6 @@ var ExhaustComponent = function ExhaustComponent(sprite) {
   this.sprite = sprite;
   this.points = [];
   this.flow = [];
+  this.square = [];
 };
 ($traceurRuntime.createClass)(ExhaustComponent, {}, {}, Component);

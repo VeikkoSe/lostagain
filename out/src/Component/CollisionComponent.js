@@ -1,6 +1,7 @@
-var CollisionComponent = function CollisionComponent() {
+var CollisionComponent = function CollisionComponent(group) {
   "use strict";
   this.name = "CollisionComponent";
+  this.group = group;
   this.xPos = null;
   this.yPos = null;
   this.zPos = null;

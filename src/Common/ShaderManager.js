@@ -338,7 +338,7 @@ class ShaderManager {
 
         $.ajax({
             async: false,
-            url: './shaders/' + id + '-fs.shader',
+            url: './shaders/' + id + '-fs.shader?' + Math.random(),
             success: function (data) {
 
                 fs_source = data;

@@ -49,26 +49,28 @@ var ExhaustProcess = function ExhaustProcess() {
         var distance = Math.sqrt(xd * xd + zd * zd);
         if (distance > 2) {
           if (ec.flow.length > 3) {
-            var tp = [];
-            tp.push(ec.points[$traceurRuntime.toProperty(ec.points.length - 6)]);
-            tp.push(0);
-            tp.push(ec.points[$traceurRuntime.toProperty(ec.points.length - 4)]);
-            tp.push(zdh + rendX);
-            tp.push(0);
-            tp.push(-1 * xdh + rendZ);
-            tp.push(ec.points[$traceurRuntime.toProperty(ec.points.length - 3)]);
-            tp.push(0);
-            tp.push(ec.points[$traceurRuntime.toProperty(ec.points.length - 1)]);
-            tp.push(ec.points[$traceurRuntime.toProperty(ec.points.length - 6)]);
-            tp.push(0);
-            tp.push(ec.points[$traceurRuntime.toProperty(ec.points.length - 4)]);
-            tp.push(-1 * zdh + rendX);
-            tp.push(0);
-            tp.push(xdh + rendZ);
-            tp.push(zdh + rendX);
-            tp.push(0);
-            tp.push(-1 * xdh + rendZ);
-            ec.points.push.apply(ec.points, tp);
+            var i = 0;
+            $traceurRuntime.setProperty(ec.square, i++, ec.points[$traceurRuntime.toProperty(ec.points.length - 6)]);
+            $traceurRuntime.setProperty(ec.square, i++, 0);
+            $traceurRuntime.setProperty(ec.square, i++, ec.points[$traceurRuntime.toProperty(ec.points.length - 4)]);
+            $traceurRuntime.setProperty(ec.square, i++, zdh + rendX);
+            $traceurRuntime.setProperty(ec.square, i++, 0);
+            $traceurRuntime.setProperty(ec.square, i++, -1 * xdh + rendZ);
+            $traceurRuntime.setProperty(ec.square, i++, ec.points[$traceurRuntime.toProperty(ec.points.length - 3)]);
+            $traceurRuntime.setProperty(ec.square, i++, 0);
+            $traceurRuntime.setProperty(ec.square, i++, ec.points[$traceurRuntime.toProperty(ec.points.length - 1)]);
+            $traceurRuntime.setProperty(ec.square, i++, ec.points[$traceurRuntime.toProperty(ec.points.length - 6)]);
+            $traceurRuntime.setProperty(ec.square, i++, 0);
+            $traceurRuntime.setProperty(ec.square, i++, ec.points[$traceurRuntime.toProperty(ec.points.length - 4)]);
+            $traceurRuntime.setProperty(ec.square, i++, -1 * zdh + rendX);
+            $traceurRuntime.setProperty(ec.square, i++, 0);
+            $traceurRuntime.setProperty(ec.square, i++, xdh + rendZ);
+            $traceurRuntime.setProperty(ec.square, i++, zdh + rendX);
+            $traceurRuntime.setProperty(ec.square, i++, 0);
+            $traceurRuntime.setProperty(ec.square, i++, -1 * xdh + rendZ);
+            for (var i = 0; i < 18; i++) {
+              ec.points.push(ec.square[$traceurRuntime.toProperty(i)]);
+            }
             ec.flow.push(rendX);
             ec.flow.push(0);
             ec.flow.push(rendZ);

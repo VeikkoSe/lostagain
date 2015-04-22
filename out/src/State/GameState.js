@@ -18,7 +18,6 @@ var GameState = function GameState(canvas) {
     this.processList.push(new TextProcess());
     this.processList.push(new AsteroidRenderProcess());
     this.processList.push(new PlaneProcess());
-    this.processList.push(new RenderProcess());
     this.processList.push(new HealthProcess());
     this.processList.push(new ShieldProcess());
     this.processList.push(new LinearMovementProcess());
@@ -35,6 +34,7 @@ var GameState = function GameState(canvas) {
     this.processList.push(new ExplosionProcess());
     this.processList.push(new LayoutProcess());
     this.processList.push(new CollisionProcess());
+    this.processList.push(new RenderProcess());
     if (game.currentLevel == null) {
       levelManager.loadLevel('first');
       game.currentLevel = 'first';

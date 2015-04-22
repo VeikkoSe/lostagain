@@ -6,6 +6,8 @@ class ExhaustComponent extends Component {
         this.points = [];
         this.flow = [];
 
+        this.square = [];
+
 
     }
 

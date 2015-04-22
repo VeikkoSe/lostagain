@@ -55,7 +55,7 @@ class GameState extends StateEngine {
         this.processList.push(new AsteroidRenderProcess());
         this.processList.push(new PlaneProcess());
         //this.processList.push(new PostProcess());
-        this.processList.push(new RenderProcess());
+
         this.processList.push(new HealthProcess());
         this.processList.push(new ShieldProcess());
         this.processList.push(new LinearMovementProcess());
@@ -72,6 +72,7 @@ class GameState extends StateEngine {
         this.processList.push(new ExplosionProcess());
         this.processList.push(new LayoutProcess());
         this.processList.push(new CollisionProcess());
+        this.processList.push(new RenderProcess());
 
 
         if (game.currentLevel == null) {

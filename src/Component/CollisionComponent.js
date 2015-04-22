@@ -1,7 +1,7 @@
 class CollisionComponent extends Component {
-    constructor() {
+    constructor(group) {
         this.name = "CollisionComponent";
-
+        this.group = group;
         this.xPos = null;
         this.yPos = null;
         this.zPos = null;

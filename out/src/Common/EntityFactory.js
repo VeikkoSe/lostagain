@@ -14,7 +14,7 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new ShieldComponent(10, new Sprite("shield", -0.9, -0.74)));
     e.addComponent(new PhotonTorpedoComponent(new Sprite("bigbullet", 0, 0)));
     e.addComponent(new GunComponent());
-    e.addComponent(new CollisionComponent());
+    e.addComponent(new CollisionComponent('player'));
     var t = new Texture('exhausttrail', false, true);
     e.addComponent(new ExhaustComponent(t.loadedTexture));
     return e;
@@ -31,8 +31,8 @@ var EntityFactory = function EntityFactory() {
     var mesh = mm.getOrAddMesh('enemy');
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new EnemyComponent());
-    e.addComponent(new Renderable(helpers.getRandomInt(-800, 700), 0, helpers.getRandomInt(-800, 700), 1));
-    e.addComponent(new CollisionComponent());
+    e.addComponent(new Renderable(helpers.getRandomInt(-80, 70), 0, helpers.getRandomInt(-80, 70), 1));
+    e.addComponent(new CollisionComponent('enemy'));
     return e;
   },
   createCurrency: function() {
@@ -62,6 +62,7 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
     var t = new Texture('exhausttrailm', false, true);
     e.addComponent(new ExhaustComponent(t.loadedTexture));
+    e.addComponent(new CollisionComponent('player'));
     return e;
   },
   createTerrain: function() {
@@ -97,7 +98,7 @@ var EntityFactory = function EntityFactory() {
       e.addComponent(new Renderable(110, 0, 50, 50));
     }
     e.addComponent(new ConstantRotation(10, 10, 10));
-    e.addComponent(new CollisionComponent());
+    e.addComponent(new CollisionComponent('enemy'));
     return e;
   },
   createPlane: function() {

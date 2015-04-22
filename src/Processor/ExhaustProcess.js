@@ -79,40 +79,38 @@ class ExhaustProcess extends Processor {
                         //quarter of a turn. That means if blue = (x, y), red = (-y, x)
 
 
-                        var tp = [];
-
-
+                        var i = 0;
                         //first triangle
+                        ec.square[i++] = ec.points[ec.points.length - 6];
+                        ec.square[i++] = 0;
+                        ec.square[i++] = ec.points[ec.points.length - 4];
 
-                        tp.push(ec.points[ec.points.length - 6]);
-                        tp.push(0);
-                        tp.push(ec.points[ec.points.length - 4]);
+                        ec.square[i++] = zdh + rendX;
+                        ec.square[i++] = 0;
+                        ec.square[i++] = -1 * xdh + rendZ;
 
-                        tp.push(zdh + rendX);
-                        tp.push(0);
-                        tp.push(-1 * xdh + rendZ);
-
-                        tp.push(ec.points[ec.points.length - 3]);
-                        tp.push(0);
-                        tp.push(ec.points[ec.points.length - 1]);
+                        ec.square[i++] = ec.points[ec.points.length - 3];
+                        ec.square[i++] = 0;
+                        ec.square[i++] = ec.points[ec.points.length - 1];
 
 
                         //second triangle
-                        tp.push(ec.points[ec.points.length - 6]);
-                        tp.push(0);
-                        tp.push(ec.points[ec.points.length - 4]);
+                        ec.square[i++] = ec.points[ec.points.length - 6];
+                        ec.square[i++] = 0;
+                        ec.square[i++] = ec.points[ec.points.length - 4];
 
-                        tp.push(-1 * zdh + rendX);
-                        tp.push(0);
-                        tp.push(xdh + rendZ);
+                        ec.square[i++]  = -1 * zdh + rendX;
+                        ec.square[i++] = 0;
+                        ec.square[i++] = xdh + rendZ;
 
-                        tp.push(zdh + rendX);
-                        tp.push(0);
-                        tp.push(-1 * xdh + rendZ);
+                        ec.square[i++] = zdh + rendX;
+                        ec.square[i++] = 0;
+                        ec.square[i++] = -1 * xdh + rendZ;
 
-                        //tp.push.apply(ec.points, tp);
-
-                        ec.points.push.apply(ec.points, tp);
+                        for(var i=0;i<18;i++)
+                        {
+                            ec.points.push(ec.square[i]);
+                        }
 
 
                         ec.flow.push(rendX);

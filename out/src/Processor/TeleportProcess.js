@@ -21,6 +21,8 @@ var $TeleportProcess = TeleportProcess;
         var posZ = dirZ + ms.components.Renderable.zPos;
         ship.components.Renderable.xPos = posx;
         ship.components.Renderable.zPos = posZ;
+        ship.components.ExhaustComponent.points = [];
+        ship.components.ExhaustComponent.flow = [];
       }
     }
   },

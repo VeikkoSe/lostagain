@@ -34,6 +34,9 @@ class TeleportProcess extends Processor {
                 ship.components.Renderable.xPos = posx;
                 ship.components.Renderable.zPos = posZ;
 
+                ship.components.ExhaustComponent.points = [];
+                ship.components.ExhaustComponent.flow = [];
+
             }
         }
     }
