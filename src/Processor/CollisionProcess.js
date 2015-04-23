@@ -5,7 +5,6 @@ class CollisionProcess extends Processor {
     }
 
     update() {
-        //TODO: afaik this is really slow
         this.collisions.length = 0;
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -34,6 +33,7 @@ class CollisionProcess extends Processor {
                     this.collisions[i].zPos - this.collisions[i].zWidth < this.collisions[j].zPos + this.collisions[j].zWidth
                     && this.collisions[i].group!= this.collisions[j].group) {
                     //pub.publish( "inbox/newMessage", "hello world!" );
+
                     pub.publish("collision", [this.collisions[i],this.collisions[j]]);
 
                 }

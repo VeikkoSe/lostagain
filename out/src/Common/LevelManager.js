@@ -21,6 +21,7 @@ var LevelManager = function LevelManager() {
         camera.setDistance(350);
         ef.createStars();
         ef.createFuel(false);
+        ef.createEnemy();
         var mothership = ef.createMotherShip();
         var ship = ef.createShip();
         var radar = ef.createRadar();

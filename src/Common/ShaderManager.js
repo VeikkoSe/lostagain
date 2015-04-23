@@ -21,37 +21,40 @@ class ShaderManager {
 
         switch (name) {
             case "particle":
-                this.allShaders[name] = this.initParticleShaders("particle");
+                this.allShaders[name] = this.initParticleShaders(name);
                 break;
             case "simplest":
-                this.allShaders[name] = this.initSimplestShaders("simplest");
+                this.allShaders[name] = this.initSimplestShaders(name);
                 break;
             case "blurvertical":
-                this.allShaders[name] = this.initBlurShaders("blurvertical");
+                this.allShaders[name] = this.initBlurShaders(name);
                 break;
             case 'blurhorizontal':
-                this.allShaders[name] = this.initBlurShaders("blurhorizontal");
+                this.allShaders[name] = this.initBlurShaders(name);
                 break;
             case 'per-fragment-lighting':
-                this.allShaders[name] = this.initShaders("per-fragment-lighting");
+                this.allShaders[name] = this.initShaders(name);
                 break;
             case 'ambient':
-                this.allShaders[name] = this.initAmbientShaders('ambient');
+                this.allShaders[name] = this.initAmbientShaders(name);
                 break;
             case 'font':
-                this.allShaders[name] = this.initFontShaders('font');
+                this.allShaders[name] = this.initFontShaders(name);
                 break;
             case "star":
-                this.allShaders[name] = this.initStarShaders('star');
+                this.allShaders[name] = this.initStarShaders(name);
                 break;
             case "particle3d":
-                this.allShaders[name] = this.initParticleShaders3d('particle3d');
+                this.allShaders[name] = this.initParticleShaders3d(name);
                 break;
             case "exhaust":
-                this.allShaders[name] = this.initExhaustShaders('exhaust');
+                this.allShaders[name] = this.initExhaustShaders(name);
                 break;
             case "gui":
-                this.allShaders[name] = this.initGuiShader('gui');
+                this.allShaders[name] = this.initGuiShader(name);
+                break;
+            case "lifetimeparticle":
+                this.allShaders[name] = this.initLifeTimeParticleShaders(name);
                 break;
         }
         return this.allShaders[name];
@@ -64,13 +67,15 @@ class ShaderManager {
         //makes ajax call, needs to be linked on loading, now it's just "fast enough"
         this.getShader(id, program);
         gl.linkProgram(program);
-        return program;
+
 
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
             alert("Could not initialise shaders");
         }
 
         program.name = id;
+
+        return program;
 
     }
 
@@ -304,6 +309,62 @@ class ShaderManager {
         return program;
 
     }
+
+
+
+
+    initParticleShaders(id) {
+
+        var program = this.createP(id);
+
+        program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
+        gl.enableVertexAttribArray(program.pointStartPositionAttribute);
+
+        program.positionUniform = gl.getUniformLocation(program, "uPosition");
+        program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+        program.colorUniform = gl.getUniformLocation(program, "uColor");
+        program.pointSize = gl.getUniformLocation(program, "uPointsize");
+
+        return program;
+
+    }
+
+
+
+
+    initLifeTimeParticleShaders(id) {
+
+        var program = this.createP(id);
+
+        program.pointLifetimeAttribute = gl.getAttribLocation(program, "aLifetime");
+        gl.enableVertexAttribArray(program.pointLifetimeAttribute);
+
+        program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
+        gl.enableVertexAttribArray(program.pointStartPositionAttribute);
+
+        program.pointEndPositionAttribute = gl.getAttribLocation(program, "aEndPosition");
+        gl.enableVertexAttribArray(program.pointEndPositionAttribute);
+
+        program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+        program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+
+        program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+        program.centerPositionUniform = gl.getUniformLocation(program, "uCenterPosition");
+        program.colorUniform = gl.getUniformLocation(program, "uColor");
+        program.timeUniform = gl.getUniformLocation(program, "uTime");
+
+
+        return program;
+
+    }
+
+
+
+
+
+
+
+
 
     initFontShaders(id) {
 

@@ -19,37 +19,40 @@ var ShaderManager = function ShaderManager() {
     }
     switch (name) {
       case "particle":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initParticleShaders("particle"));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initParticleShaders(name));
         break;
       case "simplest":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initSimplestShaders("simplest"));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initSimplestShaders(name));
         break;
       case "blurvertical":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initBlurShaders("blurvertical"));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initBlurShaders(name));
         break;
       case 'blurhorizontal':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initBlurShaders("blurhorizontal"));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initBlurShaders(name));
         break;
       case 'per-fragment-lighting':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initShaders("per-fragment-lighting"));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initShaders(name));
         break;
       case 'ambient':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initAmbientShaders('ambient'));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initAmbientShaders(name));
         break;
       case 'font':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initFontShaders('font'));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initFontShaders(name));
         break;
       case "star":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initStarShaders('star'));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initStarShaders(name));
         break;
       case "particle3d":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initParticleShaders3d('particle3d'));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initParticleShaders3d(name));
         break;
       case "exhaust":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initExhaustShaders('exhaust'));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initExhaustShaders(name));
         break;
       case "gui":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initGuiShader('gui'));
+        $traceurRuntime.setProperty(this.allShaders, name, this.initGuiShader(name));
+        break;
+      case "lifetimeparticle":
+        $traceurRuntime.setProperty(this.allShaders, name, this.initLifeTimeParticleShaders(name));
         break;
     }
     return this.allShaders[$traceurRuntime.toProperty(name)];
@@ -60,11 +63,11 @@ var ShaderManager = function ShaderManager() {
     gl.createProgram();
     this.getShader(id, program);
     gl.linkProgram(program);
-    return program;
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
       alert("Could not initialise shaders");
     }
     program.name = id;
+    return program;
   },
   initExhaustShaders: function(id) {
     "use strict";
@@ -194,6 +197,34 @@ var ShaderManager = function ShaderManager() {
     program.uUseLighting = gl.getUniformLocation(program, "uUseLighting");
     program.uDrawColors = gl.getUniformLocation(program, "uDrawColors");
     program.uDrawColor = gl.getUniformLocation(program, "uDrawColor");
+    return program;
+  },
+  initParticleShaders: function(id) {
+    "use strict";
+    var program = this.createP(id);
+    program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
+    gl.enableVertexAttribArray(program.pointStartPositionAttribute);
+    program.positionUniform = gl.getUniformLocation(program, "uPosition");
+    program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+    program.colorUniform = gl.getUniformLocation(program, "uColor");
+    program.pointSize = gl.getUniformLocation(program, "uPointsize");
+    return program;
+  },
+  initLifeTimeParticleShaders: function(id) {
+    "use strict";
+    var program = this.createP(id);
+    program.pointLifetimeAttribute = gl.getAttribLocation(program, "aLifetime");
+    gl.enableVertexAttribArray(program.pointLifetimeAttribute);
+    program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
+    gl.enableVertexAttribArray(program.pointStartPositionAttribute);
+    program.pointEndPositionAttribute = gl.getAttribLocation(program, "aEndPosition");
+    gl.enableVertexAttribArray(program.pointEndPositionAttribute);
+    program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+    program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+    program.samplerUniform = gl.getUniformLocation(program, "sTexture");
+    program.centerPositionUniform = gl.getUniformLocation(program, "uCenterPosition");
+    program.colorUniform = gl.getUniformLocation(program, "uColor");
+    program.timeUniform = gl.getUniformLocation(program, "uTime");
     return program;
   },
   initFontShaders: function(id) {

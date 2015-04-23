@@ -37,7 +37,7 @@ class LevelManager {
                 ef.createStars();
                 ef.createFuel(false);
                 //for (var i = 0; i < 50; i++) {
-                //ef.createEnemy();
+                ef.createEnemy();
                 //}
                 //this.ef.createPlane();
                 var mothership = ef.createMotherShip();

@@ -33,8 +33,8 @@ var GameState = function GameState(canvas) {
     this.processList.push(new ExhaustProcess());
     this.processList.push(new ExplosionProcess());
     this.processList.push(new LayoutProcess());
-    this.processList.push(new CollisionProcess());
     this.processList.push(new RenderProcess());
+    this.processList.push(new CollisionProcess());
     if (game.currentLevel == null) {
       levelManager.loadLevel('first');
       game.currentLevel = 'first';

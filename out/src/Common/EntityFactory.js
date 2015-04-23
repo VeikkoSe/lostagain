@@ -8,7 +8,7 @@ var EntityFactory = function EntityFactory() {
     var mesh = mm.getOrAddMesh('ship');
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new MomentumMovable(50, 300, 15, 0, 0));
-    e.addComponent(new Renderable(1, 0, 1, 1, 0, -90, 0));
+    e.addComponent(new Renderable(1, 0, 1, 1, 0, -90, 0, 10, 10, 10));
     e.addComponent(new Controllable());
     e.addComponent(new HealthComponent(5, new Sprite("hp", -0.9, -0.8)));
     e.addComponent(new ShieldComponent(10, new Sprite("shield", -0.9, -0.74)));
@@ -31,7 +31,7 @@ var EntityFactory = function EntityFactory() {
     var mesh = mm.getOrAddMesh('enemy');
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new EnemyComponent());
-    e.addComponent(new Renderable(helpers.getRandomInt(-80, 70), 0, helpers.getRandomInt(-80, 70), 1));
+    e.addComponent(new Renderable(helpers.getRandomInt(-80, 70), 0, helpers.getRandomInt(-80, 70), 1, 1, 0, 0, 10, 10, 10));
     e.addComponent(new CollisionComponent('enemy'));
     return e;
   },
