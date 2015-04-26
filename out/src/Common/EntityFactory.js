@@ -31,8 +31,9 @@ var EntityFactory = function EntityFactory() {
     var mesh = mm.getOrAddMesh('enemy');
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new EnemyComponent());
-    e.addComponent(new Renderable(helpers.getRandomInt(-80, 70), 0, helpers.getRandomInt(-80, 70), 1, 1, 0, 0, 10, 10, 10));
+    e.addComponent(new Renderable(helpers.getRandomInt(-1000, -900), 0, helpers.getRandomInt(-1000, -900), 1, 1, 0, 0, 10, 10, 10));
     e.addComponent(new CollisionComponent('enemy'));
+    e.addComponent(new HealthComponent(1));
     return e;
   },
   createCurrency: function() {

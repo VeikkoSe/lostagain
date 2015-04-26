@@ -11,11 +11,16 @@
   uniform mat4 uPMatrix;
 
 
+
   void main(void) {
     if (uTime <= aLifetime) {
-      gl_Position.xyz =aStartPosition + (uTime * aEndPosition);
-      gl_Position.xyz += uCenterPosition;
-      gl_Position.w = 1.0;
+      vec3 calcPos = aStartPosition + (uTime * aEndPosition);
+      calcPos += uCenterPosition;
+
+      //gl_Position.xyz = aStartPosition + (uTime * aEndPosition);
+      //gl_Position.xyz += uCenterPosition;
+      //gl_Position.w = 1.0;
+      gl_Position = uPMatrix * uMVMatrix * vec4(calcPos,1.0);
 
     } else {
       gl_Position = vec4(-1000, -1000, 0, 0);

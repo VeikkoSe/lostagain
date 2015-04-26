@@ -61,9 +61,9 @@ class EntityFactory {
 
 
 
-        e.addComponent(new Renderable(helpers.getRandomInt(-80, 70), //x
+        e.addComponent(new Renderable(helpers.getRandomInt(-1000, -900), //x
                                         0, //y
-                                        helpers.getRandomInt(-80, 70), //z
+                                        helpers.getRandomInt(-1000, -900), //z
                                         1,//scope
                                         1,//angleX
                                         0,//angleY
@@ -79,7 +79,7 @@ class EntityFactory {
         //e.addComponent(new Selectable());
         //e.addComponent(new Controllable());
 
-        //e.addComponent(new HealthComponent(15));
+        e.addComponent(new HealthComponent(1));
         //e.addComponent(new Shield(10, new Sprite("shield", -0.9, -0.74)));
         return e;
 

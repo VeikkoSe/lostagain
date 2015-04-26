@@ -1,10 +1,11 @@
 var ExplosionProcess = function ExplosionProcess() {
   "use strict";
   var that = this;
-  pub.subscribe("collision", function(name, collisionComponents) {
-    if ((collisionComponents[0].group == 'enemy' && collisionComponents[1].group == 'player') || (collisionComponents[1].group == 'enemy' && collisionComponents[0].group == 'player')) {
-      that.createNewExplosion(that, collisionComponents[0].xPos, collisionComponents[0].zPos);
-    }
+  pub.subscribe("explosion", function(name, entity) {
+    that.createNewExplosion(that, entity.xPos, entity.zPos);
+  });
+  pub.subscribe("bigexplosion", function(name, entity) {
+    that.createNewExplosion(that, entity.xPos, entity.zPos);
   });
   this.explosions = [];
   this.particleProgram = sm.init('lifetimeparticle');
@@ -31,11 +32,14 @@ var ExplosionProcess = function ExplosionProcess() {
   },
   createNewExplosion: function(obj, x, z) {
     "use strict";
-    var particle = new AsteroidExplosion(x, z);
+    var particle = new AsteroidExplosion(x, 0, z);
     obj.explosions.push(particle);
   },
   draw: function() {
     "use strict";
+    gl.disable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     sm.setProgram(this.particleProgram);
     for (var i = 0; i < this.explosions.length; i++) {
       camera.mvPushMatrix();
@@ -50,11 +54,13 @@ var ExplosionProcess = function ExplosionProcess() {
       gl.uniform1i(this.particleProgram.samplerUniform, 0);
       gl.uniformMatrix4fv(this.particleProgram.uPMatrix, false, camera.pMatrix);
       gl.uniformMatrix4fv(this.particleProgram.uMVMatrix, false, camera.mvMatrix);
-      gl.uniform3f(this.particleProgram.centerPositionUniform, 0, 0, 0);
+      gl.uniform3f(this.particleProgram.centerPositionUniform, this.explosions[$traceurRuntime.toProperty(i)].xPos, 0, this.explosions[$traceurRuntime.toProperty(i)].zPos);
       gl.uniform4f(this.particleProgram.colorUniform, 1, 0.5, 0.1, 0.7);
       gl.uniform1f(this.particleProgram.timeUniform, this.explosions[$traceurRuntime.toProperty(i)].time);
       gl.drawArrays(gl.POINTS, 0, this.explosions[$traceurRuntime.toProperty(i)].pointLifetimeBuffer.numItems);
       camera.mvPopMatrix();
     }
+    gl.enable(gl.DEPTH_TEST);
+    gl.disable(gl.BLEND);
   }
 }, {});

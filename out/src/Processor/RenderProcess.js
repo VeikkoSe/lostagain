@@ -15,6 +15,8 @@ var RenderProcess = function RenderProcess() {
     "use strict";
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
+      if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
+        continue;
       if (le.components.Renderable && le.components.MeshComponent) {
         sm.setProgram(this.shaderProgram);
         gl.uniform1f(this.shaderProgram.alphaUniform, 1);

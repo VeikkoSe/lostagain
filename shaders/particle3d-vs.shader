@@ -14,10 +14,8 @@ varying float vLifetime;
 
 void main(void) {
 
-  //gl_Position.xyz = aStartPosition;
-  //gl_Position.xyz += uPosition;
+
   gl_Position = uPMatrix * uMVMatrix * vec4(uPosition.x,uPosition.y,uPosition.z,1.0);
-  //gl_Position.w = 1.0;
   gl_PointSize = uPointsize;
 }
 

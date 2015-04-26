@@ -8,6 +8,7 @@ class CollisionComponent extends Component {
         this.xWidth = null;
         this.yWidth = null;
         this.zWidth = null;
+        this.entity = null;
 
     }
 

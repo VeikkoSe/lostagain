@@ -1,4 +1,4 @@
-var AsteroidExplosion = function AsteroidExplosion(x, y) {
+var AsteroidExplosion = function AsteroidExplosion(x, y, z) {
   "use strict";
   this.pointEndPositionsBuffer = gl.createBuffer();
   this.pointLifetimeBuffer = gl.createBuffer();
@@ -7,6 +7,7 @@ var AsteroidExplosion = function AsteroidExplosion(x, y) {
   this.numParticles = 500;
   this.xPos = x;
   this.yPos = y;
+  this.zPos = z;
   this.buildBuffers();
 };
 ($traceurRuntime.createClass)(AsteroidExplosion, {buildBuffers: function() {
@@ -19,9 +20,9 @@ var AsteroidExplosion = function AsteroidExplosion(x, y) {
       startPositions.push((Math.random() * 0.25) - 0.125);
       startPositions.push((Math.random() * 0.25) - 0.125);
       startPositions.push((Math.random() * 0.25) - 0.125);
-      endPositions.push((Math.random() * 2) - 1);
-      endPositions.push((Math.random() * 2) - 1);
-      endPositions.push((Math.random() * 2) - 1);
+      endPositions.push((Math.random() * 50) - 40);
+      endPositions.push((Math.random() * 50) - 40);
+      endPositions.push((Math.random() * 50) - 40);
     }
     gl.bindBuffer(gl.ARRAY_BUFFER, this.pointLifetimeBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lifetimes), gl.STATIC_DRAW);

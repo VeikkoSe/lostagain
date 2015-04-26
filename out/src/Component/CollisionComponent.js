@@ -8,5 +8,6 @@ var CollisionComponent = function CollisionComponent(group) {
   this.xWidth = null;
   this.yWidth = null;
   this.zWidth = null;
+  this.entity = null;
 };
 ($traceurRuntime.createClass)(CollisionComponent, {}, {}, Component);

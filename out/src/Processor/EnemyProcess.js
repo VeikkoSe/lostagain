@@ -1,13 +1,8 @@
 var EnemyProcess = function EnemyProcess() {
   "use strict";
-  $traceurRuntime.defaultSuperCall(this, $EnemyProcess.prototype, arguments);
+  this.routeDone = false;
 };
-var $EnemyProcess = EnemyProcess;
 ($traceurRuntime.createClass)(EnemyProcess, {
-  constructir: function() {
-    "use strict";
-    this.routeDone = false;
-  },
   update: function(deltatime) {
     "use strict";
     for (var e = 0; e < em.entities.length; e++) {
@@ -15,13 +10,6 @@ var $EnemyProcess = EnemyProcess;
       if (le.components.Renderable && le.components.MeshComponent && le.components.EnemyComponent) {
         var ship = em.getEntityByName('ship');
         var re = le.components.Renderable;
-        if ((helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
-          if (ship.components.HealthComponent.amount == 0 && ship.components.ShieldComponent.amount == 0) {}
-          if (ship.components.ShieldComponent.amount < 1)
-            ship.components.HealthComponent.amount--;
-          else
-            ship.components.ShieldComponent.amount--;
-        }
         if (!this.routeDone) {
           var dirZ = ship.components.Renderable.xPos - re.xPos;
           var dirX = ship.components.Renderable.zPos - re.zPos;

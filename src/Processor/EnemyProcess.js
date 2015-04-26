@@ -1,6 +1,10 @@
 class EnemyProcess extends Processor {
-    constructir() {
+    constructor() {
         this.routeDone = false;
+
+
+
+
     }
 
     update(deltatime) {
@@ -19,7 +23,7 @@ class EnemyProcess extends Processor {
                 var re = le.components.Renderable;
                 //var mc = le.components.Movable;
 
-
+/*
                 if (
                     (helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
 
@@ -35,7 +39,7 @@ class EnemyProcess extends Processor {
                         ship.components.ShieldComponent.amount--;
 
 
-                }
+                }*/
 
 
                 //newX and newZ are false by default so we don't move anywhere if newpos is not set
