@@ -36,7 +36,7 @@ class LevelManager {
                 camera.setDistance(350);
                 ef.createStars();
                 ef.createFuel(false);
-                for (var i = 0; i < 50; i++) {
+                for (var i = 0; i < 10; i++) {
                     ef.createEnemy();
                 }
                 //this.ef.createPlane();

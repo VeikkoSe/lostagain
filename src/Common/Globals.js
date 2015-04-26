@@ -20,7 +20,7 @@ var actionMapper = null;
 var astar = null;
 
 
-var debug = true;
+var debug = false;
 if (debug) {
     var resolutionWidth = 640;
     var resolutionHeight = 480;

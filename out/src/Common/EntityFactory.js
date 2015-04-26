@@ -25,13 +25,23 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new StarComponent());
     return e;
   },
+  randomRangedInt: function() {
+    "use strict";
+    var rnd = helpers.getRandomInt(500, -500);
+    if (rnd > 100 || rnd < -100) {
+      return rnd;
+    } else
+      return this.randomRangedInt();
+  },
   createEnemy: function() {
     "use strict";
     var e = em.addNew('enemymirror');
     var mesh = mm.getOrAddMesh('enemy');
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new EnemyComponent());
-    e.addComponent(new Renderable(helpers.getRandomInt(100, -100), 0, helpers.getRandomInt(100, -100), 1, 1, 0, 0, 10, 10, 10));
+    var xp = this.randomRangedInt();
+    var zp = this.randomRangedInt();
+    e.addComponent(new Renderable(xp, 0, zp, 1, 1, 0, 0, 10, 10, 10));
     e.addComponent(new CollisionComponent('enemy'));
     e.addComponent(new HealthComponent(1));
     return e;
@@ -100,6 +110,7 @@ var EntityFactory = function EntityFactory() {
     }
     e.addComponent(new ConstantRotation(10, 10, 10));
     e.addComponent(new CollisionComponent('enemy'));
+    e.addComponent(new HealthComponent(100000));
     return e;
   },
   createPlane: function() {

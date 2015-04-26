@@ -49,6 +49,15 @@ class EntityFactory {
         return e;
     }
 
+    randomRangedInt() {
+        var rnd = helpers.getRandomInt(500, -500);
+        if(rnd>100 ||
+            rnd<-100) {
+            return rnd;
+        }
+        else
+          return this.randomRangedInt();
+    }
 
     createEnemy() {
 
@@ -59,10 +68,14 @@ class EntityFactory {
 
         //e.addComponent(new MomentumMovable(30, 15, 0, 0));
 
+        var xp = this.randomRangedInt();
+        var zp = this.randomRangedInt();
 
-        e.addComponent(new Renderable(helpers.getRandomInt(100, -100), //x
+
+
+        e.addComponent(new Renderable(xp, //x
             0, //y
-            helpers.getRandomInt(100, -100), //z
+            zp, //z
             1,//scope
             1,//angleX
             0,//angleY
@@ -200,6 +213,7 @@ class EntityFactory {
         }
         e.addComponent(new ConstantRotation(10, 10, 10));
         e.addComponent(new CollisionComponent('enemy'));
+        e.addComponent(new HealthComponent(100000));
 
         return e;
 
