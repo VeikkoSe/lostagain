@@ -4,6 +4,31 @@ class CollisionProcess extends Processor {
 
 
         var that = this;
+
+
+        pub.subscribe("bulletcollision", function (name, collisionComponent) {
+
+
+            var enemy = collisionComponent;
+
+
+            var enemyEntity = enemy.entity;
+            var hc = enemyEntity.components.HealthComponent;
+            var ec = enemyEntity.components.EnemyComponent;
+
+            hc.amount--;
+            if (hc.amount > 0) {
+                pub.publish("explosion", enemyEntity.components.Renderable);
+            }
+            else {
+                hc.amount = 0;
+                pub.publish("bigexplosion", enemyEntity.components.Renderable);
+            }
+
+
+        });
+
+
         pub.subscribe("collision", function (name, collisionComponents) {
 
             if (collisionComponents[0].group == 'enemy') {
@@ -18,15 +43,12 @@ class CollisionProcess extends Processor {
 
             hc.amount--;
             if (hc.amount > 0) {
-
                 pub.publish("explosion", enemyEntity.components.Renderable);
             }
             else {
-
                 hc.amount = 0;
                 pub.publish("bigexplosion", enemyEntity.components.Renderable);
             }
-            //that.createNewExplosion(that, collisionComponents[0].xPos, collisionComponents[0].zPos);
 
 
             if (collisionComponents[0].group == 'player') {
@@ -86,12 +108,13 @@ class CollisionProcess extends Processor {
             }
         }
 
+
         for (var i = 0; i < this.collisions.length; i++) {
             for (var j = 0; j < this.collisions.length; j++) {
                 if (j != i &&
-                    this.collisions[i].xPos - this.collisions[i].xWidth > this.collisions[j].xPos - this.collisions[i].xWidth &&
+                    this.collisions[i].xPos - this.collisions[i].xWidth > this.collisions[j].xPos - this.collisions[j].xWidth &&
                     this.collisions[i].xPos - this.collisions[i].xWidth < this.collisions[j].xPos + this.collisions[j].xWidth &&
-                    this.collisions[i].zPos - this.collisions[i].zWidth > this.collisions[j].zPos - this.collisions[i].zWidth &&
+                    this.collisions[i].zPos - this.collisions[i].zWidth > this.collisions[j].zPos - this.collisions[j].zWidth &&
                     this.collisions[i].zPos - this.collisions[i].zWidth < this.collisions[j].zPos + this.collisions[j].zWidth
                     && this.collisions[i].group != this.collisions[j].group) {
 

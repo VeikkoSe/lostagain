@@ -31,7 +31,7 @@ var EntityFactory = function EntityFactory() {
     var mesh = mm.getOrAddMesh('enemy');
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new EnemyComponent());
-    e.addComponent(new Renderable(helpers.getRandomInt(-1000, -1000), 0, helpers.getRandomInt(-1000, -1000), 1, 1, 0, 0, 10, 10, 10));
+    e.addComponent(new Renderable(helpers.getRandomInt(100, -100), 0, helpers.getRandomInt(100, -100), 1, 1, 0, 0, 10, 10, 10));
     e.addComponent(new CollisionComponent('enemy'));
     e.addComponent(new HealthComponent(1));
     return e;

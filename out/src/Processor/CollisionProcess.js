@@ -2,6 +2,19 @@ var CollisionProcess = function CollisionProcess() {
   "use strict";
   this.collisions = [];
   var that = this;
+  pub.subscribe("bulletcollision", function(name, collisionComponent) {
+    var enemy = collisionComponent;
+    var enemyEntity = enemy.entity;
+    var hc = enemyEntity.components.HealthComponent;
+    var ec = enemyEntity.components.EnemyComponent;
+    hc.amount--;
+    if (hc.amount > 0) {
+      pub.publish("explosion", enemyEntity.components.Renderable);
+    } else {
+      hc.amount = 0;
+      pub.publish("bigexplosion", enemyEntity.components.Renderable);
+    }
+  });
   pub.subscribe("collision", function(name, collisionComponents) {
     if (collisionComponents[0].group == 'enemy') {
       var enemy = collisionComponents[0];
@@ -58,7 +71,7 @@ var CollisionProcess = function CollisionProcess() {
     }
     for (var i = 0; i < this.collisions.length; i++) {
       for (var j = 0; j < this.collisions.length; j++) {
-        if (j != i && this.collisions[$traceurRuntime.toProperty(i)].xPos - this.collisions[$traceurRuntime.toProperty(i)].xWidth > this.collisions[$traceurRuntime.toProperty(j)].xPos - this.collisions[$traceurRuntime.toProperty(i)].xWidth && this.collisions[$traceurRuntime.toProperty(i)].xPos - this.collisions[$traceurRuntime.toProperty(i)].xWidth < this.collisions[$traceurRuntime.toProperty(j)].xPos + this.collisions[$traceurRuntime.toProperty(j)].xWidth && this.collisions[$traceurRuntime.toProperty(i)].zPos - this.collisions[$traceurRuntime.toProperty(i)].zWidth > this.collisions[$traceurRuntime.toProperty(j)].zPos - this.collisions[$traceurRuntime.toProperty(i)].zWidth && this.collisions[$traceurRuntime.toProperty(i)].zPos - this.collisions[$traceurRuntime.toProperty(i)].zWidth < this.collisions[$traceurRuntime.toProperty(j)].zPos + this.collisions[$traceurRuntime.toProperty(j)].zWidth && this.collisions[$traceurRuntime.toProperty(i)].group != this.collisions[$traceurRuntime.toProperty(j)].group) {
+        if (j != i && this.collisions[$traceurRuntime.toProperty(i)].xPos - this.collisions[$traceurRuntime.toProperty(i)].xWidth > this.collisions[$traceurRuntime.toProperty(j)].xPos - this.collisions[$traceurRuntime.toProperty(j)].xWidth && this.collisions[$traceurRuntime.toProperty(i)].xPos - this.collisions[$traceurRuntime.toProperty(i)].xWidth < this.collisions[$traceurRuntime.toProperty(j)].xPos + this.collisions[$traceurRuntime.toProperty(j)].xWidth && this.collisions[$traceurRuntime.toProperty(i)].zPos - this.collisions[$traceurRuntime.toProperty(i)].zWidth > this.collisions[$traceurRuntime.toProperty(j)].zPos - this.collisions[$traceurRuntime.toProperty(j)].zWidth && this.collisions[$traceurRuntime.toProperty(i)].zPos - this.collisions[$traceurRuntime.toProperty(i)].zWidth < this.collisions[$traceurRuntime.toProperty(j)].zPos + this.collisions[$traceurRuntime.toProperty(j)].zWidth && this.collisions[$traceurRuntime.toProperty(i)].group != this.collisions[$traceurRuntime.toProperty(j)].group) {
           pub.publish("collision", [this.collisions[$traceurRuntime.toProperty(i)], this.collisions[$traceurRuntime.toProperty(j)]]);
         }
       }

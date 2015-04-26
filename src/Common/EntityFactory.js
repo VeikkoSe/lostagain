@@ -60,9 +60,9 @@ class EntityFactory {
         //e.addComponent(new MomentumMovable(30, 15, 0, 0));
 
 
-        e.addComponent(new Renderable(helpers.getRandomInt(-1000, -1000), //x
+        e.addComponent(new Renderable(helpers.getRandomInt(100, -100), //x
             0, //y
-            helpers.getRandomInt(-1000, -1000), //z
+            helpers.getRandomInt(100, -100), //z
             1,//scope
             1,//angleX
             0,//angleY

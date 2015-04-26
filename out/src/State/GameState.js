@@ -27,9 +27,10 @@ var GameState = function GameState(canvas) {
     this.processList.push(new TeleportProcess());
     this.processList.push(new StarProcess());
     this.processList.push(new EnemyProcess());
-    this.processList.push(new PhotonTorpedoProcess());
+    this.processList.push(new GunProcess());
     this.processList.push(new LaserProcess());
     this.processList.push(new MomentumMovementProcess());
+    this.processList.push(new ExhaustProcess());
     this.processList.push(new ExplosionProcess());
     this.processList.push(new LayoutProcess());
     this.processList.push(new CollisionProcess());

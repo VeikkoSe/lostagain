@@ -1,4 +1,4 @@
-class PhotonTorpedoProcess extends Processor {
+class GunProcess extends Processor {
     constructor() {
         this.bulletsAmount = 80;
         this.bulletReloadSpeed = 250;
@@ -12,6 +12,8 @@ class PhotonTorpedoProcess extends Processor {
             var bullet = new PhotonTorpedo();
             this.bullets.push(bullet);
         }
+
+        this.collisions = [];
     }
 
     shootBullet(renderable) {
@@ -38,12 +40,59 @@ class PhotonTorpedoProcess extends Processor {
 
     update(deltatime) {
 
+
+        this.collisions = [];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
+            if (le.components.CollisionComponent) {
+                //object is dead. no need to check for collisions
+
+                if (le.components.HealthComponent && le.components.HealthComponent.amount < 1) {
+                    continue;
+                }
+
+                var c = le.components.CollisionComponent;
+                var r = le.components.Renderable;
+
+                c.entity = le;
+
+
+                this.collisions.push(c);
+
+            }
+        }
+
+
+        for (var i = 0; i < this.bullets.length; i++) {
+            for (var j = 0; j < this.collisions.length; j++) {
+                if (j != i &&
+                    this.bullets[i].xPos > this.collisions[j].xPos - this.collisions[j].xWidth &&
+                    this.bullets[i].xPos < this.collisions[j].xPos + this.collisions[j].xWidth &&
+                    this.bullets[i].zPos > this.collisions[j].zPos - this.collisions[j].zWidth &&
+                    this.bullets[i].zPos < this.collisions[j].zPos + this.collisions[j].zWidth
+                    && this.collisions[j].group == 'enemy' && this.bullets[i].visible == 1) {
+
+
+                    pub.publish("bulletcollision", this.collisions[j]);
+
+                }
+            }
+
+
+            //console.log(this.collisions);
+
+        }
+
+
         var timeNow = new Date().getTime();
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
-            if (le.components.GunComponent && le.components.GunComponent.shooting && le.components.GunComponent.activeWeapon == 1) {
+            if (le.components.GunComponent &&
+                le.components.GunComponent.shooting &&
+                le.components.GunComponent.activeWeapon == 1 &&
+                le.components.HealthComponent.amount > 0) {
 
                 this.shootBullet(le.components.Renderable);
             }
