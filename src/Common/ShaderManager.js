@@ -144,7 +144,6 @@ class ShaderManager {
         program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
         gl.enableVertexAttribArray(program.textureCoordAttribute);
 
-
         program.uResolution = gl.getUniformLocation(program, "uResolution");
 
         if (id == 'blurhorizontal') {
@@ -164,25 +163,15 @@ class ShaderManager {
         program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
         gl.enableVertexAttribArray(program.aVertexPosition);
 
-
         program.aWorldCoordinates = gl.getAttribLocation(program, "aWorldCoordinates");
         gl.enableVertexAttribArray(program.aWorldCoordinates);
-
 
         program.aCubeNumber = gl.getAttribLocation(program, "aCubeNumber");
         gl.enableVertexAttribArray(program.aCubeNumber);
 
-
         program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
-
         program.uElapsed = gl.getUniformLocation(program, "uElapsed");
-
-        //program.uNMatrix = gl.getUniformLocation(program, "uNMatrix");
-
-
         program.uVisibility = gl.getUniformLocation(program, "uVisibility");
-
-
         program.uCameraPos = gl.getUniformLocation(program, "uCameraPos");
 
         return program;
@@ -211,17 +200,12 @@ class ShaderManager {
 
         var program = this.createP(id);
 
-        //program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
-        //gl.enableVertexAttribArray(program.pointStartPositionAttribute);
-
         program.positionUniform = gl.getUniformLocation(program, "uPosition");
         program.samplerUniform = gl.getUniformLocation(program, "sTexture");
         program.colorUniform = gl.getUniformLocation(program, "uColor");
         program.pointSize = gl.getUniformLocation(program, "uPointsize");
-
         program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
         program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
-
 
         return program;
 
@@ -238,13 +222,7 @@ class ShaderManager {
         program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
         gl.enableVertexAttribArray(program.textureCoordAttribute);
 
-
-        //program.positionUniform = gl.getUniformLocation(program, "uPosition");
         program.samplerUniform = gl.getUniformLocation(program, "uSampler");
-
-
-        //program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
-
 
         return program;
 
@@ -290,9 +268,6 @@ class ShaderManager {
 
         program.uMaterialShininess = gl.getUniformLocation(program, "uMaterialShininess");
         program.uAmbient = gl.getUniformLocation(program, "uAmbient");
-        //shaderProgram.uMaterialDiffuse = gl.getUniformLocation(shaderProgram, "uMaterialDiffuse");
-        //shaderProgram.uMaterialSpecular = gl.getUniformLocation(shaderProgram, "uMaterialSpecular");
-
 
         program.uLightPosition = gl.getUniformLocation(program, "uLightPosition");
         program.uLightAmbient = gl.getUniformLocation(program, "uLightAmbient");
@@ -300,12 +275,12 @@ class ShaderManager {
         program.uLightSpecular = gl.getUniformLocation(program, "uLightSpecular");
 
         program.uMaterialDiffuse = gl.getUniformLocation(program, "uMaterialDiffuse");
-        //program.useLightingUniform = gl.getUniformLocation(program, "uUseLighting");
 
         program.alphaUniform = gl.getUniformLocation(program, "uAlpha");
         program.uUseLighting = gl.getUniformLocation(program, "uUseLighting");
         program.uDrawColors = gl.getUniformLocation(program, "uDrawColors");
         program.uDrawColor = gl.getUniformLocation(program, "uDrawColor");
+
         return program;
 
     }

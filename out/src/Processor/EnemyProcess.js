@@ -9,7 +9,20 @@ var EnemyProcess = function EnemyProcess() {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.Renderable && le.components.MeshComponent && le.components.EnemyComponent) {
         var ship = em.getEntityByName('ship');
+        if (ship.components.HealthComponent.amount < 1) {
+          ship = em.getEntityByName('mothership');
+        }
         var re = le.components.Renderable;
+        var enemyHp = le.components.HealthComponent;
+        if (enemyHp.amount > 0) {
+          if ((helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
+            if (ship.components.HealthComponent.amount < 1 && ship.components.ShieldComponent.amount < 1) {}
+            if (ship.components.ShieldComponent.amount < 1)
+              ship.components.HealthComponent.amount--;
+            else
+              ship.components.ShieldComponent.amount--;
+          }
+        }
         if (!this.routeDone) {
           var dirZ = ship.components.Renderable.xPos - re.xPos;
           var dirX = ship.components.Renderable.zPos - re.zPos;

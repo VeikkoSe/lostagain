@@ -1,6 +1,5 @@
 var GameState = function GameState(canvas) {
   "use strict";
-  this.postProcessState = true;
   this.elapsedTotal = 0;
   this.frameCount = 0;
   this.lastTime = 0;

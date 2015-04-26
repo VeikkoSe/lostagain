@@ -54,8 +54,6 @@ class Mesh {
                 that.inputData(request.responseText);
                 that.buildBuffers();
                 levelManager.loadTotal--;
-
-                //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
             }
         }
 
@@ -162,7 +160,6 @@ class Mesh {
 
 
     buildBuffers() {
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);

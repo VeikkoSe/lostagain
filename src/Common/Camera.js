@@ -74,7 +74,6 @@ class Camera {
 
 
     setPerspective() {
-        //mat4.perspective(80, gl.viewportWidth / gl.viewportHeight, 0.1, 1000.0, this.pMatrix);
         mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 20000.0, camera.pMatrix);
     }
 
@@ -99,63 +98,11 @@ class Camera {
 
     move() {
 
-        //mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 5000.0, this.pMatrix);
-        /*
-         var determineCenter = false;
-         if (this.slideLeft) {
-         this.slideCameraLeft(0.1);
-         determineCenter = true;
-         }
-         if (this.slideRight) {
-         this.slideCameraRight(0.1);
-         determineCenter = true;
-         }
-         if (this.slideUp) {
-         this.slideCameraUp(0.1);
-         determineCenter = true;
-
-         }
-         if (this.slideDown) {
-         this.slideCameraDown(0.1);
-         determineCenter = true;
-         }
-
-         */
-        /*
-         //Light uniforms
-         if ($('#controlCamera').prop('checked')) {
-
-         this.x = $('#cslider-x').slider("value");
-         this.y = $('#cslider-y').slider("value");
-         this.z = $('#cslider-z').slider("value");
-         this.rotation = helpers.degToRad($('#rslider-x').slider("value"));
-
-         printMessage(this.x);
-
-
-         }
-         */
-
-        //if (determineCenter) {
-        //var cp = actionMapper.getCenterPosition();
-
-        //console.log(cp);
-        //var block = blockManager.getBlockFromXY(cp[0], cp[2]);
-
-        //if (block != -1)
-        //    blockManager.setCurrentBlock(block);
-
-        //console.log(block);
-
-        //}
-
         mat4.identity(camera.mvMatrix);
         //orbit camera rotate before translate
         //tracking camera translate before rotate
         mat4.rotate(this.mvMatrix, this.rotation, [1, 0, 0]);
         mat4.translate(this.mvMatrix, [this.x, this.y, this.z]);
-
-        //mat4.multiply(this.pMatrix, this.mvMatrix, this.pvMatrix);
 
     }
 

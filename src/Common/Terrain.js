@@ -17,12 +17,9 @@ class Terrain {
         this.indices = null;
         this.terrainData = null;
 
-
     }
 
     createData() {
-
-
         this.terrainData = this.createHeightMap();
     }
 
@@ -33,12 +30,9 @@ class Terrain {
         canvas.height = size;
         var context = canvas.getContext('2d', {preserveDrawingBuffer: true});
 
-
         var data = this.matrix(size, size, 0);
 
-
         context.drawImage(img, 0, 0);
-
 
         var imgd = context.getImageData(0, 0, size, size);
 
@@ -56,8 +50,6 @@ class Terrain {
             data[y][x] = all / 30;
             x++;
         }
-
-
         return data;
     }
 
@@ -80,7 +72,6 @@ class Terrain {
                 arr[i][j] = defaultValue;
             }
         }
-
         return arr;
     }
 
@@ -158,7 +149,6 @@ class Terrain {
 
                 iloop.push(added[hd[i][0] + ',' + hd[i][1]]);
                 alreadyAdded = true;
-
             }
 
             if (!alreadyAdded) {
@@ -178,11 +168,6 @@ class Terrain {
 
         var normals = this.createNormals(heightMapVertexData, iloop);
 
-
-        //console.log(heightMapVertexData);
-        //console.log(iloop);
-
-
         var fakeTexture = [];
         var c = 0;
         for (var i = 0; i < normals.length; i++) {
@@ -192,13 +177,10 @@ class Terrain {
             c++;
 
         }
-        //console.log(fakeTexture);
-        //console.log(normals);
         return;
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(fakeTexture), gl.STATIC_DRAW);
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(heightMapVertexData), gl.STATIC_DRAW);

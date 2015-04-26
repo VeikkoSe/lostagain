@@ -3,7 +3,6 @@ class Text {
     textToC(text) {
         var ret = [];
         for (var i = 0; i < text.length; i++) {
-            //            console.log(text.charCodeAt(i));
             if (text[i] == '\n') {
                 ret.push('newline');
             }

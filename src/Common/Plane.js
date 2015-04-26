@@ -10,13 +10,6 @@ class Plane {
         this.indexPositionBuffer = gl.createBuffer();
         this.normalPositionBuffer = gl.createBuffer();
 
-        //this.normals = null;
-        //this.vertices = null;
-        //this.textures = null;
-        //this.indices = null;
-        //this.terrainData = null;
-
-
         this.plane = this.createHeightMap(size);
     }
 

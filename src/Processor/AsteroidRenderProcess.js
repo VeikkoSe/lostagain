@@ -32,15 +32,9 @@ class AsteroidRenderProcess extends Processor {
             var y = this.getRandomInt(0, 0);
             var z = this.getRandomInt(-100, 100);
 
-
-            //var x =0;
-            //var y = 0;
-            // var z = 0;
             for (var i = 0; i < verts.length; i += 3) {
 
-
                 var newVerts = [];
-
 
                 //object coordinates
                 newVerts.push(verts[i]);
@@ -56,8 +50,6 @@ class AsteroidRenderProcess extends Processor {
                 newVerts.push(g);
 
                 this.combinedMeshes.vertices.push.apply(this.combinedMeshes.vertices, newVerts);
-
-
             }
 
 

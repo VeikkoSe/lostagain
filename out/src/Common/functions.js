@@ -63,62 +63,6 @@ function updateRotation() {
 $(document).ready(function() {
   document.getElementById('canvas').width = resolutionWidth;
   document.getElementById('canvas').height = resolutionHeight;
-  $('#slider-x').slider({
-    value: -20.0,
-    min: -500,
-    max: 500,
-    step: 0.1,
-    slide: updateLightPosition,
-    change: updateLightPosition
-  });
-  $('#slider-y').slider({
-    value: 35.0,
-    min: -500,
-    max: 500,
-    step: 0.1,
-    slide: updateLightPosition,
-    change: updateLightPosition
-  });
-  $('#slider-z').slider({
-    value: -28,
-    min: -500,
-    max: 500,
-    step: 0.1,
-    slide: updateLightPosition,
-    change: updateLightPosition
-  });
-  $('#cslider-x').slider({
-    value: -16,
-    min: -5000,
-    max: 5000,
-    step: 0.1,
-    slide: updateCameraPosition,
-    change: updateCameraPosition
-  });
-  $('#cslider-y').slider({
-    value: -53,
-    min: -5000,
-    max: 5000,
-    step: 0.1,
-    slide: updateCameraPosition,
-    change: updateCameraPosition
-  });
-  $('#cslider-z').slider({
-    value: -82,
-    min: -5000,
-    max: 5000,
-    step: 0.1,
-    slide: updateCameraPosition,
-    change: updateCameraPosition
-  });
-  $('#rslider-x').slider({
-    value: 60,
-    min: 0,
-    max: 360,
-    step: 0.1,
-    slide: updateRotation,
-    change: updateRotation
-  });
   webGLStart();
 });
 function intersectionpoint(A, B) {

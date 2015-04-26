@@ -12,7 +12,6 @@ class Layout {
 
     }
 
-
     getChildren() {
         return this.children;
     }

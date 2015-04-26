@@ -13,9 +13,6 @@ class MomentumMovable extends Component {
         this.routeEndYpos = routeEndYpos;
         this.routeEndZpos = routeEndZpos;
 
-        //this.path = {};
-
-
         this.lt = 0;
         this.turnSpeed = turnSpeed;
         this.speed = speed;

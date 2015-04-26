@@ -16,7 +16,7 @@ var colorset = {};
 var em = null;
 var actionMapper = null;
 var astar = null;
-var debug = false;
+var debug = true;
 if (debug) {
   var resolutionWidth = 640;
   var resolutionHeight = 480;

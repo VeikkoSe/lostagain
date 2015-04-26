@@ -14,7 +14,7 @@ class CollisionProcess extends Processor {
 
             var enemyEntity = enemy.entity;
             var hc = enemyEntity.components.HealthComponent;
-            var ec = enemyEntity.components.EnemyComponent;
+
 
             hc.amount--;
             if (hc.amount > 0) {
@@ -39,7 +39,7 @@ class CollisionProcess extends Processor {
             }
             var enemyEntity = enemy.entity;
             var hc = enemyEntity.components.HealthComponent;
-            var ec = enemyEntity.components.EnemyComponent;
+
 
             hc.amount--;
             if (hc.amount > 0) {
@@ -80,16 +80,14 @@ class CollisionProcess extends Processor {
     }
 
     update() {
-        this.collisions = [];
+        this.collisions.length=0;
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
             if (le.components.CollisionComponent) {
                 //object is dead. no need to check for collisions
-
                 if (le.components.HealthComponent && le.components.HealthComponent.amount < 1) {
 
                     continue;
-
                 }
 
                 var c = le.components.CollisionComponent;
@@ -124,8 +122,6 @@ class CollisionProcess extends Processor {
                 }
             }
 
-
-            //console.log(this.collisions);
 
         }
     }

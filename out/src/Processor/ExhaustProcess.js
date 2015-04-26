@@ -117,7 +117,7 @@ var ExhaustProcess = function ExhaustProcess() {
     "use strict";
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
-      if (le.components.ExhaustComponent) {
+      if (le.components.ExhaustComponent && le.components.HealthComponent.amount > 0) {
         var ec = le.components.ExhaustComponent;
         if (ec.points.length > 8) {
           sm.setProgram(this.exhaustProgram);

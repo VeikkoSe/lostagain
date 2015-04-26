@@ -39,10 +39,6 @@ function webGLStart() {
 
     sm = new ShaderManager();
 
-    //astarManager = new AstarManager();
-
-    //blockManager = new BlockManager();
-
     helpers = new Helpers();
     em = new EntityManager();
     mm = new AssetManager();
@@ -62,7 +58,6 @@ function updateLightPosition() {
     var x = $('#slider-x').slider("value");
     var y = $('#slider-y').slider("value");
     var z = $('#slider-z').slider("value");
-    //gl.uniform3f(shaderProgram.uLightPosition, x, y, z);
     $('#slider-x-value').html(x);
     $('#slider-y-value').html(y);
     $('#slider-z-value').html(z);
@@ -81,72 +76,15 @@ function updateCameraPosition() {
 
 function updateRotation() {
     var x = $('#rslider-x').slider("value");
-
-
     $('#rotslider-x-value').html(x);
 
 }
 
 $(document).ready(function () {
 
-
     document.getElementById('canvas').width = resolutionWidth;
     document.getElementById('canvas').height = resolutionHeight;
 
-
-    $('#slider-x').slider({
-        value: -20.0,
-        min: -500,
-        max: 500,
-        step: 0.1,
-        slide: updateLightPosition,
-        change: updateLightPosition
-    });
-    $('#slider-y').slider({
-        value: 35.0,
-        min: -500,
-        max: 500,
-        step: 0.1,
-        slide: updateLightPosition,
-        change: updateLightPosition
-    });
-    $('#slider-z').slider({
-        value: -28,
-        min: -500,
-        max: 500,
-        step: 0.1,
-        slide: updateLightPosition,
-        change: updateLightPosition
-    });
-
-    $('#cslider-x').slider({
-        value: -16,
-        min: -5000,
-        max: 5000,
-        step: 0.1,
-        slide: updateCameraPosition,
-        change: updateCameraPosition
-    });
-    $('#cslider-y').slider({
-        value: -53,
-        min: -5000,
-        max: 5000,
-        step: 0.1,
-        slide: updateCameraPosition,
-        change: updateCameraPosition
-    });
-    $('#cslider-z').slider({
-        value: -82,
-        min: -5000,
-        max: 5000,
-        step: 0.1,
-        slide: updateCameraPosition,
-        change: updateCameraPosition
-    });
-
-    $('#rslider-x').slider({value: 60, min: 0, max: 360, step: 0.1, slide: updateRotation, change: updateRotation});
-
-    //console.log();
     webGLStart();
 });
 
@@ -181,7 +119,6 @@ function objectLabelGenerator() {
 function initGL(canvas) {
     try {
 
-        //
         if (debug) {
             gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
         }

@@ -10,9 +10,7 @@ class Helpers {
 
     isClose(currentCoord, newCoord) {
 
-
         if (currentCoord <= newCoord + 0.1 && currentCoord >= newCoord - 0.1) {
-
             return true;
         }
 

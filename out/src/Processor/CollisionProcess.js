@@ -6,7 +6,6 @@ var CollisionProcess = function CollisionProcess() {
     var enemy = collisionComponent;
     var enemyEntity = enemy.entity;
     var hc = enemyEntity.components.HealthComponent;
-    var ec = enemyEntity.components.EnemyComponent;
     hc.amount--;
     if (hc.amount > 0) {
       pub.publish("explosion", enemyEntity.components.Renderable);
@@ -23,7 +22,6 @@ var CollisionProcess = function CollisionProcess() {
     }
     var enemyEntity = enemy.entity;
     var hc = enemyEntity.components.HealthComponent;
-    var ec = enemyEntity.components.EnemyComponent;
     hc.amount--;
     if (hc.amount > 0) {
       pub.publish("explosion", enemyEntity.components.Renderable);
@@ -50,7 +48,7 @@ var CollisionProcess = function CollisionProcess() {
 };
 ($traceurRuntime.createClass)(CollisionProcess, {update: function() {
     "use strict";
-    this.collisions = [];
+    this.collisions.length = 0;
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.CollisionComponent) {

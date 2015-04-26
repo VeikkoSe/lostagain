@@ -5,13 +5,8 @@ class Game {
         this.running = true;
         this.currentLevel = null;
         this.stateEngine = null;
-
-
         this.camera = new Camera();
-
-
         this.stateEngine = new StateEngine();
-
         this.stateEngine.changeState("introstate");
         this.tick();
 
@@ -26,7 +21,6 @@ class Game {
         });
 
         this.stateEngine.currentState.update();
-
         this.stateEngine.currentState.draw();
 
     }

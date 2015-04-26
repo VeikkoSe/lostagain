@@ -14,27 +14,32 @@ class EnemyProcess extends Processor {
             if (le.components.Renderable && le.components.MeshComponent && le.components.EnemyComponent) {
 
                 var ship = em.getEntityByName('ship');
+                //if normal ship is dead we target the mothership
+                if (ship.components.HealthComponent.amount < 1) {
+                    ship = em.getEntityByName('mothership');
+                }
                 var re = le.components.Renderable;
-                //var mc = le.components.Movable;
-
-                /*
-                 if (
-                 (helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
-
-                 //this.routeDone = true;
-
-                 if (ship.components.HealthComponent.amount == 0 && ship.components.ShieldComponent.amount == 0) {
-                 //alert('you loose!');
-                 }
-
-                 if (ship.components.ShieldComponent.amount < 1)
-                 ship.components.HealthComponent.amount--;
-                 else
-                 ship.components.ShieldComponent.amount--;
+                var enemyHp = le.components.HealthComponent;
 
 
-                 }*/
+                if (enemyHp.amount > 0) {
+                    if (
+                        (helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
 
+                        //this.routeDone = true;
+
+                        if (ship.components.HealthComponent.amount < 1 && ship.components.ShieldComponent.amount < 1) {
+                            //alert('you loose!');
+                        }
+
+                        if (ship.components.ShieldComponent.amount < 1)
+                            ship.components.HealthComponent.amount--;
+                        else
+                            ship.components.ShieldComponent.amount--;
+
+
+                    }
+                }
 
                 //newX and newZ are false by default so we don't move anywhere if newpos is not set
                 if (!this.routeDone) {
