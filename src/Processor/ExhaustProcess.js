@@ -25,7 +25,6 @@ class ExhaustProcess extends Processor {
     update(deltatime) {
 
 
-
         var timeNow = new Date().getTime();
 
 
@@ -99,7 +98,7 @@ class ExhaustProcess extends Processor {
                         ec.square[i++] = 0;
                         ec.square[i++] = ec.points[ec.points.length - 4];
 
-                        ec.square[i++]  = -1 * zdh + rendX;
+                        ec.square[i++] = -1 * zdh + rendX;
                         ec.square[i++] = 0;
                         ec.square[i++] = xdh + rendZ;
 
@@ -107,8 +106,7 @@ class ExhaustProcess extends Processor {
                         ec.square[i++] = 0;
                         ec.square[i++] = -1 * xdh + rendZ;
 
-                        for(var i=0;i<18;i++)
-                        {
+                        for (var i = 0; i < 18; i++) {
                             ec.points.push(ec.square[i]);
                         }
 
@@ -193,10 +191,8 @@ class ExhaustProcess extends Processor {
             if (le.components.ExhaustComponent) {
 
 
-
                 var ec = le.components.ExhaustComponent;
                 //for (var i = 0; i < this.exhaustAmount; i++) {
-
 
 
                 if (ec.points.length > 8) {

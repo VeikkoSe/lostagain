@@ -12,16 +12,16 @@ class EntityFactory {
         e.addComponent(new MeshComponent(mesh));
 
         e.addComponent(new MomentumMovable(50, 300, 15, 0, 0));
-        e.addComponent(new Renderable(  1,//x
-                                        0,//y
-                                        1,//z
-                                        1,//scape
-                                        0,//angleX
-                                        -90,//angleY
-                                        0,//angleZ
-                                        10,//xWidth
-                                        10,//yWidth
-                                        10)); //zWidth
+        e.addComponent(new Renderable(1,//x
+            0,//y
+            1,//z
+            1,//scape
+            0,//angleX
+            -90,//angleY
+            0,//angleZ
+            10,//xWidth
+            10,//yWidth
+            10)); //zWidth
 
 
         //e.addComponent(new Selectable());
@@ -60,19 +60,18 @@ class EntityFactory {
         //e.addComponent(new MomentumMovable(30, 15, 0, 0));
 
 
-
-        e.addComponent(new Renderable(helpers.getRandomInt(-1000, -900), //x
-                                        0, //y
-                                        helpers.getRandomInt(-1000, -900), //z
-                                        1,//scope
-                                        1,//angleX
-                                        0,//angleY
-                                        0,//angleZ
-                                        10,//xWidth
-                                        10,//yWidth
-                                        10//zWidth5
-                                         ));
-      //  (x = 0, y = 0, z = 0, scale = 1, angleX = 0, angleY = 0, angleZ = 0,xWidth=30,yWidth=30,zWidth=30) {
+        e.addComponent(new Renderable(helpers.getRandomInt(-1000, -1000), //x
+            0, //y
+            helpers.getRandomInt(-1000, -1000), //z
+            1,//scope
+            1,//angleX
+            0,//angleY
+            0,//angleZ
+            10,//xWidth
+            10,//yWidth
+            10//zWidth5
+        ));
+        //  (x = 0, y = 0, z = 0, scale = 1, angleX = 0, angleY = 0, angleZ = 0,xWidth=30,yWidth=30,zWidth=30) {
 
         e.addComponent(new CollisionComponent('enemy'));
 
@@ -126,8 +125,6 @@ class EntityFactory {
         //can be only one. Camera follows this entity
         e.addComponent(new CameraController());
         e.addComponent(new JumpArea());
-
-
 
 
         e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));

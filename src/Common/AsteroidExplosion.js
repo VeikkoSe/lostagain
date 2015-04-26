@@ -1,5 +1,5 @@
 class AsteroidExplosion {
-    constructor(x,y,z) {
+    constructor(x, y, z) {
 
         this.pointEndPositionsBuffer = gl.createBuffer();
         this.pointLifetimeBuffer = gl.createBuffer();
@@ -10,7 +10,6 @@ class AsteroidExplosion {
         this.yPos = y;
         this.zPos = z;
         this.buildBuffers();
-
 
 
     }

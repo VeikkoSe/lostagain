@@ -17,9 +17,6 @@ class Plane {
         //this.terrainData = null;
 
 
-
-
-
         this.plane = this.createHeightMap(size);
     }
 

@@ -4,7 +4,6 @@ class EnemyComponent extends Component {
         this.speed = 30;
 
 
-
     }
 
 

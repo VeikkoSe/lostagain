@@ -56,8 +56,6 @@ function webGLStart() {
     game = new Game(canvas);
 
 
-
-
 }
 
 function updateLightPosition() {

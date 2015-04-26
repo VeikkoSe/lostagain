@@ -6,12 +6,10 @@ class CollisionProcess extends Processor {
         var that = this;
         pub.subscribe("collision", function (name, collisionComponents) {
 
-            if (collisionComponents[0].group == 'enemy')
-            {
+            if (collisionComponents[0].group == 'enemy') {
                 var enemy = collisionComponents[0];
             }
-            else if(collisionComponents[1].group == 'enemy')
-            {
+            else if (collisionComponents[1].group == 'enemy') {
                 var enemy = collisionComponents[1];
             }
             var enemyEntity = enemy.entity;
@@ -19,25 +17,22 @@ class CollisionProcess extends Processor {
             var ec = enemyEntity.components.EnemyComponent;
 
             hc.amount--;
-            if(hc.amount>0) {
+            if (hc.amount > 0) {
 
                 pub.publish("explosion", enemyEntity.components.Renderable);
             }
             else {
 
-                hc.amount=0;
+                hc.amount = 0;
                 pub.publish("bigexplosion", enemyEntity.components.Renderable);
             }
             //that.createNewExplosion(that, collisionComponents[0].xPos, collisionComponents[0].zPos);
 
 
-
-            if (collisionComponents[0].group == 'player')
-            {
+            if (collisionComponents[0].group == 'player') {
                 var player = collisionComponents[0];
             }
-            else if(collisionComponents[1].group == 'player')
-            {
+            else if (collisionComponents[1].group == 'player') {
                 var player = collisionComponents[1];
             }
             var playerEntity = player.entity;
@@ -46,43 +41,30 @@ class CollisionProcess extends Processor {
             var pc = playerEntity.components.Renderable;
 
             hc.amount--;
-            if(hc.amount>0) {
+            if (hc.amount > 0) {
 
                 pub.publish("explosion", pc);
             }
             else {
 
-                hc.amount=0;
+                hc.amount = 0;
                 pub.publish("bigexplosion", pc);
             }
-
-
-
 
 
         });
 
 
-
-
-
-
-
-
-
-
-
-
     }
 
     update() {
-        this.collisions =[];
+        this.collisions = [];
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
             if (le.components.CollisionComponent) {
                 //object is dead. no need to check for collisions
 
-                if(le.components.HealthComponent && le.components.HealthComponent.amount<1) {
+                if (le.components.HealthComponent && le.components.HealthComponent.amount < 1) {
 
                     continue;
 
@@ -99,7 +81,6 @@ class CollisionProcess extends Processor {
                 c.entity = le;
 
 
-
                 this.collisions.push(c);
 
             }
@@ -107,15 +88,15 @@ class CollisionProcess extends Processor {
 
         for (var i = 0; i < this.collisions.length; i++) {
             for (var j = 0; j < this.collisions.length; j++) {
-                if (j!=i &&
+                if (j != i &&
                     this.collisions[i].xPos - this.collisions[i].xWidth > this.collisions[j].xPos - this.collisions[i].xWidth &&
                     this.collisions[i].xPos - this.collisions[i].xWidth < this.collisions[j].xPos + this.collisions[j].xWidth &&
                     this.collisions[i].zPos - this.collisions[i].zWidth > this.collisions[j].zPos - this.collisions[i].zWidth &&
                     this.collisions[i].zPos - this.collisions[i].zWidth < this.collisions[j].zPos + this.collisions[j].zWidth
-                    && this.collisions[i].group!= this.collisions[j].group) {
+                    && this.collisions[i].group != this.collisions[j].group) {
 
 
-                    pub.publish("collision", [this.collisions[i],this.collisions[j]]);
+                    pub.publish("collision", [this.collisions[i], this.collisions[j]]);
 
                 }
             }

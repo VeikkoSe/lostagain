@@ -21,7 +21,7 @@ class RenderProcess extends Processor {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
             //we do not render objects wich health is zero
-            if(le.components.HealthComponent && le.components.HealthComponent.amount<1)
+            if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
                 continue;
 
             if (le.components.Renderable && le.components.MeshComponent) {

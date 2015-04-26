@@ -311,8 +311,6 @@ class ShaderManager {
     }
 
 
-
-
     initParticleShaders(id) {
 
         var program = this.createP(id);
@@ -328,8 +326,6 @@ class ShaderManager {
         return program;
 
     }
-
-
 
 
     initLifeTimeParticleShaders(id) {
@@ -357,13 +353,6 @@ class ShaderManager {
         return program;
 
     }
-
-
-
-
-
-
-
 
 
     initFontShaders(id) {

@@ -1,14 +1,14 @@
 class ExplosionProcess {
     constructor() {
         var that = this;
-        pub.subscribe("explosion", function (name,entity) {
+        pub.subscribe("explosion", function (name, entity) {
 
-                that.createNewExplosion(that, entity.xPos, entity.zPos);
+            that.createNewExplosion(that, entity.xPos, entity.zPos);
 
 
         });
 
-        pub.subscribe("bigexplosion", function (name,entity) {
+        pub.subscribe("bigexplosion", function (name, entity) {
 
             that.createNewExplosion(that, entity.xPos, entity.zPos);
 

@@ -1,5 +1,5 @@
 class Renderable extends Component {
-    constructor(x = 0, y = 0, z = 0, scale = 1, angleX = 0, angleY = 0, angleZ = 0,xWidth=30,yWidth=30,zWidth=30) {
+    constructor(x = 0, y = 0, z = 0, scale = 1, angleX = 0, angleY = 0, angleZ = 0, xWidth = 30, yWidth = 30, zWidth = 30) {
         this.name = "Renderable";
 
         this.xPos = x;
