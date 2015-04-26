@@ -17,7 +17,7 @@ var LevelManager = function LevelManager() {
     this.loading = true;
     lm = [];
     switch (name) {
-      case ('second'):
+      case ('first'):
         camera.setDistance(350);
         ef.createStars();
         ef.createFuel(false);
@@ -43,7 +43,7 @@ var LevelManager = function LevelManager() {
         lh.addChildren(new Layout(5, 5, currency.components.CurrencyComponent, 8));
         lm.push(lh);
         break;
-      case ('first'):
+      case ('second'):
         ef.createStars();
         camera.setDistance(100);
         var ship = ef.createShip();

@@ -22,7 +22,7 @@ class LevelManager {
         lm = [];
 
         switch (name) {
-            case ('second'):
+            case ('first'):
 
 
                 camera.setDistance(350);
@@ -59,7 +59,7 @@ class LevelManager {
 
 
                 break;
-            case ('first'):
+            case ('second'):
                 ef.createStars();
                 camera.setDistance(100);
                 var ship = ef.createShip();
