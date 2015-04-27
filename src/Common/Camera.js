@@ -53,7 +53,7 @@ class Camera {
     setDistance(d) {
         this.distance = d;
 
-        this.x = 0;
+        //this.x = 0;
         this.y = -1 * this.distance;
         this.z = -1 * this.distance;
 

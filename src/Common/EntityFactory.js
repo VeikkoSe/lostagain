@@ -191,5 +191,12 @@ class EntityFactory {
 
     }
 
+    createMap() {
+        var e = em.addNew();
+        e.addComponent(new MapComponent(new Hexagon(2)));
+        return e;
+
+    }
+
 
 }

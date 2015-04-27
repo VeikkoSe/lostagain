@@ -118,5 +118,11 @@ var EntityFactory = function EntityFactory() {
     var e = em.addNew();
     e.addComponent(new PlaneComponent(new Plane(80)));
     return e;
+  },
+  createMap: function() {
+    "use strict";
+    var e = em.addNew();
+    e.addComponent(new MapComponent(new Hexagon(2)));
+    return e;
   }
 }, {});

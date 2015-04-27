@@ -79,13 +79,11 @@ class GameState extends StateEngine {
 
     update() {
 
-        //actionMapper.handleKeys();
 
 
         var timeNow = new Date().getTime();
 
         this.frameCount++;
-
 
         if (this.lastTime != 0) {
 
@@ -97,7 +95,6 @@ class GameState extends StateEngine {
             }
 
             actionMapper.handleKeys();
-
 
             if (this.elapsedTotal >= 1000) {
                 var fps = this.frameCount;

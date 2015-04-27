@@ -30,7 +30,6 @@ var Camera = function Camera() {
   setDistance: function(d) {
     "use strict";
     this.distance = d;
-    this.x = 0;
     this.y = -1 * this.distance;
     this.z = -1 * this.distance;
   },

@@ -17,11 +17,11 @@ var LevelManager = function LevelManager() {
     this.loading = true;
     lm = [];
     switch (name) {
-      case ('first'):
+      case ('second'):
         camera.setDistance(350);
         ef.createStars();
         ef.createFuel(false);
-        for (var i = 0; i < 1; i++) {
+        for (var i = 0; i < 30; i++) {
           ef.createEnemy();
         }
         var mothership = ef.createMotherShip();
@@ -43,7 +43,7 @@ var LevelManager = function LevelManager() {
         lh.addChildren(new Layout(5, 5, currency.components.CurrencyComponent, 8));
         lm.push(lh);
         break;
-      case ('second'):
+      case ('first'):
         ef.createStars();
         camera.setDistance(100);
         var ship = ef.createShip();

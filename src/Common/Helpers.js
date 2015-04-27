@@ -47,7 +47,7 @@ class Helpers {
 
         return y / resolutionHeight;
     }
-
+/*
     setMatrixUniforms() {
 
 
@@ -59,7 +59,7 @@ class Helpers {
         mat3.transpose(normalMatrix);
         gl.uniformMatrix3fv(shaderProgram.uNMatrix, false, normalMatrix);
     }
-
+*/
     getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }

@@ -3,6 +3,7 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/out/src/Common/LayoutManager.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/Hexagon.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/IntroState.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/LayoutProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/CurrencyComponent.js" />
@@ -17,6 +18,8 @@
         <item url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Publish.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Processor/MapProcess.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/MapComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/AsteroidComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/GuiComponent.js" />
@@ -24,8 +27,8 @@
         <item url="file://$PROJECT_DIR$/out/src/Common/IntroState.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/BulletComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/GameState.js" />
-        <item url="file://$PROJECT_DIR$/out/src/Common/ActionMapper.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/AIControlled.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/ActionMapper.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/TextProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/TeleportProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/EntityFactory.js" />
@@ -332,6 +335,7 @@
       <root url="file://$PROJECT_DIR$/out/src/Processors/3dRebderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/PlaneProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/ThreeDRenderProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/Hexagon.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/LayoutManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/IntroState.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/LayoutProcess.js" />
@@ -347,6 +351,8 @@
       <root url="file://$PROJECT_DIR$/out/src/State/EndState.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/PauseState.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Publish.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Processor/MapProcess.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/MapComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/AsteroidComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/GuiComponent.js" />
@@ -354,8 +360,8 @@
       <root url="file://$PROJECT_DIR$/out/src/Common/IntroState.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/GameState.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/BulletComponent.js" />
-      <root url="file://$PROJECT_DIR$/out/src/Component/AIControlled.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/ActionMapper.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/AIControlled.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/TextProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/EntityFactory.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/TeleportProcess.js" />

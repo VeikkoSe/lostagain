@@ -19,6 +19,38 @@ class MapStateActionMapper {
 
     handleKeys() {
 
+
+
+        if (currentlyPressedKeys[49]) {
+
+            levelManager.loadLevel('first');
+            game.currentLevel = 'first';
+        }
+        if (currentlyPressedKeys[50]) {
+
+            levelManager.loadLevel('second');
+            game.currentLevel = 'second';
+        }
+
+        if (currentlyPressedKeys[51]) {
+
+            levelManager.loadLevel('third');
+            game.currentLevel = 'third';
+        }
+
+        if (currentlyPressedKeys[52]) {
+
+            game.stateEngine.changeState("mapstate");
+        }
+
+
+
+
+
+
+
+
+
         //console.log(currentlyPressedKeys);
 
         if (currentlyPressedKeys[77]) {

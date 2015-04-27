@@ -1,32 +1,21 @@
 var MapState = function MapState(canvas) {
   "use strict";
   this.wall = null;
-  this.starProcess = new StarProcess();
-  this.wall = mm.getOrAddMesh('maps');
+  this.processList = [];
+  this.frameCount = 0;
+  this.lastTime = 0;
+  this.elapsedTotal = 0;
 };
 ($traceurRuntime.createClass)(MapState, {
   draw: function() {
     "use strict";
-    sm.setProgram(shaderProgram);
-    gl.disable(gl.BLEND);
-    gl.enable(gl.DEPTH_TEST);
-    gl.uniform1f(shaderProgram.alphaUniform, 1);
-    gl.uniform1i(shaderProgram.uDrawColors, 0);
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-    camera.mvPushMatrix();
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.wall.vertexPositionBuffer);
-    gl.vertexAttribPointer(shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.wall.normalPositionBuffer);
-    gl.vertexAttribPointer(shaderProgram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.wall.texturePositionBuffer);
-    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, this.wall.texture);
-    gl.uniform1i(shaderProgram.samplerUniform, 0);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.wall.indexPositionBuffer);
-    helpers.setMatrixUniforms();
-    gl.drawElements(gl.TRIANGLES, this.wall.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    camera.mvPopMatrix();
+    gl.clearColor(0, 0, 0, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    camera.move();
+    for (var i = 0; i < this.processList.length; i++) {
+      this.processList[$traceurRuntime.toProperty(i)].draw();
+    }
+    camera.drawCalls = 0;
   },
   init: function() {
     "use strict";
@@ -35,12 +24,27 @@ var MapState = function MapState(canvas) {
     document.onkeyup = actionMapper.handleKeyUp;
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
+    this.processList = [];
+    this.processList.push(new MapProcess());
+    camera.setDistance(400);
+    ef.createMap();
+    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    camera.setPerspective();
     mat4.identity(camera.mvMatrix);
-    mat4.translate(camera.mvMatrix, [0, 0, -90]);
   },
   update: function() {
     "use strict";
-    actionMapper.handleKeys();
+    var timeNow = new Date().getTime();
+    this.frameCount++;
+    if (this.lastTime != 0) {
+      var elapsed = timeNow - this.lastTime;
+      this.elapsedTotal += elapsed;
+      for (var i = 0; i < this.processList.length; i++) {
+        this.processList[$traceurRuntime.toProperty(i)].update(elapsed);
+      }
+      actionMapper.handleKeys();
+    }
+    this.lastTime = timeNow;
   },
   cleanup: function() {
     "use strict";
