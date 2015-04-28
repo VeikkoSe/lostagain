@@ -48,10 +48,11 @@ class MapState extends StateEngine {
 
 
         this.processList = [];
-        this.processList.push(new MapProcess());
+        //this.processList.push(new MapProcess());
+        this.processList.push(new PrimitiveProcess());
 
-        ///camera.setPos(0, 0, 0, 90);
-        camera.setDistance(400);
+        camera.setPos(-50, 0, 0, 45);
+        camera.setDistance(150);
 
         ef.createMap();
 

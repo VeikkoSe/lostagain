@@ -21,6 +21,17 @@ function getMousePos(canvas, evt) {
     };
 }
 
+function circleXY(center, radius, amount) {
+    var points = [];
+    var stepSize = ((2 * Math.PI) / amount);
+    var y = 0;
+    for (var d = 0; d <= (2 * Math.PI) - stepSize; d += stepSize) {
+        points.push(((Math.sin(d) * radius) + center.x)
+            , y, (Math.cos(d) * radius) + center.z);
+    }
+    return points;
+}
+
 
 function viewport() {
     var e = window;

@@ -68,7 +68,6 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new Controllable());
     e.addComponent(new MomentumMovable(15, 100));
     e.addComponent(new CameraController());
-    e.addComponent(new JumpArea());
     e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
     e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
     var t = new Texture('exhausttrailm', false, true);
@@ -122,7 +121,10 @@ var EntityFactory = function EntityFactory() {
   createMap: function() {
     "use strict";
     var e = em.addNew();
-    e.addComponent(new MapComponent(new Hexagon(2)));
+    e.addComponent(new MapComponent());
+    var hg = new Hexagon(2);
+    e.addComponent(new PrimitiveComponent(hg.area));
+    e.addComponent(new Renderable(0, 0, 0));
     return e;
   }
 }, {});

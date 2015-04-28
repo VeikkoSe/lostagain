@@ -111,7 +111,8 @@ class EntityFactory {
         //e.addComponent(new Drivable());
         //can be only one. Camera follows this entity
         e.addComponent(new CameraController());
-        e.addComponent(new JumpArea());
+        //e.addComponent(new JumpArea());
+        //e.addComponent(new Primiteive(circleXY()));
 
 
         e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
@@ -193,7 +194,17 @@ class EntityFactory {
 
     createMap() {
         var e = em.addNew();
-        e.addComponent(new MapComponent(new Hexagon(2)));
+        e.addComponent(new MapComponent());
+        var hg = new Hexagon(2);
+        e.addComponent(new PrimitiveComponent(hg.area));
+
+        e.addComponent(new Renderable(0,//x
+            0,//y
+            0//z
+            )); //zWidth
+
+
+
         return e;
 
     }

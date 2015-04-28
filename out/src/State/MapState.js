@@ -25,8 +25,9 @@ var MapState = function MapState(canvas) {
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
     this.processList = [];
-    this.processList.push(new MapProcess());
-    camera.setDistance(400);
+    this.processList.push(new PrimitiveProcess());
+    camera.setPos(-50, 0, 0, 45);
+    camera.setDistance(150);
     ef.createMap();
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
