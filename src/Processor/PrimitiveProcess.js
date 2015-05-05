@@ -6,8 +6,6 @@ class PrimitiveProcess extends Processor {
     }
 
 
-
-
     draw() {
 
         for (var e = 0; e < em.entities.length; e++) {

@@ -7,7 +7,7 @@ var Texture = function Texture(name) {
   this.loaded = 0;
   this.repeat = repeat;
   this.noflip = noflip;
-  levelManager.loadTotal++;
+  loadManager.loadTotal++;
   this.initTexture(this.name);
 };
 ($traceurRuntime.createClass)(Texture, {
@@ -29,7 +29,7 @@ var Texture = function Texture(name) {
     }
     gl.bindTexture(gl.TEXTURE_2D, null);
     this.loaded = 1;
-    levelManager.loadTotal--;
+    loadManager.loadTotal--;
   },
   initTexture: function(name) {
     "use strict";

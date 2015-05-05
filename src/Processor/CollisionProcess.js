@@ -31,6 +31,7 @@ class CollisionProcess extends Processor {
 
         pub.subscribe("collision", function (name, collisionComponents) {
 
+
             if (collisionComponents[0].group == 'enemy') {
                 var enemy = collisionComponents[0];
             }
@@ -59,16 +60,20 @@ class CollisionProcess extends Processor {
             }
             var playerEntity = player.entity;
             var hc = playerEntity.components.HealthComponent;
+            var sc = playerEntity.components.ShieldComponent;
             //renderable contains xyz of object so we know where to explode
             var pc = playerEntity.components.Renderable;
+            console.log(sc);
+            if (sc.amount > 0)
+                sc.amount--;
+            else
+                hc.amount--;
 
-            hc.amount--;
             if (hc.amount > 0) {
 
                 pub.publish("explosion", pc);
             }
             else {
-
                 hc.amount = 0;
                 pub.publish("bigexplosion", pc);
             }
@@ -80,7 +85,7 @@ class CollisionProcess extends Processor {
     }
 
     update() {
-        this.collisions.length=0;
+        this.collisions.length = 0;
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
             if (le.components.CollisionComponent) {

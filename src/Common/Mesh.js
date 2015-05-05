@@ -12,7 +12,7 @@ class Mesh {
         this.zPos = 0;
         this.batch = 0;
         this.meshLoaded = false;
-        levelManager.loadTotal++;
+        loadManager.loadTotal++;
 
 
         this.ambient = null;
@@ -53,7 +53,7 @@ class Mesh {
 
                 that.inputData(request.responseText);
                 that.buildBuffers();
-                levelManager.loadTotal--;
+                loadManager.loadTotal--;
             }
         }
 

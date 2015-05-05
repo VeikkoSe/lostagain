@@ -22,7 +22,7 @@ var LoadState = function LoadState(canvas) {
     this.rotationSpeed = 50;
     this.rotationAngle = 0;
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    levelManager.loadAllAssets(wantedState);
+    loadManager.loadAllAssets(wantedState);
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);
@@ -58,10 +58,10 @@ var LoadState = function LoadState(canvas) {
       if (this.rotationAngle >= 360)
         this.rotationAngle = 0;
       if (this.elapsedTotal >= 200) {
-        if (levelManager.loading == false && levelManager.loadTotal == 0) {
+        if (loadManager.loadTotal == 0) {
           game.stateEngine.changeState('gamestate');
         } else {
-          this.loadPercent = 100 - (levelManager.loadTotal / levelManager.maxLoad * 100);
+          this.loadPercent = 100 - (loadManager.loadTotal / levelManager.maxLoad * 100);
           this.rotationSpeed += this.loadPercent;
         }
         this.elapsedTotal -= 200;

@@ -46,12 +46,12 @@ class EntityFactory {
 
     randomRangedInt() {
         var rnd = helpers.getRandomInt(500, -500);
-        if(rnd>100 ||
-            rnd<-100) {
+        if (rnd > 100 ||
+            rnd < -100) {
             return rnd;
         }
         else
-          return this.randomRangedInt();
+            return this.randomRangedInt();
     }
 
     createEnemy() {
@@ -111,13 +111,16 @@ class EntityFactory {
         //e.addComponent(new Drivable());
         //can be only one. Camera follows this entity
         e.addComponent(new CameraController());
-        //e.addComponent(new JumpArea());
-        //e.addComponent(new Primiteive(circleXY()));
+        var ja = new JumpArea();
+        e.addComponent(ja);
+        e.addComponent(new PrimitiveComponent(circleXY({x: 0, y: 0, z: 0}, ja.radius, ja.pointAmount)));
 
 
         e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
         e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
 
+        //var hg = new Hexagon(10);
+        //e.addComponent(new PrimitiveComponent(hg.area));
 
         var t = new Texture('exhausttrailm', false, true);
 
@@ -138,7 +141,19 @@ class EntityFactory {
         return e;
 
     }
+    createBareMotherShip() {
 
+        var e = em.addNew('baremothership');
+        var mesh = mm.getOrAddMesh('mothership');
+        e.addComponent(new MeshComponent(mesh));
+
+        e.addComponent(new Renderable(0, 0.5, 0, 0.1));
+
+
+
+
+        return e;
+    }
 
     createAsteroidField() {
 
@@ -195,14 +210,13 @@ class EntityFactory {
     createMap() {
         var e = em.addNew();
         e.addComponent(new MapComponent());
-        var hg = new Hexagon(2);
+        var hg = new Hexagon(10);
         e.addComponent(new PrimitiveComponent(hg.area));
 
         e.addComponent(new Renderable(0,//x
             0,//y
             0//z
-            )); //zWidth
-
+        )); //zWidth
 
 
         return e;

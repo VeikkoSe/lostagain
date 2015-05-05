@@ -19,9 +19,10 @@ class Game {
         requestAnimFrame(function () {
             that.tick()
         });
-
-        this.stateEngine.currentState.update();
-        this.stateEngine.currentState.draw();
+        if(loadManager.loadTotal == 0) {
+            this.stateEngine.currentState.update();
+            this.stateEngine.currentState.draw();
+        }
 
     }
 

@@ -15,7 +15,6 @@ var LoadManager = function LoadManager() {
     "use strict";
     this.nextState = false;
     em.clearAll();
-    this.loading = true;
     lm = [];
     switch (name) {
       case ('second'):
@@ -59,7 +58,6 @@ var LoadManager = function LoadManager() {
         break;
     }
     this.maxLoad = this.loadTotal;
-    this.loading = false;
   },
   destroyAllCurrentAssets: function() {
     "use strict";

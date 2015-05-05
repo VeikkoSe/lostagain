@@ -19,27 +19,28 @@ class EnemyProcess extends Processor {
                     ship = em.getEntityByName('mothership');
                 }
                 var re = le.components.Renderable;
-                var enemyHp = le.components.HealthComponent;
+                //var enemyHp = le.components.HealthComponent;
+
+                /*
+                 if (enemyHp.amount > 0) {
+                 if (
+                 (helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
+
+                 //this.routeDone = true;
+
+                 if (ship.components.HealthComponent.amount < 1 && ship.components.ShieldComponent.amount < 1) {
+                 //game.stateEngine.changeState("gamestate");
+                 }
+
+                 if (ship.components.ShieldComponent.amount < 1)
+                 ship.components.HealthComponent.amount--;
+                 else
+                 ship.components.ShieldComponent.amount--;
 
 
-                if (enemyHp.amount > 0) {
-                    if (
-                        (helpers.isClose(re.xPos, ship.components.Renderable.xPos) && helpers.isClose(re.zPos, ship.components.Renderable.zPos))) {
-
-                        //this.routeDone = true;
-
-                        if (ship.components.HealthComponent.amount < 1 && ship.components.ShieldComponent.amount < 1) {
-                            //alert('you loose!');
-                        }
-
-                        if (ship.components.ShieldComponent.amount < 1)
-                            ship.components.HealthComponent.amount--;
-                        else
-                            ship.components.ShieldComponent.amount--;
-
-
-                    }
-                }
+                 }
+                 }
+                 */
 
                 //newX and newZ are false by default so we don't move anywhere if newpos is not set
                 if (!this.routeDone) {

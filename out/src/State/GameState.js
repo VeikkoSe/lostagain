@@ -17,8 +17,6 @@ var GameState = function GameState(canvas) {
     this.processList.push(new TextProcess());
     this.processList.push(new AsteroidRenderProcess());
     this.processList.push(new PlaneProcess());
-    this.processList.push(new HealthProcess());
-    this.processList.push(new ShieldProcess());
     this.processList.push(new LinearMovementProcess());
     this.processList.push(new DrivingMovementProcess());
     this.processList.push(new CameraControllerProcess());
@@ -35,7 +33,7 @@ var GameState = function GameState(canvas) {
     this.processList.push(new CollisionProcess());
     this.processList.push(new RenderProcess());
     if (game.currentLevel == null) {
-      levelManager.loadLevel('first');
+      loadManager.loadLevel('first');
       game.currentLevel = 'first';
       return;
     }
@@ -100,5 +98,6 @@ var GameState = function GameState(canvas) {
     document.onmousedown = null;
     actionMapper = null;
     currentlyPressedKeys = {};
+    em.clearAll();
   }
 }, {}, StateEngine);

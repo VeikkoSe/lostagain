@@ -50,11 +50,15 @@ class MapState extends StateEngine {
         this.processList = [];
         //this.processList.push(new MapProcess());
         this.processList.push(new PrimitiveProcess());
+        this.processList.push(new RenderProcess());
 
-        camera.setPos(-50, 0, 0, 45);
-        camera.setDistance(150);
+        camera.setPos(-10, 0, 0, 45);
+        camera.setDistance(40);
 
         ef.createMap();
+        ef.createBareMotherShip();
+
+
 
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
@@ -99,6 +103,7 @@ class MapState extends StateEngine {
         document.onmousedown = null;
         actionMapper = null;
         currentlyPressedKeys = {};
+        em.clearAll();
     }
 
 

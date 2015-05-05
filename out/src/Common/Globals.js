@@ -8,7 +8,7 @@ var resolutionHeight = 1080;
 var camera = null;
 var picker = null;
 var ef = {};
-var levelManager = {};
+var loadManager = {};
 var pub = {};
 var lm = null;
 var helpers = null;
@@ -16,7 +16,7 @@ var colorset = {};
 var em = null;
 var actionMapper = null;
 var astar = null;
-var debug = true;
+var debug = false;
 if (debug) {
   var resolutionWidth = 640;
   var resolutionHeight = 480;

@@ -36,8 +36,13 @@ var CollisionProcess = function CollisionProcess() {
     }
     var playerEntity = player.entity;
     var hc = playerEntity.components.HealthComponent;
+    var sc = playerEntity.components.ShieldComponent;
     var pc = playerEntity.components.Renderable;
-    hc.amount--;
+    console.log(sc);
+    if (sc.amount > 0)
+      sc.amount--;
+    else
+      hc.amount--;
     if (hc.amount > 0) {
       pub.publish("explosion", pc);
     } else {

@@ -47,19 +47,20 @@ class Helpers {
 
         return y / resolutionHeight;
     }
-/*
-    setMatrixUniforms() {
+
+    /*
+     setMatrixUniforms() {
 
 
-        gl.uniformMatrix4fv(shaderProgram.uPMatrix, false, camera.pMatrix);
-        gl.uniformMatrix4fv(shaderProgram.uMVMatrix, false, camera.mvMatrix);
+     gl.uniformMatrix4fv(shaderProgram.uPMatrix, false, camera.pMatrix);
+     gl.uniformMatrix4fv(shaderProgram.uMVMatrix, false, camera.mvMatrix);
 
-        var normalMatrix = mat3.create();
-        mat4.toInverseMat3(camera.mvMatrix, normalMatrix);
-        mat3.transpose(normalMatrix);
-        gl.uniformMatrix3fv(shaderProgram.uNMatrix, false, normalMatrix);
-    }
-*/
+     var normalMatrix = mat3.create();
+     mat4.toInverseMat3(camera.mvMatrix, normalMatrix);
+     mat3.transpose(normalMatrix);
+     gl.uniformMatrix3fv(shaderProgram.uNMatrix, false, normalMatrix);
+     }
+     */
     getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }

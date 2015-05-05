@@ -68,6 +68,13 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new Controllable());
     e.addComponent(new MomentumMovable(15, 100));
     e.addComponent(new CameraController());
+    var ja = new JumpArea();
+    e.addComponent(ja);
+    e.addComponent(new PrimitiveComponent(circleXY({
+      x: 0,
+      y: 0,
+      z: 0
+    }, ja.radius, ja.pointAmount)));
     e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
     e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
     var t = new Texture('exhausttrailm', false, true);
@@ -81,6 +88,14 @@ var EntityFactory = function EntityFactory() {
     var mesh = mm.getOrAddMesh('terrain');
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos));
+    return e;
+  },
+  createBareMotherShip: function() {
+    "use strict";
+    var e = em.addNew('baremothership');
+    var mesh = mm.getOrAddMesh('mothership');
+    e.addComponent(new MeshComponent(mesh));
+    e.addComponent(new Renderable(0, 0.5, 0, 0.1));
     return e;
   },
   createAsteroidField: function() {
@@ -122,7 +137,7 @@ var EntityFactory = function EntityFactory() {
     "use strict";
     var e = em.addNew();
     e.addComponent(new MapComponent());
-    var hg = new Hexagon(2);
+    var hg = new Hexagon(10);
     e.addComponent(new PrimitiveComponent(hg.area));
     e.addComponent(new Renderable(0, 0, 0));
     return e;

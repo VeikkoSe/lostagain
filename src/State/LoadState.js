@@ -47,7 +47,7 @@ class LoadState extends StateEngine {
         // }
 //
 
-        levelManager.loadAllAssets(wantedState);
+        loadManager.loadAllAssets(wantedState);
 
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
@@ -115,12 +115,12 @@ class LoadState extends StateEngine {
             if (this.elapsedTotal >= 200) {
 
 
-                if (levelManager.loading == false && levelManager.loadTotal == 0) {
+                if (loadManager.loadTotal == 0) {
 
                     game.stateEngine.changeState('gamestate');
                 }
                 else {
-                    this.loadPercent = 100 - ( levelManager.loadTotal / levelManager.maxLoad * 100);
+                    this.loadPercent = 100 - ( loadManager.loadTotal / levelManager.maxLoad * 100);
                     this.rotationSpeed += this.loadPercent;
 
 

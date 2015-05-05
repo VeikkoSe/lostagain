@@ -34,7 +34,7 @@ class ExhaustProcess extends Processor {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
-            if (le.components.ExhaustComponent ) {
+            if (le.components.ExhaustComponent) {
 
                 var ec = le.components.ExhaustComponent;
                 var rendX = le.components.Renderable.xPos;
@@ -188,7 +188,7 @@ class ExhaustProcess extends Processor {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
-            if (le.components.ExhaustComponent && le.components.HealthComponent.amount>0) {
+            if (le.components.ExhaustComponent && le.components.HealthComponent.amount > 0) {
 
 
                 var ec = le.components.ExhaustComponent;

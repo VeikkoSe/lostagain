@@ -1,8 +1,9 @@
-class LevelManager {
+class LoadManager {
     constructor() {
         this.loading = false;
         this.loadTotal = 0;
         this.nextState = false;
+        this.currentState = null;
         this.maxLoad = 0;
     }
 
@@ -16,7 +17,7 @@ class LevelManager {
         em.clearAll();
 
 
-        this.loading = true;
+        //this.loading = true;
 
         //layoutManager
         lm = [];
@@ -81,7 +82,7 @@ class LevelManager {
 
         }
         this.maxLoad = this.loadTotal;
-        this.loading = false;
+        //this.loading = false;
     }
 
     destroyAllCurrentAssets() {

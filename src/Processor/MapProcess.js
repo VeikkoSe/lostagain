@@ -2,6 +2,7 @@ class MapProcess extends Processor {
     constructor() {
         this.simplestProgram = sm.init('simplest');
     }
+
     draw() {
 
         for (var e = 0; e < em.entities.length; e++) {

@@ -18,7 +18,7 @@ var picker = null;
 //entityfactory, hold all the entities
 var ef = {};
 //holds different levels
-var levelManager = {};
+var loadManager = {};
 //maessaging manager. Basically only between systems
 var pub = {};
 
@@ -30,7 +30,7 @@ var actionMapper = null;
 var astar = null;
 
 
-var debug = true;
+var debug = false;
 if (debug) {
     var resolutionWidth = 640;
     var resolutionHeight = 480;

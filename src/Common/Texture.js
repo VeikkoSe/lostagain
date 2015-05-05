@@ -9,7 +9,7 @@ class Texture {
         this.loaded = 0;
         this.repeat = repeat;
         this.noflip = noflip;
-        levelManager.loadTotal++;
+        loadManager.loadTotal++;
         this.initTexture(this.name);
     }
 
@@ -36,7 +36,7 @@ class Texture {
         }
         gl.bindTexture(gl.TEXTURE_2D, null);
         this.loaded = 1;
-        levelManager.loadTotal--;
+        loadManager.loadTotal--;
     }
 
 

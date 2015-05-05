@@ -10,7 +10,7 @@ var Mesh = function Mesh(name) {
   this.zPos = 0;
   this.batch = 0;
   this.meshLoaded = false;
-  levelManager.loadTotal++;
+  loadManager.loadTotal++;
   this.ambient = null;
   this.diffuse = null;
   this.specular = null;
@@ -35,7 +35,7 @@ var Mesh = function Mesh(name) {
       if (request.readyState == 4 && request.status == 200) {
         that.inputData(request.responseText);
         that.buildBuffers();
-        levelManager.loadTotal--;
+        loadManager.loadTotal--;
       }
     };
   },

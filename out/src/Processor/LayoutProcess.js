@@ -61,14 +61,17 @@ var LayoutProcess = function LayoutProcess() {
           yminus = true;
         }
         var loop = 1;
-        if (lloop[$traceurRuntime.toProperty(i)].component.amount) {
+        if (lloop[$traceurRuntime.toProperty(i)].component.amount && lloop[$traceurRuntime.toProperty(i)].component.amount > 0) {
           loop = lloop[$traceurRuntime.toProperty(i)].component.amount;
+        } else {
+          loop = 0;
         }
-        for (var h = 0; h < loop; h++) {
-          var add = h * (helpers.simpleWorldToViewY(1) * lloop[$traceurRuntime.toProperty(i)].size * rh);
-          var pd = this.calculatePd(x + add, y, xminus, yminus, lloop[$traceurRuntime.toProperty(i)]);
-          this.render(lloop[$traceurRuntime.toProperty(i)], pd);
-          var lastpd = pd;
+        if (loop > 0) {
+          for (var h = 0; h < loop; h++) {
+            var add = h * (helpers.simpleWorldToViewY(1) * lloop[$traceurRuntime.toProperty(i)].size * rh);
+            var pd = this.calculatePd(x + add, y, xminus, yminus, lloop[$traceurRuntime.toProperty(i)]);
+            this.render(lloop[$traceurRuntime.toProperty(i)], pd);
+          }
         }
       }
       if (lloop[$traceurRuntime.toProperty(i)].children.length > 0) {

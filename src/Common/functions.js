@@ -56,7 +56,7 @@ function webGLStart() {
     camera = new Camera();
     picker = new Picker(canvas);
     ef = new EntityFactory();
-    levelManager = new LevelManager();
+    loadManager = new LoadManager();
     pub = new Publish();
 
 

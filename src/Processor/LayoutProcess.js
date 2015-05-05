@@ -84,17 +84,21 @@ class LayoutProcess extends Processor {
                 }
 
                 var loop = 1;
-                if (lloop[i].component.amount) {
-
+                if (lloop[i].component.amount && lloop[i].component.amount > 0) {
                     loop = lloop[i].component.amount;
-
                 }
-                for (var h = 0; h < loop; h++) {
-                    var add = h * (helpers.simpleWorldToViewY(1) * lloop[i].size * rh);
+                else {
+                    loop = 0;
+                }
 
-                    var pd = this.calculatePd(x + add, y, xminus, yminus, lloop[i]);
-                    this.render(lloop[i], pd);
-                    var lastpd = pd;
+                if (loop > 0) {
+                    for (var h = 0; h < loop; h++) {
+                        var add = h * (helpers.simpleWorldToViewY(1) * lloop[i].size * rh);
+
+                        var pd = this.calculatePd(x + add, y, xminus, yminus, lloop[i]);
+                        this.render(lloop[i], pd);
+
+                    }
                 }
 
 

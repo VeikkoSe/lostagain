@@ -26,8 +26,8 @@ class GameState extends StateEngine {
         this.processList.push(new PlaneProcess());
         //this.processList.push(new PostProcess());
 
-        this.processList.push(new HealthProcess());
-        this.processList.push(new ShieldProcess());
+        //this.processList.push(new HealthProcess());
+        //this.processList.push(new ShieldProcess());
         this.processList.push(new LinearMovementProcess());
         this.processList.push(new DrivingMovementProcess());
         this.processList.push(new CameraControllerProcess());
@@ -47,7 +47,7 @@ class GameState extends StateEngine {
 
         if (game.currentLevel == null) {
 
-            levelManager.loadLevel('first');
+            loadManager.loadLevel('first');
             game.currentLevel = 'first';
 
             return;
@@ -265,6 +265,7 @@ class GameState extends StateEngine {
         document.onmousedown = null;
         actionMapper = null;
         currentlyPressedKeys = {};
+        em.clearAll();
 
     }
 
