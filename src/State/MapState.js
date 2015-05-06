@@ -49,14 +49,17 @@ class MapState extends StateEngine {
 
         this.processList = [];
         //this.processList.push(new MapProcess());
-        this.processList.push(new PrimitiveProcess());
+        //this.processList.push(new PrimitiveProcess());
         this.processList.push(new RenderProcess());
+        this.processList.push(new StarProcess());
+        this.processList.push(new MapProcess());
 
         camera.setPos(-10, 0, 0, 45);
         camera.setDistance(40);
 
         ef.createMap();
         ef.createBareMotherShip();
+        ef.createStars();
 
 
 

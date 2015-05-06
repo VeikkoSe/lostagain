@@ -30,7 +30,6 @@ var RenderProcess = function RenderProcess() {
         var rc = le.components.Renderable;
         var mc = le.components.MeshComponent;
         camera.mvPushMatrix();
-        gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
         if (le.components.Selectable) {
           gl.uniform3fv(this.shaderProgram.uDrawColor, le.components.Selectable.color);
         } else {

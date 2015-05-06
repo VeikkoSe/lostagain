@@ -13,6 +13,9 @@ class Hexagon {
         this.area = this.createHexagonArea(size);
     }
 
+    updateArea(holes,visited,xPlayerPos,yPlayerPos) {
+
+    }
 
     createHexagonArea(size) {
 
@@ -20,8 +23,8 @@ class Hexagon {
 
          -1,2     1,2
          ------
-         -2,0  /|   / |\  2,0
-         \| /   |/
+  -2,0  /|   / |\  2,0
+        \| /   |/
          \...../
          -1,-2   1,-2
 
@@ -54,7 +57,7 @@ class Hexagon {
         for (var x = 0; x < size; x++) {
 
 
-            for (var y = 0; y < size*2; y++) {
+            for (var y = 0; y < size*3; y++) {
                 var addition = 0;
                 if ((y + 1) % 2 == 0)
                     addition = 3.5;

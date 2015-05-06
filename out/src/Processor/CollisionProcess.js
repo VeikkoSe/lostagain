@@ -38,7 +38,6 @@ var CollisionProcess = function CollisionProcess() {
     var hc = playerEntity.components.HealthComponent;
     var sc = playerEntity.components.ShieldComponent;
     var pc = playerEntity.components.Renderable;
-    console.log(sc);
     if (sc.amount > 0)
       sc.amount--;
     else

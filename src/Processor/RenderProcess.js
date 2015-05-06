@@ -45,7 +45,7 @@ class RenderProcess extends Processor {
 
                 camera.mvPushMatrix();
 
-                gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
+                //gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
 
 
                 if (le.components.Selectable) {

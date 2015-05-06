@@ -63,7 +63,7 @@ class CollisionProcess extends Processor {
             var sc = playerEntity.components.ShieldComponent;
             //renderable contains xyz of object so we know where to explode
             var pc = playerEntity.components.Renderable;
-            console.log(sc);
+
             if (sc.amount > 0)
                 sc.amount--;
             else

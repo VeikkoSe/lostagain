@@ -74,7 +74,7 @@ var EntityFactory = function EntityFactory() {
       x: 0,
       y: 0,
       z: 0
-    }, ja.radius, ja.pointAmount)));
+    }, ja.radius, ja.pointAmount), [1, 1, 1]));
     e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
     e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
     var t = new Texture('exhausttrailm', false, true);
@@ -124,7 +124,7 @@ var EntityFactory = function EntityFactory() {
     }
     e.addComponent(new ConstantRotation(10, 10, 10));
     e.addComponent(new CollisionComponent('enemy'));
-    e.addComponent(new HealthComponent(100000));
+    e.addComponent(new HealthComponent(20));
     return e;
   },
   createPlane: function() {
@@ -137,8 +137,7 @@ var EntityFactory = function EntityFactory() {
     "use strict";
     var e = em.addNew();
     e.addComponent(new MapComponent());
-    var hg = new Hexagon(10);
-    e.addComponent(new PrimitiveComponent(hg.area));
+    var hg = new Hexagon(5);
     e.addComponent(new Renderable(0, 0, 0));
     return e;
   }

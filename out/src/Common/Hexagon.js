@@ -2,12 +2,16 @@ var Hexagon = function Hexagon(size) {
   "use strict";
   this.area = this.createHexagonArea(size);
 };
-($traceurRuntime.createClass)(Hexagon, {createHexagonArea: function(size) {
+($traceurRuntime.createClass)(Hexagon, {
+  updateArea: function(holes, visited, xPlayerPos, yPlayerPos) {
+    "use strict";
+  },
+  createHexagonArea: function(size) {
     "use strict";
     var oneHexagon = [1, 0, 2, -1, 0, 2, -1, 0, -2, 1, 0, 2, -1, 0, -2, 1, 0, -2, 1, 0, 2, 1, 0, -2, 2, 0, 0, -1, 0, 2, -2, 0, 0, -1, 0, -2];
     var allHexagons = [];
     for (var x = 0; x < size; x++) {
-      for (var y = 0; y < size * 2; y++) {
+      for (var y = 0; y < size * 3; y++) {
         var addition = 0;
         if ((y + 1) % 2 == 0)
           addition = 3.5;
@@ -19,4 +23,5 @@ var Hexagon = function Hexagon(size) {
       }
     }
     return allHexagons;
-  }}, {});
+  }
+}, {});

@@ -88,6 +88,7 @@ var ShaderManager = function ShaderManager() {
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+    program.uColor = gl.getUniformLocation(program, "uColor");
     return program;
   },
   initVerticalBlurShaders: function(id) {

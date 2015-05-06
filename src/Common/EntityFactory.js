@@ -113,7 +113,7 @@ class EntityFactory {
         e.addComponent(new CameraController());
         var ja = new JumpArea();
         e.addComponent(ja);
-        e.addComponent(new PrimitiveComponent(circleXY({x: 0, y: 0, z: 0}, ja.radius, ja.pointAmount)));
+        e.addComponent(new PrimitiveComponent(circleXY({x: 0, y: 0, z: 0}, ja.radius, ja.pointAmount),[1,1,1]));
 
 
         e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
@@ -194,7 +194,7 @@ class EntityFactory {
         }
         e.addComponent(new ConstantRotation(10, 10, 10));
         e.addComponent(new CollisionComponent('enemy'));
-        e.addComponent(new HealthComponent(100000));
+        e.addComponent(new HealthComponent(20));
 
         return e;
 
@@ -210,8 +210,8 @@ class EntityFactory {
     createMap() {
         var e = em.addNew();
         e.addComponent(new MapComponent());
-        var hg = new Hexagon(10);
-        e.addComponent(new PrimitiveComponent(hg.area));
+        var hg = new Hexagon(5);
+        //e.addComponent(new PrimitiveComponent(hg.area,[0.75,0.75,0]));
 
         e.addComponent(new Renderable(0,//x
             0,//y

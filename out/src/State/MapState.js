@@ -25,12 +25,14 @@ var MapState = function MapState(canvas) {
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
     this.processList = [];
-    this.processList.push(new PrimitiveProcess());
     this.processList.push(new RenderProcess());
+    this.processList.push(new StarProcess());
+    this.processList.push(new MapProcess());
     camera.setPos(-10, 0, 0, 45);
     camera.setDistance(40);
     ef.createMap();
     ef.createBareMotherShip();
+    ef.createStars();
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);

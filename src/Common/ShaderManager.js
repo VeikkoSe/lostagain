@@ -108,6 +108,7 @@ class ShaderManager {
 
         program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
         program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+        program.uColor = gl.getUniformLocation(program, "uColor");
 
         return program;
 
