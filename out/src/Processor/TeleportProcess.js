@@ -21,8 +21,10 @@ var $TeleportProcess = TeleportProcess;
         var posZ = dirZ + ms.components.Renderable.zPos;
         ship.components.Renderable.xPos = posx;
         ship.components.Renderable.zPos = posZ;
-        ship.components.ExhaustComponent.points = [];
-        ship.components.ExhaustComponent.flow = [];
+        for (var i = 0; i < ship.components.MultiExhaustComponent.exhaustComponents.length; i++) {
+          ship.components.MultiExhaustComponent.exhaustComponents[$traceurRuntime.toProperty(i)].points = [];
+          ship.components.MultiExhaustComponent.exhaustComponents[$traceurRuntime.toProperty(i)].flow = [];
+        }
       }
     }
   },

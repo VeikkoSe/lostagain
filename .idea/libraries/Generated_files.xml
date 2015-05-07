@@ -3,6 +3,7 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/out/src/Common/LoadManager.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/MultiExhaustComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Hexagon.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/LayoutManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/Primitive.js" />
@@ -339,6 +340,7 @@
       <root url="file://$PROJECT_DIR$/out/src/Processors/PlaneProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processors/ThreeDRenderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/LoadManager.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/MultiExhaustComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/LayoutManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Hexagon.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/IntroState.js" />

@@ -17,11 +17,11 @@ var LoadManager = function LoadManager() {
     em.clearAll();
     lm = [];
     switch (name) {
-      case ('second'):
+      case ('first'):
         camera.setDistance(350);
         ef.createStars();
         ef.createFuel(false);
-        for (var i = 0; i < 30; i++) {
+        for (var i = 0; i < 20; i++) {
           ef.createEnemy();
         }
         var mothership = ef.createMotherShip();
@@ -43,11 +43,10 @@ var LoadManager = function LoadManager() {
         lh.addChildren(new Layout(5, 5, currency.components.CurrencyComponent, 8));
         lm.push(lh);
         break;
-      case ('first'):
+      case ('second'):
         ef.createStars();
         camera.setDistance(100);
-        var ship = ef.createShip();
-        ef.createEnemy();
+        var ship = ef.createMotherShip();
         break;
       case ('third'):
         camera.setDistance(200);

@@ -57,7 +57,7 @@ class MomentumMovementProcess extends Processor {
 
 
                     var dirVectorX = Math.cos(helpers.degToRad(re.angleY));
-                    //prolly wrong calculation, result works but re.zPos is division instead of add in the end
+                    //result works but re.zPos is minus instead of addition in the end
                     var dirVectorZ = Math.sin(helpers.degToRad(re.angleY));
 
                     var tx = mm.velocityX;

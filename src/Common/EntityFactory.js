@@ -31,7 +31,11 @@ class EntityFactory {
 
         var t = new Texture('exhausttrail', false, true);
 
-        e.addComponent(new ExhaustComponent(t.loadedTexture));
+        var mec = new MultiExhaustComponent();
+        mec.addExhaust(new ExhaustComponent(t.loadedTexture,30,1,3.5));
+        mec.addExhaust(new ExhaustComponent(t.loadedTexture,30,1,-3.5));
+        e.addComponent(mec);
+
         return e;
 
     }
@@ -124,8 +128,13 @@ class EntityFactory {
 
         var t = new Texture('exhausttrailm', false, true);
 
-        //t.repeat = true;
-        e.addComponent(new ExhaustComponent(t.loadedTexture));
+
+
+        var mec = new MultiExhaustComponent();
+        mec.addExhaust(new ExhaustComponent(t.loadedTexture,5,4,12,18));
+        mec.addExhaust(new ExhaustComponent(t.loadedTexture,5,4,-12,18));
+        e.addComponent(mec);
+
         e.addComponent(new CollisionComponent('player'));
         return e;
     }

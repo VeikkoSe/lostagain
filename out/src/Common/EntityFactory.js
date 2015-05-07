@@ -16,7 +16,10 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new GunComponent());
     e.addComponent(new CollisionComponent('player'));
     var t = new Texture('exhausttrail', false, true);
-    e.addComponent(new ExhaustComponent(t.loadedTexture));
+    var mec = new MultiExhaustComponent();
+    mec.addExhaust(new ExhaustComponent(t.loadedTexture, 30, 1, 3.5));
+    mec.addExhaust(new ExhaustComponent(t.loadedTexture, 30, 1, -3.5));
+    e.addComponent(mec);
     return e;
   },
   createStars: function() {
@@ -78,7 +81,10 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
     e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
     var t = new Texture('exhausttrailm', false, true);
-    e.addComponent(new ExhaustComponent(t.loadedTexture));
+    var mec = new MultiExhaustComponent();
+    mec.addExhaust(new ExhaustComponent(t.loadedTexture, 5, 4, 12, 18));
+    mec.addExhaust(new ExhaustComponent(t.loadedTexture, 5, 4, -12, 18));
+    e.addComponent(mec);
     e.addComponent(new CollisionComponent('player'));
     return e;
   },

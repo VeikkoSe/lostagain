@@ -23,13 +23,13 @@ class LoadManager {
         lm = [];
 
         switch (name) {
-            case ('second'):
+            case ('first'):
 
 
                 camera.setDistance(350);
                 ef.createStars();
                 ef.createFuel(false);
-                for (var i = 0; i < 30; i++) {
+                for (var i = 0; i < 20; i++) {
                     ef.createEnemy();
                 }
 
@@ -60,12 +60,12 @@ class LoadManager {
 
 
                 break;
-            case ('first'):
+            case ('second'):
                 ef.createStars();
                 camera.setDistance(100);
-                var ship = ef.createShip();
+                var ship = ef.createMotherShip();
 
-                ef.createEnemy();
+                //ef.createEnemy();
 
                 break;
 
