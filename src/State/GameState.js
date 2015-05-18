@@ -28,8 +28,8 @@ class GameState extends StateEngine {
 
         //this.processList.push(new HealthProcess());
         //this.processList.push(new ShieldProcess());
-        this.processList.push(new LinearMovementProcess());
-        this.processList.push(new DrivingMovementProcess());
+        //this.processList.push(new LinearMovementProcess());
+        //this.processList.push(new DrivingMovementProcess());
         this.processList.push(new CameraControllerProcess());
         this.processList.push(new PrimitiveProcess());
         this.processList.push(new TeleportProcess());

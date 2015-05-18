@@ -63,11 +63,6 @@ class GameStateActionMapper {
 
 
 
-        //not working (will be the part where hyperjump is made
-        if (currentlyPressedKeys[77]) {
-            game.stateEngine.changeState("mapstate");
-        }
-
 
         var ms = em.getEntityByName('mothership');
         if (ms) {

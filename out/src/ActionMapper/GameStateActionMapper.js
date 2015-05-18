@@ -43,9 +43,6 @@ var GameStateActionMapper = function GameStateActionMapper() {
     if (currentlyPressedKeys[52]) {
       game.stateEngine.changeState("mapstate");
     }
-    if (currentlyPressedKeys[77]) {
-      game.stateEngine.changeState("mapstate");
-    }
     var ms = em.getEntityByName('mothership');
     if (ms) {
       ms.components.MomentumMovable.rotateLeft = 0;

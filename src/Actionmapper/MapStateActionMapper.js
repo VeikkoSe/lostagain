@@ -45,7 +45,26 @@ class MapStateActionMapper {
 
 
 
+        var ms = em.getEntityByName('baremothership');
+        if (ms) {
 
+            ms.components.MomentumMovable.rotateLeft = 0;
+            ms.components.MomentumMovable.rotateRight = 0;
+            ms.components.MomentumMovable.accelerationOn = 0;
+
+            //w
+            if (currentlyPressedKeys[87]) {
+                ms.components.MomentumMovable.accelerationOn = 1;
+            }
+            //a
+            if (currentlyPressedKeys[65]) {
+                ms.components.MomentumMovable.rotateLeft = 1;
+            }
+            //d
+            if (currentlyPressedKeys[68]) {
+                ms.components.MomentumMovable.rotateRight = 1;
+            }
+        }
 
 
 

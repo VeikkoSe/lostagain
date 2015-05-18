@@ -11,27 +11,19 @@ class Hexagon {
         //this.normalPositionBuffer = gl.createBuffer();
 
         this.area = this.createHexagonArea(size);
+
+        var t = new Texture('maptiles', true);
+
+        this.texture = t.loadedTexture;
+
+
     }
 
     updateArea(holes,visited,xPlayerPos,yPlayerPos) {
 
     }
 
-    createHexagonArea(size) {
-
-        /*
-
-         -1,2     1,2
-         ------
-  -2,0  /|   / |\  2,0
-        \| /   |/
-         \...../
-         -1,-2   1,-2
-
-
-         */
-
-
+    oneHexagon() {
         var oneHexagon = [
             1, 0, 2,
             -1, 0, 2,
@@ -50,6 +42,25 @@ class Hexagon {
             -1, 0, -2
 
         ];
+        return oneHexagon;
+    }
+
+    createHexagonArea(size) {
+
+        /*
+
+         -1,2     1,2
+         ------
+  -2,0  /|   / |\  2,0
+        \| /   |/
+         \...../
+         -1,-2   1,-2
+
+
+         */
+
+
+        var oneHexagon = this.oneHexagon();
 
         var allHexagons = [];
 
@@ -57,7 +68,8 @@ class Hexagon {
         for (var x = 0; x < size; x++) {
 
 
-            for (var y = 0; y < size*3; y++) {
+            //for (var y = 0; y < size*3; y++) {
+            for (var y = 0; y < size; y++) {
                 var addition = 0;
                 if ((y + 1) % 2 == 0)
                     addition = 3.5;

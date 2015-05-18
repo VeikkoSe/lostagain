@@ -17,8 +17,6 @@ var GameState = function GameState(canvas) {
     this.processList.push(new TextProcess());
     this.processList.push(new AsteroidRenderProcess());
     this.processList.push(new PlaneProcess());
-    this.processList.push(new LinearMovementProcess());
-    this.processList.push(new DrivingMovementProcess());
     this.processList.push(new CameraControllerProcess());
     this.processList.push(new PrimitiveProcess());
     this.processList.push(new TeleportProcess());

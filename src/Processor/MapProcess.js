@@ -2,7 +2,10 @@ class MapProcess extends Processor {
     constructor() {
         this.vertexPositionBuffer = gl.createBuffer();
         this.simplestProgram = sm.init('simplest');
-        this.hexagon = new Hexagon(5);
+        this.hexagon = new Hexagon(1);
+
+
+
     }
 
 
@@ -25,7 +28,7 @@ class MapProcess extends Processor {
             var le = em.entities[e];
 
             if (le.components.MapComponent) {
-
+                var mc = le.components.MapComponent;
                 sm.setProgram(this.simplestProgram);
                 //var re = le.components.Renderable;
                 //var p = {x: re.xPos, y: re.yPos, z: re.zPos};
@@ -46,6 +49,11 @@ class MapProcess extends Processor {
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.hexagon.area), gl.STATIC_DRAW);
                 gl.enableVertexAttribArray(this.simplestProgram.aVertexPosition);
                 gl.vertexAttribPointer(this.simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, mc.texture);
+                gl.uniform1i(this.simplestProgram.samplerUniform, 0);
+
 
 
                 gl.drawArrays(gl.TRIANGLES, 0, this.hexagon.area.length / 3);

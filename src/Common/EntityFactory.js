@@ -156,8 +156,9 @@ class EntityFactory {
         var mesh = mm.getOrAddMesh('mothership');
         e.addComponent(new MeshComponent(mesh));
 
-        e.addComponent(new Renderable(0, 0.5, 0, 0.1));
-
+        e.addComponent(new Renderable(0, 0.5, 0, 0.05));
+        e.addComponent(new Controllable());
+        e.addComponent(new MomentumMovable(2, 100));
 
 
 
@@ -218,7 +219,8 @@ class EntityFactory {
 
     createMap() {
         var e = em.addNew();
-        e.addComponent(new MapComponent());
+        var t = new Texture('maptiles');
+        e.addComponent(new MapComponent(t.loadedTexture));
         var hg = new Hexagon(5);
         //e.addComponent(new PrimitiveComponent(hg.area,[0.75,0.75,0]));
 
