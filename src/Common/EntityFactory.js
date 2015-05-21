@@ -8,6 +8,7 @@ class EntityFactory {
         var mesh = mm.getOrAddMesh('ship');
         e.addComponent(new MeshComponent(mesh));
 
+
         e.addComponent(new MomentumMovable(50, 300, 15, 0, 0));
         e.addComponent(new Renderable(1,//x
             0,//y
@@ -103,9 +104,13 @@ class EntityFactory {
 
     createMotherShip() {
 
+
         var e = em.addNew('mothership');
         var mesh = mm.getOrAddMesh('mothership');
         e.addComponent(new MeshComponent(mesh));
+
+
+        e.addComponent(new TextComponent());
 
         e.addComponent(new Movable(30));
         e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos, 2));
@@ -219,9 +224,9 @@ class EntityFactory {
 
     createMap() {
         var e = em.addNew();
-        var t = new Texture('maptiles');
-        e.addComponent(new MapComponent(t.loadedTexture));
-        var hg = new Hexagon(5);
+        //var t = new Texture('maptiles');
+        e.addComponent(new MapComponent());
+        //var hg = new Hexagon(5);
         //e.addComponent(new PrimitiveComponent(hg.area,[0.75,0.75,0]));
 
         e.addComponent(new Renderable(0,//x

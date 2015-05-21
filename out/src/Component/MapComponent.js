@@ -1,4 +1,4 @@
-var MapComponent = function MapComponent(texture) {
+var MapComponent = function MapComponent() {
   "use strict";
   this.name = "MapComponent";
   this.xGridWorldPos = 0;
@@ -11,6 +11,5 @@ var MapComponent = function MapComponent(texture) {
   this.holes = {};
   this.xEndBoss = 5;
   this.yEndBoss = 5;
-  this.texture = texture;
 };
 ($traceurRuntime.createClass)(MapComponent, {}, {}, Component);

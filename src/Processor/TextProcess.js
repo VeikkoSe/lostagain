@@ -10,7 +10,7 @@ class TextProcess extends Processor {
 
         this.rotation = null;
 
-        var t = new Texture('font', true);
+        var t = new Texture('font',true);
 
         this.texture = t.loadedTexture;
 
@@ -52,8 +52,6 @@ class TextProcess extends Processor {
                 gl.uniform1i(this.fontProgram.samplerUniform, 0);
 
                 gl.uniformMatrix4fv(this.fontProgram.uPMatrix, false, camera.pMatrix);
-
-
                 gl.uniformMatrix4fv(this.fontProgram.uMVMatrix, false, camera.mvMatrix);
 
 

@@ -21,6 +21,9 @@ var ShaderManager = function ShaderManager() {
       case "particle":
         $traceurRuntime.setProperty(this.allShaders, name, this.initParticleShaders(name));
         break;
+      case "maps":
+        $traceurRuntime.setProperty(this.allShaders, name, this.initMapShaders(name));
+        break;
       case "simplest":
         $traceurRuntime.setProperty(this.allShaders, name, this.initSimplestShaders(name));
         break;
@@ -76,6 +79,18 @@ var ShaderManager = function ShaderManager() {
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
     gl.enableVertexAttribArray(program.textureCoordAttribute);
+    program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+    program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+    program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+    return program;
+  },
+  initMapShaders: function(id) {
+    "use strict";
+    var program = this.createP(id);
+    program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+    gl.enableVertexAttribArray(program.aVertexPosition);
+    program.aTextureCoord = gl.getAttribLocation(program, "aTextureCoord");
+    gl.enableVertexAttribArray(program.aTextureCoord);
     program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");

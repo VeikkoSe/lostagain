@@ -1,5 +1,5 @@
 class MapComponent extends Component {
-    constructor(texture) {
+    constructor() {
         this.name = "MapComponent";
         //this.map = map;
         this.xGridWorldPos = 0;
@@ -12,7 +12,7 @@ class MapComponent extends Component {
         this.holes = {};
         this.xEndBoss = 5;
         this.yEndBoss = 5;
-        this.texture = texture;
+        //this.texture = texture;
 
 
 

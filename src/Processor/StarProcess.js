@@ -7,6 +7,7 @@ class StarProcess extends Processor {
         this.initBuffers();
         this.starProgram = sm.init('star');
 
+
     }
 
 

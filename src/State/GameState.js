@@ -72,7 +72,7 @@ class GameState extends StateEngine {
 
 
         mat4.identity(camera.mvMatrix);
-        mat4.translate(camera.mvMatrix, [0, 0, -300]);
+        //mat4.translate(camera.mvMatrix, [0, 0, -300]);
 
     }
 

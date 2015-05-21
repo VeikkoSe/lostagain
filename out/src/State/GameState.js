@@ -45,7 +45,6 @@ var GameState = function GameState(canvas) {
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);
-    mat4.translate(camera.mvMatrix, [0, 0, -300]);
   },
   update: function() {
     "use strict";

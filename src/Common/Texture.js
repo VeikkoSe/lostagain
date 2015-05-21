@@ -8,6 +8,7 @@ class Texture {
         this.loadedTexture = null;
         this.loaded = 0;
         this.repeat = repeat;
+
         this.noflip = noflip;
         loadManager.loadTotal++;
         this.initTexture(this.name);
@@ -15,7 +16,12 @@ class Texture {
 
     handleLoadedTexture() {
         if (!this.noflip) {
+
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        }
+        else
+        {
+            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
         }
 
 

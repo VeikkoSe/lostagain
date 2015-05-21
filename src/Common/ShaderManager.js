@@ -5,6 +5,7 @@ class ShaderManager {
     }
 
     setProgram(program) {
+
         if (this.currentProgram != null && this.currentProgram.name == program.name) {
             return true;
         }
@@ -22,6 +23,9 @@ class ShaderManager {
         switch (name) {
             case "particle":
                 this.allShaders[name] = this.initParticleShaders(name);
+                break;
+            case "maps":
+                this.allShaders[name] = this.initMapShaders(name);
                 break;
             case "simplest":
                 this.allShaders[name] = this.initSimplestShaders(name);
@@ -98,6 +102,28 @@ class ShaderManager {
         return program;
 
     }
+
+    initMapShaders(id) {
+
+        var program = this.createP(id);
+
+        program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+        gl.enableVertexAttribArray(program.aVertexPosition);
+
+        program.aTextureCoord = gl.getAttribLocation(program, "aTextureCoord");
+        gl.enableVertexAttribArray(program.aTextureCoord);
+
+        program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+        program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+
+        program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+        //program.uColor = gl.getUniformLocation(program, "uColor");
+
+
+        return program;
+
+    }
+
 
     initSimplestShaders(id) {
 

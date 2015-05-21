@@ -66,6 +66,7 @@ var EntityFactory = function EntityFactory() {
     var e = em.addNew('mothership');
     var mesh = mm.getOrAddMesh('mothership');
     e.addComponent(new MeshComponent(mesh));
+    e.addComponent(new TextComponent());
     e.addComponent(new Movable(30));
     e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos, 2));
     e.addComponent(new Controllable());
@@ -144,9 +145,7 @@ var EntityFactory = function EntityFactory() {
   createMap: function() {
     "use strict";
     var e = em.addNew();
-    var t = new Texture('maptiles');
-    e.addComponent(new MapComponent(t.loadedTexture));
-    var hg = new Hexagon(5);
+    e.addComponent(new MapComponent());
     e.addComponent(new Renderable(0, 0, 0));
     return e;
   }
