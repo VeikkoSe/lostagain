@@ -80,7 +80,6 @@ class GameState extends StateEngine {
     update() {
 
 
-
         var timeNow = new Date().getTime();
 
         this.frameCount++;

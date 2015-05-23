@@ -10,7 +10,7 @@ class TextProcess extends Processor {
 
         this.rotation = null;
 
-        var t = new Texture('font',true);
+        var t = new Texture('font', true);
 
         this.texture = t.loadedTexture;
 

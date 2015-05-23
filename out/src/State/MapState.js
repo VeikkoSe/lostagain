@@ -30,7 +30,7 @@ var MapState = function MapState(canvas) {
     this.processList.push(new MapProcess());
     this.processList.push(new MomentumMovementProcess());
     camera.setPos(0, 0, 0, 45);
-    camera.setDistance(10);
+    camera.setDistance(50);
     ef.createMap();
     ef.createBareMotherShip();
     ef.createStars();

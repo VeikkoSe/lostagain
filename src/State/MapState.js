@@ -30,9 +30,6 @@ class MapState extends StateEngine {
         camera.drawCalls = 0;
 
 
-
-
-
     }
 
 
@@ -56,13 +53,11 @@ class MapState extends StateEngine {
         this.processList.push(new MomentumMovementProcess());
 
         camera.setPos(0, 0, 0, 45);
-        camera.setDistance(10);
+        camera.setDistance(50);
 
         ef.createMap();
         ef.createBareMotherShip();
         ef.createStars();
-
-
 
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);

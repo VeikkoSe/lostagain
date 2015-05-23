@@ -3,7 +3,7 @@ var MapProcess = function MapProcess() {
   this.vertexPositionBuffer = gl.createBuffer();
   this.texturePositionBuffer = gl.createBuffer();
   this.mapProgram = sm.init('maps');
-  this.hexagon = new Hexagon(1);
+  this.hexagon = new Hexagon(4);
 };
 ($traceurRuntime.createClass)(MapProcess, {
   update: function() {
@@ -35,7 +35,7 @@ var MapProcess = function MapProcess() {
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.hexagon.texture);
         gl.uniform1i(this.mapProgram.samplerUniform, 0);
-        gl.drawArrays(gl.TRIANGLES, 0, 12);
+        gl.drawArrays(gl.TRIANGLES, 0, (this.hexagon.hexsize * (this.hexagon.hexsize * 3)) * 12);
         camera.drawCalls++;
         camera.mvPopMatrix();
       }

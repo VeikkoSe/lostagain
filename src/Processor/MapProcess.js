@@ -6,8 +6,7 @@ class MapProcess extends Processor {
 
         this.mapProgram = sm.init('maps');
 
-        this.hexagon = new Hexagon(1);
-
+        this.hexagon = new Hexagon(4);
 
 
     }
@@ -20,7 +19,7 @@ class MapProcess extends Processor {
             if (le.components.MapComponent) {
                 var mc = le.components.MapComponent;
 
-                this.hexagon.updateArea(mc.holes,mc.visited,mc.xPlayerPos,mc.yPlayerPos);
+                this.hexagon.updateArea(mc.holes, mc.visited, mc.xPlayerPos, mc.yPlayerPos);
 
             }
         }
@@ -52,14 +51,13 @@ class MapProcess extends Processor {
                 gl.vertexAttribPointer(this.mapProgram.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
 
 
-
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D,this.hexagon.texture);
+                gl.bindTexture(gl.TEXTURE_2D, this.hexagon.texture);
                 gl.uniform1i(this.mapProgram.samplerUniform, 0);
 
 
-                //gl.drawArrays(gl.TRIANGLES, 0, (this.hexagon.hexsize*this.hexagon.hexsize)*4);
-                gl.drawArrays(gl.TRIANGLES, 0, 12);
+                gl.drawArrays(gl.TRIANGLES, 0, (this.hexagon.hexsize * (this.hexagon.hexsize * 3)) * 12);
+                //gl.drawArrays(gl.TRIANGLES, 0,12);
                 camera.drawCalls++;
 
                 camera.mvPopMatrix();

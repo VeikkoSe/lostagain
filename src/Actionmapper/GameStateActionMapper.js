@@ -61,9 +61,6 @@ class GameStateActionMapper {
         }
 
 
-
-
-
         var ms = em.getEntityByName('mothership');
         if (ms) {
 

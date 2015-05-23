@@ -20,7 +20,6 @@ class MapStateActionMapper {
     handleKeys() {
 
 
-
         if (currentlyPressedKeys[49]) {
 
             loadManager.loadLevel('first');
@@ -44,7 +43,6 @@ class MapStateActionMapper {
         }
 
 
-
         var ms = em.getEntityByName('baremothership');
         if (ms) {
 
@@ -65,9 +63,6 @@ class MapStateActionMapper {
                 ms.components.MomentumMovable.rotateRight = 1;
             }
         }
-
-
-
 
 
         //console.log(currentlyPressedKeys);

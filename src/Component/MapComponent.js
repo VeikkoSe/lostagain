@@ -15,7 +15,6 @@ class MapComponent extends Component {
         //this.texture = texture;
 
 
-
     }
 
 }

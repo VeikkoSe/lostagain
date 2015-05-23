@@ -33,8 +33,8 @@ class EntityFactory {
         var t = new Texture('exhausttrail', false, true);
 
         var mec = new MultiExhaustComponent();
-        mec.addExhaust(new ExhaustComponent(t.loadedTexture,30,1,3.5));
-        mec.addExhaust(new ExhaustComponent(t.loadedTexture,30,1,-3.5));
+        mec.addExhaust(new ExhaustComponent(t.loadedTexture, 30, 1, 3.5));
+        mec.addExhaust(new ExhaustComponent(t.loadedTexture, 30, 1, -3.5));
         e.addComponent(mec);
 
         return e;
@@ -122,7 +122,7 @@ class EntityFactory {
         e.addComponent(new CameraController());
         var ja = new JumpArea();
         e.addComponent(ja);
-        e.addComponent(new PrimitiveComponent(circleXY({x: 0, y: 0, z: 0}, ja.radius, ja.pointAmount),[1,1,1]));
+        e.addComponent(new PrimitiveComponent(circleXY({x: 0, y: 0, z: 0}, ja.radius, ja.pointAmount), [1, 1, 1]));
 
 
         e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
@@ -134,10 +134,9 @@ class EntityFactory {
         var t = new Texture('exhausttrailm', false, true);
 
 
-
         var mec = new MultiExhaustComponent();
-        mec.addExhaust(new ExhaustComponent(t.loadedTexture,5,4,12,18));
-        mec.addExhaust(new ExhaustComponent(t.loadedTexture,5,4,-12,18));
+        mec.addExhaust(new ExhaustComponent(t.loadedTexture, 5, 4, 12, 18));
+        mec.addExhaust(new ExhaustComponent(t.loadedTexture, 5, 4, -12, 18));
         e.addComponent(mec);
 
         e.addComponent(new CollisionComponent('player'));
@@ -155,6 +154,7 @@ class EntityFactory {
         return e;
 
     }
+
     createBareMotherShip() {
 
         var e = em.addNew('baremothership');
@@ -164,7 +164,6 @@ class EntityFactory {
         e.addComponent(new Renderable(0, 0.5, 0, 0.05));
         e.addComponent(new Controllable());
         e.addComponent(new MomentumMovable(2, 100));
-
 
 
         return e;

@@ -19,8 +19,7 @@ class Texture {
 
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
         }
-        else
-        {
+        else {
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
         }
 

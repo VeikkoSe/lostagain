@@ -23,7 +23,7 @@ class ExhaustProcess extends Processor {
     }
 
 
-    updateTail(exhaustComponent,renderableComponent) {
+    updateTail(exhaustComponent, renderableComponent) {
 
 
         var re = renderableComponent;
@@ -36,9 +36,8 @@ class ExhaustProcess extends Processor {
         var unitX = Math.cos(helpers.degToRad(re.angleY));
         var unitZ = Math.sin(helpers.degToRad(re.angleY));
 
-        var rendX = (posX -(unitX *  ec.offSetSideFromCenter)) - ((-1*unitZ) * ec.offSetFromCenter);
-        var rendZ = (posZ +(unitZ *  ec.offSetSideFromCenter))  + (unitX *  ec.offSetFromCenter);
-
+        var rendX = (posX - (unitX * ec.offSetSideFromCenter)) - ((-1 * unitZ) * ec.offSetFromCenter);
+        var rendZ = (posZ + (unitZ * ec.offSetSideFromCenter)) + (unitX * ec.offSetFromCenter);
 
 
         //drop from the end of array
@@ -174,10 +173,6 @@ class ExhaustProcess extends Processor {
         }
 
 
-
-
-
-
     }
 
     update(deltatime) {
@@ -195,12 +190,12 @@ class ExhaustProcess extends Processor {
 
             if (le.components.ExhaustComponent) {
 
-                this.updateTail(le.components.ExhaustComponent,le.components.Renderable);
+                this.updateTail(le.components.ExhaustComponent, le.components.Renderable);
 
             }
 
             if (le.components.MultiExhaustComponent) {
-                for (var i = 0;i<le.components.MultiExhaustComponent.exhaustComponents.length;i++) {
+                for (var i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++) {
                     this.updateTail(le.components.MultiExhaustComponent.exhaustComponents[i], le.components.Renderable);
                 }
             }
@@ -264,19 +259,15 @@ class ExhaustProcess extends Processor {
             if ((le.components.ExhaustComponent || le.components.MultiExhaustComponent) && le.components.HealthComponent.amount > 0) {
 
 
-                if(le.components.ExhaustComponent) {
+                if (le.components.ExhaustComponent) {
                     this.drawTail(le.components.ExhaustComponent);
                 }
                 if (le.components.MultiExhaustComponent) {
 
-                    for (var i = 0;i<le.components.MultiExhaustComponent.exhaustComponents.length;i++)
+                    for (var i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++)
                         this.drawTail(le.components.MultiExhaustComponent.exhaustComponents[i]);
 
                 }
-
-
-
-
 
 
             }

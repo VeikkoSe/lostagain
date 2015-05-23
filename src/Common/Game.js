@@ -19,7 +19,7 @@ class Game {
         requestAnimFrame(function () {
             that.tick()
         });
-        if(loadManager.loadTotal == 0) {
+        if (loadManager.loadTotal == 0) {
             this.stateEngine.currentState.update();
             this.stateEngine.currentState.draw();
         }

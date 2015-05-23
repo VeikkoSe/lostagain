@@ -4,8 +4,8 @@ class MultiExhaustComponent extends Component {
         this.exhaustComponents = [];
 
 
-
     }
+
     addExhaust(exhaustComponent) {
         this.exhaustComponents.push(exhaustComponent);
     }
