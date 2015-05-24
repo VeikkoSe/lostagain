@@ -94,7 +94,6 @@ class GameState extends StateEngine {
             }
 
 
-
             if (this.elapsedTotal >= 1000) {
                 var fps = this.frameCount;
                 this.frameCount = 0;

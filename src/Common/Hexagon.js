@@ -6,11 +6,11 @@ class Hexagon {
         this.hexsizeX = size;
         this.hexsizeY = size * 3;
         this.mapLevels = [];
-        for(var x=0;x<this.hexsizeX ;x++) {
+        for (var x = 0; x < this.hexsizeX; x++) {
             this.mapLevels[x] = [];
-            for (var y=0;y<this.hexsizeY;y++) {
-                this.mapLevels[x][y] =[];
-                this.mapLevels[x][y] = this.randomIntFromInterval(1,3);
+            for (var y = 0; y < this.hexsizeY; y++) {
+                this.mapLevels[x][y] = [];
+                this.mapLevels[x][y] = this.randomIntFromInterval(1, 3);
             }
         }
 
@@ -164,11 +164,11 @@ class Hexagon {
 
 
                     game.stateEngine.changeState("gamestate");
-                    if(this.randomIntFromInterval(0,1)==1) {
-                    loadManager.loadLevel('third');
+                    if (this.randomIntFromInterval(0, 1) == 1) {
+                        loadManager.loadLevel('third');
                         game.currentLevel = 'third';
                     }
-                    else if(this.randomIntFromInterval(0,1)==0) {
+                    else if (this.randomIntFromInterval(0, 1) == 0) {
                         loadManager.loadLevel('first');
                         game.currentLevel = 'first';
                     }
@@ -176,7 +176,6 @@ class Hexagon {
                         loadManager.loadLevel('second');
                         game.currentLevel = 'second';
                     }
-
 
 
                 }

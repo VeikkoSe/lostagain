@@ -89,7 +89,6 @@ class MapState extends StateEngine {
             }
 
 
-
         }
         this.lastTime = timeNow;
 

@@ -7,15 +7,11 @@ class MapProcess extends Processor {
         this.mapProgram = sm.init('maps');
 
 
-
-
-
         this.hexagon = new Hexagon(4);
 
 
-
-
     }
+
     randomIntFromInterval(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
@@ -27,7 +23,7 @@ class MapProcess extends Processor {
             if (le.components.MapComponent) {
                 var mc = le.components.MapComponent;
 
-                this.hexagon.updateArea(mc.movingUp,mc.movingDown,mc.movingLeft,mc.movingRight,mc.selecting);
+                this.hexagon.updateArea(mc.movingUp, mc.movingDown, mc.movingLeft, mc.movingRight, mc.selecting);
 
             }
         }
