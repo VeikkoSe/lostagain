@@ -51,6 +51,7 @@ class MapStateActionMapper {
             map.components.MapComponent.movingLeft = 0;
             map.components.MapComponent.movingRight = 0;
             map.components.MapComponent.movingDown = 0;
+            map.components.MapComponent.selecting = false;
 
             //w
             if (currentlyPressedKeys[87]) {
@@ -70,6 +71,12 @@ class MapStateActionMapper {
             if (currentlyPressedKeys[83]) {
 
                 map.components.MapComponent.movingDown = 1;
+            }
+
+
+            //spacebar
+            if (currentlyPressedKeys[32]) {
+                map.components.MapComponent.selecting = true;
             }
         }
 

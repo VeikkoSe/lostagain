@@ -12,6 +12,8 @@ class Movable extends Component {
         this.lt = 0;
         this.speed = speed;
         this.acceleration = 5;
+        //every jump in the map takes one unit of gas
+        this.gas = 1;
 
 
     }

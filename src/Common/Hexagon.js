@@ -6,28 +6,21 @@ class Hexagon {
         this.hexsizeX = size;
         this.hexsizeY = size * 3;
 
-
+        //coordinates to hexagonmap
         this.deniedBlock = [2, 0];
         this.movableBlock = [3, 1];
         this.movingBlock = [0, 2];
-
-        this.visitedBlock = [0, 0];
         this.baseBlock = [2, 3];
-        this.baseBlockOdd = [1, 4];
         this.posBlock = [4, 0];
-        this.deniedArea = [];
-
         this.bossBlock = [0, 3];
-        this.bossPos = [3, 11];
 
-        this.playerPos = [2, 2];
+        this.deniedArea = [];
+        this.bossPos = [3, 11];
+        this.playerPos = [0, 10];
         this.mapArray = [];
 
-        this.holes = [];
-        this.visited = [];
 
-        var randX = this.randomIntFromInterval(0, 3);
-        var randY = this.randomIntFromInterval(0, 3);
+        this.visited = [];
 
         this.deniedBlocks();
         this.updateArea();
@@ -47,13 +40,11 @@ class Hexagon {
         //set 3 random denied blocks
 
 
-
-
         for (var i = 0; i < 4; i++) {
-            var randX = this.randomIntFromInterval(0, this.hexsizeX-1);
-            var randY = this.randomIntFromInterval(0, this.hexsizeY-1);
+            var randX = this.randomIntFromInterval(0, this.hexsizeX - 1);
+            var randY = this.randomIntFromInterval(0, this.hexsizeY - 1);
 
-            this.deniedArea[i] =[randX,randY];
+            this.deniedArea[i] = [randX, randY];
 
 
         }
@@ -90,7 +81,7 @@ class Hexagon {
         return pos;
     }
 
-    updateArea(movingUp, movingDown, movingLeft, movingRight) {
+    updateArea(movingUp = 0, movingDown = 0, movingLeft = 0, movingRight = 0, selecting = false) {
 
         //set all basepositions to "walkable"
         for (var x = 0; x < this.hexsizeX; x++) {
@@ -106,7 +97,6 @@ class Hexagon {
         }
 
         //set 3 random denied blocks
-       // console.log(this.deniedArea);
         for (var i = 0; i < this.deniedArea.length; i++) {
             var x = this.deniedArea[i][0];
             var y = this.deniedArea[i][1];
@@ -116,7 +106,7 @@ class Hexagon {
 
         }
 
-
+        //player is surrounded with positions he can move
         var surround = this.surround(this.playerPos[0], this.playerPos[1]);
         for (var i = 0; i < surround.length; i++) {
             this.mapArray[surround[i][0]][surround[i][1]][0] = this.movableBlock[0];
@@ -127,18 +117,18 @@ class Hexagon {
         this.mapArray[this.playerPos[0]][this.playerPos[1]][0] = this.posBlock[0];
         this.mapArray[this.playerPos[0]][this.playerPos[1]][1] = this.posBlock[1];
 
+        //bossblock
         this.mapArray[this.bossPos[0]][this.bossPos[1]][0] = this.bossBlock[0];
         this.mapArray[this.bossPos[0]][this.bossPos[1]][1] = this.bossBlock[1];
-
-        //this.movingPosition(movingUp, movingDown, movingLeft, movingRight);
 
 
         if (this.playerPos[1] % 2 == 0 && this.playerPos[1] != 0) {
 
-            this.movingPosition(movingUp, movingDown, movingLeft, movingRight);
+            this.movingPosition(movingUp, movingDown, movingLeft, movingRight, selecting);
         }
         else {
-            this.movingPositionOdd(movingUp, movingDown, movingLeft, movingRight);
+
+            this.movingPositionOdd(movingUp, movingDown, movingLeft, movingRight, selecting);
         }
 
         this.textureCoordinates = this.createTextures();
@@ -146,113 +136,136 @@ class Hexagon {
 
     }
 
-    movingPosition(movingUp, movingDown, movingLeft, movingRight) {
+    possiblemove(x, y) {
+        if (x >= 0 && y >= 0 && y < this.hexsizeY && x < this.hexsizeX) {
+            return true;
+        }
+        return false;
+    }
+
+    setSelecting(selecting, x, y) {
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
+
+            if (le.components.GasComponent) {
+                var gc = le.components.GasComponent;
+                if (gc.amount > 0 && selecting) {
+                    this.playerPos = [x, y];
+                    gc.amount--;
+                }
+            }
+        }
+    }
+
+    movingPosition(movingUp, movingDown, movingLeft, movingRight, selecting) {
 
         var x = this.playerPos[0];
         var y = this.playerPos[1];
 
 
         if (movingUp == 1) {
-            if (movingLeft == 1) {
-                this.mapArray[x][y][0] = this.movingBlock[0];
-                this.mapArray[x][y][1] = this.movingBlock[1];
+            if (movingLeft == 1 && this.possiblemove(x - 1, y - 1)) {
+                this.mapArray[x - 1][y - 1][0] = this.movingBlock[0];
+                this.mapArray[x - 1][y - 1][1] = this.movingBlock[1];
+
+                this.setSelecting(selecting, x - 1, y - 1);
+
             }
-            else if (movingRight == 1) {
-                this.mapArray[x + 1][y][0] = this.movingBlock[0];
-                this.mapArray[x + 1][y][1] = this.movingBlock[1];
+            else if (movingRight == 1 && this.possiblemove(x, y - 1)) {
+                this.mapArray[x][y - 1][0] = this.movingBlock[0];
+                this.mapArray[x][y - 1][1] = this.movingBlock[1];
+
+                this.setSelecting(selecting, x, y - 1);
+
             }
-            else {
-                this.mapArray[x][y][0] = this.movingBlock[0];
-                this.mapArray[x][y][1] = this.movingBlock[1];
+            else if (this.possiblemove(x, y - 2)) {
+                this.mapArray[x][y - 2][0] = this.movingBlock[0];
+                this.mapArray[x][y - 2][1] = this.movingBlock[1];
+                this.setSelecting(selecting, x, y - 2);
+
             }
         }
 
         else if (movingDown == 1) {
-            if (movingLeft == 1) {
-                this.mapArray[x][y][0] = this.movingBlock[0];
-                this.mapArray[x][y][1] = this.movingBlock[1];
+            if (movingLeft == 1 && this.possiblemove(x - 1, y + 1)) {
+                this.mapArray[x - 1][y + 1][0] = this.movingBlock[0];
+                this.mapArray[x - 1][y + 1][1] = this.movingBlock[1];
+                this.setSelecting(selecting, x - 1, y + 1);
+
             }
-            else if (movingRight == 1) {
-                this.mapArray[x][y][0] = this.movingBlock[0];
-                this.mapArray[x][y][1] = this.movingBlock[1];
+            else if (movingRight == 1 && this.possiblemove(x, y + 1)) {
+                this.mapArray[x][y + 1][0] = this.movingBlock[0];
+                this.mapArray[x][y + 1][1] = this.movingBlock[1];
+                this.setSelecting(selecting, x, y + 1);
+
             }
-            else {
-                this.mapArray[x][y][0] = this.movingBlock[0];
-                this.mapArray[x][y][1] = this.movingBlock[1];
+            else if (this.possiblemove(x, y + 2)) {
+                this.mapArray[x][y + 2][0] = this.movingBlock[0];
+                this.mapArray[x][y + 2][1] = this.movingBlock[1];
+                this.setSelecting(selecting, x, y + 2);
+
             }
         }
-/*
-        else if (movingLeft == 1) {
 
-            this.mapArray[x - 1][y][0] = this.movingBlock[0];
-            this.mapArray[x - 1][y][1] = this.movingBlock[1];
-
-        }
-        else if (movingRight == 1) {
-            console.log('a');
-
-
-            this.mapArray[x + 1][y][0] = this.movingBlock[0];
-            this.mapArray[x + 1][y][1] = this.movingBlock[1];
-
-        }
-*/
 
     }
 
 
-    movingPositionOdd(movingUp, movingDown, movingLeft, movingRight) {
+    movingPositionOdd(movingUp, movingDown, movingLeft, movingRight, selecting) {
 
         var x = this.playerPos[0];
         var y = this.playerPos[1];
 
-        if (y % 2 == 0 && y != 0) {
-            {
 
+        if (movingUp == 1) {
+            if (movingLeft == 1 && this.possiblemove(x, y - 1)) {
+                this.mapArray[x][y - 1][0] = this.movingBlock[0];
+                this.mapArray[x][y - 1][1] = this.movingBlock[1];
+                this.setSelecting(selecting, x, y - 1);
 
-                if (movingUp) {
-                    if (movingLeft) {
-                        this.mapArray[x][y][0] = this.movingBlock[0];
-                        this.mapArray[x][y][1] = this.movingBlock[1];
-                    }
-                    else if (movingRight) {
-                        this.mapArray[x][y][0] = this.movingBlock[0];
-                        this.mapArray[x][y][1] = this.movingBlock[1];
-                    }
-                    else {
-                        this.mapArray[x][y][0] = this.movingBlock[0];
-                        this.mapArray[x][y][1] = this.movingBlock[1];
-                    }
+            }
+            else if (movingRight == 1 && this.possiblemove(x + 1, y - 1)) {
+                this.mapArray[x + 1][y - 1][0] = this.movingBlock[0];
+                this.mapArray[x + 1][y - 1][1] = this.movingBlock[1];
+                this.setSelecting(selecting, x + 1, y - 1);
+            }
+            else if (this.possiblemove(x, y - 2)) {
+                this.mapArray[x][y - 2][0] = this.movingBlock[0];
+                this.mapArray[x][y - 2][1] = this.movingBlock[1];
+                this.setSelecting(selecting, x, y - 2);
+            }
+        }
+
+        else if (movingDown == 1) {
+            if (movingLeft == 1 && this.possiblemove(x, y + 1)) {
+                if (y == 0) {
+                    this.mapArray[x - 1][y + 1][0] = this.movingBlock[0];
+                    this.mapArray[x - 1][y + 1][1] = this.movingBlock[1];
+                    this.setSelecting(selecting, x - 1, y + 1);
                 }
-
-                else if (movingDown) {
-                    if (movingLeft) {
-                        this.mapArray[x][y][0] = this.movingBlock[0];
-                        this.mapArray[x][y][1] = this.movingBlock[1];
-                    }
-                    else if (movingRight) {
-                        this.mapArray[x][y][0] = this.movingBlock[0];
-                        this.mapArray[x][y][1] = this.movingBlock[1];
-                    }
-                    else {
-                        this.mapArray[x][y][0] = this.movingBlock[0];
-                        this.mapArray[x][y][1] = this.movingBlock[1];
-                    }
-                }
-/*
-                else if (movingLeft) {
-
-                    this.mapArray[x][y][0] = this.movingBlock[0];
-                    this.mapArray[x][y][1] = this.movingBlock[1];
+                else {
+                    this.mapArray[x][y + 1][0] = this.movingBlock[0];
+                    this.mapArray[x][y + 1][1] = this.movingBlock[1];
+                    this.setSelecting(selecting, x, y + 1);
 
                 }
-                else if (movingRight) {
-
-                    this.mapArray[x][y][0] = this.movingBlock[0];
-                    this.mapArray[x][y][1] = this.movingBlock[1];
-
+            }
+            else if (movingRight == 1 && this.possiblemove(x + 1, y + 1)) {
+                if (y == 0) {
+                    this.mapArray[x][y + 1][0] = this.movingBlock[0];
+                    this.mapArray[x][y + 1][1] = this.movingBlock[1];
+                    this.setSelecting(selecting, x, y + 1);
                 }
-*/
+                else {
+                    this.mapArray[x + 1][y + 1][0] = this.movingBlock[0];
+                    this.mapArray[x + 1][y + 1][1] = this.movingBlock[1];
+                    this.setSelecting(selecting, x + 1, y + 1);
+                }
+            }
+            else if (this.possiblemove(x, y + 2)) {
+                this.mapArray[x][y + 2][0] = this.movingBlock[0];
+                this.mapArray[x][y + 2][1] = this.movingBlock[1];
+                this.setSelecting(selecting, x, y + 2);
 
             }
         }

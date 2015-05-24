@@ -105,6 +105,7 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new Renderable(0, 0.5, 0, 0.05));
     e.addComponent(new Controllable());
     e.addComponent(new MomentumMovable(2, 100));
+    e.addComponent(new GasComponent());
     return e;
   },
   createAsteroidField: function() {

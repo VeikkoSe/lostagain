@@ -10,8 +10,8 @@
         <item url="file://$PROJECT_DIR$/out/src/State/IntroState.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/PrimitiveComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/LayoutProcess.js" />
-        <item url="file://$PROJECT_DIR$/out/src/Component/CurrencyComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/TextComponent.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/CurrencyComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/RadarComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/AsteroidRenderProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Layout.js" />
@@ -28,6 +28,7 @@
         <item url="file://$PROJECT_DIR$/out/src/Component/MapComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/AsteroidComponent.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/GasComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/GuiComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/ActionMapper/GameStateActionMapper.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/IntroState.js" />
@@ -349,8 +350,8 @@
       <root url="file://$PROJECT_DIR$/out/src/Component/Primitive.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/LayoutProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/PrimitiveComponent.js" />
-      <root url="file://$PROJECT_DIR$/out/src/Component/TextComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/CurrencyComponent.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/TextComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/RadarComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Processor/AsteroidRenderProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Layout.js" />
@@ -367,6 +368,7 @@
       <root url="file://$PROJECT_DIR$/out/src/Component/MapComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/MeshManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/AsteroidComponent.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/GasComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/GuiComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/ActionMapper/GameStateActionMapper.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/IntroState.js" />

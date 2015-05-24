@@ -10,5 +10,6 @@ var Movable = function Movable() {
   this.lt = 0;
   this.speed = speed;
   this.acceleration = 5;
+  this.gas = 1;
 };
 ($traceurRuntime.createClass)(Movable, {}, {}, Component);

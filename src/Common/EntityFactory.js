@@ -165,6 +165,8 @@ class EntityFactory {
         e.addComponent(new Controllable());
         e.addComponent(new MomentumMovable(2, 100));
 
+        e.addComponent(new GasComponent());
+
 
         return e;
     }
