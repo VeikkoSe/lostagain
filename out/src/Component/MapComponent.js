@@ -11,5 +11,9 @@ var MapComponent = function MapComponent() {
   this.holes = {};
   this.xEndBoss = 5;
   this.yEndBoss = 5;
+  this.movingUp = 0;
+  this.movingDown = 0;
+  this.movingLeft = 0;
+  this.movingRight = 0;
 };
 ($traceurRuntime.createClass)(MapComponent, {}, {}, Component);

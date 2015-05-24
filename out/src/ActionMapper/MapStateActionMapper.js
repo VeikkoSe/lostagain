@@ -27,19 +27,23 @@ var MapStateActionMapper = function MapStateActionMapper() {
     if (currentlyPressedKeys[52]) {
       game.stateEngine.changeState("mapstate");
     }
-    var ms = em.getEntityByName('baremothership');
-    if (ms) {
-      ms.components.MomentumMovable.rotateLeft = 0;
-      ms.components.MomentumMovable.rotateRight = 0;
-      ms.components.MomentumMovable.accelerationOn = 0;
+    var map = em.getEntityByName('map');
+    if (map) {
+      map.components.MapComponent.movingUp = 0;
+      map.components.MapComponent.movingLeft = 0;
+      map.components.MapComponent.movingRight = 0;
+      map.components.MapComponent.movingDown = 0;
       if (currentlyPressedKeys[87]) {
-        ms.components.MomentumMovable.accelerationOn = 1;
+        map.components.MapComponent.movingUp = 1;
       }
       if (currentlyPressedKeys[65]) {
-        ms.components.MomentumMovable.rotateLeft = 1;
+        map.components.MapComponent.movingLeft = 1;
       }
       if (currentlyPressedKeys[68]) {
-        ms.components.MomentumMovable.rotateRight = 1;
+        map.components.MapComponent.movingRight = 1;
+      }
+      if (currentlyPressedKeys[83]) {
+        map.components.MapComponent.movingDown = 1;
       }
     }
     if (currentlyPressedKeys[77]) {

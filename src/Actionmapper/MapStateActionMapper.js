@@ -43,24 +43,33 @@ class MapStateActionMapper {
         }
 
 
-        var ms = em.getEntityByName('baremothership');
-        if (ms) {
+        var map = em.getEntityByName('map');
+        if (map) {
 
-            ms.components.MomentumMovable.rotateLeft = 0;
-            ms.components.MomentumMovable.rotateRight = 0;
-            ms.components.MomentumMovable.accelerationOn = 0;
+
+            map.components.MapComponent.movingUp = 0;
+            map.components.MapComponent.movingLeft = 0;
+            map.components.MapComponent.movingRight = 0;
+            map.components.MapComponent.movingDown = 0;
 
             //w
             if (currentlyPressedKeys[87]) {
-                ms.components.MomentumMovable.accelerationOn = 1;
+                map.components.MapComponent.movingUp = 1;
             }
             //a
             if (currentlyPressedKeys[65]) {
-                ms.components.MomentumMovable.rotateLeft = 1;
+
+                map.components.MapComponent.movingLeft = 1;
             }
             //d
             if (currentlyPressedKeys[68]) {
-                ms.components.MomentumMovable.rotateRight = 1;
+
+                map.components.MapComponent.movingRight = 1;
+            }
+            //s
+            if (currentlyPressedKeys[83]) {
+
+                map.components.MapComponent.movingDown = 1;
             }
         }
 

@@ -19,7 +19,8 @@ class MapProcess extends Processor {
             if (le.components.MapComponent) {
                 var mc = le.components.MapComponent;
 
-                this.hexagon.updateArea(mc.holes, mc.visited, mc.xPlayerPos, mc.yPlayerPos);
+
+                this.hexagon.updateArea(mc.movingUp,mc.movingDown,mc.movingLeft,mc.movingRight);
 
             }
         }

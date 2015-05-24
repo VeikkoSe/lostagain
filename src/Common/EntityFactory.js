@@ -222,7 +222,7 @@ class EntityFactory {
     }
 
     createMap() {
-        var e = em.addNew();
+        var e = em.addNew('map');
         //var t = new Texture('maptiles');
         e.addComponent(new MapComponent());
         //var hg = new Hexagon(5);

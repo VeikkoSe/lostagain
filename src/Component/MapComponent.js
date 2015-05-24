@@ -14,6 +14,11 @@ class MapComponent extends Component {
         this.yEndBoss = 5;
         //this.texture = texture;
 
+        this.movingUp = 0;
+        this.movingDown = 0;
+        this.movingLeft = 0;
+        this.movingRight = 0;
+
 
     }
 

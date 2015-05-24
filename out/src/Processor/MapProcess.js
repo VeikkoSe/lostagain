@@ -12,7 +12,7 @@ var MapProcess = function MapProcess() {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.MapComponent) {
         var mc = le.components.MapComponent;
-        this.hexagon.updateArea(mc.holes, mc.visited, mc.xPlayerPos, mc.yPlayerPos);
+        this.hexagon.updateArea(mc.movingUp, mc.movingDown, mc.movingLeft, mc.movingRight);
       }
     }
   },

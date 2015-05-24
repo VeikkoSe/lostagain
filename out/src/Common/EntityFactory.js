@@ -144,7 +144,7 @@ var EntityFactory = function EntityFactory() {
   },
   createMap: function() {
     "use strict";
-    var e = em.addNew();
+    var e = em.addNew('map');
     e.addComponent(new MapComponent());
     e.addComponent(new Renderable(0, 0, 0));
     return e;

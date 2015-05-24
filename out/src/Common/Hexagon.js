@@ -4,16 +4,21 @@ var Hexagon = function Hexagon(size) {
   this.hexsizeY = size * 3;
   this.deniedBlock = [2, 0];
   this.movableBlock = [3, 1];
+  this.movingBlock = [0, 2];
   this.visitedBlock = [0, 0];
   this.baseBlock = [2, 3];
   this.baseBlockOdd = [1, 4];
   this.posBlock = [4, 0];
+  this.deniedArea = [];
   this.bossBlock = [0, 3];
   this.bossPos = [3, 11];
-  this.playerPos = [0, 0];
+  this.playerPos = [2, 2];
   this.mapArray = [];
   this.holes = [];
   this.visited = [];
+  var randX = this.randomIntFromInterval(0, 3);
+  var randY = this.randomIntFromInterval(0, 3);
+  this.deniedBlocks();
   this.updateArea();
   this.area = this.createHexagonArea();
   this.textureCoordinates = this.createTextures();
@@ -21,6 +26,14 @@ var Hexagon = function Hexagon(size) {
   this.texture = t.loadedTexture;
 };
 ($traceurRuntime.createClass)(Hexagon, {
+  deniedBlocks: function() {
+    "use strict";
+    for (var i = 0; i < 4; i++) {
+      var randX = this.randomIntFromInterval(0, this.hexsizeX - 1);
+      var randY = this.randomIntFromInterval(0, this.hexsizeY - 1);
+      $traceurRuntime.setProperty(this.deniedArea, i, [randX, randY]);
+    }
+  },
   surround: function(x, y) {
     "use strict";
     if (y % 2 == 0 && y != 0) {
@@ -45,26 +58,21 @@ var Hexagon = function Hexagon(size) {
     }
     return pos;
   },
-  updateArea: function() {
+  updateArea: function(movingUp, movingDown, movingLeft, movingRight) {
     "use strict";
     for (var x = 0; x < this.hexsizeX; x++) {
       $traceurRuntime.setProperty(this.mapArray, x, []);
       for (var y = 0; y < this.hexsizeY; y++) {
         $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)], y, []);
-        if (x % 2 == 0) {
-          $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.baseBlock[0]);
-          $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.baseBlock[1]);
-        } else {
-          $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.baseBlockOdd[0]);
-          $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.baseBlockOdd[1]);
-        }
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.baseBlock[0]);
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.baseBlock[1]);
       }
     }
-    for (var i = 0; i < 4; i++) {
-      var randX = this.randomIntFromInterval(0, 3);
-      var randY = this.randomIntFromInterval(0, 3);
-      $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(randX)][$traceurRuntime.toProperty(randY)], 0, this.deniedBlock[0]);
-      $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(randX)][$traceurRuntime.toProperty(randY)], 1, this.deniedBlock[1]);
+    for (var i = 0; i < this.deniedArea.length; i++) {
+      var x = this.deniedArea[$traceurRuntime.toProperty(i)][0];
+      var y = this.deniedArea[$traceurRuntime.toProperty(i)][1];
+      $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.deniedBlock[0]);
+      $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.deniedBlock[1]);
     }
     var surround = this.surround(this.playerPos[0], this.playerPos[1]);
     for (var i = 0; i < surround.length; i++) {
@@ -75,6 +83,72 @@ var Hexagon = function Hexagon(size) {
     $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(this.playerPos[0])][$traceurRuntime.toProperty(this.playerPos[1])], 1, this.posBlock[1]);
     $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(this.bossPos[0])][$traceurRuntime.toProperty(this.bossPos[1])], 0, this.bossBlock[0]);
     $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(this.bossPos[0])][$traceurRuntime.toProperty(this.bossPos[1])], 1, this.bossBlock[1]);
+    if (this.playerPos[1] % 2 == 0 && this.playerPos[1] != 0) {
+      this.movingPosition(movingUp, movingDown, movingLeft, movingRight);
+    } else {
+      this.movingPositionOdd(movingUp, movingDown, movingLeft, movingRight);
+    }
+    this.textureCoordinates = this.createTextures();
+  },
+  movingPosition: function(movingUp, movingDown, movingLeft, movingRight) {
+    "use strict";
+    var x = this.playerPos[0];
+    var y = this.playerPos[1];
+    if (movingUp == 1) {
+      if (movingLeft == 1) {
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+      } else if (movingRight == 1) {
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x + 1)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x + 1)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+      } else {
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+      }
+    } else if (movingDown == 1) {
+      if (movingLeft == 1) {
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+      } else if (movingRight == 1) {
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+      } else {
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+        $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+      }
+    }
+  },
+  movingPositionOdd: function(movingUp, movingDown, movingLeft, movingRight) {
+    "use strict";
+    var x = this.playerPos[0];
+    var y = this.playerPos[1];
+    if (y % 2 == 0 && y != 0) {
+      {
+        if (movingUp) {
+          if (movingLeft) {
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+          } else if (movingRight) {
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+          } else {
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+          }
+        } else if (movingDown) {
+          if (movingLeft) {
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+          } else if (movingRight) {
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+          } else {
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.movingBlock[0]);
+            $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.movingBlock[1]);
+          }
+        }
+      }
+    }
   },
   oneTexture: function(posX, posY) {
     "use strict";
