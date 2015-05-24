@@ -2,6 +2,14 @@ var Hexagon = function Hexagon(size) {
   "use strict";
   this.hexsizeX = size;
   this.hexsizeY = size * 3;
+  this.mapLevels = [];
+  for (var x = 0; x < this.hexsizeX; x++) {
+    $traceurRuntime.setProperty(this.mapLevels, x, []);
+    for (var y = 0; y < this.hexsizeY; y++) {
+      $traceurRuntime.setProperty(this.mapLevels[$traceurRuntime.toProperty(x)], y, []);
+      $traceurRuntime.setProperty(this.mapLevels[$traceurRuntime.toProperty(x)], y, this.randomIntFromInterval(1, 3));
+    }
+  }
   this.deniedBlock = [2, 0];
   this.movableBlock = [3, 1];
   this.movingBlock = [0, 2];
@@ -106,6 +114,17 @@ var Hexagon = function Hexagon(size) {
         if (gc.amount > 0 && selecting) {
           this.playerPos = [x, y];
           gc.amount--;
+          game.stateEngine.changeState("gamestate");
+          if (this.randomIntFromInterval(0, 1) == 1) {
+            loadManager.loadLevel('third');
+            game.currentLevel = 'third';
+          } else if (this.randomIntFromInterval(0, 1) == 0) {
+            loadManager.loadLevel('first');
+            game.currentLevel = 'first';
+          } else {
+            loadManager.loadLevel('second');
+            game.currentLevel = 'second';
+          }
         }
       }
     }

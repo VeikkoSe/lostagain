@@ -41,6 +41,7 @@ var MapState = function MapState(canvas) {
   update: function() {
     "use strict";
     var timeNow = new Date().getTime();
+    actionMapper.handleKeys();
     this.frameCount++;
     if (this.lastTime != 0) {
       var elapsed = timeNow - this.lastTime;
@@ -48,7 +49,6 @@ var MapState = function MapState(canvas) {
       for (var i = 0; i < this.processList.length; i++) {
         this.processList[$traceurRuntime.toProperty(i)].update(elapsed);
       }
-      actionMapper.handleKeys();
     }
     this.lastTime = timeNow;
   },

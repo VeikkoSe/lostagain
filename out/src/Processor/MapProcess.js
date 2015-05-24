@@ -6,6 +6,10 @@ var MapProcess = function MapProcess() {
   this.hexagon = new Hexagon(4);
 };
 ($traceurRuntime.createClass)(MapProcess, {
+  randomIntFromInterval: function(min, max) {
+    "use strict";
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  },
   update: function() {
     "use strict";
     for (var e = 0; e < em.entities.length; e++) {

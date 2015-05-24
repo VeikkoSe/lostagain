@@ -48,6 +48,7 @@ var GameState = function GameState(canvas) {
   },
   update: function() {
     "use strict";
+    actionMapper.handleKeys();
     var timeNow = new Date().getTime();
     this.frameCount++;
     if (this.lastTime != 0) {
@@ -56,7 +57,6 @@ var GameState = function GameState(canvas) {
       for (var i = 0; i < this.processList.length; i++) {
         this.processList[$traceurRuntime.toProperty(i)].update(elapsed);
       }
-      actionMapper.handleKeys();
       if (this.elapsedTotal >= 1000) {
         var fps = this.frameCount;
         this.frameCount = 0;

@@ -78,6 +78,12 @@ class MapStateActionMapper {
             if (currentlyPressedKeys[32]) {
                 map.components.MapComponent.selecting = true;
             }
+
+            //spacebar
+            if (currentlyPressedKeys[32]) {
+                map.components.MapComponent.selectMap = true;
+            }
+
         }
 
 

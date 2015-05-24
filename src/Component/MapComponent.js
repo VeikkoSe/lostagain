@@ -19,6 +19,7 @@ class MapComponent extends Component {
         this.movingLeft = 0;
         this.movingRight = 0;
         this.selecting = false;
+        this.selectMap = false;
 
 
     }

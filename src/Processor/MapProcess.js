@@ -6,11 +6,19 @@ class MapProcess extends Processor {
 
         this.mapProgram = sm.init('maps');
 
+
+
+
+
         this.hexagon = new Hexagon(4);
 
 
-    }
 
+
+    }
+    randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
 
     update() {
         for (var e = 0; e < em.entities.length; e++) {

@@ -75,6 +75,7 @@ class MapState extends StateEngine {
     update() {
 
         var timeNow = new Date().getTime();
+        actionMapper.handleKeys();
 
         this.frameCount++;
 
@@ -87,7 +88,7 @@ class MapState extends StateEngine {
                 this.processList[i].update(elapsed);
             }
 
-            actionMapper.handleKeys();
+
 
         }
         this.lastTime = timeNow;

@@ -49,6 +49,9 @@ var MapStateActionMapper = function MapStateActionMapper() {
       if (currentlyPressedKeys[32]) {
         map.components.MapComponent.selecting = true;
       }
+      if (currentlyPressedKeys[32]) {
+        map.components.MapComponent.selectMap = true;
+      }
     }
     if (currentlyPressedKeys[77]) {
       game.stateEngine.changeState("gamestate");

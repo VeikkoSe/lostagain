@@ -16,5 +16,6 @@ var MapComponent = function MapComponent() {
   this.movingLeft = 0;
   this.movingRight = 0;
   this.selecting = false;
+  this.selectMap = false;
 };
 ($traceurRuntime.createClass)(MapComponent, {}, {}, Component);
