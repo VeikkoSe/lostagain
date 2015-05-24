@@ -9,12 +9,21 @@ var currentlyPressedKeys = {};
 //gameobject that is running. Kinda "dummy" atm
 var game = null;
 //internal resolution and outer resolution is the same atm
-var resolutionWidth = 1920;
-var resolutionHeight = 1080;
+
+
+var debug = true;
+if (debug) {
+    var resolutionWidth = 640;
+    var resolutionHeight = 480;
+}
+else {
+    var resolutionWidth = 1920;
+    var resolutionHeight = 1080;
+}
 
 var camera = null;
 
-var picker = null;
+//var picker = null;
 //entityfactory, hold all the entities
 var ef = {};
 //holds different levels
@@ -27,13 +36,9 @@ var helpers = null;
 var colorset = {};
 var em = null;
 var actionMapper = null;
-var astar = null;
+// astar = null;
 
 
-var debug = true;
-if (debug) {
-    var resolutionWidth = 640;
-    var resolutionHeight = 480;
-}
+
 
 

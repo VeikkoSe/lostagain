@@ -35,7 +35,7 @@ var MapProcess = function MapProcess() {
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, this.hexagon.texture);
         gl.uniform1i(this.mapProgram.samplerUniform, 0);
-        gl.drawArrays(gl.TRIANGLES, 0, (this.hexagon.hexsize * (this.hexagon.hexsize * 3)) * 12);
+        gl.drawArrays(gl.TRIANGLES, 0, (this.hexagon.hexsizeX * (this.hexagon.hexsizeY)) * 12);
         camera.drawCalls++;
         camera.mvPopMatrix();
       }

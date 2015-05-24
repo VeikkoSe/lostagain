@@ -56,7 +56,7 @@ class MapProcess extends Processor {
                 gl.uniform1i(this.mapProgram.samplerUniform, 0);
 
 
-                gl.drawArrays(gl.TRIANGLES, 0, (this.hexagon.hexsize * (this.hexagon.hexsize * 3)) * 12);
+                gl.drawArrays(gl.TRIANGLES, 0, (this.hexagon.hexsizeX * (this.hexagon.hexsizeY)) * 12);
                 //gl.drawArrays(gl.TRIANGLES, 0,12);
                 camera.drawCalls++;
 
