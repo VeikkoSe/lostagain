@@ -1,5 +1,6 @@
 var Game = function Game(canvas) {
   "use strict";
+  this.map = new Hexagon(4);
   this.running = true;
   this.currentLevel = null;
   this.stateEngine = null;

@@ -66,7 +66,6 @@ var EntityFactory = function EntityFactory() {
     var e = em.addNew('mothership');
     var mesh = mm.getOrAddMesh('mothership');
     e.addComponent(new MeshComponent(mesh));
-    e.addComponent(new TextComponent());
     e.addComponent(new Movable(30));
     e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos, 2));
     e.addComponent(new Controllable());
@@ -103,8 +102,8 @@ var EntityFactory = function EntityFactory() {
     var mesh = mm.getOrAddMesh('mothership');
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new Renderable(0, 0.5, 0, 0.05));
-    e.addComponent(new Controllable());
-    e.addComponent(new MomentumMovable(2, 100));
+    e.addComponent(new Movable());
+    e.addComponent(new HexItem('player'));
     e.addComponent(new GasComponent());
     return e;
   },

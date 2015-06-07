@@ -15,7 +15,7 @@ class Hexagon {
         }
 
 
-        //coordinates to hexagonmap
+        //coordinates in hexagonimage
         this.deniedBlock = [2, 0];
         this.movableBlock = [3, 1];
         this.movingBlock = [0, 2];
@@ -25,9 +25,10 @@ class Hexagon {
 
         this.deniedArea = [];
         this.bossPos = [3, 11];
-        this.playerPos = [0, 10];
+        this.playerPos = [1, 1];
         this.mapArray = [];
 
+        this.deniedAmount = 4;
 
         this.visited = [];
 
@@ -45,18 +46,49 @@ class Hexagon {
 
     }
 
+    getPlayerPosXInWC() {
+        if(this.playerPos[1] % 2 == 0 && this.playerPos[1] != 0)
+        {
+            return this.playerPos[0]*7;
+        }
+        else
+        {
+            return 3+ this.playerPos[0]*7;
+        }
+    }
+    getPlayerPosZInWC() {
+
+            return this.playerPos[1]*2.5;
+
+
+
+    }
+
     deniedBlocks() {
         //set 3 random denied blocks
 
-
-        for (var i = 0; i < 4; i++) {
+        var amount = this.deniedAmount;
+        var g = 0;
+        for (var i = 0; i < amount; i++) {
             var randX = this.randomIntFromInterval(0, this.hexsizeX - 1);
             var randY = this.randomIntFromInterval(0, this.hexsizeY - 1);
-
-            this.deniedArea[i] = [randX, randY];
-
+            //When we originally create the denied blocks we cannot allow the player default position
+            if(randX==this.playerPos[0] && randY==this.playerPos[1]) {
+                amount++;
+            }
+            else if(randX==this.bossPos[0] && randY==this.bossPos[1]) {
+                amount++;
+            }
+            else if(typeof this.deniedArea[randX] !== 'undefined' && typeof this.deniedArea[randY] !== 'undefined') {
+                amount++;
+            }
+            else {
+                this.deniedArea[g] = [randX, randY];
+                g++;
+            }
 
         }
+        console.log(this.deniedArea);
 
     }
 
@@ -87,6 +119,7 @@ class Hexagon {
         }
 
 
+
         return pos;
     }
 
@@ -103,16 +136,6 @@ class Hexagon {
 
 
             }
-        }
-
-        //set 3 random denied blocks
-        for (var i = 0; i < this.deniedArea.length; i++) {
-            var x = this.deniedArea[i][0];
-            var y = this.deniedArea[i][1];
-
-            this.mapArray[x][y][0] = this.deniedBlock[0];
-            this.mapArray[x][y][1] = this.deniedBlock[1];
-
         }
 
         //player is surrounded with positions he can move
@@ -140,19 +163,38 @@ class Hexagon {
             this.movingPositionOdd(movingUp, movingDown, movingLeft, movingRight, selecting);
         }
 
+        //set 3 random denied blocks
+        for (var i = 0; i < this.deniedArea.length; i++) {
+            var x = this.deniedArea[i][0];
+            var y = this.deniedArea[i][1];
+
+            this.mapArray[x][y][0] = this.deniedBlock[0];
+            this.mapArray[x][y][1] = this.deniedBlock[1];
+
+        }
+
         this.textureCoordinates = this.createTextures();
 
 
     }
 
     possiblemove(x, y) {
+        //we cant move to deneiedarea
+        for (var j = 0; j < this.deniedArea.length; j++) {
+            if (x == this.deniedArea[j][0] && y == this.deniedArea[j][1]) {
+                return false;
+            }
+        }
+
         if (x >= 0 && y >= 0 && y < this.hexsizeY && x < this.hexsizeX) {
             return true;
         }
+
         return false;
     }
 
     setSelecting(selecting, x, y) {
+
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 

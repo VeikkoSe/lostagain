@@ -10,7 +10,6 @@ var currentlyPressedKeys = {};
 var game = null;
 //internal resolution and outer resolution is the same atm
 
-
 var debug = true;
 if (debug) {
     var resolutionWidth = 640;

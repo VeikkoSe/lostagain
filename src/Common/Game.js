@@ -1,7 +1,7 @@
 class Game {
     constructor(canvas) {
 
-
+        this.map = new Hexagon(4);
         this.running = true;
         this.currentLevel = null;
         this.stateEngine = null;

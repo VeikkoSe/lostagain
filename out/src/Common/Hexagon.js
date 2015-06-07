@@ -18,8 +18,9 @@ var Hexagon = function Hexagon(size) {
   this.bossBlock = [0, 3];
   this.deniedArea = [];
   this.bossPos = [3, 11];
-  this.playerPos = [0, 10];
+  this.playerPos = [1, 1];
   this.mapArray = [];
+  this.deniedAmount = 4;
   this.visited = [];
   this.deniedBlocks();
   this.updateArea();
@@ -29,13 +30,37 @@ var Hexagon = function Hexagon(size) {
   this.texture = t.loadedTexture;
 };
 ($traceurRuntime.createClass)(Hexagon, {
+  getPlayerPosXInWC: function() {
+    "use strict";
+    if (this.playerPos[1] % 2 == 0 && this.playerPos[1] != 0) {
+      return this.playerPos[0] * 7;
+    } else {
+      return 3 + this.playerPos[0] * 7;
+    }
+  },
+  getPlayerPosZInWC: function() {
+    "use strict";
+    return this.playerPos[1] * 2.5;
+  },
   deniedBlocks: function() {
     "use strict";
-    for (var i = 0; i < 4; i++) {
+    var amount = this.deniedAmount;
+    var g = 0;
+    for (var i = 0; i < amount; i++) {
       var randX = this.randomIntFromInterval(0, this.hexsizeX - 1);
       var randY = this.randomIntFromInterval(0, this.hexsizeY - 1);
-      $traceurRuntime.setProperty(this.deniedArea, i, [randX, randY]);
+      if (randX == this.playerPos[0] && randY == this.playerPos[1]) {
+        amount++;
+      } else if (randX == this.bossPos[0] && randY == this.bossPos[1]) {
+        amount++;
+      } else if (typeof this.deniedArea[$traceurRuntime.toProperty(randX)] !== 'undefined' && typeof this.deniedArea[$traceurRuntime.toProperty(randY)] !== 'undefined') {
+        amount++;
+      } else {
+        $traceurRuntime.setProperty(this.deniedArea, g, [randX, randY]);
+        g++;
+      }
     }
+    console.log(this.deniedArea);
   },
   surround: function(x, y) {
     "use strict";
@@ -76,12 +101,6 @@ var Hexagon = function Hexagon(size) {
         $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.baseBlock[1]);
       }
     }
-    for (var i = 0; i < this.deniedArea.length; i++) {
-      var x = this.deniedArea[$traceurRuntime.toProperty(i)][0];
-      var y = this.deniedArea[$traceurRuntime.toProperty(i)][1];
-      $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.deniedBlock[0]);
-      $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.deniedBlock[1]);
-    }
     var surround = this.surround(this.playerPos[0], this.playerPos[1]);
     for (var i = 0; i < surround.length; i++) {
       $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(surround[$traceurRuntime.toProperty(i)][0])][$traceurRuntime.toProperty(surround[$traceurRuntime.toProperty(i)][1])], 0, this.movableBlock[0]);
@@ -96,10 +115,21 @@ var Hexagon = function Hexagon(size) {
     } else {
       this.movingPositionOdd(movingUp, movingDown, movingLeft, movingRight, selecting);
     }
+    for (var i = 0; i < this.deniedArea.length; i++) {
+      var x = this.deniedArea[$traceurRuntime.toProperty(i)][0];
+      var y = this.deniedArea[$traceurRuntime.toProperty(i)][1];
+      $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 0, this.deniedBlock[0]);
+      $traceurRuntime.setProperty(this.mapArray[$traceurRuntime.toProperty(x)][$traceurRuntime.toProperty(y)], 1, this.deniedBlock[1]);
+    }
     this.textureCoordinates = this.createTextures();
   },
   possiblemove: function(x, y) {
     "use strict";
+    for (var j = 0; j < this.deniedArea.length; j++) {
+      if (x == this.deniedArea[$traceurRuntime.toProperty(j)][0] && y == this.deniedArea[$traceurRuntime.toProperty(j)][1]) {
+        return false;
+      }
+    }
     if (x >= 0 && y >= 0 && y < this.hexsizeY && x < this.hexsizeX) {
       return true;
     }

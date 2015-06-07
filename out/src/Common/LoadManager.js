@@ -17,7 +17,7 @@ var LoadManager = function LoadManager() {
     em.clearAll();
     lm = [];
     switch (name) {
-      case ('first'):
+      case ('second'):
         camera.setDistance(350);
         ef.createStars();
         ef.createFuel(false);
@@ -43,7 +43,7 @@ var LoadManager = function LoadManager() {
         lh.addChildren(new Layout(5, 5, currency.components.CurrencyComponent, 8));
         lm.push(lh);
         break;
-      case ('second'):
+      case ('first'):
         ef.createStars();
         camera.setDistance(100);
         var ship = ef.createMotherShip();

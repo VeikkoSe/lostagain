@@ -23,7 +23,7 @@ class LoadManager {
         lm = [];
 
         switch (name) {
-            case ('first'):
+            case ('second'):
 
 
                 camera.setDistance(350);
@@ -60,7 +60,7 @@ class LoadManager {
 
 
                 break;
-            case ('second'):
+            case ('first'):
                 ef.createStars();
                 camera.setDistance(100);
                 var ship = ef.createMotherShip();

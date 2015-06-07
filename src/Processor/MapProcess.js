@@ -7,7 +7,7 @@ class MapProcess extends Processor {
         this.mapProgram = sm.init('maps');
 
 
-        this.hexagon = new Hexagon(4);
+        this.hexagon = game.map;
 
 
     }
@@ -26,6 +26,16 @@ class MapProcess extends Processor {
                 this.hexagon.updateArea(mc.movingUp, mc.movingDown, mc.movingLeft, mc.movingRight, mc.selecting);
 
             }
+
+            if (le.components.HexItem && le.components.Renderable) {
+                var re = le.components.Renderable;
+                re.xPos = this.hexagon.getPlayerPosXInWC();
+                re.zPos = this.hexagon.getPlayerPosZInWC();
+                //this.hexagon.setItemPos(le.components.HexItem.itemName);
+
+            }
+
+
         }
     }
 

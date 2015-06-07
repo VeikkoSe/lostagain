@@ -3,7 +3,7 @@ var MapProcess = function MapProcess() {
   this.vertexPositionBuffer = gl.createBuffer();
   this.texturePositionBuffer = gl.createBuffer();
   this.mapProgram = sm.init('maps');
-  this.hexagon = new Hexagon(4);
+  this.hexagon = game.map;
 };
 ($traceurRuntime.createClass)(MapProcess, {
   randomIntFromInterval: function(min, max) {
@@ -17,6 +17,11 @@ var MapProcess = function MapProcess() {
       if (le.components.MapComponent) {
         var mc = le.components.MapComponent;
         this.hexagon.updateArea(mc.movingUp, mc.movingDown, mc.movingLeft, mc.movingRight, mc.selecting);
+      }
+      if (le.components.HexItem && le.components.Renderable) {
+        var re = le.components.Renderable;
+        re.xPos = this.hexagon.getPlayerPosXInWC();
+        re.zPos = this.hexagon.getPlayerPosZInWC();
       }
     }
   },

@@ -79,10 +79,12 @@
         <item url="file://$PROJECT_DIR$/out/src/Processor/GunProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Processor/HealthProcess.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Entity.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/HexItem.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/GunComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/ShootComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Cube.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/Text.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Component/HexMovable.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/BlockManager.js" />
         <item url="file://$PROJECT_DIR$/out/src/Entities/Entity.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/ShaderManager.js" />
@@ -121,6 +123,7 @@
         <item url="file://$PROJECT_DIR$/out/src/Common/WarpRoomState.js" />
         <item url="file://$PROJECT_DIR$/out/src/ActionMapper/MapStateActionMapper.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/MenuState.js" />
+        <item url="file://$PROJECT_DIR$/out/src/Common/TextTimer.js" />
         <item url="file://$PROJECT_DIR$/out/src/State/MapState.js" />
       </sourceFilesUrls>
     </properties>
@@ -420,8 +423,10 @@
       <root url="file://$PROJECT_DIR$/out/src/Processor/HealthProcess.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Entity.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/GunComponent.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/HexItem.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Cube.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/ShootComponent.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Component/HexMovable.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/Text.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/BlockManager.js" />
       <root url="file://$PROJECT_DIR$/out/src/Entities/Entity.js" />
@@ -461,6 +466,7 @@
       <root url="file://$PROJECT_DIR$/out/src/Common/WarpRoomState.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/MenuState.js" />
       <root url="file://$PROJECT_DIR$/out/src/ActionMapper/MapStateActionMapper.js" />
+      <root url="file://$PROJECT_DIR$/out/src/Common/TextTimer.js" />
       <root url="file://$PROJECT_DIR$/out/src/State/MapState.js" />
     </CLASSES>
     <SOURCES />
