@@ -1,4 +1,4 @@
-uniform mat4 uPMatrix;
+//uniform mat4 uPMatrix;
 //uniform vec3 uPosition;
 
 attribute vec3 aVertexPosition;

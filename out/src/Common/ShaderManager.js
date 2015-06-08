@@ -42,6 +42,9 @@ var ShaderManager = function ShaderManager() {
       case 'font':
         $traceurRuntime.setProperty(this.allShaders, name, this.initFontShaders(name));
         break;
+      case 'font2d':
+        $traceurRuntime.setProperty(this.allShaders, name, this.initFontShaders2d(name));
+        break;
       case "star":
         $traceurRuntime.setProperty(this.allShaders, name, this.initStarShaders(name));
         break;
@@ -244,6 +247,18 @@ var ShaderManager = function ShaderManager() {
     return program;
   },
   initFontShaders: function(id) {
+    "use strict";
+    var program = this.createP(id);
+    program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+    gl.enableVertexAttribArray(program.aVertexPosition);
+    program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+    gl.enableVertexAttribArray(program.textureCoordAttribute);
+    program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+    program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+    program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+    return program;
+  },
+  initFontShaders2d: function(id) {
     "use strict";
     var program = this.createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");

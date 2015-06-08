@@ -5,7 +5,6 @@ class HexItem extends Component {
         this.itemName = itemName;
 
 
-
     }
 
 }

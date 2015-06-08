@@ -60,7 +60,6 @@ var Hexagon = function Hexagon(size) {
         g++;
       }
     }
-    console.log(this.deniedArea);
   },
   surround: function(x, y) {
     "use strict";

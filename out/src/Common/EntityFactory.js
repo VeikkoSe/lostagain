@@ -6,9 +6,10 @@ var EntityFactory = function EntityFactory() {
     "use strict";
     var e = em.addNew('ship');
     var mesh = mm.getOrAddMesh('ship');
+    e.addComponent(new Visibility(false));
     e.addComponent(new MeshComponent(mesh));
     e.addComponent(new MomentumMovable(50, 300, 15, 0, 0));
-    e.addComponent(new Renderable(1, 0, 1, 1, 0, -90, 0, 10, 10, 10));
+    e.addComponent(new Renderable(1, 0, 20, 1, 0, -90, 0, 10, 10, 10));
     e.addComponent(new Controllable());
     e.addComponent(new HealthComponent(5, new Sprite("hp", -0.9, -0.8)));
     e.addComponent(new ShieldComponent(10, new Sprite("shield", -0.9, -0.74)));
@@ -69,15 +70,10 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new Movable(30));
     e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos, 2));
     e.addComponent(new Controllable());
+    e.addComponent(new Visibility(false));
     e.addComponent(new MomentumMovable(15, 100));
     e.addComponent(new CameraController());
-    var ja = new JumpArea();
-    e.addComponent(ja);
-    e.addComponent(new PrimitiveComponent(circleXY({
-      x: 0,
-      y: 0,
-      z: 0
-    }, ja.radius, ja.pointAmount), [1, 1, 1]));
+    e.addComponent(new JumpArea(mesh.xPos, mesh.yPos, mesh.zPos, [1, 0, 0]));
     e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
     e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
     var t = new Texture('exhausttrailm', false, true);
@@ -126,6 +122,7 @@ var EntityFactory = function EntityFactory() {
     var e = em.addNew();
     var mesh = mm.getOrAddMesh('fuel');
     e.addComponent(new MeshComponent(mesh));
+    e.addComponent(new JumpHold());
     if (rand) {
       e.addComponent(new Renderable(helpers.getRandomInt(-200, 200), 0, helpers.getRandomInt(200, -200), 50));
     } else {
@@ -148,5 +145,10 @@ var EntityFactory = function EntityFactory() {
     e.addComponent(new MapComponent());
     e.addComponent(new Renderable(0, 0, 0));
     return e;
+  },
+  createText: function(level) {
+    "use strict";
+    var e = em.addNew();
+    e.addComponent(new TextComponent(level));
   }
 }, {});

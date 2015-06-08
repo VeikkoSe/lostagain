@@ -5,6 +5,8 @@ var MomentumMovementProcess = function MomentumMovementProcess() {
     "use strict";
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
+      if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
+        continue;
       if (le.components.MomentumMovable && le.components.Renderable) {
         var mm = le.components.MomentumMovable;
         var re = le.components.Renderable;

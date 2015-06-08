@@ -32,7 +32,7 @@ class PrimitiveProcess extends Processor {
                 gl.vertexAttribPointer(this.simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
-                gl.drawArrays(gl.TRIANGLES, 0, le.components.PrimitiveComponent.points.length / 3);
+                gl.drawArrays(gl.LINES, 0, le.components.PrimitiveComponent.points.length / 3);
                 camera.drawCalls++;
 
                 camera.mvPopMatrix();

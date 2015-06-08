@@ -45,6 +45,9 @@ class ShaderManager {
             case 'font':
                 this.allShaders[name] = this.initFontShaders(name);
                 break;
+            case 'font2d':
+                this.allShaders[name] = this.initFontShaders2d(name);
+                break;
             case "star":
                 this.allShaders[name] = this.initStarShaders(name);
                 break;
@@ -374,6 +377,26 @@ class ShaderManager {
         return program;
 
     }
+
+
+    initFontShaders2d(id) {
+
+        var program = this.createP(id);
+
+        program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
+        gl.enableVertexAttribArray(program.aVertexPosition);
+
+        program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
+        gl.enableVertexAttribArray(program.textureCoordAttribute);
+
+        program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
+        program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
+        program.samplerUniform = gl.getUniformLocation(program, "uSampler");
+
+        return program;
+
+    }
+
 
     getShader(id, program) {
 

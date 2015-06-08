@@ -47,25 +47,20 @@ class Hexagon {
     }
 
     getPlayerPosXInWC() {
-        if(this.playerPos[1] % 2 == 0 && this.playerPos[1] != 0)
-        {
-            return this.playerPos[0]*7;
+        if (this.playerPos[1] % 2 == 0 && this.playerPos[1] != 0) {
+            return this.playerPos[0] * 7;
         }
-        else
-        {
-            return 3+ this.playerPos[0]*7;
+        else {
+            return 3 + this.playerPos[0] * 7;
         }
     }
+
     getPlayerPosZInWC() {
-
-            return this.playerPos[1]*2.5;
-
-
-
+        return this.playerPos[1] * 2.5;
     }
 
+    //set 3 random denied blocks
     deniedBlocks() {
-        //set 3 random denied blocks
 
         var amount = this.deniedAmount;
         var g = 0;
@@ -73,27 +68,25 @@ class Hexagon {
             var randX = this.randomIntFromInterval(0, this.hexsizeX - 1);
             var randY = this.randomIntFromInterval(0, this.hexsizeY - 1);
             //When we originally create the denied blocks we cannot allow the player default position
-            if(randX==this.playerPos[0] && randY==this.playerPos[1]) {
+            if (randX == this.playerPos[0] && randY == this.playerPos[1]) {
                 amount++;
             }
-            else if(randX==this.bossPos[0] && randY==this.bossPos[1]) {
+            //bossblock cannot be denied
+            else if (randX == this.bossPos[0] && randY == this.bossPos[1]) {
                 amount++;
             }
-            else if(typeof this.deniedArea[randX] !== 'undefined' && typeof this.deniedArea[randY] !== 'undefined') {
+            //only unique positions
+            else if (typeof this.deniedArea[randX] !== 'undefined' && typeof this.deniedArea[randY] !== 'undefined') {
                 amount++;
             }
             else {
                 this.deniedArea[g] = [randX, randY];
                 g++;
             }
-
         }
-        console.log(this.deniedArea);
-
     }
 
     surround(x, y) {
-        //
         if (y % 2 == 0 && y != 0) {
             var pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y + 1]];
         }
@@ -117,9 +110,6 @@ class Hexagon {
                 i--;
             }
         }
-
-
-
         return pos;
     }
 

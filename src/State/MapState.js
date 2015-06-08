@@ -85,7 +85,7 @@ class MapState extends StateEngine {
             this.elapsedTotal += elapsed;
 
             for (var i = 0; i < this.processList.length; i++) {
-                this.processList[i].update(elapsed);
+                this.processList[i].update(elapsed, false);
             }
 
 

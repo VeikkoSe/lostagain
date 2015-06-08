@@ -1,12 +1,12 @@
 var Game = function Game(canvas) {
   "use strict";
-  this.map = new Hexagon(4);
   this.running = true;
   this.currentLevel = null;
   this.stateEngine = null;
   this.camera = new Camera();
   this.stateEngine = new StateEngine();
   this.stateEngine.changeState("introstate");
+  this.map = new Hexagon(4);
   this.tick();
 };
 ($traceurRuntime.createClass)(Game, {tick: function() {

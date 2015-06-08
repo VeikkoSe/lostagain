@@ -8,7 +8,21 @@ class RenderProcess extends Processor {
     }
 
 
-    update(deltatime) {
+    update(deltatime, timeFromStart) {
+
+
+        if (timeFromStart > 2000) {
+            for (var e = 0; e < em.entities.length; e++) {
+                var le = em.entities[e];
+                if (le.components.Visibility && le.components.Visibility.visibility == false) {
+                    le.components.Visibility.visibility = true;
+
+                }
+
+
+            }
+        }
+
         if (this.rotation > 360)
             this.rotation = 0;
         this.rotation += (90 * deltatime) / 1000.0;
@@ -26,6 +40,14 @@ class RenderProcess extends Processor {
 
             if (le.components.Renderable && le.components.MeshComponent) {
 
+
+                var rc = le.components.Renderable;
+                var mc = le.components.MeshComponent;
+
+                if (le.components.Visibility && le.components.Visibility.visibility == false) {
+                    continue;
+                }
+
                 sm.setProgram(this.shaderProgram);
 
 
@@ -39,9 +61,6 @@ class RenderProcess extends Processor {
                 gl.uniform3f(this.shaderProgram.uLightSpecular, 0.8, 0.8, 0.8);
                 gl.uniform1f(this.shaderProgram.uMaterialShininess, 200.0);
 
-
-                var rc = le.components.Renderable;
-                var mc = le.components.MeshComponent;
 
                 camera.mvPushMatrix();
 

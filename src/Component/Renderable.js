@@ -17,6 +17,7 @@ class Renderable extends Component {
 
         this.scale = scale;
 
+
     }
 
 

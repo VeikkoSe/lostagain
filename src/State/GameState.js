@@ -8,20 +8,19 @@ class GameState extends StateEngine {
         this.lastTime = 0;
 
         this.processList = [];
+        this.startTime = null;
+
 
     }
 
-    testi(topic, data) {
-        console.log(topic);
-        console.log(data);
-    }
 
     init() {
 
 
         this.processList = [];
 
-        this.processList.push(new TextProcess());
+        //this.processList.push(new TextProcess());
+        this.processList.push(new TextProcess2d());
         this.processList.push(new AsteroidRenderProcess());
         this.processList.push(new PlaneProcess());
         //this.processList.push(new PostProcess());
@@ -74,6 +73,9 @@ class GameState extends StateEngine {
         mat4.identity(camera.mvMatrix);
         //mat4.translate(camera.mvMatrix, [0, 0, -300]);
 
+        this.startTime = new Date().getTime();
+
+
     }
 
 
@@ -82,15 +84,18 @@ class GameState extends StateEngine {
         actionMapper.handleKeys();
         var timeNow = new Date().getTime();
 
+
         this.frameCount++;
 
         if (this.lastTime != 0) {
 
+
+            var totalElapsed = timeNow - this.startTime;
             var elapsed = timeNow - this.lastTime;
             this.elapsedTotal += elapsed;
 
             for (var i = 0; i < this.processList.length; i++) {
-                this.processList[i].update(elapsed);
+                this.processList[i].update(elapsed, totalElapsed);
             }
 
 

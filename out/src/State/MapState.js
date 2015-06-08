@@ -47,7 +47,7 @@ var MapState = function MapState(canvas) {
       var elapsed = timeNow - this.lastTime;
       this.elapsedTotal += elapsed;
       for (var i = 0; i < this.processList.length; i++) {
-        this.processList[$traceurRuntime.toProperty(i)].update(elapsed);
+        this.processList[$traceurRuntime.toProperty(i)].update(elapsed, false);
       }
     }
     this.lastTime = timeNow;

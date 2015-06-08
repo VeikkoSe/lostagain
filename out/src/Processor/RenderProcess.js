@@ -5,8 +5,16 @@ var RenderProcess = function RenderProcess() {
   this.shaderProgram = sm.init("per-fragment-lighting");
 };
 ($traceurRuntime.createClass)(RenderProcess, {
-  update: function(deltatime) {
+  update: function(deltatime, timeFromStart) {
     "use strict";
+    if (timeFromStart > 2000) {
+      for (var e = 0; e < em.entities.length; e++) {
+        var le = em.entities[$traceurRuntime.toProperty(e)];
+        if (le.components.Visibility && le.components.Visibility.visibility == false) {
+          le.components.Visibility.visibility = true;
+        }
+      }
+    }
     if (this.rotation > 360)
       this.rotation = 0;
     this.rotation += (90 * deltatime) / 1000.0;
@@ -18,6 +26,11 @@ var RenderProcess = function RenderProcess() {
       if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
         continue;
       if (le.components.Renderable && le.components.MeshComponent) {
+        var rc = le.components.Renderable;
+        var mc = le.components.MeshComponent;
+        if (le.components.Visibility && le.components.Visibility.visibility == false) {
+          continue;
+        }
         sm.setProgram(this.shaderProgram);
         gl.uniform1f(this.shaderProgram.alphaUniform, 1);
         gl.uniform1i(this.shaderProgram.uDrawColors, 0);
@@ -27,8 +40,6 @@ var RenderProcess = function RenderProcess() {
         gl.uniform3f(this.shaderProgram.uLightDiffuse, 0.8, 0.8, 0.8);
         gl.uniform3f(this.shaderProgram.uLightSpecular, 0.8, 0.8, 0.8);
         gl.uniform1f(this.shaderProgram.uMaterialShininess, 200.0);
-        var rc = le.components.Renderable;
-        var mc = le.components.MeshComponent;
         camera.mvPushMatrix();
         if (le.components.Selectable) {
           gl.uniform3fv(this.shaderProgram.uDrawColor, le.components.Selectable.color);

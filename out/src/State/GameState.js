@@ -4,17 +4,13 @@ var GameState = function GameState(canvas) {
   this.frameCount = 0;
   this.lastTime = 0;
   this.processList = [];
+  this.startTime = null;
 };
 ($traceurRuntime.createClass)(GameState, {
-  testi: function(topic, data) {
-    "use strict";
-    console.log(topic);
-    console.log(data);
-  },
   init: function() {
     "use strict";
     this.processList = [];
-    this.processList.push(new TextProcess());
+    this.processList.push(new TextProcess2d());
     this.processList.push(new AsteroidRenderProcess());
     this.processList.push(new PlaneProcess());
     this.processList.push(new CameraControllerProcess());
@@ -45,6 +41,7 @@ var GameState = function GameState(canvas) {
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.mvMatrix);
+    this.startTime = new Date().getTime();
   },
   update: function() {
     "use strict";
@@ -52,10 +49,11 @@ var GameState = function GameState(canvas) {
     var timeNow = new Date().getTime();
     this.frameCount++;
     if (this.lastTime != 0) {
+      var totalElapsed = timeNow - this.startTime;
       var elapsed = timeNow - this.lastTime;
       this.elapsedTotal += elapsed;
       for (var i = 0; i < this.processList.length; i++) {
-        this.processList[$traceurRuntime.toProperty(i)].update(elapsed);
+        this.processList[$traceurRuntime.toProperty(i)].update(elapsed, totalElapsed);
       }
       if (this.elapsedTotal >= 1000) {
         var fps = this.frameCount;

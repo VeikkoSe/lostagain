@@ -6,13 +6,14 @@ class EntityFactory {
 
         var e = em.addNew('ship');
         var mesh = mm.getOrAddMesh('ship');
+        e.addComponent(new Visibility(false));
         e.addComponent(new MeshComponent(mesh));
 
 
         e.addComponent(new MomentumMovable(50, 300, 15, 0, 0));
         e.addComponent(new Renderable(1,//x
             0,//y
-            1,//z
+            20,//z
             1,//scape
             0,//angleX
             -90,//angleY
@@ -29,6 +30,7 @@ class EntityFactory {
         e.addComponent(new PhotonTorpedoComponent(new Sprite("bigbullet", 0, 0)));
         e.addComponent(new GunComponent());
         e.addComponent(new CollisionComponent('player'));
+
 
         var t = new Texture('exhausttrail', false, true);
 
@@ -110,26 +112,22 @@ class EntityFactory {
         e.addComponent(new MeshComponent(mesh));
 
 
-        //e.addComponent(new TextComponent());
-
         e.addComponent(new Movable(30));
         e.addComponent(new Renderable(mesh.xPos, mesh.yPos, mesh.zPos, 2));
         e.addComponent(new Controllable());
+        e.addComponent(new Visibility(false));
         e.addComponent(new MomentumMovable(15, 100));
 
         //e.addComponent(new Drivable());
         //can be only one. Camera follows this entity
         e.addComponent(new CameraController());
-        var ja = new JumpArea();
-        e.addComponent(ja);
-        e.addComponent(new PrimitiveComponent(circleXY({x: 0, y: 0, z: 0}, ja.radius, ja.pointAmount), [1, 1, 1]));
+
+        e.addComponent(new JumpArea(mesh.xPos, mesh.yPos, mesh.zPos, [1, 0, 0]));
 
 
         e.addComponent(new HealthComponent(10, new Sprite("hp", -0.9, -0.8)));
         e.addComponent(new ShieldComponent(2, new Sprite("shield", -0.9, -0.74)));
 
-        //var hg = new Hexagon(10);
-        //e.addComponent(new PrimitiveComponent(hg.area));
 
         var t = new Texture('exhausttrailm', false, true);
 
@@ -162,7 +160,7 @@ class EntityFactory {
         e.addComponent(new MeshComponent(mesh));
 
         e.addComponent(new Renderable(0, 0.5, 0, 0.05));
-       // e.addComponent(new Controllable());
+        // e.addComponent(new Controllable());
         //e.addComponent(new MomentumMovable(2, 100));
         e.addComponent(new Movable());
         e.addComponent(new HexItem('player'));
@@ -201,6 +199,7 @@ class EntityFactory {
         var e = em.addNew();
         var mesh = mm.getOrAddMesh('fuel');
         e.addComponent(new MeshComponent(mesh));
+        e.addComponent(new JumpHold());
 
         //e.addComponent(new Movable(12));
         if (rand) {
@@ -239,6 +238,11 @@ class EntityFactory {
 
         return e;
 
+    }
+
+    createText(level) {
+        var e = em.addNew();
+        e.addComponent(new TextComponent(level));
     }
 
 

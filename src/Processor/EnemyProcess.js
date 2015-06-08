@@ -5,7 +5,12 @@ class EnemyProcess extends Processor {
 
     }
 
-    update(deltatime) {
+    update(deltatime, timeFromStart) {
+
+        //we don't instantly harass the player
+        if (timeFromStart < 20000) {
+            return false;
+        }
 
 
         for (var e = 0; e < em.entities.length; e++) {

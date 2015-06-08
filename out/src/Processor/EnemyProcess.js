@@ -3,8 +3,11 @@ var EnemyProcess = function EnemyProcess() {
   this.routeDone = false;
 };
 ($traceurRuntime.createClass)(EnemyProcess, {
-  update: function(deltatime) {
+  update: function(deltatime, timeFromStart) {
     "use strict";
+    if (timeFromStart < 20000) {
+      return false;
+    }
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
       if (le.components.Renderable && le.components.MeshComponent && le.components.EnemyComponent) {

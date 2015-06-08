@@ -10,6 +10,9 @@ class MomentumMovementProcess extends Processor {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
+            if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
+                continue;
+
 
             if (le.components.MomentumMovable && le.components.Renderable) {
 

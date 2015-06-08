@@ -1,11 +1,26 @@
 class TeleportProcess extends Processor {
+    constructor() {
+        this.vertexPositionBuffer = gl.createBuffer();
+        this.simplestProgram = sm.init('simplest');
+    }
 
 
-    update(deltatime) {
+    update(deltatime, totalElapsed) {
+
+
         var ms = em.getEntityByName('mothership');
         var ship = em.getEntityByName('ship');
 
         if (ms && ship) {
+
+            if (totalElapsed > 2000)
+                ms.components.JumpArea.visible = true;
+
+            ms.components.JumpArea.points = circleXY({
+                x: ms.components.Renderable.xPos,
+                y: 0,
+                z: ms.components.Renderable.zPos
+            }, ms.components.JumpArea.radius, ms.components.JumpArea.pointAmount);
 
             if (!this.isInCircle(ms.components.Renderable.xPos,
                     ms.components.Renderable.zPos,
@@ -42,6 +57,39 @@ class TeleportProcess extends Processor {
                 //ship.components.ExhaustComponent.flow = [];
 
             }
+        }
+    }
+
+
+    draw() {
+
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
+
+            if (le.components.JumpArea && le.components.JumpArea.visible == true) {
+
+                sm.setProgram(this.simplestProgram);
+
+
+                camera.mvPushMatrix();
+                gl.uniformMatrix4fv(this.simplestProgram.uPMatrix, false, camera.pMatrix);
+                gl.uniformMatrix4fv(this.simplestProgram.uMVMatrix, false, camera.mvMatrix);
+                var c = le.components.JumpArea.color;
+
+                gl.uniform4f(this.simplestProgram.uColor, c[0], c[1], c[2], 1.0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(le.components.JumpArea.points), gl.STATIC_DRAW);
+                gl.enableVertexAttribArray(this.simplestProgram.aVertexPosition);
+                gl.vertexAttribPointer(this.simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+
+
+                gl.drawArrays(gl.LINES, 0, le.components.JumpArea.points.length / 3);
+                camera.drawCalls++;
+
+                camera.mvPopMatrix();
+            }
+
         }
     }
 
