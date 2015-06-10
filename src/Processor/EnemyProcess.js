@@ -8,7 +8,7 @@ class EnemyProcess extends Processor {
     update(deltatime, timeFromStart) {
 
         //we don't instantly harass the player
-        if (timeFromStart < 20000) {
+        if (timeFromStart < 30000) {
             return false;
         }
 
@@ -79,8 +79,4 @@ class EnemyProcess extends Processor {
         }
     }
 
-
-    draw() {
-
-    }
 }

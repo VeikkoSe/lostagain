@@ -30,6 +30,7 @@
         <item url="file://$PROJECT_DIR$/out/src/Component/AsteroidComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/GasComponent.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/GuiComponent.js" />
+        <item url="file://$PROJECT_DIR$/out/src/ActionMapper/EndStateActionMapper.js" />
         <item url="file://$PROJECT_DIR$/out/src/ActionMapper/GameStateActionMapper.js" />
         <item url="file://$PROJECT_DIR$/out/src/Common/IntroState.js" />
         <item url="file://$PROJECT_DIR$/out/src/Component/BulletComponent.js" />
@@ -376,6 +377,7 @@
       <root url="file://$PROJECT_DIR$/out/src/Component/AsteroidComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/GasComponent.js" />
       <root url="file://$PROJECT_DIR$/out/src/Component/GuiComponent.js" />
+      <root url="file://$PROJECT_DIR$/out/src/ActionMapper/EndStateActionMapper.js" />
       <root url="file://$PROJECT_DIR$/out/src/ActionMapper/GameStateActionMapper.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/IntroState.js" />
       <root url="file://$PROJECT_DIR$/out/src/Common/GameState.js" />

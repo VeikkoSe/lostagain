@@ -49,6 +49,7 @@ class CollisionProcess extends Processor {
             else {
                 hc.amount = 0;
                 pub.publish("bigexplosion", enemyEntity.components.Renderable);
+
             }
 
 
@@ -74,6 +75,10 @@ class CollisionProcess extends Processor {
                 pub.publish("explosion", pc);
             }
             else {
+
+                if(playerEntity.name=='mothership') {
+                    pub.publish("gameover", true);
+                }
                 hc.amount = 0;
                 pub.publish("bigexplosion", pc);
             }

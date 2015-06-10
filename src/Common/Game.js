@@ -9,6 +9,10 @@ class Game {
         this.stateEngine = new StateEngine();
         this.stateEngine.changeState("introstate");
 
+        pub.subscribe("gameover", function (val) {
+            game.stateEngine.changeState("endstate");
+        });
+
 
         this.map = new Hexagon(4);
         this.tick();

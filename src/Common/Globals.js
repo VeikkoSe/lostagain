@@ -1,3 +1,4 @@
+
 //gl object
 var gl = null;
 //shadermanager
@@ -11,14 +12,14 @@ var game = null;
 //internal resolution and outer resolution is the same atm
 
 var debug = true;
-if (debug) {
+
     var resolutionWidth = 640;
     var resolutionHeight = 480;
-}
-else {
-    var resolutionWidth = 1920;
-    var resolutionHeight = 1080;
-}
+
+
+  //  var resolutionWidth = screen.width;
+//   var resolutionHeight = screen.height;
+
 
 var camera = null;
 

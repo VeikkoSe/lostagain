@@ -15,6 +15,7 @@ class TextTimer {
         this.events['20000'] = 'Oh yes. These old ships still can\'t jump without fuel';
         this.events['23000'] = 'Asteroid should not be far';
 
+        this.events['25000'] = ' ';
 
     }
 

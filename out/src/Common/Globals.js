@@ -4,13 +4,8 @@ var mm = null;
 var currentlyPressedKeys = {};
 var game = null;
 var debug = true;
-if (debug) {
-  var resolutionWidth = 640;
-  var resolutionHeight = 480;
-} else {
-  var resolutionWidth = 1920;
-  var resolutionHeight = 1080;
-}
+var resolutionWidth = 640;
+var resolutionHeight = 480;
 var camera = null;
 var ef = {};
 var loadManager = {};

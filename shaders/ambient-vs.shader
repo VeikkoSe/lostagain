@@ -36,8 +36,8 @@ uWorldCoordinates = aWorldCoordinates;
 
 uWorldCoordinates[1] = uWorldCoordinates[1]+= uElapsed/100.0;
 
- //if(color[0]==1.0)
- //  uWorldCoordinates = vec3(-1000,0,0);
+ if(color[0]==1.0)
+   uWorldCoordinates = vec3(-1000,0,0);
 
 
     //uWorldCoordinates[0] = uWorldCoordinates[0]+(0.0001*uTime);

@@ -98,7 +98,7 @@ class GameState extends StateEngine {
                 this.processList[i].update(elapsed, totalElapsed);
             }
 
-
+/*
             if (this.elapsedTotal >= 1000) {
                 var fps = this.frameCount;
                 this.frameCount = 0;
@@ -109,7 +109,7 @@ class GameState extends StateEngine {
                 else
                     $('#fps').css('color', 'green');
                 $('#fps').html(fps);
-            }
+            }*/
         }
         this.lastTime = timeNow;
 

@@ -94,21 +94,20 @@ class AsteroidRenderProcess extends Processor {
             var g = 0;
             for (var i = 0; i < 128 * 128; i++) {
 
-                //if (this.randomIntFromInterval(0, 1) == 1) {
-                /*
+                if (this.randomIntFromInterval(0, 1) == 1) {
                  v1[g++] = 255;
                  v1[g++] = 255;
                  v1[g++] = 255;
                  v1[g++] = 255;
-                 */
-                //  }
-                //   else {
+
+                  }
+                   else {
 
                 v1[g++] = 0;
                 v1[g++] = 0;
                 v1[g++] = 0;
                 v1[g++] = 0;
-                //  }
+                  }
             }
 
 
@@ -130,7 +129,7 @@ class AsteroidRenderProcess extends Processor {
     }
 
 
-    update(deltatime) {
+    update(deltatime,timeSinceBeginning) {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
@@ -183,7 +182,7 @@ class AsteroidRenderProcess extends Processor {
                 gl.vertexAttribPointer(this.ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
 
 
-                gl.drawArrays(gl.LINES, 0, this.vertexPositionBuffer.nums);
+                gl.drawArrays(gl.TRIANGLES, 0, this.vertexPositionBuffer.nums);
                 camera.drawCalls++;
             }
         }

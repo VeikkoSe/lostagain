@@ -2,10 +2,9 @@ var EnemyProcess = function EnemyProcess() {
   "use strict";
   this.routeDone = false;
 };
-($traceurRuntime.createClass)(EnemyProcess, {
-  update: function(deltatime, timeFromStart) {
+($traceurRuntime.createClass)(EnemyProcess, {update: function(deltatime, timeFromStart) {
     "use strict";
-    if (timeFromStart < 20000) {
+    if (timeFromStart < 30000) {
       return false;
     }
     for (var e = 0; e < em.entities.length; e++) {
@@ -30,8 +29,4 @@ var EnemyProcess = function EnemyProcess() {
         }
       }
     }
-  },
-  draw: function() {
-    "use strict";
-  }
-}, {}, Processor);
+  }}, {}, Processor);

@@ -10,6 +10,7 @@ var TextTimer = function TextTimer(level) {
   $traceurRuntime.setProperty(this.events, '17000', 'My sensor will show the nearest asteroid that we need to mine so we can get minerals for fuel');
   $traceurRuntime.setProperty(this.events, '20000', 'Oh yes. These old ships still can\'t jump without fuel');
   $traceurRuntime.setProperty(this.events, '23000', 'Asteroid should not be far');
+  $traceurRuntime.setProperty(this.events, '25000', ' ');
 };
 ($traceurRuntime.createClass)(TextTimer, {getLevelText: function(level) {
     "use strict";

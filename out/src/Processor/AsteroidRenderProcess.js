@@ -62,10 +62,17 @@ var AsteroidRenderProcess = function AsteroidRenderProcess() {
       var v1 = new Uint8Array(b);
       var g = 0;
       for (var i = 0; i < 128 * 128; i++) {
-        $traceurRuntime.setProperty(v1, g++, 0);
-        $traceurRuntime.setProperty(v1, g++, 0);
-        $traceurRuntime.setProperty(v1, g++, 0);
-        $traceurRuntime.setProperty(v1, g++, 0);
+        if (this.randomIntFromInterval(0, 1) == 1) {
+          $traceurRuntime.setProperty(v1, g++, 255);
+          $traceurRuntime.setProperty(v1, g++, 255);
+          $traceurRuntime.setProperty(v1, g++, 255);
+          $traceurRuntime.setProperty(v1, g++, 255);
+        } else {
+          $traceurRuntime.setProperty(v1, g++, 0);
+          $traceurRuntime.setProperty(v1, g++, 0);
+          $traceurRuntime.setProperty(v1, g++, 0);
+          $traceurRuntime.setProperty(v1, g++, 0);
+        }
       }
       var texture = gl.createTexture();
       gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -74,7 +81,7 @@ var AsteroidRenderProcess = function AsteroidRenderProcess() {
       this.monstermap = texture;
     }
   },
-  update: function(deltatime) {
+  update: function(deltatime, timeSinceBeginning) {
     "use strict";
     for (var e = 0; e < em.entities.length; e++) {
       var le = em.entities[$traceurRuntime.toProperty(e)];
@@ -106,7 +113,7 @@ var AsteroidRenderProcess = function AsteroidRenderProcess() {
         gl.vertexAttribPointer(this.ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
         gl.vertexAttribPointer(this.ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
         gl.vertexAttribPointer(this.ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
-        gl.drawArrays(gl.LINES, 0, this.vertexPositionBuffer.nums);
+        gl.drawArrays(gl.TRIANGLES, 0, this.vertexPositionBuffer.nums);
         camera.drawCalls++;
       }
     }

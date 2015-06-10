@@ -45,6 +45,9 @@ var CollisionProcess = function CollisionProcess() {
     if (hc.amount > 0) {
       pub.publish("explosion", pc);
     } else {
+      if (playerEntity.name == 'mothership') {
+        pub.publish("gameover", true);
+      }
       hc.amount = 0;
       pub.publish("bigexplosion", pc);
     }

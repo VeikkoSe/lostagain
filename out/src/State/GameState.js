@@ -55,16 +55,6 @@ var GameState = function GameState(canvas) {
       for (var i = 0; i < this.processList.length; i++) {
         this.processList[$traceurRuntime.toProperty(i)].update(elapsed, totalElapsed);
       }
-      if (this.elapsedTotal >= 1000) {
-        var fps = this.frameCount;
-        this.frameCount = 0;
-        this.elapsedTotal -= 1000;
-        if (fps < 59)
-          $('#fps').css('color', 'red');
-        else
-          $('#fps').css('color', 'green');
-        $('#fps').html(fps);
-      }
     }
     this.lastTime = timeNow;
   },
