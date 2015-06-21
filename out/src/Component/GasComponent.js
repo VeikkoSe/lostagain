@@ -1,7 +1,6 @@
-var GasComponent = function GasComponent() {
-  "use strict";
+function GasComponent() {
   var amount = arguments[0] !== (void 0) ? arguments[0] : 1;
-  this.name = "GasComponent";
-  this.amount = amount;
-};
-($traceurRuntime.createClass)(GasComponent, {}, {}, Component);
+  var name = "GasComponent";
+  var amount = amount;
+  return {name: name};
+}

@@ -1,9 +1,10 @@
-class PlaneComponent extends Component {
-    constructor(plane) {
-        this.name = "PlaneComponent";
-        this.plane = plane;
+function PlaneComponent(plane) {
+    //constructor(plane) {
+    let name = "PlaneComponent";
+    let plane = plane;
 
 
-    }
+    return {name, plane}
+
 
 }

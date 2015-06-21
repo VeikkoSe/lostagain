@@ -1,49 +1,45 @@
-class MapStateActionMapper {
-
-    constructor() {
-
-    }
+function map_action_mapper(sb) {
 
 
-    handleKeyDown(event) {
+    let handleKeyDown = function (event) {
 
         currentlyPressedKeys[event.keyCode] = true;
     }
 
 
-    handleKeyUp(event) {
+    let handleKeyUp = function (event) {
 
         currentlyPressedKeys[event.keyCode] = false;
     }
 
 
-    handleKeys() {
+    let handleKeys = function () {
 
 
         if (currentlyPressedKeys[49]) {
 
-            loadManager.loadLevel('first');
-            game.currentLevel = 'first';
+            // loadManager.loadLevel('first');
+            //sb.currentLevel = 'first';
         }
         if (currentlyPressedKeys[50]) {
 
-            loadManager.loadLevel('second');
-            game.currentLevel = 'second';
+            //loadManager.loadLevel('second');
+            //game.currentLevel = 'second';
         }
 
         if (currentlyPressedKeys[51]) {
 
-            loadManager.loadLevel('third');
-            game.currentLevel = 'third';
+            //loadManager.loadLevel('third');
+            //game.currentLevel = 'third';
         }
 
         if (currentlyPressedKeys[52]) {
 
-            game.stateEngine.changeState("mapstate");
+            //game.stateEngine.changeState("mapstate");
         }
 
 
-        var map = em.getEntityByName('map');
+        let map = em.getEntityByName('map');
         if (map) {
 
 
@@ -91,13 +87,15 @@ class MapStateActionMapper {
 
         if (currentlyPressedKeys[77]) {
 
-            game.stateEngine.changeState("gamestate");
+            //game.stateEngine.changeState("gamestate");
+            sb.publish("loadstate", 'gamestate');
         }
     }
 
-    handleMouseDown(event) {
+    let handleMouseDown = function (event) {
 
         //game.stateEngine.changeState("gamestate");
+        sb.publish("loadstate", 'gamestate');
     }
 
 

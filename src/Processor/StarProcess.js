@@ -19,24 +19,25 @@ class StarProcess extends Processor {
         }
     }
 
+
     initBuffers() {
-        var numParticles = 10000;
+        let numParticles = 10000;
 
-        var color = [1, 1, 1, 1];
+        let color = [1, 1, 1, 1];
         this.colors.push(color);
 
-        var color = [1, 1, 1, 2];
+        let color = [1, 1, 1, 2];
         this.colors.push(color);
 
-        var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
+        let color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
         this.colors.push(color);
 
-        var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
+        let color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
         this.colors.push(color);
 
         /*
 
-         for (var i = 0; i < numParticles; i++) {
+         for (let i = 0; i < numParticles; i++) {
 
          //vcoord (screen coords)
          this.startPositions.push(i*100);
@@ -52,7 +53,7 @@ class StarProcess extends Processor {
          }
          */
 
-        for (var i = 0; i < numParticles; i++) {
+        for (let i = 0; i < numParticles; i++) {
 
 
             this.startPositions.push(this.randomBetween(-4000, 4000));
@@ -131,8 +132,8 @@ class StarProcess extends Processor {
     draw() {
 
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if (le.components.StarComponent) {
                 sm.setProgram(this.starProgram);
@@ -181,16 +182,16 @@ class StarProcess extends Processor {
   },
   initBuffers: function() {
     "use strict";
-    var numParticles = 50000;
-    var color = [1, 1, 1, 1];
+    let numParticles = 50000;
+    let color = [1, 1, 1, 1];
     this.colors.push(color);
-    var color = [1, 1, 1, 2];
+    let color = [1, 1, 1, 2];
     this.colors.push(color);
-    var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
+    let color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
     this.colors.push(color);
-    var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
+    let color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
     this.colors.push(color);
-    for (var i = 0; i < numParticles; i++) {
+    for (let i = 0; i < numParticles; i++) {
       this.startPositions.push(this.randomBetween(-25000, 25000));
       this.startPositions.push(this.randomBetween(-5000, -5000));
       this.startPositions.push(this.randomBetween(-25000, 25000));
@@ -206,8 +207,8 @@ class StarProcess extends Processor {
     camera.mvPushMatrix();
     gl.uniformMatrix4fv(starProgram.uPMatrix, false, camera.pMatrix);
     gl.uniformMatrix4fv(starProgram.uMVMatrix, false, camera.mvMatrix);
-    for (var i = 0; i < 3; i++) {
-      var color = this.colors[$traceurRuntime.toProperty(i)];
+    for (let i = 0; i < 3; i++) {
+      let color = this.colors[$traceurRuntime.toProperty(i)];
       gl.uniform1f(starProgram.pointSize, color[3]);
       gl.uniform3f(starProgram.colorUniform, color[0], color[1], color[2]);
       gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);

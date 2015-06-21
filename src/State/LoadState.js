@@ -1,140 +1,166 @@
-class LoadState extends StateEngine {
+function loadstate_constructor(sb) {
+    //let {game,wantedState} = params;
 
-    constructor(canvas) {
+    let gl = sb.getGL();
 
+    let elapsedTotal = 0;
+    let lastTime = 0;
+    let loadPercent = 0;
+    let rotationSpeed = 0.5;
+    let rotationAngle = 0;
 
-        this.elapsedTotal = 0;
-        this.lastTime = 0;
-        this.loadPercent = 0;
-        this.rotationSpeed = 50;
-        this.rotationAngle = 0;
+    let camera = sb.getCamera();
 
-
-        this.points = [];
-        this.points.push(-0.5, 0, 0);
-        this.points.push(0.5, 0, 0);
-
-
-        this.vertexPositionBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.points), gl.STATIC_DRAW);
-
-        //this.currentLevel = 0;
+    let shadermanager = sb.getShaderManager();
+    let shaderprogram = shadermanager.init("simplest");
+    let wantedstate = '';
 
 
-    }
+    let points = [];
 
-    init(wantedState) {
+    let vertexPositionBuffer = gl.createBuffer();
+    let am = asset_manager_constructor(sb);
 
-        this.sp = sm.init('simplest');
 
-        //this.intro = mm.getOrAddMesh('start');
-        this.elapsedTotal = 0;
-        this.lastTime = 0;
-        this.loadPercent = 0;
-        this.rotationSpeed = 50;
-        this.rotationAngle = 0;
+    //let loadmanager = loadmanager_costructor(sb);
+
+
+    //let loadmanager = game.loadmanager();
+
+    let currentLevel = 0;
+    let wantedstate = '';
+
+    let init = function (ws) {
+
+        //we init callback listeners
+        am.init();
+        wantedstate = ws;
+        points.push(-0.2, 0, 0);
+        points.push(0.2, 0, 0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
+
+
+        elapsedTotal = 0;
+        lastTime = 0;
+        loadPercent = 0;
+        // rotationSpeed = 50;
+        rotationAngle = 0;
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
 
-        //camera.setPerspective();
-
-        //simplestProgram = sm.init('simplest');
-        //  this.currentLevel += 1;
-        // if (this.currentLevel > 2) {
-        //     this.currentLevel = 1;
-        // }
-//
-
-        loadManager.loadAllAssets(wantedState);
-
+        camera.setPerspective();
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         camera.setPerspective();
 
-        mat4.identity(camera.mvMatrix);
-        mat4.translate(camera.mvMatrix, [0, 0, -10]);
+        mat4.identity(camera.getMVMatrix());
+        mat4.translate(camera.getMVMatrix(), [0, 0, -10]);
+
+
+        sb.publish("loadassets", wantedstate);
+
 
     }
 
-    draw() {
 
-        sm.setProgram(this.sp);
+    let subscribe = function () {
+
+    }
+
+
+    let draw = function () {
+
+
+        //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        shadermanager.setProgram(shaderprogram);
+
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
         gl.clearColor(0, 0, 0, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-
-        this.points.push(-0.5, 0, 0);
-        this.points.push(0.5, 0, 0);
-
-
-        camera.mvPushMatrix();
+        //gl.clearColor(0, 0, 0, 1.0);
+        //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 
-        mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotationAngle), [0, 0, 1]);
+        //points.push(-0.5, 0, 0);
+        //points.push(0.5, 0, 0);
 
 
-        gl.uniformMatrix4fv(this.sp.uPMatrix, false, camera.pMatrix);
-        gl.uniformMatrix4fv(this.sp.uMVMatrix, false, camera.mvMatrix);
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.points), gl.STATIC_DRAW);
-        gl.enableVertexAttribArray(this.sp.aVertexPosition);
-
-        gl.vertexAttribPointer(this.sp.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+        //camera.mvPushMatrix();
 
 
-        var attribLocation = 1;
+        mat4.rotate(camera.getMVMatrix(), degToRad(rotationAngle), [0, 0, 1]);
+
+
+        gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());
+        gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, camera.getMVMatrix());
+        gl.uniform4f(shaderprogram.uColor, 1.0, 1.0, 0.0, 1.0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
+
+        gl.enableVertexAttribArray(shaderprogram.aVertexPosition);
+        gl.vertexAttribPointer(shaderprogram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
         gl.drawArrays(gl.LINES, 0, 2);
 
-        camera.mvPopMatrix();
+        //camera.mvPopMatrix();
 
+
+    };
+    let cleanup = function () {
 
     }
 
-    update() {
+    let update = function () {
 
 
-        var timeNow = new Date().getTime();
+        let timeNow = new Date().getTime();
 
 
-        if (this.lastTime != 0) {
+        if (lastTime != 0) {
 
-            var elapsed = timeNow - this.lastTime;
-            this.elapsedTotal += elapsed;
-            //console.log(levelManager.loadTotal + '/' + levelManager.maxLoad);
-            this.rotationAngle += (this.rotationSpeed * (elapsed / 1000));
-            if (this.rotationAngle >= 360)
-                this.rotationAngle = 0;
+            let elapsed = timeNow - lastTime;
+            elapsedTotal += elapsed;
 
-            if (this.elapsedTotal >= 200) {
+            rotationAngle += (rotationSpeed * (elapsed / 1000));
+            if (rotationAngle >= 360)
+                rotationAngle = 0;
 
+            //if (elapsedTotal >= 200) {
+            /*
+             if (loadmanager.loadTotal == 0) {
+             alert('b');
+             game.event.publish("loadstate", wantedstate);
+             //game.stateengine.changeState('gamestate');
+             }
+             else {
+             */
+            //loadPercent = 0.1;//100 - ( loadmanager.loadTotal / loadmanager.maxLoad * 100);
+            // rotationSpeed += loadPercent;
+            //}
+            elapsedTotal -= 200;
 
-                if (loadManager.loadTotal == 0) {
-
-                    game.stateEngine.changeState('gamestate');
-                }
-                else {
-                    this.loadPercent = 100 - ( loadManager.loadTotal / levelManager.maxLoad * 100);
-                    this.rotationSpeed += this.loadPercent;
-
-
-                }
-
-
-                this.elapsedTotal -= 200;
-
-            }
+            //}
         }
-        this.lastTime = timeNow;
+        lastTime = timeNow;
 
 
-    }
+    };
+
+
+    return {
+        init,
+        draw,
+        update,
+        cleanup,
+        subscribe
+    };
 
 
 }

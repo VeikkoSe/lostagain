@@ -1,6 +1,8 @@
-var PlaneComponent = function PlaneComponent(plane) {
-  "use strict";
-  this.name = "PlaneComponent";
-  this.plane = plane;
-};
-($traceurRuntime.createClass)(PlaneComponent, {}, {}, Component);
+function PlaneComponent(plane) {
+  var name = "PlaneComponent";
+  var plane = plane;
+  return {
+    name: name,
+    plane: plane
+  };
+}

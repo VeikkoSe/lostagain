@@ -1,7 +1,8 @@
-var Selectable = function Selectable() {
-  "use strict";
-  this.name = "Selectable";
-  this.selected = false;
-  this.color = picker.createColor();
-};
-($traceurRuntime.createClass)(Selectable, {}, {}, Component);
+function SelectableComponent() {
+  var name = "SelectableComponent";
+  var selected = false;
+  return {
+    name: name,
+    selected: selected
+  };
+}

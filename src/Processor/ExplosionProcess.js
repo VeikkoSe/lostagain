@@ -1,96 +1,105 @@
-class ExplosionProcess {
-    constructor() {
-        var that = this;
-        pub.subscribe("explosion", function (name, entity) {
+function explosionprocess_constructor(sb) {
+    // constructor() {
+    // let that = this;
 
-            that.createNewExplosion(that, entity.xPos, entity.zPos);
+    let explosions = [];
+    let particleProgram = sm.init('lifetimeparticle');
+    let gl = sb.getGL();
+    let camera = sb.getCamera();
+
+
+    let init = function () {
+
+        let texture = texture_constuctor('smoke');
+
+        sb.subscribe("explosion", function (name, entity) {
+
+            createNewExplosion(entity.xPos, entity.zPos);
 
 
         });
 
-        pub.subscribe("bigexplosion", function (name, entity) {
+        sb.subscribe("bigexplosion", function (name, entity) {
 
-            that.createNewExplosion(that, entity.xPos, entity.zPos);
+            createNewExplosion(entity.xPos, entity.zPos);
 
 
         });
 
-        this.explosions = [];
-        this.particleProgram = sm.init('lifetimeparticle');
+        explosions = [];
+        particleProgram = sm.init('lifetimeparticle');
 
-        this.texture = new Texture('smoke');
+        texture = new Texture('smoke');
 
     }
 
 
-    simpleWorldToViewX(x) {
+    let simpleWorldToViewX = function (x) {
         return x / resolutionWidth;
     }
 
-    simpleWorldToViewY(y) {
+    let simpleWorldToViewY = function (y) {
 
         return y / resolutionHeight;
     }
 
-    update(elapsed) {
+    let update = function (elapsed) {
 
-        for (var i = 0; i < this.explosions.length; i++) {
-            if (this.explosions[i].time > 5)
-                this.explosions.splice(i, 1);
+        for (let i = 0; i < explosions.length; i++) {
+            if (explosions[i].time > 5)
+                explosions.splice(i, 1);
             else {
-                this.explosions[i].time += elapsed / 3000;
+                explosions[i].time += elapsed / 3000;
             }
         }
 
     }
 
 
-    createNewExplosion(obj, x, z) {
+    let createNewExplosion = function (x, z) {
         //slow
 
-        var particle = new AsteroidExplosion(x, 0, z);
+        let particle = asteroidexplosion_constructor(x, 0, z);
 
 
-        obj.explosions.push(particle);
+        explosions.push(particle);
 
     }
 
-    draw() {
+    let draw = function () {
 
         gl.disable(gl.DEPTH_TEST);
 
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-        sm.setProgram(this.particleProgram);
+        sm.setProgram(particleProgram);
 
-        for (var i = 0; i < this.explosions.length; i++) {
+        for (let i = 0; i < explosions.length; i++) {
             camera.mvPushMatrix();
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.explosions[i].pointLifetimeBuffer);
-            gl.vertexAttribPointer(this.particleProgram.pointLifetimeAttribute, this.explosions[i].pointLifetimeBuffer.itemSize, gl.FLOAT, false, 0, 0);
+            gl.bindBuffer(gl.ARRAY_BUFFER, explosions[i].pointLifetimeBuffer);
+            gl.vertexAttribPointer(particleProgram.pointLifetimeAttribute, explosions[i].pointLifetimeBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.explosions[i].pointStartPositionsBuffer);
-            gl.vertexAttribPointer(this.particleProgram.pointStartPositionAttribute, this.explosions[i].pointStartPositionsBuffer.itemSize, gl.FLOAT, false, 0, 0);
+            gl.bindBuffer(gl.ARRAY_BUFFER, explosions[i].pointStartPositionsBuffer);
+            gl.vertexAttribPointer(particleProgram.pointStartPositionAttribute, explosions[i].pointStartPositionsBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.explosions[i].pointEndPositionsBuffer);
-            gl.vertexAttribPointer(this.particleProgram.pointEndPositionAttribute, this.explosions[i].pointEndPositionsBuffer.itemSize, gl.FLOAT, false, 0, 0);
+            gl.bindBuffer(gl.ARRAY_BUFFER, explosions[i].pointEndPositionsBuffer);
+            gl.vertexAttribPointer(particleProgram.pointEndPositionAttribute, explosions[i].pointEndPositionsBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
 
             gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, this.texture.loadedTexture);
-            gl.uniform1i(this.particleProgram.samplerUniform, 0);
+            gl.bindTexture(gl.TEXTURE_2D, texture.loadedTexture);
+            gl.uniform1i(particleProgram.samplerUniform, 0);
 
 
-            gl.uniformMatrix4fv(this.particleProgram.uPMatrix, false, camera.pMatrix);
-            gl.uniformMatrix4fv(this.particleProgram.uMVMatrix, false, camera.mvMatrix);
+            gl.uniformMatrix4fv(particleProgram.uPMatrix, false, camera.getPMatrix());
+            gl.uniformMatrix4fv(particleProgram.uMVMatrix, false, camera.getMVMatrix());
 
-            //console.log(this.explosions[i]);
-            //gl.uniform3f(this.particleProgram.centerPositionUniform, this.explosions[i].xPos, 0, this.explosions[i].zPos);
-            gl.uniform3f(this.particleProgram.centerPositionUniform, this.explosions[i].xPos, 0, this.explosions[i].zPos);
-            gl.uniform4f(this.particleProgram.colorUniform, 1, 0.5, 0.1, 0.7);
-            gl.uniform1f(this.particleProgram.timeUniform, this.explosions[i].time);
+            gl.uniform3f(particleProgram.centerPositionUniform, explosions[i].xPos, 0, explosions[i].zPos);
+            gl.uniform4f(particleProgram.colorUniform, 1, 0.5, 0.1, 0.7);
+            gl.uniform1f(particleProgram.timeUniform, explosions[i].time);
 
-            gl.drawArrays(gl.POINTS, 0, this.explosions[i].pointLifetimeBuffer.numItems);
+            gl.drawArrays(gl.POINTS, 0, explosions[i].pointLifetimeBuffer.numItems);
             camera.mvPopMatrix();
         }
 

@@ -1,6 +1,8 @@
-var SpriteComponent = function SpriteComponent(sprite) {
-  "use strict";
-  this.name = "SpriteComponent";
-  this.sprite = sprite;
-};
-($traceurRuntime.createClass)(SpriteComponent, {}, {}, Component);
+function SpriteComponent(sprite) {
+  var name = "SpriteComponent";
+  var sprite = sprite;
+  return {
+    name: name,
+    sprite: sprite
+  };
+}

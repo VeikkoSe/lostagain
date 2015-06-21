@@ -1,26 +1,30 @@
-var MomentumMovable = function MomentumMovable() {
-  "use strict";
-  var speed = arguments[0] !== (void 0) ? arguments[0] : 0.01;
-  var turnSpeed = arguments[1] !== (void 0) ? arguments[1] : 300;
-  var routeEndXpos = arguments[2] !== (void 0) ? arguments[2] : false;
-  var routeEndYpos = arguments[3] !== (void 0) ? arguments[3] : false;
-  var routeEndZpos = arguments[4] !== (void 0) ? arguments[4] : false;
-  this.name = "MomentumMovable";
-  this.newXpos = false;
-  this.newYpos = false;
-  this.newZpos = false;
-  this.routeDone = false;
-  this.routeEndXpos = routeEndXpos;
-  this.routeEndYpos = routeEndYpos;
-  this.routeEndZpos = routeEndZpos;
-  this.lt = 0;
-  this.turnSpeed = turnSpeed;
-  this.speed = speed;
-  this.acceleration = 50;
-  this.accelerationOn = 0;
-  this.rotateLeft = 0;
-  this.rotateRight = 0;
-  this.velocityX = 0;
-  this.velocityZ = 0;
-};
-($traceurRuntime.createClass)(MomentumMovable, {}, {}, Component);
+function MomentumComponent(params) {
+  var $__0 = $traceurRuntime.assertObject(params),
+      speed = $__0.speed,
+      turnSpeed = $__0.turnSpeed,
+      routeEndXpos = $__0.routeEndXpos,
+      routeEndYpos = $__0.routeEndYpos,
+      routeEndZpos = $__0.routeEndZpos;
+  var name = "MomentumComponent";
+  var lt = 0;
+  var turnSpeed = turnSpeed;
+  var speed = speed;
+  var acceleration = 50;
+  var accelerationOn = 0;
+  var rotateLeft = 0;
+  var rotateRight = 0;
+  var velocityX = 0;
+  var velocityZ = 0;
+  return Object.freeze({
+    name: name,
+    lt: lt,
+    turnSpeed: turnSpeed,
+    speed: speed,
+    acceleration: acceleration,
+    accelerationOn: accelerationOn,
+    rotateLeft: rotateLeft,
+    rotateRight: rotateRight,
+    velocityX: velocityX,
+    velocityZ: velocityZ
+  });
+}

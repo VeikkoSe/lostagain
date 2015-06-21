@@ -1,17 +1,16 @@
-var JumpArea = function JumpArea(x, y, z, color) {
-  "use strict";
-  this.name = "JumpArea";
-  this.radius = 300;
-  this.pointAmount = 200;
-  this.xPos = x;
-  this.yPos = y;
-  this.zPos = z;
-  this.points = circleXY({
+function JumpAreaController(x, y, z, color) {
+  var name = "JumpAreaController";
+  var radius = 300;
+  var pointAmount = 200;
+  var xPos = x;
+  var yPos = y;
+  var zPos = z;
+  var points = circleXY({
     x: this.xPos,
     y: this.yPos,
     z: this.zPos
   }, this.radius, this.pointAmount);
-  this.color = color;
-  this.visible = false;
-};
-($traceurRuntime.createClass)(JumpArea, {}, {}, Component);
+  var color = color;
+  var visible = false;
+  return {};
+}

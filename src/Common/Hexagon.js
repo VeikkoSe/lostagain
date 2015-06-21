@@ -6,9 +6,9 @@ class Hexagon {
         this.hexsizeX = size;
         this.hexsizeY = size * 3;
         this.mapLevels = [];
-        for (var x = 0; x < this.hexsizeX; x++) {
+        for (let x = 0; x < this.hexsizeX; x++) {
             this.mapLevels[x] = [];
-            for (var y = 0; y < this.hexsizeY; y++) {
+            for (let y = 0; y < this.hexsizeY; y++) {
                 this.mapLevels[x][y] = [];
                 this.mapLevels[x][y] = this.randomIntFromInterval(1, 3);
             }
@@ -28,6 +28,7 @@ class Hexagon {
         this.playerPos = [1, 1];
         this.mapArray = [];
 
+
         this.deniedAmount = 4;
 
         this.visited = [];
@@ -39,7 +40,7 @@ class Hexagon {
         this.textureCoordinates = this.createTextures();
 
 
-        var t = new Texture('maptiles', true);
+        let t = new Texture('maptiles', true);
 
         this.texture = t.loadedTexture;
 
@@ -62,11 +63,11 @@ class Hexagon {
     //set 3 random denied blocks
     deniedBlocks() {
 
-        var amount = this.deniedAmount;
-        var g = 0;
-        for (var i = 0; i < amount; i++) {
-            var randX = this.randomIntFromInterval(0, this.hexsizeX - 1);
-            var randY = this.randomIntFromInterval(0, this.hexsizeY - 1);
+        let amount = this.deniedAmount;
+        let g = 0;
+        for (let i = 0; i < amount; i++) {
+            let randX = this.randomIntFromInterval(0, this.hexsizeX - 1);
+            let randY = this.randomIntFromInterval(0, this.hexsizeY - 1);
             //When we originally create the denied blocks we cannot allow the player default position
             if (randX == this.playerPos[0] && randY == this.playerPos[1]) {
                 amount++;
@@ -88,10 +89,10 @@ class Hexagon {
 
     surround(x, y) {
         if (y % 2 == 0 && y != 0) {
-            var pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y + 1]];
+            let pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y + 1]];
         }
         else {
-            var pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x + 1, y - 1]];
+            let pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x + 1, y - 1]];
             if (y !== 0) {
                 pos.push([x + 1, y + 1]);
             }
@@ -100,7 +101,7 @@ class Hexagon {
             }
         }
         //we remove those positions that are out of bounds
-        for (var i = 0; i < pos.length; i++) {
+        for (let i = 0; i < pos.length; i++) {
             if (pos[i][0] < 0 || pos[i][1] < 0) {
                 pos.splice(i, 1);
                 i--;
@@ -116,9 +117,9 @@ class Hexagon {
     updateArea(movingUp = 0, movingDown = 0, movingLeft = 0, movingRight = 0, selecting = false) {
 
         //set all basepositions to "walkable"
-        for (var x = 0; x < this.hexsizeX; x++) {
+        for (let x = 0; x < this.hexsizeX; x++) {
             this.mapArray[x] = [];
-            for (var y = 0; y < this.hexsizeY; y++) {
+            for (let y = 0; y < this.hexsizeY; y++) {
                 this.mapArray[x][y] = [];
 
                 this.mapArray[x][y][0] = this.baseBlock[0];
@@ -129,8 +130,8 @@ class Hexagon {
         }
 
         //player is surrounded with positions he can move
-        var surround = this.surround(this.playerPos[0], this.playerPos[1]);
-        for (var i = 0; i < surround.length; i++) {
+        let surround = this.surround(this.playerPos[0], this.playerPos[1]);
+        for (let i = 0; i < surround.length; i++) {
             this.mapArray[surround[i][0]][surround[i][1]][0] = this.movableBlock[0];
             this.mapArray[surround[i][0]][surround[i][1]][1] = this.movableBlock[1];
         }
@@ -154,9 +155,9 @@ class Hexagon {
         }
 
         //set 3 random denied blocks
-        for (var i = 0; i < this.deniedArea.length; i++) {
-            var x = this.deniedArea[i][0];
-            var y = this.deniedArea[i][1];
+        for (let i = 0; i < this.deniedArea.length; i++) {
+            let x = this.deniedArea[i][0];
+            let y = this.deniedArea[i][1];
 
             this.mapArray[x][y][0] = this.deniedBlock[0];
             this.mapArray[x][y][1] = this.deniedBlock[1];
@@ -170,7 +171,7 @@ class Hexagon {
 
     possiblemove(x, y) {
         //we cant move to deneiedarea
-        for (var j = 0; j < this.deniedArea.length; j++) {
+        for (let j = 0; j < this.deniedArea.length; j++) {
             if (x == this.deniedArea[j][0] && y == this.deniedArea[j][1]) {
                 return false;
             }
@@ -185,11 +186,11 @@ class Hexagon {
 
     setSelecting(selecting, x, y) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if (le.components.GasComponent) {
-                var gc = le.components.GasComponent;
+                let gc = le.components.GasComponent;
                 if (gc.amount > 0 && selecting) {
                     this.playerPos = [x, y];
                     gc.amount--;
@@ -217,8 +218,8 @@ class Hexagon {
 
     movingPosition(movingUp, movingDown, movingLeft, movingRight, selecting) {
 
-        var x = this.playerPos[0];
-        var y = this.playerPos[1];
+        let x = this.playerPos[0];
+        let y = this.playerPos[1];
 
 
         if (movingUp == 1) {
@@ -271,8 +272,8 @@ class Hexagon {
 
     movingPositionOdd(movingUp, movingDown, movingLeft, movingRight, selecting) {
 
-        var x = this.playerPos[0];
-        var y = this.playerPos[1];
+        let x = this.playerPos[0];
+        let y = this.playerPos[1];
 
 
         if (movingUp == 1) {
@@ -333,7 +334,7 @@ class Hexagon {
     oneTexture(posX, posY) {
 
 
-        var tex = [
+        let tex = [
 
 
             //center square
@@ -360,7 +361,7 @@ class Hexagon {
 
         ];
 
-        for (var i = 0; i < tex.length; i++) {
+        for (let i = 0; i < tex.length; i++) {
             if ((i + 1) % 2 == 0 && i != 0) {
                 tex[i] = (tex[i] / 4) + (posY * (1 / 4));
             }
@@ -375,7 +376,7 @@ class Hexagon {
 
 
     oneHexagon() {
-        var oneHexagon = [
+        let oneHexagon = [
 
             //center square
             1, 0, 2,
@@ -408,11 +409,11 @@ class Hexagon {
     }
 
     createTextures() {
-        var allTextures = [];
-        for (var i = 0; i < this.hexsizeX; i++) {
-            for (var k = 0; k < this.hexsizeY; k++) {
-                var oneTexture = this.oneTexture(this.mapArray[i][k][0], this.mapArray[i][k][1]);
-                for (var j = 0; j < oneTexture.length; j++) {
+        let allTextures = [];
+        for (let i = 0; i < this.hexsizeX; i++) {
+            for (let k = 0; k < this.hexsizeY; k++) {
+                let oneTexture = this.oneTexture(this.mapArray[i][k][0], this.mapArray[i][k][1]);
+                for (let j = 0; j < oneTexture.length; j++) {
                     allTextures.push(oneTexture[j]);
                 }
             }
@@ -435,22 +436,22 @@ class Hexagon {
          */
 
 
-        var oneHexagon = this.oneHexagon();
+        let oneHexagon = this.oneHexagon();
 
 
-        var allHexagons = [];
+        let allHexagons = [];
 
-        for (var x = 0; x < this.hexsizeX; x++) {
+        for (let x = 0; x < this.hexsizeX; x++) {
 
 
-            for (var y = 0; y < this.hexsizeY; y++) {
+            for (let y = 0; y < this.hexsizeY; y++) {
 
-                var addition = 0;
+                let addition = 0;
                 if ((y + 1) % 2 == 0)
                     addition = 3.5;
 
 
-                for (var h = 0; h < oneHexagon.length; h += 3) {
+                for (let h = 0; h < oneHexagon.length; h += 3) {
 
 
                     allHexagons.push(oneHexagon[h] + (x * 7) + addition);

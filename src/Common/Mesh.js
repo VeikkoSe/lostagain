@@ -1,110 +1,117 @@
-class Mesh {
-    constructor(name) {
+function mesh_constructor(sb) {
+    // let {name,game} = params;
 
-        // var that = this;
-        this.name = name;
-        this.vertices = null;
-        this.texturecoordinates = [];
-        this.normals = [];
-        this.indices = [];
-        this.xPos = 0;
-        this.yPos = 0;
-        this.zPos = 0;
-        this.batch = 0;
-        this.meshLoaded = false;
-        loadManager.loadTotal++;
+    let vertices = [];
+    let texturecoordinates = [];
+    let normals = [];
+    let indices = [];
+    let xPos = 0;
+    let yPos = 0;
+    let zPos = 0;
+    let gl = sb.getGL();
+    //
 
 
-        this.ambient = null;
-        this.diffuse = null;
-        this.specular = null;
+    let ambient = null;
+    let diffuse = null;
+    let specular = null;
+    let texture = null;
 
 
-        this.rotation = 0;
+    //let rotation = 0;
 
-        this.vertexPositionBuffer = gl.createBuffer();
-        this.texturePositionBuffer = gl.createBuffer();
-        this.indexPositionBuffer = gl.createBuffer();
-        this.normalPositionBuffer = gl.createBuffer();
+    let vertexPositionBuffer = gl.createBuffer();
+    let texturePositionBuffer = gl.createBuffer();
+    let indexPositionBuffer = gl.createBuffer();
+    let normalPositionBuffer = gl.createBuffer();
 
 
-        this.loadMesh();
+    //loadMesh();
 
-        var t = new Texture(this.name);
+    //let t = new Texture(this.name);
 
-        this.texture = t.loadedTexture;
-        this.textureLoaded = t.loaded;
+    //this.texture = t.loadedTexture;
+    //this.textureLoaded = t.loaded;
 
+
+    let getTexture = function () {
+        return texture;
     }
 
+    let loadMesh = function (name) {
 
-    loadMesh() {
+        //loadManager.loadTotal++;
+        let tc = texture_constructor(sb);
+        tc.loadTexture({name});
+
+        texture = tc.getLoadedTexture();
+
+        //texture = tc.loadedTexture;
 
 
-        var request = new XMLHttpRequest();
-        request.open("GET", "resources/models/" + this.name + ".js?" + Math.random(), true);
+        let request = new XMLHttpRequest();
+        request.open("GET", "resources/models/" + name + ".js?" + Math.random(), true);
         request.send();
-        var that = this;
+        //let that = this;
 
         request.onreadystatechange = function () {
 
 
             if (request.readyState == 4 && request.status == 200) {
 
-                that.inputData(request.responseText);
-                that.buildBuffers();
-                loadManager.loadTotal--;
+                inputData(request.responseText);
+                buildBuffers();
+                //loadManager.loadTotal--;
+                sb.publish("assetload", 'name');
             }
         }
 
 
-    }
+    };
 
 
-    inputData(data) {
+    let inputData = function (data) {
 
 
-        var d = JSON.parse(data);
+        let d = JSON.parse(data);
 
-        this.vertices = d.vertices;
-
-        this.texturecoordinates = d.texturecoordinates;
-
-        this.indices = d.indices;
+        vertices = d.vertices;
+        texturecoordinates = d.texturecoordinates;
+        indices = d.indices;
 
         //if (d.normals.length < 1) {
-        this.normals = this.createNormals(this.vertices, this.indices);
+        normals = createNormals(vertices, indices);
         //}
         //else {
         //    this.normals = d.normals;
         //}
 
-        this.xPos = d.x;
-        this.yPos = d.y;
-        this.zPos = d.z;
+        xPos = d.x;
+        yPos = d.y;
+        zPos = d.z;
         //this.batch = d.batch;
 
 
-        this.ambient = d.ambient;
-        this.diffuse = d.diffuse;
-        this.specular = d.specular;
+        ambient = d.ambient;
+        diffuse = d.diffuse;
+        specular = d.specular;
 
-    }
+    };
 
-    createNormals(vs, ind) {
-        var x = 0;
-        var y = 1;
-        var z = 2;
+    let createNormals = function (vs, ind) {
+        let x = 0;
+        let y = 1;
+        let z = 2;
 
-        var ns = [];
-        for (var i = 0; i < vs.length; i++) { //for each vertex, initialize normal x, normal y, normal z
+        let ns = [];
+        for (let i = 0; i < vs.length; i++) { //for each vertex, initialize normal x, normal y, normal z
             ns[i] = 0.0;
         }
 
-        for (var i = 0; i < ind.length; i = i + 3) { //we work on triads of vertices to calculate normals so i = i+3 (i = indices index)
-            var v1 = [];
-            var v2 = [];
-            var normal = [];
+        for (let i = 0; i < ind.length; i = i + 3) { //we work on triads of vertices to calculate normals so i = i+3 (i = indices index)
+            let v1 = [];
+            let v2 = [];
+            let normal = [];
             //p1 - p0
             v1[x] = vs[3 * ind[i + 1] + x] - vs[3 * ind[i] + x];
             v1[y] = vs[3 * ind[i + 1] + y] - vs[3 * ind[i] + y];
@@ -129,21 +136,21 @@ class Mesh {
             // ns[3*ind[i]+x] += normal[x];
             // ns[3*ind[i]+y] += normal[y];
             // ns[3*ind[i]+z] += normal[z];
-            for (var j = 0; j < 3; j++) { //update the normals of that triangle: sum of vectors
+            for (let j = 0; j < 3; j++) { //update the normals of that triangle: sum of vectors
                 ns[3 * ind[i + j] + x] = ns[3 * ind[i + j] + x] + normal[x];
                 ns[3 * ind[i + j] + y] = ns[3 * ind[i + j] + y] + normal[y];
                 ns[3 * ind[i + j] + z] = ns[3 * ind[i + j] + z] + normal[z];
             }
         }
         //normalize the result
-        for (var i = 0; i < vs.length; i = i + 3) { //the increment here is because each vertex occurs with an offset of 3 in the array (due to x, y, z contiguous values)
+        for (let i = 0; i < vs.length; i = i + 3) { //the increment here is because each vertex occurs with an offset of 3 in the array (due to x, y, z contiguous values)
 
-            var nn = [];
+            let nn = [];
             nn[x] = ns[i + x];
             nn[y] = ns[i + y];
             nn[z] = ns[i + z];
 
-            var len = Math.sqrt((nn[x] * nn[x]) + (nn[y] * nn[y]) + (nn[z] * nn[z]));
+            let len = Math.sqrt((nn[x] * nn[x]) + (nn[y] * nn[y]) + (nn[z] * nn[z]));
             if (len == 0) len = 0.00001;
 
             nn[x] = nn[x] / len;
@@ -156,33 +163,48 @@ class Mesh {
         }
 
         return ns;
-    }
+    };
 
 
-    buildBuffers() {
+    let buildBuffers = function () {
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);
-        this.vertexPositionBuffer.itemSize = 3;
-        this.vertexPositionBuffer.numItems = this.vertices.length / 3;
-
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.texturecoordinates), gl.STATIC_DRAW);
-        this.texturePositionBuffer.itemSize = 2;
-        this.texturePositionBuffer.numItems = this.texturecoordinates.length / 2;
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        vertexPositionBuffer.itemSize = 3;
+        vertexPositionBuffer.numItems = vertices.length / 3;
 
 
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexPositionBuffer);
-        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
-        this.indexPositionBuffer.itemSize = 1;
-        this.indexPositionBuffer.numItems = this.indices.length;
+        gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texturecoordinates), gl.STATIC_DRAW);
+        texturePositionBuffer.itemSize = 2;
+        texturePositionBuffer.numItems = texturecoordinates.length / 2;
 
-        if (this.normals.length > 0) {
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.normalPositionBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.normals), gl.STATIC_DRAW);
-            this.normalPositionBuffer.itemSize = 1;
-            this.normalPositionBuffer.numItems = this.normals.length / 3;
+
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexPositionBuffer);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+        indexPositionBuffer.itemSize = 1;
+        indexPositionBuffer.numItems = indices.length;
+
+        if (normals.length > 0) {
+            gl.bindBuffer(gl.ARRAY_BUFFER, normalPositionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normals), gl.STATIC_DRAW);
+            normalPositionBuffer.itemSize = 1;
+            normalPositionBuffer.numItems = normals.length / 3;
         }
     }
+
+
+    return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+        init: function () {
+
+        },
+        loadMesh,
+        getTexture,
+        vertexPositionBuffer,
+        texturePositionBuffer,
+        indexPositionBuffer,
+        normalPositionBuffer,
+
+
+    });
 }

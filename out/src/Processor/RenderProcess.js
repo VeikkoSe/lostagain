@@ -1,93 +1,176 @@
-var RenderProcess = function RenderProcess() {
-  "use strict";
-  this.deltatime = null;
-  this.rotation = null;
-  this.shaderProgram = sm.init("per-fragment-lighting");
-};
-($traceurRuntime.createClass)(RenderProcess, {
-  update: function(deltatime, timeFromStart) {
-    "use strict";
+function renderprocess_constructor(sb) {
+  var gl = sb.getGL();
+  var camera = sb.getCamera();
+  var shadermanager = sb.getShaderManager();
+  var shaderprogram = shadermanager.init("per-fragment-lighting");
+  var em = sb.getEntityManager();
+  var deltatime = null;
+  var rotation = 0;
+  var update = function(deltatime, timeFromStart) {
     if (timeFromStart > 2000) {
-      for (var e = 0; e < em.entities.length; e++) {
-        var le = em.entities[$traceurRuntime.toProperty(e)];
-        if (le.components.Visibility && le.components.Visibility.visibility == false) {
-          le.components.Visibility.visibility = true;
+      {
+        try {
+          throw undefined;
+        } catch ($e) {
+          {
+            $e = 0;
+            for (; $e < em.entities.length; $e++) {
+              try {
+                throw undefined;
+              } catch (e) {
+                {
+                  e = $e;
+                  try {
+                    try {
+                      throw undefined;
+                    } catch (le) {
+                      {
+                        le = em.entities[$traceurRuntime.toProperty(e)];
+                        if (le.components.Visibility && le.components.Visibility.visibility == false) {
+                          le.components.Visibility.visibility = true;
+                        }
+                      }
+                    }
+                  } finally {
+                    $e = e;
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
-    if (this.rotation > 360)
-      this.rotation = 0;
-    this.rotation += (90 * deltatime) / 1000.0;
-  },
-  draw: function() {
-    "use strict";
-    for (var e = 0; e < em.entities.length; e++) {
-      var le = em.entities[$traceurRuntime.toProperty(e)];
-      if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
-        continue;
-      if (le.components.Renderable && le.components.MeshComponent) {
-        var rc = le.components.Renderable;
-        var mc = le.components.MeshComponent;
-        if (le.components.Visibility && le.components.Visibility.visibility == false) {
-          continue;
-        }
-        sm.setProgram(this.shaderProgram);
-        gl.uniform1f(this.shaderProgram.alphaUniform, 1);
-        gl.uniform1i(this.shaderProgram.uDrawColors, 0);
-        gl.uniform1i(this.shaderProgram.uUseLighting, true);
-        gl.uniform3f(this.shaderProgram.uLightPosition, camera.x, -1 * camera.y, -1 * camera.z);
-        gl.uniform3f(this.shaderProgram.uLightAmbient, 0, 0, 0);
-        gl.uniform3f(this.shaderProgram.uLightDiffuse, 0.8, 0.8, 0.8);
-        gl.uniform3f(this.shaderProgram.uLightSpecular, 0.8, 0.8, 0.8);
-        gl.uniform1f(this.shaderProgram.uMaterialShininess, 200.0);
-        camera.mvPushMatrix();
-        if (le.components.Selectable) {
-          gl.uniform3fv(this.shaderProgram.uDrawColor, le.components.Selectable.color);
-        } else {
-          gl.uniform3fv(this.shaderProgram.uDrawColor, [0.5, 0.5, 0.5]);
-        }
-        mat4.translate(camera.mvMatrix, [rc.xPos, rc.yPos, rc.zPos]);
-        mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleY), [0, 1, 0]);
-        mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleZ), [0, 0, 1]);
-        mat4.rotate(camera.mvMatrix, helpers.degToRad(rc.angleX), [1, 0, 0]);
-        if (rc.scale != 1) {
-          mat4.scale(camera.mvMatrix, [rc.scale, rc.scale, rc.scale]);
-        }
-        var xRot = 0;
-        var yRot = 0;
-        var zRot = 0;
-        if (le.components.ConstantRotation && this.rotation) {
-          if (le.components.ConstantRotation.x > 0) {
-            xRot = 1;
+    if (rotation > 360)
+      rotation = 0;
+    rotation += (90 * deltatime) / 1000.0;
+  };
+  var rotate = function(rc) {
+    if (rc.angleY) {
+      mat4.rotate(camera.getMVMatrix(), degToRad(rc.angleY), [0, 1, 0]);
+    }
+    if (rc.angleZ) {
+      mat4.rotate(camera.getMVMatrix(), degToRad(rc.angleZ), [0, 0, 1]);
+    }
+    if (rc.angleX) {
+      mat4.rotate(camera.getMVMatrix(), degToRad(rc.angleX), [1, 0, 0]);
+    }
+  };
+  var draw = function() {
+    {
+      try {
+        throw undefined;
+      } catch ($e) {
+        {
+          $e = 0;
+          for (; $e < em.entities.length; $e++) {
+            try {
+              throw undefined;
+            } catch (e) {
+              {
+                e = $e;
+                try {
+                  try {
+                    throw undefined;
+                  } catch (le) {
+                    {
+                      le = em.entities[$traceurRuntime.toProperty(e)];
+                      if (le.components.Renderable && le.components.MeshComponent) {
+                        try {
+                          throw undefined;
+                        } catch (normalMatrix) {
+                          try {
+                            throw undefined;
+                          } catch (zRot) {
+                            try {
+                              throw undefined;
+                            } catch (yRot) {
+                              try {
+                                throw undefined;
+                              } catch (xRot) {
+                                try {
+                                  throw undefined;
+                                } catch (rc) {
+                                  try {
+                                    throw undefined;
+                                  } catch (mc) {
+                                    {
+                                      mc = le.components.MeshComponent;
+                                      rc = le.components.Renderable;
+                                      shadermanager.setProgram(shaderprogram);
+                                      gl.uniform1f(shaderprogram.alphaUniform, 1);
+                                      gl.uniform1i(shaderprogram.uDrawColors, 0);
+                                      gl.uniform1i(shaderprogram.uUseLighting, true);
+                                      gl.uniform3f(shaderprogram.uLightPosition, camera.getX(), -1 * camera.getY(), -1 * camera.getZ());
+                                      gl.uniform3f(shaderprogram.uLightAmbient, 0, 0, 0);
+                                      gl.uniform3f(shaderprogram.uLightDiffuse, 0.8, 0.8, 0.8);
+                                      gl.uniform3f(shaderprogram.uLightSpecular, 0.8, 0.8, 0.8);
+                                      gl.uniform1f(shaderprogram.uMaterialShininess, 200.0);
+                                      camera.mvPushMatrix();
+                                      if (le.components.Selectable) {
+                                        gl.uniform3fv(shaderprogram.uDrawColor, le.components.Selectable.color);
+                                      } else {
+                                        gl.uniform3fv(shaderprogram.uDrawColor, [0.5, 0.5, 0.5]);
+                                      }
+                                      rotate(rc);
+                                      if (rc.scale) {
+                                        mat4.scale(camera.getMVMatrix(), [rc.scale, rc.scale, rc.scale]);
+                                      }
+                                      xRot = 0;
+                                      yRot = 0;
+                                      zRot = 0;
+                                      if (le.components.ConstantRotation && rotation) {
+                                        if (le.components.ConstantRotation.x > 0) {
+                                          xRot = 1;
+                                        }
+                                        if (le.components.ConstantRotation.y > 0) {
+                                          yRot = 1;
+                                        }
+                                        if (le.components.ConstantRotation.z > 0) {
+                                          zRot = 1;
+                                        }
+                                        mat4.rotate(camera.getMVMatrix(), degToRad(rotation), [xRot, yRot, zRot]);
+                                      }
+                                      gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.vertexPositionBuffer);
+                                      gl.vertexAttribPointer(shaderprogram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+                                      gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.normalPositionBuffer);
+                                      gl.vertexAttribPointer(shaderprogram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
+                                      gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.texturePositionBuffer);
+                                      gl.vertexAttribPointer(shaderprogram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+                                      gl.activeTexture(gl.TEXTURE0);
+                                      gl.bindTexture(gl.TEXTURE_2D, mc.mesh.getTexture());
+                                      gl.uniform1i(shaderprogram.samplerUniform, 0);
+                                      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.mesh.indexPositionBuffer);
+                                      gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());
+                                      gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, camera.getMVMatrix());
+                                      normalMatrix = mat3.create();
+                                      mat4.toInverseMat3(camera.getMVMatrix(), normalMatrix);
+                                      mat3.transpose(normalMatrix);
+                                      gl.uniformMatrix3fv(shaderprogram.uNMatrix, false, normalMatrix);
+                                      gl.drawElements(gl.TRIANGLES, mc.mesh.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+                                      camera.mvPopMatrix();
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                } finally {
+                  $e = e;
+                }
+              }
+            }
           }
-          if (le.components.ConstantRotation.y > 0) {
-            yRot = 1;
-          }
-          if (le.components.ConstantRotation.z > 0) {
-            zRot = 1;
-          }
-          mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotation), [xRot, yRot, zRot]);
         }
-        gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.vertexPositionBuffer);
-        gl.vertexAttribPointer(this.shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-        gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.normalPositionBuffer);
-        gl.vertexAttribPointer(this.shaderProgram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
-        gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.texturePositionBuffer);
-        gl.vertexAttribPointer(this.shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, mc.mesh.texture);
-        gl.uniform1i(this.shaderProgram.samplerUniform, 0);
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.mesh.indexPositionBuffer);
-        gl.uniformMatrix4fv(this.shaderProgram.uPMatrix, false, camera.pMatrix);
-        gl.uniformMatrix4fv(this.shaderProgram.uMVMatrix, false, camera.mvMatrix);
-        var normalMatrix = mat3.create();
-        mat4.toInverseMat3(camera.mvMatrix, normalMatrix);
-        mat3.transpose(normalMatrix);
-        gl.uniformMatrix3fv(this.shaderProgram.uNMatrix, false, normalMatrix);
-        gl.drawElements(gl.TRIANGLES, mc.mesh.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-        camera.drawCalls++;
-        camera.mvPopMatrix();
       }
     }
-  }
-}, {}, Processor);
+  };
+  return Object.freeze({
+    update: update,
+    draw: draw
+  });
+}

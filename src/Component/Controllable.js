@@ -1,9 +1,10 @@
-class Controllable extends Component {
-    constructor() {
-        this.name = "Controllable";
+function Controllable() {
+    //constructor() {
+    let name = "Controllable";
 
 
-    }
+    //}
+    return {name}
 
 
 }

@@ -1,7 +1,0 @@
-class Component {
-    contructor() {
-
-
-    }
-
-}

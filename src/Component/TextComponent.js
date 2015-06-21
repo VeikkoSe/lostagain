@@ -1,9 +1,11 @@
-class TextComponent extends Component {
-    constructor(level) {
-        this.name = "TextComponent";
+function TextComponent(level) {
+    //constructor(level) {
+    let name = "TextComponent";
 
-        var t = new TextTimer();
-        this.texts = t.getLevelText(level);
-    }
+    // let t = texttimer_constructor();
+    //let texts = t.getLevelText(level);
+    //}
+    return {}
+
 }
 

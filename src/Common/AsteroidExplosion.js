@@ -1,25 +1,29 @@
-class AsteroidExplosion {
-    constructor(x, y, z) {
+function asteroidexplosion_constructor(sb, x, y, z) {
+    //constructor(x, y, z) {
 
-        this.pointEndPositionsBuffer = gl.createBuffer();
-        this.pointLifetimeBuffer = gl.createBuffer();
-        this.pointStartPositionsBuffer = gl.createBuffer();
-        this.time = 0;
-        this.numParticles = 500;
-        this.xPos = x;
-        this.yPos = y;
-        this.zPos = z;
-        this.buildBuffers();
+    let pointEndPositionsBuffer = gl.createBuffer();
+    let pointLifetimeBuffer = gl.createBuffer();
+    let pointStartPositionsBuffer = gl.createBuffer();
+    let time = 0;
+    let numParticles = 500;
+    let xPos = x;
+    let yPos = y;
+    let zPos = z;
+    let gl = sb.getGL();
+
+    let init = function () {
+        buildBuffers();
 
 
     }
 
-    buildBuffers() {
 
-        var lifetimes = [];
-        var startPositions = [];
-        var endPositions = [];
-        for (var i = 0; i < this.numParticles; i++) {
+    let buildBuffers = function () {
+
+        let lifetimes = [];
+        let startPositions = [];
+        let endPositions = [];
+        for (let i = 0; i < numParticles; i++) {
             lifetimes.push(Math.random());
 
             startPositions.push((Math.random() * 0.25) - 0.125);
@@ -32,22 +36,22 @@ class AsteroidExplosion {
         }
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.pointLifetimeBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, pointLifetimeBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lifetimes), gl.STATIC_DRAW);
-        this.pointLifetimeBuffer.itemSize = 1;
-        this.pointLifetimeBuffer.numItems = this.numParticles;
+        pointLifetimeBuffer.itemSize = 1;
+        pointLifetimeBuffer.numItems = numParticles;
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
-        this.pointStartPositionsBuffer.itemSize = 3;
-        this.pointStartPositionsBuffer.numItems = this.numParticles;
+        pointStartPositionsBuffer.itemSize = 3;
+        pointStartPositionsBuffer.numItems = numParticles;
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.pointEndPositionsBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, pointEndPositionsBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(endPositions), gl.STATIC_DRAW);
-        this.pointEndPositionsBuffer.itemSize = 3;
-        this.pointEndPositionsBuffer.numItems = this.numParticles;
+        pointEndPositionsBuffer.itemSize = 3;
+        pointEndPositionsBuffer.numItems = numParticles;
     }
 
 }

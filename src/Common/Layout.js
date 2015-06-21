@@ -1,23 +1,32 @@
-class Layout {
-    constructor(xPos, yPos, component = null, size = 64) {
+function layout_constructor() {
+    // constructor(xPos, yPos, component = null, size = 64) {
 
-        this.xPos = xPos;
+    let xPos = xPos;
 
-        this.size = size;
-        this.yPos = yPos;
-        this.component = component;
-        this.children = [];
-        this.rootX = null;
-        this.rootY = null;
+    let size = size;
+    let yPos = yPos;
+    let component = component;
+    let children = [];
+    let rootX = null;
+    let rootY = null;
 
-    }
+    //}
 
-    getChildren() {
-        return this.children;
-    }
 
-    addChildren(layout) {
-        this.children.push(layout);
+    return {
+        getChildren: function () {
+            return children;
+        },
+
+        addChildren: function (layout) {
+            children.push(layout);
+        },
+        init: function () {
+
+        },
+        subscribe: function () {
+
+        }
     }
 
 

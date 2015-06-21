@@ -1,13 +1,14 @@
-class HealthComponent extends Component {
-    constructor(amount, sprite = null) {
+function HealthComponent(amount, sprite = null) {
+    //constructor(amount, sprite = null) {
 
-        this.name = "HealthComponent";
-        this.amount = amount;
+    let name = "HealthComponent";
+    let amount = amount;
 
-        this.sprite = sprite;
+    let sprite = sprite;
 
 
-    }
+    //}
+    return {name}
 
 
 }

@@ -1,11 +1,15 @@
-var Entity = function Entity(id) {
-  "use strict";
-  var name = arguments[1] !== (void 0) ? arguments[1] : false;
-  this.id = id;
-  this.name = name;
-  this.components = {};
-};
-($traceurRuntime.createClass)(Entity, {addComponent: function(component) {
-    "use strict";
-    $traceurRuntime.setProperty(this.components, component.name, component);
-  }}, {});
+function entity_constructor(params) {
+  var $__0 = $traceurRuntime.assertObject(params),
+      id = $__0.id,
+      name = $__0.name;
+  var components = {};
+  var addComponent = function(component) {
+    $traceurRuntime.setProperty(components, component.name, component);
+  };
+  return Object.freeze({
+    addComponent: addComponent,
+    id: id,
+    name: name,
+    components: components
+  });
+}

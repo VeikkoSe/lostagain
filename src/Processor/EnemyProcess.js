@@ -1,11 +1,14 @@
-class EnemyProcess extends Processor {
-    constructor() {
-        this.routeDone = false;
+function enemyprocess_constructor(sb) {
+    //constructor() {
+    let routeDone = false;
+
+    let camera = sb.getCamera();
+    let em = sb.getEntityManager();
 
 
-    }
+    //}
 
-    update(deltatime, timeFromStart) {
+    let update = function (deltatime, timeFromStart) {
 
         //we don't instantly harass the player
         if (timeFromStart < 30000) {
@@ -13,18 +16,18 @@ class EnemyProcess extends Processor {
         }
 
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if (le.components.Renderable && le.components.MeshComponent && le.components.EnemyComponent) {
 
-                var ship = em.getEntityByName('ship');
+                let ship = em.getEntityByName('ship');
                 //if normal ship is dead we target the mothership
                 if (ship.components.HealthComponent.amount < 1) {
                     ship = em.getEntityByName('mothership');
                 }
-                var re = le.components.Renderable;
-                //var enemyHp = le.components.HealthComponent;
+                let re = le.components.Renderable;
+                //let enemyHp = le.components.HealthComponent;
 
                 /*
                  if (enemyHp.amount > 0) {
@@ -48,20 +51,20 @@ class EnemyProcess extends Processor {
                  */
 
                 //newX and newZ are false by default so we don't move anywhere if newpos is not set
-                if (!this.routeDone) {
+                if (!routeDone) {
 
 
                     //Create a vector in the direction
 
-                    var dirZ = ship.components.Renderable.xPos - re.xPos;
-                    var dirX = ship.components.Renderable.zPos - re.zPos;
+                    let dirZ = ship.components.Renderable.xPos - re.xPos;
+                    let dirX = ship.components.Renderable.zPos - re.zPos;
 
                     //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
-                    var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
+                    let hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
 
-                    var angR = Math.atan2(dirX, dirZ);
-                    var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
+                    let angR = Math.atan2(dirX, dirZ);
+                    let deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
 
                     dirX /= hyp;
                     dirZ /= hyp;
@@ -78,5 +81,6 @@ class EnemyProcess extends Processor {
             }
         }
     }
+    return {}
 
 }

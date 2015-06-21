@@ -1,5 +1,4 @@
-var AsteroidComponent = function AsteroidComponent() {
-  "use strict";
-  this.name = "AsteroidComponent";
-};
-($traceurRuntime.createClass)(AsteroidComponent, {}, {}, Component);
+function asteroidcomponent_constructor() {
+  var name = "AsteroidComponent";
+  return Object.freeze({name: name});
+}

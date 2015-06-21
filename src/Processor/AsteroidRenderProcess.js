@@ -1,40 +1,47 @@
-class AsteroidRenderProcess extends Processor {
-    constructor() {
-        this.normalMatrix = mat3.create();
+function asteroidrenderprocess_constructor(sb) {
 
-        this.megaElapsedTotal = 0;
+    let normalMatrix = mat3.create();
 
-        this.ambientProgram = sm.init('ambient');
+    let megaElapsedTotal = 0;
 
-        this.monstermap = null;
-        this.lastTime = 0;
-        this.vertexPositionBuffer = gl.createBuffer();
-        this.vertexPositionBuffer.nums = 0;
-        this.cube = new Cube();
+    let ambientProgram = sm.init('ambient');
 
+    let monstermap = null;
+    let lastTime = 0;
+    let vertexPositionBuffer = gl.createBuffer();
 
-        this.elapsedTotal = 0;
+    let cube = cube_constructor();
 
+    let camera = sb.getCamera();
+    let gl = sb.getGL();
 
-        this.lastTime = 0;
-
-
-        this.combinedMeshes = {};
-        this.combinedMeshes.vertices = [];
-        this.vertexPositionBuffer.nums = 0;
+    let elapsedTotal = 0;
 
 
-        var verts = this.cube.vertices();
+    let lastTime = 0;
 
 
-        for (var g = 0; g < 5000; g++) {
-            var x = this.getRandomInt(-100, 100);
-            var y = this.getRandomInt(0, 0);
-            var z = this.getRandomInt(-100, 100);
+    let combinedMeshes = {};
 
-            for (var i = 0; i < verts.length; i += 3) {
 
-                var newVerts = [];
+    let verts = cube.vertices();
+
+    let init = function () {
+
+
+        vertexPositionBuffer.nums = 0;
+        combinedMeshes.vertices = [];
+        vertexPositionBuffer.nums = 0;
+
+
+        for (let g = 0; g < 5000; g++) {
+            let x = getRandomInt(-100, 100);
+            let y = getRandomInt(0, 0);
+            let z = getRandomInt(-100, 100);
+
+            for (let i = 0; i < verts.length; i += 3) {
+
+                let newVerts = [];
 
                 //object coordinates
                 newVerts.push(verts[i]);
@@ -49,23 +56,25 @@ class AsteroidRenderProcess extends Processor {
                 newVerts.push(g);
                 newVerts.push(g);
 
-                this.combinedMeshes.vertices.push.apply(this.combinedMeshes.vertices, newVerts);
+                combinedMeshes.vertices.push.apply(combinedMeshes.vertices, newVerts);
             }
 
 
-            this.vertexPositionBuffer.nums += verts.length / 3;
+            vertexPositionBuffer.nums += verts.length / 3;
 
 
         }
-        //console.log(this.combinedMeshes);
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.combinedMeshes.vertices), gl.STATIC_DRAW);
 
+
+        //console.log(this.combinedMeshes);
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(combinedMeshes.vertices), gl.STATIC_DRAW);
     }
 
-    textureFromPixelArray(dataArray, type, width, height) {
-        var dataTypedArray = new Uint8Array(dataArray); // Don't need to do this if the data is already in a typed array
-        var texture = gl.createTexture();
+
+    let textureFromPixelArray = function (dataArray, type, width, height) {
+        let dataTypedArray = new Uint8Array(dataArray); // Don't need to do this if the data is already in a typed array
+        let texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);
 
         gl.texImage2D(gl.TEXTURE_2D, 0, type, width, height, 0, type, gl.UNSIGNED_BYTE, dataTypedArray);
@@ -73,45 +82,46 @@ class AsteroidRenderProcess extends Processor {
         return texture;
     }
 
+    /*
+     let randomIntFromInterval(min, max) {
+     return Math.floor(Math.random() * (max - min + 1) + min);
+     }
+     */
+    /*
+     getRandomInt(min, max) {
+     return Math.floor(Math.random() * (max - min + 1)) + min;
+     }
 
-    randomIntFromInterval(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+     */
+    let createTexture = function (elapsed) {
 
-    getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+        megaElapsedTotal += elapsed;
+        if (megaElapsedTotal > 100 || monstermap == null) {
 
+            megaElapsedTotal = 0;
+            let b = new ArrayBuffer(128 * 128 * 4);
+            let v1 = new Uint8Array(b);
+            let g = 0;
+            for (let i = 0; i < 128 * 128; i++) {
 
-    createTexture(elapsed) {
+                if (randomIntFromInterval(0, 1) == 1) {
+                    v1[g++] = 255;
+                    v1[g++] = 255;
+                    v1[g++] = 255;
+                    v1[g++] = 255;
 
-        this.megaElapsedTotal += elapsed;
-        if (this.megaElapsedTotal > 100 || this.monstermap == null) {
+                }
+                else {
 
-            this.megaElapsedTotal = 0;
-            var b = new ArrayBuffer(128 * 128 * 4);
-            var v1 = new Uint8Array(b);
-            var g = 0;
-            for (var i = 0; i < 128 * 128; i++) {
-
-                if (this.randomIntFromInterval(0, 1) == 1) {
-                 v1[g++] = 255;
-                 v1[g++] = 255;
-                 v1[g++] = 255;
-                 v1[g++] = 255;
-
-                  }
-                   else {
-
-                v1[g++] = 0;
-                v1[g++] = 0;
-                v1[g++] = 0;
-                v1[g++] = 0;
-                  }
+                    v1[g++] = 0;
+                    v1[g++] = 0;
+                    v1[g++] = 0;
+                    v1[g++] = 0;
+                }
             }
 
 
-            var texture = gl.createTexture();
+            let texture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, texture);
             //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR ) ;
             //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR ) ;
@@ -121,7 +131,7 @@ class AsteroidRenderProcess extends Processor {
                 gl.UNSIGNED_BYTE, v1);
             gl.generateMipmap(gl.TEXTURE_2D);
 
-            this.monstermap = texture;
+            monstermap = texture;
 
         }
 
@@ -129,22 +139,22 @@ class AsteroidRenderProcess extends Processor {
     }
 
 
-    update(deltatime,timeSinceBeginning) {
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+    let update = function (deltatime, timeSinceBeginning) {
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
 
             if (le.components.AsteroidComponent) {
 
-                this.createTexture(deltatime);
+                createTexture(deltatime);
             }
         }
     }
 
-    draw() {
+    let draw = function () {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
 
             if (le.components.AsteroidComponent) {
@@ -152,39 +162,40 @@ class AsteroidRenderProcess extends Processor {
 
                 sm.setProgram(this.ambientProgram);
 
-                gl.uniform3fv(this.ambientProgram.uCameraPos, [camera.x, camera.y, camera.z]);
+                gl.uniform3fv(ambientProgram.uCameraPos, [camera.getX(), camera.getY(), camera.getZ()]);
                 //gl.uniform3fv(this.ambientProgram.uCameraPos, [0, 20, -20]);
-                gl.uniformMatrix4fv(this.ambientProgram.uPMatrix, false, camera.pMatrix);
+                gl.uniformMatrix4fv(ambientProgram.uPMatrix, false, camera.getPMatrix());
 
-                var timeNow = new Date().getTime();
+                let timeNow = new Date().getTime();
 
                 if (this.lastTime != 0) {
 
-                    var elapsed = timeNow - this.lastTime;
+                    let elapsed = timeNow - this.lastTime;
                     this.elapsedTotal += elapsed;
-                    gl.uniform1f(this.ambientProgram.uElapsed, this.elapsedTotal.toFixed(1));
+                    gl.uniform1f(ambientProgram.uElapsed, elapsedTotal.toFixed(1));
 
 
                 }
 
-                gl.uniform1f(this.ambientProgram.uElapsed, 0);
+                gl.uniform1f(ambientProgram.uElapsed, 0);
                 this.lastTime = timeNow;
 
 
                 gl.activeTexture(gl.TEXTURE0);
                 gl.bindTexture(gl.TEXTURE_2D, this.monstermap);
-                gl.uniform1i(this.ambientProgram.uVisibility, 0);
+                gl.uniform1i(ambientProgram.uVisibility, 0);
 
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-                gl.vertexAttribPointer(this.ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
-                gl.vertexAttribPointer(this.ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
-                gl.vertexAttribPointer(this.ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
+                gl.vertexAttribPointer(ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
+                gl.vertexAttribPointer(ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
+                gl.vertexAttribPointer(ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
 
 
-                gl.drawArrays(gl.TRIANGLES, 0, this.vertexPositionBuffer.nums);
+                gl.drawArrays(gl.TRIANGLES, 0, vertexPositionBuffer.nums);
                 camera.drawCalls++;
             }
         }
     }
+    return {}
 }

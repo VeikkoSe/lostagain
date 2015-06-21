@@ -1,20 +1,26 @@
-class LayoutProcess extends Processor {
+function layoutprocess_constructor(sb) {
 
-    constructor() {
-        this.program = sm.init('gui');
+    //constructor() {
+    let program = sb.getProgram('gui');
+    let resolutionWidth = sb.getResolutionWidth();
+    let resolutionHeight = sb.getResolutionHeight();
 
-        var points = [];
 
+    let points = [];
+    let vertexPositionBuffer = gl.createBuffer();
+    let texCoordBuffer = gl.createBuffer();
+
+    let vertBuffer = gl.createBuffer();
+    let init = function () {
         points.push(-50, 0, 0);
         points.push(20, 0, 0);
 
-        this.vertexPositionBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
 
 
-        this.texCoordBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
             1.0, 1.0,
             0.0, 1.0,
@@ -23,67 +29,69 @@ class LayoutProcess extends Processor {
             0.0, 0.0,
             1.0, 0.0]), gl.STATIC_DRAW);
 
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
 
-        this.vertBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
 
-        var pd = this.setRectangle(0, 0, 1, 1);
+        let pd = setRectangle(0, 0, 1, 1);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
 
     }
 
-    simpleWorldToViewX(x) {
+
+    //}
+
+    let simpleWorldToViewX = function (x) {
         return x / resolutionWidth;
     }
 
-    simpleWorldToViewY(y) {
+    let simpleWorldToViewY = function (y) {
         return y / resolutionHeight;
     }
 
-    calculatePd(x, y, xminus, yminus, layout) {
+    let calculatePd = function (x, y, xminus, yminus, layout) {
 
-        var rh = resolutionHeight / 256;
+        let rh = resolutionHeight / 256;
 
-        var y2 = y + (helpers.simpleWorldToViewY(1) * layout.size * rh);
-        var x2 = x + (helpers.simpleWorldToViewX(1) * layout.size * rh);
+        let y2 = y + (simpleWorldToViewY(1) * layout.size * rh);
+        let x2 = x + (simpleWorldToViewX(1) * layout.size * rh);
 
         if (yminus) {
 
-            var y2 = y - (helpers.simpleWorldToViewY(1) * layout.size * rh);
-            var tmp = y;
+            let y2 = y - (simpleWorldToViewY(1) * layout.size * rh);
+            let tmp = y;
             y = y2;
             y2 = tmp;
         }
         if (xminus) {
-            var x2 = x - (helpers.simpleWorldToViewX(1) * layout.size * rh);
-            var tmp = x;
+            let x2 = x - (simpleWorldToViewX(1) * layout.size * rh);
+            let tmp = x;
             x = x2;
             x2 = tmp;
         }
-        return this.setRectangle(x, y, x2, y2);
+        return setRectangle(x, y, x2, y2);
     }
 
-    recursiveLayout(lloop, parent) {
-        for (var i = 0; i < lloop.length; i++) {
+    let recursiveLayout = function (lloop, parent) {
+        for (let i = 0; i < lloop.length; i++) {
 
             if (lloop[i].component) {
-                var rh = resolutionHeight / 256;
+                let rh = resolutionHeight / 256;
 
                 //right side of the screen, we minus so we get correct coordinates regardless of window size
-                var x = (parent.xPos) + ((this.simpleWorldToViewX(1) * lloop[i].xPos) * rh);
-                var y = (parent.yPos) + ((this.simpleWorldToViewY(1) * lloop[i].yPos) * rh);
-                var xminus = false;
-                var yminus = false;
+                let x = (parent.xPos) + ((simpleWorldToViewX(1) * lloop[i].xPos) * rh);
+                let y = (parent.yPos) + ((simpleWorldToViewY(1) * lloop[i].yPos) * rh);
+                let xminus = false;
+                let yminus = false;
                 if (parent.xPos == 1) {
-                    var x = (parent.xPos) - ((this.simpleWorldToViewX(1) * lloop[i].xPos) * rh);
+                    let x = (parent.xPos) - ((simpleWorldToViewX(1) * lloop[i].xPos) * rh);
                     xminus = true;
                 }
                 if (parent.yPos == 1) {
-                    var y = (parent.yPos) - ((this.simpleWorldToViewY(1) * lloop[i].yPos) * rh);
+                    let y = (parent.yPos) - ((simpleWorldToViewY(1) * lloop[i].yPos) * rh);
                     yminus = true;
                 }
 
-                var loop = 1;
+                let loop = 1;
                 if (lloop[i].component.amount && lloop[i].component.amount > 0) {
                     loop = lloop[i].component.amount;
                 }
@@ -92,11 +100,11 @@ class LayoutProcess extends Processor {
                 }
 
                 if (loop > 0) {
-                    for (var h = 0; h < loop; h++) {
-                        var add = h * (helpers.simpleWorldToViewY(1) * lloop[i].size * rh);
+                    for (let h = 0; h < loop; h++) {
+                        let add = h * (simpleWorldToViewY(1) * lloop[i].size * rh);
 
-                        var pd = this.calculatePd(x + add, y, xminus, yminus, lloop[i]);
-                        this.render(lloop[i], pd);
+                        let pd = calculatePd(x + add, y, xminus, yminus, lloop[i]);
+                        render(lloop[i], pd);
 
                     }
                 }
@@ -104,20 +112,20 @@ class LayoutProcess extends Processor {
 
             }
             if (lloop[i].children.length > 0) {
-                this.recursiveLayout(lloop[i].children, lloop[i]);
+                recursiveLayout(lloop[i].children, lloop[i]);
             }
         }
     }
 
 
-    setRectangle(x, y, x2, y2) {
-        var x1 = x;
-        var x2 = x2;
-        var y1 = y;
-        var y2 = y2;
+    let setRectangle = function (x, y, x2, y2) {
+        let x1 = x;
+        let x2 = x2;
+        let y1 = y;
+        let y2 = y2;
 
 
-        var ret = [
+        let ret = [
             x2, y1,
             x1, y1,
             x1, y2,
@@ -132,20 +140,20 @@ class LayoutProcess extends Processor {
     }
 
 
-    render(layout, pd) {
+    let render = function (layout, pd) {
 
 
         camera.mvPushMatrix();
 
         this.vertBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
 
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
 
-        gl.vertexAttribPointer(this.program.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(program.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
-        gl.vertexAttribPointer(this.program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+        gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, layout.component.sprite.texture);
@@ -161,16 +169,17 @@ class LayoutProcess extends Processor {
     }
 
 
-    draw() {
+    let draw = function () {
 
 
-        sm.setProgram(this.program);
+        sm.setProgram(program);
 
 
-        this.recursiveLayout(lm, false);
+        recursiveLayout(lm, false);
 
 
     }
+    return {}
 
 
 }

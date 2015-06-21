@@ -1,10 +1,10 @@
-class RadarComponent extends Component {
-    constructor(sprite) {
-        this.name = "RadarComponent";
+function RadarComponent(sprite) {
+    //constructor(sprite) {
+    let name = "RadarComponent";
 
-        this.sprite = sprite;
+    let sprite = sprite;
 
-    }
+    return {name, sprite}
 
 
 }

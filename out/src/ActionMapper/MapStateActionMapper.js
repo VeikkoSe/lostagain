@@ -1,32 +1,15 @@
-var MapStateActionMapper = function MapStateActionMapper() {
-  "use strict";
-};
-($traceurRuntime.createClass)(MapStateActionMapper, {
-  handleKeyDown: function(event) {
-    "use strict";
+function map_action_mapper(sb) {
+  var handleKeyDown = function(event) {
     $traceurRuntime.setProperty(currentlyPressedKeys, event.keyCode, true);
-  },
-  handleKeyUp: function(event) {
-    "use strict";
+  };
+  var handleKeyUp = function(event) {
     $traceurRuntime.setProperty(currentlyPressedKeys, event.keyCode, false);
-  },
-  handleKeys: function() {
-    "use strict";
-    if (currentlyPressedKeys[49]) {
-      loadManager.loadLevel('first');
-      game.currentLevel = 'first';
-    }
-    if (currentlyPressedKeys[50]) {
-      loadManager.loadLevel('second');
-      game.currentLevel = 'second';
-    }
-    if (currentlyPressedKeys[51]) {
-      loadManager.loadLevel('third');
-      game.currentLevel = 'third';
-    }
-    if (currentlyPressedKeys[52]) {
-      game.stateEngine.changeState("mapstate");
-    }
+  };
+  var handleKeys = function() {
+    if (currentlyPressedKeys[49]) {}
+    if (currentlyPressedKeys[50]) {}
+    if (currentlyPressedKeys[51]) {}
+    if (currentlyPressedKeys[52]) {}
     var map = em.getEntityByName('map');
     if (map) {
       map.components.MapComponent.movingUp = 0;
@@ -54,10 +37,10 @@ var MapStateActionMapper = function MapStateActionMapper() {
       }
     }
     if (currentlyPressedKeys[77]) {
-      game.stateEngine.changeState("gamestate");
+      sb.publish("loadstate", 'gamestate');
     }
-  },
-  handleMouseDown: function(event) {
-    "use strict";
-  }
-}, {});
+  };
+  var handleMouseDown = function(event) {
+    sb.publish("loadstate", 'gamestate');
+  };
+}

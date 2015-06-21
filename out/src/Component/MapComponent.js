@@ -1,21 +1,20 @@
-var MapComponent = function MapComponent() {
-  "use strict";
-  this.name = "MapComponent";
-  this.xGridWorldPos = 0;
-  this.yGridWorldPos = 0;
-  this.xPlayerPos = 0;
-  this.yPlayerPos = 0;
-  this.width = 0;
-  this.height = 0;
-  this.visited = {};
-  this.holes = {};
-  this.xEndBoss = 5;
-  this.yEndBoss = 5;
-  this.movingUp = 0;
-  this.movingDown = 0;
-  this.movingLeft = 0;
-  this.movingRight = 0;
-  this.selecting = false;
-  this.selectMap = false;
-};
-($traceurRuntime.createClass)(MapComponent, {}, {}, Component);
+function MapComponent() {
+  var name = "MapComponent";
+  var xGridWorldPos = 0;
+  var yGridWorldPos = 0;
+  var xPlayerPos = 0;
+  var yPlayerPos = 0;
+  var width = 0;
+  var height = 0;
+  var visited = {};
+  var holes = {};
+  var xEndBoss = 5;
+  var yEndBoss = 5;
+  var movingUp = 0;
+  var movingDown = 0;
+  var movingLeft = 0;
+  var movingRight = 0;
+  var selecting = false;
+  var selectMap = false;
+  return {};
+}

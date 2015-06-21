@@ -1,83 +1,77 @@
-var ShaderManager = function ShaderManager() {
-  "use strict";
-  this.allShaders = [];
-  this.currentProgram = null;
-};
-($traceurRuntime.createClass)(ShaderManager, {
-  setProgram: function(program) {
-    "use strict";
-    if (this.currentProgram != null && this.currentProgram.name == program.name) {
+function shader_manager_constuctor(gl) {
+  var allShaders = [];
+  var currentProgram = null;
+  var setProgram = function(program) {
+    if (currentProgram != null && currentProgram.name == program.name) {
       return true;
     } else {
       gl.useProgram(program);
     }
-  },
-  init: function(name) {
-    "use strict";
-    if (this.allShaders[$traceurRuntime.toProperty(name)]) {
-      return this.allShaders[$traceurRuntime.toProperty(name)];
+  };
+  var subscribe = function() {};
+  var init = function(name) {
+    if (allShaders[$traceurRuntime.toProperty(name)]) {
+      return allShaders[$traceurRuntime.toProperty(name)];
     }
     switch (name) {
       case "particle":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initParticleShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initParticleShaders(name));
         break;
       case "maps":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initMapShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initMapShaders(name));
         break;
       case "simplest":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initSimplestShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initSimplestShaders(name));
         break;
       case "blurvertical":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initBlurShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initBlurShaders(name));
         break;
       case 'blurhorizontal':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initBlurShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initBlurShaders(name));
         break;
       case 'per-fragment-lighting':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initShaders(name));
         break;
       case 'ambient':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initAmbientShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initAmbientShaders(name));
         break;
       case 'font':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initFontShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initFontShaders(name));
         break;
       case 'font2d':
-        $traceurRuntime.setProperty(this.allShaders, name, this.initFontShaders2d(name));
+        $traceurRuntime.setProperty(allShaders, name, initFontShaders2d(name));
         break;
       case "star":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initStarShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initStarShaders(name));
         break;
       case "particle3d":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initParticleShaders3d(name));
+        $traceurRuntime.setProperty(allShaders, name, initParticleShaders3d(name));
         break;
       case "exhaust":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initExhaustShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initExhaustShaders(name));
         break;
       case "gui":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initGuiShader(name));
+        $traceurRuntime.setProperty(allShaders, name, initGuiShader(name));
         break;
       case "lifetimeparticle":
-        $traceurRuntime.setProperty(this.allShaders, name, this.initLifeTimeParticleShaders(name));
+        $traceurRuntime.setProperty(allShaders, name, initLifeTimeParticleShaders(name));
         break;
     }
-    return this.allShaders[$traceurRuntime.toProperty(name)];
-  },
-  createP: function(id) {
-    "use strict";
+    return allShaders[$traceurRuntime.toProperty(name)];
+  };
+  var createP = function(id) {
     var program = gl.createProgram();
     gl.createProgram();
-    this.getShader(id, program);
+    getShader(id, program);
     gl.linkProgram(program);
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
       alert("Could not initialise shaders");
     }
     program.name = id;
     return program;
-  },
-  initExhaustShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initExhaustShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
@@ -86,10 +80,9 @@ var ShaderManager = function ShaderManager() {
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");
     return program;
-  },
-  initMapShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initMapShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.aTextureCoord = gl.getAttribLocation(program, "aTextureCoord");
@@ -98,20 +91,17 @@ var ShaderManager = function ShaderManager() {
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");
     return program;
-  },
-  initSimplestShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initSimplestShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
-    program.uColor = gl.getUniformLocation(program, "uColor");
     return program;
-  },
-  initVerticalBlurShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initVerticalBlurShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
@@ -119,10 +109,9 @@ var ShaderManager = function ShaderManager() {
     program.uResolution = gl.getUniformLocation(program, "uResolution");
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");
     return program;
-  },
-  initBlurShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initBlurShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
@@ -133,10 +122,9 @@ var ShaderManager = function ShaderManager() {
     }
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");
     return program;
-  },
-  initAmbientShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initAmbientShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.aWorldCoordinates = gl.getAttribLocation(program, "aWorldCoordinates");
@@ -148,10 +136,9 @@ var ShaderManager = function ShaderManager() {
     program.uVisibility = gl.getUniformLocation(program, "uVisibility");
     program.uCameraPos = gl.getUniformLocation(program, "uCameraPos");
     return program;
-  },
-  initParticleShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initParticleShaders = function(id) {
+    var program = createP(id);
     program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
     gl.enableVertexAttribArray(program.pointStartPositionAttribute);
     program.positionUniform = gl.getUniformLocation(program, "uPosition");
@@ -159,10 +146,9 @@ var ShaderManager = function ShaderManager() {
     program.colorUniform = gl.getUniformLocation(program, "uColor");
     program.pointSize = gl.getUniformLocation(program, "uPointsize");
     return program;
-  },
-  initParticleShaders3d: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initParticleShaders3d = function(id) {
+    var program = createP(id);
     program.positionUniform = gl.getUniformLocation(program, "uPosition");
     program.samplerUniform = gl.getUniformLocation(program, "sTexture");
     program.colorUniform = gl.getUniformLocation(program, "uColor");
@@ -170,20 +156,18 @@ var ShaderManager = function ShaderManager() {
     program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     return program;
-  },
-  initGuiShader: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initGuiShader = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
     gl.enableVertexAttribArray(program.textureCoordAttribute);
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");
     return program;
-  },
-  initStarShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initStarShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.aPointSize = gl.getAttribLocation(program, "aPointSize");
@@ -191,10 +175,9 @@ var ShaderManager = function ShaderManager() {
     program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     return program;
-  },
-  initShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
@@ -217,10 +200,9 @@ var ShaderManager = function ShaderManager() {
     program.uDrawColors = gl.getUniformLocation(program, "uDrawColors");
     program.uDrawColor = gl.getUniformLocation(program, "uDrawColor");
     return program;
-  },
-  initParticleShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initParticleShaders = function(id) {
+    var program = createP(id);
     program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
     gl.enableVertexAttribArray(program.pointStartPositionAttribute);
     program.positionUniform = gl.getUniformLocation(program, "uPosition");
@@ -228,9 +210,8 @@ var ShaderManager = function ShaderManager() {
     program.colorUniform = gl.getUniformLocation(program, "uColor");
     program.pointSize = gl.getUniformLocation(program, "uPointsize");
     return program;
-  },
-  initLifeTimeParticleShaders: function(id) {
-    "use strict";
+  };
+  var initLifeTimeParticleShaders = function(id) {
     var program = this.createP(id);
     program.pointLifetimeAttribute = gl.getAttribLocation(program, "aLifetime");
     gl.enableVertexAttribArray(program.pointLifetimeAttribute);
@@ -245,10 +226,9 @@ var ShaderManager = function ShaderManager() {
     program.colorUniform = gl.getUniformLocation(program, "uColor");
     program.timeUniform = gl.getUniformLocation(program, "uTime");
     return program;
-  },
-  initFontShaders: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initFontShaders = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
@@ -257,10 +237,9 @@ var ShaderManager = function ShaderManager() {
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");
     return program;
-  },
-  initFontShaders2d: function(id) {
-    "use strict";
-    var program = this.createP(id);
+  };
+  var initFontShaders2d = function(id) {
+    var program = createP(id);
     program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
     gl.enableVertexAttribArray(program.aVertexPosition);
     program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
@@ -269,9 +248,8 @@ var ShaderManager = function ShaderManager() {
     program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
     program.samplerUniform = gl.getUniformLocation(program, "uSampler");
     return program;
-  },
-  getShader: function(id, program) {
-    "use strict";
+  };
+  var getShader = function(id, program) {
     var vs_source = null,
         fs_source = null;
     $.ajax({
@@ -308,5 +286,10 @@ var ShaderManager = function ShaderManager() {
     }
     gl.attachShader(program, vsshader);
     gl.attachShader(program, fsshader);
-  }
-}, {});
+  };
+  return {
+    init: init,
+    setProgram: setProgram,
+    subscribe: subscribe
+  };
+}

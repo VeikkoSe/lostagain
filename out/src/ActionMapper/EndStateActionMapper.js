@@ -1,19 +1,23 @@
-var EndStateActionMapper = function EndStateActionMapper() {
-  "use strict";
-};
-($traceurRuntime.createClass)(EndStateActionMapper, {
-  handleKeyDown: function(event) {
-    "use strict";
+function end_action_mapper(sb) {
+  var currentlyPressedKeys = [];
+  var handleKeyDown = function(event) {
     $traceurRuntime.setProperty(currentlyPressedKeys, event.keyCode, true);
-  },
-  handleKeyUp: function(event) {
-    "use strict";
+  };
+  var handleKeyUp = function(event) {
     $traceurRuntime.setProperty(currentlyPressedKeys, event.keyCode, false);
-  },
-  handleKeys: function() {
-    "use strict";
-  },
-  handleMouseDown: function(event) {
-    "use strict";
-  }
-}, {});
+  };
+  var handleKeys = function() {
+    if (currentlyPressedKeys[32]) {
+      sb.publish("loadstate", 'introstate');
+    }
+  };
+  var handleMouseDown = function(event) {
+    sb.publish("loadstate", 'introstate');
+  };
+  return Object.freeze({
+    handleKeyDown: handleKeyDown,
+    handleKeyUp: handleKeyUp,
+    handleKeys: handleKeys,
+    handleMouseDown: handleMouseDown
+  });
+}

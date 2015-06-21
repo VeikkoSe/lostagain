@@ -1,11 +1,13 @@
-class ShieldComponent extends Component {
-    constructor(amount, sprite = null) {
-        this.name = "ShieldComponent";
-        this.amount = amount;
-        this.sprite = sprite;
+function ShieldComponent(amount, sprite) {
+    //constructor(amount, sprite = null) {
+    let name = "ShieldComponent";
+    let amount = amount;
+    let sprite = sprite;
 
 
-    }
+    //}
+
+    return {name, amount, sprite}
 
 
 }

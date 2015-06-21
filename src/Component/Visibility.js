@@ -1,10 +1,14 @@
-class Visibility extends Component {
-    constructor(visibility = true) {
+function VisibilityComponent(params) {
 
-        this.name = "Visibility";
-        this.visibility = visibility;
+    let {visibility} = params;
+    let name = "VisibilityComponent";
 
 
-    }
+    return Object.freeze({
+        name,
+        visibility
+    });
+
 
 }
+

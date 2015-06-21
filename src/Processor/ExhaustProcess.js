@@ -1,43 +1,49 @@
-class ExhaustProcess extends Processor {
-    constructor() {
-        //this.exhaustAmount = 200;
-        //this.exhaustInterval = 50;
-        //this.exhaustTrail = [];
+function exhaustprocess_constructor(sb) {
+    //constructor() {
+    //this.exhaustAmount = 200;
+    //this.exhaustInterval = 50;
+    //this.exhaustTrail = [];
 
-        this.lastTime = 0;
-        this.exhaustProgram = sm.init('exhaust');
-        this.elapsedTotal = 0;
+    let lastTime = 0;
+    let exhaustProgram = sm.init('exhaust');
+    let elapsedTotal = 0;
+    let gl = sb.getGL();
 
-        this.vertexPositionBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+    let vertexPositionBuffer = gl.createBuffer();
 
+    let texturePositionBuffer = gl.createBuffer();
 
-        this.texturePositionBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
+    let camera = sb.getCamera();
 
+    let init = function () {
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+        gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
     }
 
 
-    pushArray(arr, arr2) {
+    //}
+
+
+    let pushArray = function (arr, arr2) {
         arr.push.apply(arr, arr2);
     }
 
 
-    updateTail(exhaustComponent, renderableComponent) {
+    let updateTail = function (exhaustComponent, renderableComponent) {
 
 
-        var re = renderableComponent;
-        var ec = exhaustComponent;
+        let re = renderableComponent;
+        let ec = exhaustComponent;
 
 
-        var posX = re.xPos;
-        var posZ = re.zPos;
+        let posX = re.xPos;
+        let posZ = re.zPos;
 
-        var unitX = Math.cos(helpers.degToRad(re.angleY));
-        var unitZ = Math.sin(helpers.degToRad(re.angleY));
+        let unitX = Math.cos(degToRad(re.angleY));
+        let unitZ = Math.sin(degToRad(re.angleY));
 
-        var rendX = (posX - (unitX * ec.offSetSideFromCenter)) - ((-1 * unitZ) * ec.offSetFromCenter);
-        var rendZ = (posZ + (unitZ * ec.offSetSideFromCenter)) + (unitX * ec.offSetFromCenter);
+        let rendX = (posX - (unitX * ec.offSetSideFromCenter)) - ((-1 * unitZ) * ec.offSetFromCenter);
+        let rendZ = (posZ + (unitZ * ec.offSetSideFromCenter)) + (unitX * ec.offSetFromCenter);
 
 
         //drop from the end of array
@@ -45,10 +51,10 @@ class ExhaustProcess extends Processor {
             ec.flow.shift();
             ec.flow.shift();
             ec.flow.shift();
-            for (var i = 0; i < 18; i++)
+            for (let i = 0; i < 18; i++)
                 ec.points.shift();
 
-            for (var i = 0; i < 12; i++)
+            for (let i = 0; i < 12; i++)
                 ec.texturecoordinates.shift();
 
         }
@@ -61,11 +67,11 @@ class ExhaustProcess extends Processor {
 
         }
 
-        var xd = rendX - ec.flow[ec.flow.length - 3];
-        var zd = rendZ - ec.flow[ec.flow.length - 1];
-        var xdh = xd / 2;
-        var zdh = zd / 2;
-        var distance = Math.sqrt(xd * xd + zd * zd);
+        let xd = rendX - ec.flow[ec.flow.length - 3];
+        let zd = rendZ - ec.flow[ec.flow.length - 1];
+        let xdh = xd / 2;
+        let zdh = zd / 2;
+        let distance = Math.sqrt(xd * xd + zd * zd);
 
 
         //when to create new
@@ -77,7 +83,7 @@ class ExhaustProcess extends Processor {
                 //quarter of a turn. That means if blue = (x, y), red = (-y, x)
 
 
-                var i = 0;
+                let i = 0;
                 //first triangle
                 ec.square[i++] = ec.points[ec.points.length - 6];
                 ec.square[i++] = 0;
@@ -105,7 +111,7 @@ class ExhaustProcess extends Processor {
                 ec.square[i++] = 0;
                 ec.square[i++] = -1 * xdh + rendZ;
 
-                for (var i = 0; i < 18; i++) {
+                for (let i = 0; i < 18; i++) {
                     ec.points.push(ec.square[i]);
                 }
 
@@ -175,27 +181,27 @@ class ExhaustProcess extends Processor {
 
     }
 
-    update(deltatime) {
+    let update = function (deltatime) {
 
 
-        var timeNow = new Date().getTime();
+        let timeNow = new Date().getTime();
 
 
-        var elapsed = timeNow - this.lastTime;
-        this.elapsedTotal += elapsed;
+        let elapsed = timeNow - lastTime;
+        elapsedTotal += elapsed;
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
 
             if (le.components.ExhaustComponent) {
 
-                this.updateTail(le.components.ExhaustComponent, le.components.Renderable);
+                updateTail(le.components.ExhaustComponent, le.components.Renderable);
 
             }
 
             if (le.components.MultiExhaustComponent) {
-                for (var i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++) {
+                for (let i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++) {
                     this.updateTail(le.components.MultiExhaustComponent.exhaustComponents[i], le.components.Renderable);
                 }
             }
@@ -206,12 +212,12 @@ class ExhaustProcess extends Processor {
     }
 
 
-    drawTail(exhaustComponent) {
-        var ec = exhaustComponent;
-        //for (var i = 0; i < this.exhaustAmount; i++) {
+    let drawTail = function (exhaustComponent) {
+        let ec = exhaustComponent;
+        //for (let i = 0; i < this.exhaustAmount; i++) {
 
         if (ec.points.length > 8) {
-            sm.setProgram(this.exhaustProgram);
+            sm.setProgram(exhaustProgram);
 
             gl.enable(gl.BLEND);
             gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
@@ -221,23 +227,23 @@ class ExhaustProcess extends Processor {
 
             gl.bindTexture(gl.TEXTURE_2D, ec.sprite);
 
-            gl.uniform1i(this.exhaustProgram.samplerUniform, 0);
+            gl.uniform1i(exhaustProgram.samplerUniform, 0);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
-            gl.vertexAttribPointer(this.exhaustProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+            gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
+            gl.vertexAttribPointer(exhaustProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ec.texturecoordinates), gl.STATIC_DRAW);
 
 
             camera.mvPushMatrix();
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+            gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
 
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ec.points), gl.STATIC_DRAW);
 
-            gl.vertexAttribPointer(this.exhaustProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribPointer(exhaustProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-            gl.uniformMatrix4fv(this.exhaustProgram.uPMatrix, false, camera.pMatrix);
-            gl.uniformMatrix4fv(this.exhaustProgram.uMVMatrix, false, camera.mvMatrix);
+            gl.uniformMatrix4fv(exhaustProgram.uPMatrix, false, camera.pMatrix);
+            gl.uniformMatrix4fv(exhaustProgram.uMVMatrix, false, camera.mvMatrix);
             //gl.drawArrays(gl.LINE_STRIP, 0, ec.points.length/3);
             gl.drawArrays(gl.TRIANGLES, 0, ec.points.length / 3);
             camera.drawCalls++;
@@ -250,22 +256,22 @@ class ExhaustProcess extends Processor {
         }
     }
 
-    draw() {
+    let draw = function () {
 
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if ((le.components.ExhaustComponent || le.components.MultiExhaustComponent) && le.components.HealthComponent.amount > 0) {
 
 
                 if (le.components.ExhaustComponent) {
-                    this.drawTail(le.components.ExhaustComponent);
+                    drawTail(le.components.ExhaustComponent);
                 }
                 if (le.components.MultiExhaustComponent) {
 
-                    for (var i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++)
-                        this.drawTail(le.components.MultiExhaustComponent.exhaustComponents[i]);
+                    for (let i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++)
+                        drawTail(le.components.MultiExhaustComponent.exhaustComponents[i]);
 
                 }
 
@@ -276,6 +282,8 @@ class ExhaustProcess extends Processor {
         }
 
     }
+
+    return {}
 
 
     //}

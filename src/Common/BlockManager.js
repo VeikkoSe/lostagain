@@ -10,11 +10,11 @@ class BlockManager {
         this.blockSize = 256;
         this.part = this.mapSize / this.blockSize;
 
-        var d = 0;
+        let d = 0;
 
 
-        var cnt = this.part * this.part;
-        for (var s = 0; s < cnt; s++) {
+        let cnt = this.part * this.part;
+        for (let s = 0; s < cnt; s++) {
 
             this.parts[s] = [];
             if (s - this.part - 1 >= 0 && (s - this.part) % this.part != 0) {
@@ -42,6 +42,7 @@ class BlockManager {
                 this.parts[s].push(s + this.part + 1);
             }
 
+
         }
 
 
@@ -59,7 +60,7 @@ class BlockManager {
 
 
         //tmp
-        for (var i = 0; i < this.parts[this.currentBlock].length; i++) {
+        for (let i = 0; i < this.parts[this.currentBlock].length; i++) {
             if (block == this.parts[this.currentBlock][i])
                 return true;
         }
@@ -72,10 +73,10 @@ class BlockManager {
 
     getBlockFromXY(x, y) {
 
-        var block = 0;
-        var chosenblock = -1;
-        for (var yloop = 0; yloop < this.mapSize; yloop = yloop + this.blockSize) {
-            for (var xloop = 0; xloop < this.mapSize; xloop = xloop + this.blockSize) {
+        let block = 0;
+        let chosenblock = -1;
+        for (let yloop = 0; yloop < this.mapSize; yloop = yloop + this.blockSize) {
+            for (let xloop = 0; xloop < this.mapSize; xloop = xloop + this.blockSize) {
                 if (x >= xloop && x < xloop + this.blockSize && y >= yloop && y < yloop + this.blockSize) {
                     chosenblock = block;
                     break;

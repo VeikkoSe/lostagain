@@ -1,6 +1,8 @@
-var RadarComponent = function RadarComponent(sprite) {
-  "use strict";
-  this.name = "RadarComponent";
-  this.sprite = sprite;
-};
-($traceurRuntime.createClass)(RadarComponent, {}, {}, Component);
+function RadarComponent(sprite) {
+  var name = "RadarComponent";
+  var sprite = sprite;
+  return {
+    name: name,
+    sprite: sprite
+  };
+}

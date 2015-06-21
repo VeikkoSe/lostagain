@@ -1,10 +1,11 @@
-class HexItem extends Component {
-    constructor(itemName) {
+function HexItemConstructor(itemName) {
+    //constructor(itemName) {
 
-        this.name = "HexItem";
-        this.itemName = itemName;
+    let name = "HexItemConstructor";
+    let itemName = itemName;
 
 
-    }
+    //}
+    return {name}
 
 }

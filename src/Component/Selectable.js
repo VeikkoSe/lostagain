@@ -1,11 +1,14 @@
-class Selectable extends Component {
+function SelectableComponent() {
 
-    constructor() {
-        this.name = "Selectable";
-        this.selected = false;
-        this.color = picker.createColor();
+    //constructor() {
+    let name = "SelectableComponent";
+    let selected = false;
+    //let color = picker.createColor();
 
 
+    //}
+    return {
+        name, selected
     }
 
 

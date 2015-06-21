@@ -1,7 +1,10 @@
-class AsteroidComponent extends Component {
-    constructor() {
-        this.name = "AsteroidComponent";
-    }
+function asteroidcomponent_constructor() {
+
+    let name = "AsteroidComponent";
+
+    return Object.freeze({
+        name
+    });
 
 
 }

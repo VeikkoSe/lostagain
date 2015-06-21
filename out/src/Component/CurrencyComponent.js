@@ -1,6 +1,5 @@
-var CurrencyComponent = function CurrencyComponent(sprite) {
-  "use strict";
-  this.name = "CurrencyComponent";
-  this.sprite = sprite;
-};
-($traceurRuntime.createClass)(CurrencyComponent, {}, {}, Component);
+function CurrencyComponent(sprite) {
+  var name = "CurrencyComponent";
+  var sprite = sprite;
+  return {name: name};
+}

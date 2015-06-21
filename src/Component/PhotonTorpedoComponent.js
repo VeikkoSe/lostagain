@@ -1,9 +1,10 @@
-class PhotonTorpedoComponent extends Component {
-    constructor(sprite) {
-        this.name = 'PhotonTorpedoComponent';
+function PhotonTorpedoComponent(sprite) {
+    //constructor() {
+    let name = 'PhotonTorpedoComponent';
 
-        this.sprite = sprite;
+    let sprite = sprite;
 
 
-    }
+    return {name, sprite}
+
 }

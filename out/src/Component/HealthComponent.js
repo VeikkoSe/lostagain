@@ -1,8 +1,7 @@
-var HealthComponent = function HealthComponent(amount) {
-  "use strict";
+function HealthComponent(amount) {
   var sprite = arguments[1] !== (void 0) ? arguments[1] : null;
-  this.name = "HealthComponent";
-  this.amount = amount;
-  this.sprite = sprite;
-};
-($traceurRuntime.createClass)(HealthComponent, {}, {}, Component);
+  var name = "HealthComponent";
+  var amount = amount;
+  var sprite = sprite;
+  return {name: name};
+}

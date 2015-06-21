@@ -1,15 +1,23 @@
-var Movable = function Movable() {
-  "use strict";
+function Movable() {
   var speed = arguments[0] !== (void 0) ? arguments[0] : 0.1;
-  this.name = "Movable";
-  this.newXpos = false;
-  this.newYpos = false;
-  this.newZpos = false;
-  this.path = {};
-  this.angle = 90;
-  this.lt = 0;
-  this.speed = speed;
-  this.acceleration = 5;
-  this.gas = 1;
-};
-($traceurRuntime.createClass)(Movable, {}, {}, Component);
+  var name = "Movable";
+  var newXpos = false;
+  var newYpos = false;
+  var newZpos = false;
+  var path = {};
+  var angle = 90;
+  var lt = 0;
+  var speed = speed;
+  var acceleration = 5;
+  return {
+    name: name,
+    newXpos: newXpos,
+    newYpos: newYpos,
+    newZpos: newZpos,
+    path: path,
+    angle: angle,
+    lt: lt,
+    speed: speed,
+    acceleration: acceleration
+  };
+}

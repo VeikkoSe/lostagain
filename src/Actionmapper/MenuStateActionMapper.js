@@ -1,35 +1,41 @@
-class MenuStateActionMapper {
-
-    constructor() {
-
-    }
+function menu_action_mapper(sb) {
 
 
-    handleKeyDown(event) {
+    let handleKeyDown = function (event) {
 
         currentlyPressedKeys[event.keyCode] = true;
     }
 
 
-    handleKeyUp(event) {
+    let handleKeyUp = function (event) {
 
         currentlyPressedKeys[event.keyCode] = false;
     }
 
 
-    handleKeys() {
+    let handleKeys = function () {
 
 
         if (currentlyPressedKeys[32]) {
 
-            game.stateEngine.changeState("loadtate");
+            // game.stateEngine.changeState("loadtate");
         }
     }
 
-    handleMouseDown(event) {
+    let handleMouseDown = function (event) {
 
         //game.stateEngine.changeState("gamestate");
     }
+
+
+    return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+        handleKeyDown,
+        handleKeyUp,
+        handleKeys,
+        handleMouseDown
+
+
+    });
 
 
 }

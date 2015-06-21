@@ -1,16 +1,16 @@
-class CameraControllerProcess extends Processor {
+function cameracontrollerprocess_constructor(sb) {
+    let camera = sb.getCamera();
+
+    let update = function (deltatime) {
 
 
-    update(deltatime) {
-
-
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
 
             if (le.components.CameraController && le.components.Renderable) {
 
-                var re = le.components.Renderable;
+                let re = le.components.Renderable;
 
 
                 camera.x = -1 * re.xPos;
@@ -19,8 +19,11 @@ class CameraControllerProcess extends Processor {
 
 
             }
+
         }
     }
+
+    return {}
 
 
 }

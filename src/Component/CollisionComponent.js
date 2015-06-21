@@ -1,18 +1,27 @@
-class CollisionComponent extends Component {
-    constructor(group) {
-        this.name = "CollisionComponent";
-        this.group = group;
-        this.xPos = null;
-        this.yPos = null;
-        this.zPos = null;
-        this.xWidth = null;
-        this.yWidth = null;
-        this.zWidth = null;
-        this.entity = null;
+function CollisionComponent() {
 
-    }
+    let name = "CollisionComponent";
+    let group = group;
+    let xPos = null;
+    let yPos = null;
+    let zPos = null;
+    let xWidth = null;
+    let yWidth = null;
+    let zWidth = null;
+    let entity = null;
+
+
+    return Object.freeze({
+        name,
+        group,
+        xPos,
+        zPos,
+        xWidth,
+        yWidth,
+        zWidth,
+        entity
+    });
 
 
 }
-
 

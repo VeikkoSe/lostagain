@@ -1,21 +1,23 @@
-class Movable extends Component {
-    constructor(speed = 0.1) {
+function Movable(speed = 0.1) {
+    //constructor(speed = 0.1) {
 
-        this.name = "Movable";
+    let name = "Movable";
 
-        this.newXpos = false;
-        this.newYpos = false;
-        this.newZpos = false;
-        this.path = {};
+    let newXpos = false;
+    let newYpos = false;
+    let newZpos = false;
+    let path = {};
 
-        this.angle = 90;
-        this.lt = 0;
-        this.speed = speed;
-        this.acceleration = 5;
-        //every jump in the map takes one unit of gas
-        this.gas = 1;
+    let angle = 90;
+    let lt = 0;
+    let speed = speed;
+    let acceleration = 5;
+    //every jump in the map takes one unit of gas
+    //let gas = 1;
 
 
-    }
+//    }
+
+    return {name, newXpos, newYpos, newZpos, path, angle, lt, speed, acceleration}
 
 }

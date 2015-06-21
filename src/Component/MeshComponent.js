@@ -1,12 +1,15 @@
-class MeshComponent extends Component {
-    constructor(mesh, width = 1) {
-        this.name = "MeshComponent";
-        this.mesh = mesh;
+function MeshComponent(params) {
 
-        this.width = width;
+    let {mesh,width} = params;
+    let name = "MeshComponent";
 
 
-    }
+    return Object.freeze({
+        name,
+        mesh,
+        width
+    });
 
 
 }
+

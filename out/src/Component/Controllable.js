@@ -1,5 +1,4 @@
-var Controllable = function Controllable() {
-  "use strict";
-  this.name = "Controllable";
-};
-($traceurRuntime.createClass)(Controllable, {}, {}, Component);
+function Controllable() {
+  var name = "Controllable";
+  return {name: name};
+}

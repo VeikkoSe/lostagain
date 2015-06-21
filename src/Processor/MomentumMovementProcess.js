@@ -1,14 +1,14 @@
-class MomentumMovementProcess extends Processor {
-    constructor() {
+function momemtummovementprocess_constructor() {
+    //constructor() {
 
 
-    }
+    //}
 
 
-    update(deltatime) {
+    let update = function (deltatime) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
                 continue;
@@ -16,8 +16,8 @@ class MomentumMovementProcess extends Processor {
 
             if (le.components.MomentumMovable && le.components.Renderable) {
 
-                var mm = le.components.MomentumMovable;
-                var re = le.components.Renderable;
+                let mm = le.components.MomentumMovable;
+                let re = le.components.Renderable;
                 /*
                  if ((helpers.isNumeric(mm.routeEndXpos) && helpers.isNumeric(mm.routeEndZpos)) &&
                  (helpers.isClose(re.xPos, mm.routeEndXpos) && helpers.isClose(re.zPos, mm.routeEndZpos))) {
@@ -31,15 +31,15 @@ class MomentumMovementProcess extends Processor {
 
                  //Create a vector in the direction
 
-                 var dirX = mm.routeEndXpos - re.xPos;
-                 var dirZ = mm.routeEndZpos - re.zPos;
+                 let dirX = mm.routeEndXpos - re.xPos;
+                 let dirZ = mm.routeEndZpos - re.zPos;
 
                  //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
-                 var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
+                 let hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
 
-                 var angR = Math.atan2(dirX, dirZ);
-                 var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
+                 let angR = Math.atan2(dirX, dirZ);
+                 let deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
 
                  dirX /= hyp;
                  dirZ /= hyp;
@@ -59,17 +59,17 @@ class MomentumMovementProcess extends Processor {
                 if (mm.accelerationOn) {
 
 
-                    var dirVectorX = Math.cos(helpers.degToRad(re.angleY));
+                    let dirVectorX = Math.cos(degToRad(re.angleY));
                     //result works but re.zPos is minus instead of addition in the end
-                    var dirVectorZ = Math.sin(helpers.degToRad(re.angleY));
+                    let dirVectorZ = Math.sin(degToRad(re.angleY));
 
-                    var tx = mm.velocityX;
-                    var tz = mm.velocityZ;
+                    let tx = mm.velocityX;
+                    let tz = mm.velocityZ;
 
                     tx += mm.acceleration * dirVectorX * (deltatime / 1000);
                     tz += mm.acceleration * dirVectorZ * (deltatime / 1000);
-                    var posX = (tx < 0) ? tx * -1 : tx;
-                    var posZ = (tz < 0) ? tz * -1 : tz;
+                    let posX = (tx < 0) ? tx * -1 : tx;
+                    let posZ = (tz < 0) ? tz * -1 : tz;
 
                     //we cant go past top speed on x or z axel but allow deasselerating
                     if (posX < mm.speed && posZ < mm.speed) {
@@ -107,48 +107,6 @@ class MomentumMovementProcess extends Processor {
     }
 
 
-    /*
-     checkHit() {
-
-
-     for (var j = 0; j < game.stateEngine.gameState.asteroids.asteroids.length; j++) {
-
-     if (game.stateEngine.gameState.asteroids.asteroids[j].visible == 1 &&
-     this.xPos > game.stateEngine.gameState.asteroids.asteroids[j].xPos - 4 &&
-     this.xPos < game.stateEngine.gameState.asteroids.asteroids[j].xPos + 4 &&
-     this.yPos > game.stateEngine.gameState.asteroids.asteroids[j].yPos - 4 &&
-     this.yPos < game.stateEngine.gameState.asteroids.asteroids[j].yPos + 4
-     ) {
-     this.ships--;
-
-     }
-     }
-
-     if (this.ships < 1) {
-
-     game.stateEngine.changeState("endstate");
-     }
-
-
-     }
-
-     */
-    /*
-     newEngineSmoke(y, x) {
-
-     var particle = new EngineSmoke(this.angle);
-
-
-     particle.xPos = this.xPos;
-     particle.yPos = this.yPos;
-
-     particle.time = 0;
-     this.engineSmoke.push(particle);
-
-
-     }
-
-     */
-
+    return {}
 
 }

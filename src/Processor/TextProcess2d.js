@@ -1,42 +1,47 @@
-class TextProcess2d extends Processor {
-    constructor() {
+function text_process_2d_constructor(sb) {
+    //constructor() {
 
-        this.program = sm.init('gui');
+    let program = sm.init('gui');
 
-        this.text = new Text();
-        var t = new Texture('font', true);
-        this.texture = t.loadedTexture;
-        this.textBuffer = null;
-        //this.rotation = null;
-        this.currentString = '';
+    let text = new Text();
 
-        this.vertexPositionBuffer = gl.createBuffer();
+    let gl = sb.getGL();
+    let t = texture_constructor(sb);
+
+    let texture = t.loadedTexture;
+    let textBuffer = null;
+    let rotation = null;
+    let currentString = '';
+
+    let vertexPositionBuffer = gl.createBuffer();
+
+    let em = sb.getEntityManager();
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-        //this.squareBuffer.size = textBuffer.length / 5;
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+    //this.squareBuffer.size = textBuffer.length / 5;
 
 
-        var str = '';
-        var characterArray = this.text.textToC(str);
-        this.textBuffer = this.text.buildData(characterArray, true);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.textBuffer), gl.STATIC_DRAW);
+    let str = '';
+    let characterArray = text.textToC(str);
+    let textBuffer = text.buildData(characterArray, true);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
-    }
+    //}
 
-    update(deltatime, timeSinceStart) {
+    let update = function (deltatime, timeSinceStart) {
 
-        this.currentString = '';
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        currentString = '';
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
             if (le.components.TextComponent) {
-                var tc = le.components.TextComponent;
+                let tc = le.components.TextComponent;
 
-                for (var key in tc.texts) {
+                for (let key in tc.texts) {
                     if (tc.texts.hasOwnProperty(key)) {
 
                         if (parseInt(key, 10) < timeSinceStart) {
-                            this.currentString = tc.texts[key];
+                            currentString = tc.texts[key];
                         }
 
                     }
@@ -44,46 +49,46 @@ class TextProcess2d extends Processor {
 
             }
         }
-        if (this.currentString != '') {
-            var str = this.currentString;
-            var characterArray = this.text.textToC(str);
-            this.textBuffer = this.text.buildData(characterArray, true);
-            //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.textBuffer), gl.STATIC_DRAW);
+        if (currentString != '') {
+            let str = currentString;
+            let characterArray = text.textToC(str);
+            textBuffer = text.buildData(characterArray, true);
+            //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
         }
 
 
     }
 
 
-    draw() {
+    let draw = function () {
 
-        if (this.textBuffer == null && this.currentString != '') {
+        if (textBuffer == null && currentString != '') {
             return true;
         }
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if (le.components.TextComponent) {
-                sm.setProgram(this.program);
+                sm.setProgram(program);
                 camera.mvPushMatrix();
 
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-                gl.vertexAttribPointer(this.program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
-                gl.vertexAttribPointer(this.program.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
+                gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+                gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
+                gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
 
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.textBuffer), gl.STATIC_DRAW);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, this.texture);
-                gl.uniform1i(this.program.samplerUniform, 0);
+                gl.bindTexture(gl.TEXTURE_2D, texture);
+                gl.uniform1i(program.samplerUniform, 0);
 
-                //gl.uniformMatrix4fv(this.program.uPMatrix, false, camera.pMatrix);
-                //gl.uniformMatrix4fv(this.program.uMVMatrix, false, camera.mvMatrix);
+                //gl.uniformMatrix4fv(program.uPMatrix, false, camera.pMatrix);
+                //gl.uniformMatrix4fv(program.uMVMatrix, false, camera.mvMatrix);
 
 
-                gl.drawArrays(gl.TRIANGLES, 0, this.textBuffer.length / 5);
+                gl.drawArrays(gl.TRIANGLES, 0, textBuffer.length / 5);
 
                 camera.mvPopMatrix();
             }
@@ -92,4 +97,6 @@ class TextProcess2d extends Processor {
 
 
     }
+
+    return {}
 }

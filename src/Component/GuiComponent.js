@@ -1,11 +1,12 @@
-class GuiComponent extends Component {
-    constructor(sprites) {
-        this.name = "GuiComponent";
+function GuiComponent(sprites) {
+    //constructor(sprites) {
+    let name = "GuiComponent";
 
-        this.sprites = sprites;
+    let sprites = sprites;
 
 
-    }
+    //}
+    return {name}
 
 
 }

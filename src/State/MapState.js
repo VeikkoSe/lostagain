@@ -1,22 +1,26 @@
-class MapState extends StateEngine {
+function mapstate_constructor(sb) {
 
-    constructor(canvas) {
+    //constructor(canvas) {
 
-        this.wall = null;
+    let wall = null;
 
-        //this.starProcess = new StarProcess();
-        //this.wall = mm.getOrAddMesh('maps');
-
-
-        this.processList = [];
-        this.frameCount = 0;
-        this.lastTime = 0;
-        this.elapsedTotal = 0;
+    //this.starProcess = new StarProcess();
+    //this.wall = mm.getOrAddMesh('maps');
 
 
-    }
+    let processList = [];
+    let frameCount = 0;
+    let lastTime = 0;
+    let elapsedTotal = 0;
+    let camera = sb.getCamera();
+    let gl = sb.getGL();
+    let actionMapper = map_action_mapper(sb);
+    //let ef = sb.getEn
 
-    draw() {
+
+    //}
+
+    let draw = function () {
 
 
         gl.clearColor(0, 0, 0, 1.0);
@@ -24,8 +28,8 @@ class MapState extends StateEngine {
 
         camera.move();
 
-        for (var i = 0; i < this.processList.length; i++) {
-            this.processList[i].draw();
+        for (let i = 0; i < processList.length; i++) {
+            processList[i].draw();
         }
         camera.drawCalls = 0;
 
@@ -33,58 +37,57 @@ class MapState extends StateEngine {
     }
 
 
-    init() {
+    let init = function () {
 
 
-        actionMapper = new MapStateActionMapper();
+        actionMapper = map_action_mapper(sb);
 
         document.onkeydown = actionMapper.handleKeyDown;
         document.onkeyup = actionMapper.handleKeyUp;
         document.onmousemove = actionMapper.handleMouseMove;
         document.onmousedown = actionMapper.handleMouseDown;
 
-
-        this.processList = [];
+        processList = [];
         //this.processList.push(new MapProcess());
         //this.processList.push(new PrimitiveProcess());
-        this.processList.push(new RenderProcess());
-        this.processList.push(new StarProcess());
-        this.processList.push(new MapProcess());
-        this.processList.push(new MomentumMovementProcess());
+        processList.push(RenderProcess());
+        //processList.push(StarProcess());
+        //processList.push(MapProcess());
+        //processList.push(MomentumMovementProcess());
 
         camera.setPos(0, 0, 0, 45);
         camera.setDistance(50);
-
-        ef.createMap();
-        ef.createBareMotherShip();
-        ef.createStars();
-
+        /*
+         ef.createMap();
+         ef.createBareMotherShip();
+         ef.createStars();
+         */
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
 
         camera.setPerspective();
 
-        mat4.identity(camera.mvMatrix);
+        mat4.identity(camera.getMVMatrix());
         //mat4.translate(camera.mvMatrix, [-50, 0, -10]);
 
 
     }
 
 
-    update() {
+    let update = function () {
 
-        var timeNow = new Date().getTime();
+        let timeNow = new Date().getTime();
         actionMapper.handleKeys();
 
         this.frameCount++;
 
         if (this.lastTime != 0) {
 
-            var elapsed = timeNow - this.lastTime;
+            let elapsed = timeNow - this.lastTime;
             this.elapsedTotal += elapsed;
 
-            for (var i = 0; i < this.processList.length; i++) {
+            for (let i = 0; i < this.processList.length; i++) {
                 this.processList[i].update(elapsed, false);
             }
 
@@ -94,16 +97,29 @@ class MapState extends StateEngine {
 
     }
 
-    cleanup() {
+    let subscribe = function () {
 
-        document.onkeydown = null;
-        document.onkeyup = null;
-        document.onmousemove = null;
-        document.onmousedown = null;
-        actionMapper = null;
-        currentlyPressedKeys = {};
-        em.clearAll();
     }
+
+    let cleanup = function () {
+        /*
+         document.onkeydown = null;
+         document.onkeyup = null;
+         document.onmousemove = null;
+         document.onmousedown = null;
+         actionMapper = null;
+         currentlyPressedKeys = {};
+         em.clearAll();
+         */
+    }
+
+    return {
+        init,
+        subscribe,
+        draw,
+        update,
+        cleanup
+    };
 
 
 }

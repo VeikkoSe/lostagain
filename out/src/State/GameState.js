@@ -1,88 +1,104 @@
-var GameState = function GameState(canvas) {
-  "use strict";
-  this.elapsedTotal = 0;
-  this.frameCount = 0;
-  this.lastTime = 0;
-  this.processList = [];
-  this.startTime = null;
-};
-($traceurRuntime.createClass)(GameState, {
-  init: function() {
-    "use strict";
-    this.processList = [];
-    this.processList.push(new TextProcess2d());
-    this.processList.push(new AsteroidRenderProcess());
-    this.processList.push(new PlaneProcess());
-    this.processList.push(new CameraControllerProcess());
-    this.processList.push(new PrimitiveProcess());
-    this.processList.push(new TeleportProcess());
-    this.processList.push(new StarProcess());
-    this.processList.push(new EnemyProcess());
-    this.processList.push(new GunProcess());
-    this.processList.push(new LaserProcess());
-    this.processList.push(new MomentumMovementProcess());
-    this.processList.push(new ExhaustProcess());
-    this.processList.push(new ExplosionProcess());
-    this.processList.push(new LayoutProcess());
-    this.processList.push(new CollisionProcess());
-    this.processList.push(new RenderProcess());
-    if (game.currentLevel == null) {
-      loadManager.loadLevel('first');
-      game.currentLevel = 'first';
-      return;
-    }
-    actionMapper = new GameStateActionMapper();
+function gamestate_constructor(sb) {
+  var elapsedTotal = 0;
+  var gl = sb.getGL();
+  var camera = sb.getCamera();
+  var frameCount = 0;
+  var lastTime = 0;
+  var processList = [];
+  var startTime = null;
+  var actionMapper = game_action_mapper(sb);
+  var subscribe = function() {};
+  var init = function() {
+    processList = [];
     document.onkeydown = actionMapper.handleKeyDown;
     document.onkeyup = actionMapper.handleKeyUp;
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
-    var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
-    window.addEventListener(event, this.handleMouseWheel);
+    processList.push(renderprocess_constructor(sb));
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
-    mat4.identity(camera.mvMatrix);
-    this.startTime = new Date().getTime();
-  },
-  update: function() {
-    "use strict";
+    mat4.identity(camera.getMVMatrix());
+    startTime = new Date().getTime();
+  };
+  var update = function() {
     actionMapper.handleKeys();
     var timeNow = new Date().getTime();
-    this.frameCount++;
-    if (this.lastTime != 0) {
-      var totalElapsed = timeNow - this.startTime;
-      var elapsed = timeNow - this.lastTime;
-      this.elapsedTotal += elapsed;
-      for (var i = 0; i < this.processList.length; i++) {
-        this.processList[$traceurRuntime.toProperty(i)].update(elapsed, totalElapsed);
+    frameCount++;
+    if (lastTime != 0) {
+      try {
+        throw undefined;
+      } catch (elapsed) {
+        try {
+          throw undefined;
+        } catch (totalElapsed) {
+          {
+            totalElapsed = timeNow - startTime;
+            elapsed = timeNow - lastTime;
+            elapsedTotal += elapsed;
+            {
+              try {
+                throw undefined;
+              } catch ($i) {
+                {
+                  $i = 0;
+                  for (; $i < processList.length; $i++) {
+                    try {
+                      throw undefined;
+                    } catch (i) {
+                      {
+                        i = $i;
+                        try {
+                          processList[$traceurRuntime.toProperty(i)].update(elapsed, totalElapsed);
+                        } finally {
+                          $i = i;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
-    this.lastTime = timeNow;
-  },
-  randomIntFromInterval: function(min, max) {
-    "use strict";
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  },
-  drawAll: function() {
-    "use strict";
-  },
-  draw: function() {
-    "use strict";
+    lastTime = timeNow;
+  };
+  var draw = function() {
     gl.clearColor(0, 0, 0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     camera.move();
-    for (var i = 0; i < this.processList.length; i++) {
-      this.processList[$traceurRuntime.toProperty(i)].draw();
+    camera.setDistance(350);
+    {
+      try {
+        throw undefined;
+      } catch ($i) {
+        {
+          $i = 0;
+          for (; $i < processList.length; $i++) {
+            try {
+              throw undefined;
+            } catch (i) {
+              {
+                i = $i;
+                try {
+                  processList[$traceurRuntime.toProperty(i)].draw();
+                } finally {
+                  $i = i;
+                }
+              }
+            }
+          }
+        }
+      }
     }
-    camera.drawCalls = 0;
-  },
-  cleanup: function() {
-    "use strict";
-    document.onkeydown = null;
-    document.onkeyup = null;
-    document.onmousemove = null;
-    document.onmousedown = null;
-    actionMapper = null;
-    currentlyPressedKeys = {};
-    em.clearAll();
-  }
-}, {}, StateEngine);
+  };
+  var cleanup = function() {};
+  return {
+    init: init,
+    subscribe: subscribe,
+    draw: draw,
+    update: update,
+    cleanup: cleanup
+  };
+}

@@ -1,28 +1,29 @@
-class PrimitiveProcess extends Processor {
-    constructor() {
-        this.vertexPositionBuffer = gl.createBuffer();
-        this.simplestProgram = sm.init('simplest');
+function primitiveprocess_constructor() {
+    //constructor() {
+    let vertexPositionBuffer = gl.createBuffer();
+    let simplestProgram = sm.init('simplest');
 
-    }
+    //}
 
 
-    draw() {
+    let draw = function () {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if (le.components.PrimitiveComponent && le.components.Renderable) {
 
                 sm.setProgram(this.simplestProgram);
-                //var re = le.components.Renderable;
-                //var p = {x: re.xPos, y: re.yPos, z: re.zPos};
+                //let re = le.components.Renderable;
+                //let p = {x: re.xPos, y: re.yPos, z: re.zPos};
 
                 //this.points = this.circleXY(p, ;
+
 
                 camera.mvPushMatrix();
                 gl.uniformMatrix4fv(this.simplestProgram.uPMatrix, false, camera.pMatrix);
                 gl.uniformMatrix4fv(this.simplestProgram.uMVMatrix, false, camera.mvMatrix);
-                var c = le.components.PrimitiveComponent.color;
+                let c = le.components.PrimitiveComponent.color;
 
                 gl.uniform4f(this.simplestProgram.uColor, c[0], c[1], c[2], 1.0);
 
@@ -40,6 +41,8 @@ class PrimitiveProcess extends Processor {
 
         }
     }
+
+    return {}
 
 
 }

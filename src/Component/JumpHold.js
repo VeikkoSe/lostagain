@@ -1,9 +1,10 @@
-class JumpHold extends Component {
-    constructor() {
-        this.name = "JumpHold";
+function JumpHoldComponent() {
+    //constructor() {
+    let name = "JumpHoldComponent";
 
-        // this.holdTime = 5000;
-    }
+    // this.holdTime = 5000;
+    //}
+    return {name}
 
 
 }

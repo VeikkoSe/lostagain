@@ -1,78 +1,89 @@
-var StateEngine = function StateEngine() {
-  "use strict";
-  this.initState = new IntroState();
-  this.endState = new EndState();
-  this.menuState = new MenuState();
-  this.gameState = new GameState();
-  this.warpRoomState = new WarpRoomState();
-  this.pauseState = new PauseState();
-  this.running = true;
-  this.states = [];
-  this.currentState = null;
-};
-($traceurRuntime.createClass)(StateEngine, {
-  init: function() {
-    "use strict";
-  },
-  animate: function() {
-    "use strict";
-  },
-  cleanup: function() {
-    "use strict";
+function stateengine_constructor(sb) {
+  var introState = introstate_constructor(sb);
+  var gameState = gamestate_constructor(sb);
+  var lState = loadstate_constructor(sb);
+  var mapState = mapstate_constructor(sb);
+  var menuState = menustate_constructor(sb);
+  var endState = endstate_constructor(sb);
+  var states = [];
+  var allStates = [];
+  var currentState = null;
+  var cleanup = function() {
     document.onkeydown = null;
     document.onkeyup = null;
-  },
-  determineState: function(stateStr) {
-    "use strict";
-    var state = false;
-    if (stateStr == "initstate") {
-      state = this.initState;
+  };
+  var getState = function(sn) {
+    switch (sn) {
+      case 'introstate':
+        return introState;
+        break;
+      case 'gamestate':
+        return gameState;
+        break;
+      case 'loadstate':
+        return lState;
+        break;
+      case 'menustate':
+        return menuState;
+        break;
+      case 'endstate':
+        return endState;
+        break;
+      case 'mapstate':
+        return mapState;
+        break;
     }
-    if (stateStr == "gamestate") {
-      state = this.gameState;
+  };
+  var moveToLoadedStage = function(stateStr) {
+    var state = getState(stateStr);
+    if (states.length > 0) {
+      states[$traceurRuntime.toProperty(states.length - 1)].cleanup();
+      states.pop();
     }
-    if (stateStr == "pausestate") {
-      state = this.pauseState;
+    states.push(state);
+    console.log(stateStr);
+    currentState = state;
+    states[$traceurRuntime.toProperty(states.length - 1)].init();
+  };
+  var loadState = function(wantedState) {
+    if (states.length > 0) {
+      states[$traceurRuntime.toProperty(states.length - 1)].cleanup();
+      states.pop();
     }
-    if (stateStr == "endstate") {
-      state = this.endState;
-    }
-    return state;
-  },
-  changeState: function(stateStr) {
-    "use strict";
-    var state = this.determineState(stateStr);
-    if (this.states.length > 0) {
-      this.states[$traceurRuntime.toProperty(this.states.length - 1)].cleanup();
-      this.states.pop();
-    }
-    this.states.push(state);
-    this.currentState = state;
-    this.states[$traceurRuntime.toProperty(this.states.length - 1)].init();
-  },
-  pushState: function(stateStr) {
-    "use strict";
-    var state = this.determineState(stateStr);
-    if (this.states.length > 0) {
-      this.states[$traceurRuntime.toProperty(this.states.length - 1)].pause();
-    }
-    this.states.push(state);
-    this.states[$traceurRuntime.toProperty(this.states.length - 1)].init();
-  },
-  popState: function() {
-    "use strict";
-    if (this.states.length > 0) {
-      this.states[$traceurRuntime.toProperty(this.states.length - 1)].cleanup();
-      this.states.pop();
-    }
-    if (!this.states.empty()) {
-      this.states[$traceurRuntime.toProperty(this.states.length - 1)].resume();
-    }
-  },
-  handleEvents: function() {
-    "use strict";
-  },
-  draw: function() {
-    "use strict";
-  }
-}, {});
+    var ls = getState('loadstate');
+    states.push(ls);
+    currentState = ls;
+    states[$traceurRuntime.toProperty(states.length - 1)].init(wantedState);
+  };
+  var getCurrentState = function() {
+    return currentState;
+  };
+  var tick = function() {
+    requestAnimFrame(function() {
+      tick();
+    });
+    var cs = getCurrentState();
+    cs.update();
+    cs.draw();
+  };
+  var subscribe = function() {
+    introState.subscribe();
+    lState.subscribe();
+    gameState.subscribe();
+    sb.subscribe("movetoloadstate", function(name, wantedstate) {
+      moveToLoadedStage(wantedstate);
+    });
+    sb.subscribe("loadstate", function(name, wantedstate) {
+      loadState(wantedstate);
+    });
+  };
+  var init = function() {
+    loadState('gamestate');
+    tick();
+  };
+  return Object.freeze({
+    tick: tick,
+    init: init,
+    subscribe: subscribe
+  });
+}

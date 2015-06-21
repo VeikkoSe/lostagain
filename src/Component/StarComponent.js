@@ -1,7 +1,8 @@
-class StarComponent extends Component {
-    constructor() {
-        this.name = "StarComponent";
-    }
+function StarComponent() {
+    //constructor() {
+    let name = "StarComponent";
+    //}
 
+    return {}
 
 }

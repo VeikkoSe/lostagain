@@ -1,8 +1,11 @@
-var PrimitiveComponent = function PrimitiveComponent(points) {
-  "use strict";
+function PrimitiveComponent(points) {
   var color = arguments[1] !== (void 0) ? arguments[1] : [0.0, 1.0, 0.0];
-  this.name = "PrimitiveComponent";
-  this.points = points;
-  this.color = color;
-};
-($traceurRuntime.createClass)(PrimitiveComponent, {}, {}, Component);
+  var name = "PrimitiveComponent";
+  var points = points;
+  var color = color;
+  return {
+    name: name,
+    points: points,
+    color: color
+  };
+}

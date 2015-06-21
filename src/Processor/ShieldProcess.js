@@ -7,14 +7,15 @@ class ShieldProcess extends Processor {
     draw() {
         /*
 
-         for (var e = 0; e < em.entities.length; e++) {
-         var le = em.entities[e];
+         for (let e = 0; e < em.entities.length; e++) {
+         let le = em.entities[e];
 
          if (le.components.ShieldComponent) {
 
          gl.useProgram(this.particleProgram);
-         var shield = le.components.ShieldComponent;
-         for (var g = 0; g < shield.amount; g++) {
+         let shield = le.components.ShieldComponent;
+         for (let g = 0; g < shield.amount; g++) {
+
 
 
          camera.mvPushMatrix();

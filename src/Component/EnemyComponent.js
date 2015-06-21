@@ -1,10 +1,11 @@
-class EnemyComponent extends Component {
-    constructor() {
-        this.name = "EnemyComponent";
-        this.speed = 30;
+function EnemyComponent() {
+    //constructor() {
+    let name = "EnemyComponent";
+    let speed = 30;
 
 
-    }
+    //}
 
+    return {name}
 
 }

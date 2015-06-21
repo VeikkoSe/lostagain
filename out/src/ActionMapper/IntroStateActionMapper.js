@@ -1,23 +1,23 @@
-var IntroStateActionMapper = function IntroStateActionMapper() {
-  "use strict";
-};
-($traceurRuntime.createClass)(IntroStateActionMapper, {
-  handleKeyDown: function(event) {
-    "use strict";
+function intro_action_mapper(sb) {
+  var currentlyPressedKeys = [];
+  var handleKeyDown = function(event) {
     $traceurRuntime.setProperty(currentlyPressedKeys, event.keyCode, true);
-  },
-  handleKeyUp: function(event) {
-    "use strict";
+  };
+  var handleKeyUp = function(event) {
     $traceurRuntime.setProperty(currentlyPressedKeys, event.keyCode, false);
-  },
-  handleKeys: function() {
-    "use strict";
+  };
+  var handleKeys = function() {
     if (currentlyPressedKeys[32]) {
-      game.stateEngine.changeState("gamestate");
+      sb.publish("loadstate", 'gamestate');
     }
-  },
-  handleMouseDown: function(event) {
-    "use strict";
-    game.stateEngine.changeState("gamestate");
-  }
-}, {});
+  };
+  var handleMouseDown = function(event) {
+    sb.publish("loadstate", 'gamestate');
+  };
+  return Object.freeze({
+    handleKeyDown: handleKeyDown,
+    handleKeyUp: handleKeyUp,
+    handleKeys: handleKeys,
+    handleMouseDown: handleMouseDown
+  });
+}

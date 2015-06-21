@@ -1,10 +1,11 @@
-class CurrencyComponent extends Component {
-    constructor(sprite) {
-        this.name = "CurrencyComponent";
-        this.sprite = sprite;
+function CurrencyComponent(sprite) {
+    //constructor(sprite) {
+    let name = "CurrencyComponent";
+    let sprite = sprite;
 
 
-    }
+    //}
+    return {name}
 
 
 }

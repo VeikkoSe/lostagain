@@ -1,27 +1,29 @@
-class MapComponent extends Component {
-    constructor() {
-        this.name = "MapComponent";
-        //this.map = map;
-        this.xGridWorldPos = 0;
-        this.yGridWorldPos = 0;
-        this.xPlayerPos = 0;
-        this.yPlayerPos = 0;
-        this.width = 0;
-        this.height = 0;
-        this.visited = {};
-        this.holes = {};
-        this.xEndBoss = 5;
-        this.yEndBoss = 5;
-        //this.texture = texture;
+function MapComponent() {
+    //constructor() {
+    let name = "MapComponent";
+    //this.map = map;
+    let xGridWorldPos = 0;
+    let yGridWorldPos = 0;
+    let xPlayerPos = 0;
+    let yPlayerPos = 0;
+    let width = 0;
+    let height = 0;
+    let visited = {};
+    let holes = {};
+    let xEndBoss = 5;
+    let yEndBoss = 5;
+    //this.texture = texture;
 
-        this.movingUp = 0;
-        this.movingDown = 0;
-        this.movingLeft = 0;
-        this.movingRight = 0;
-        this.selecting = false;
-        this.selectMap = false;
+    let movingUp = 0;
+    let movingDown = 0;
+    let movingLeft = 0;
+    let movingRight = 0;
+    let selecting = false;
+    let selectMap = false;
 
+    return {};
 
-    }
+    //}
+
 
 }

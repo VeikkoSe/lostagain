@@ -1,27 +1,52 @@
-var EntityManager = function EntityManager() {
-  "use strict";
-  this.entities = [];
-  this.maxId = 0;
-};
-($traceurRuntime.createClass)(EntityManager, {
-  addNew: function() {
-    "use strict";
-    var name = arguments[0] !== (void 0) ? arguments[0] : false;
-    this.maxId++;
-    var ent = new Entity(this.maxId, name);
-    this.entities.push(ent);
+function entity_manager_constructor() {
+  var entities = [];
+  var maxId = 0;
+  var addNew = function(name) {
+    maxId++;
+    var ent = entity_constructor({
+      id: maxId,
+      name: name
+    });
+    entities.push(ent);
     return ent;
-  },
-  getEntityByName: function(name) {
-    "use strict";
-    for (var e = 0; e < this.entities.length; e++) {
-      if (this.entities[$traceurRuntime.toProperty(e)].name == name)
-        return this.entities[$traceurRuntime.toProperty(e)];
+  };
+  var getEntityByName = function(name) {
+    {
+      try {
+        throw undefined;
+      } catch ($e) {
+        {
+          $e = 0;
+          for (; $e < this.entities.length; $e++) {
+            try {
+              throw undefined;
+            } catch (e) {
+              {
+                e = $e;
+                try {
+                  if (entities[$traceurRuntime.toProperty(e)].name == name)
+                    return entities[$traceurRuntime.toProperty(e)];
+                } finally {
+                  $e = e;
+                }
+              }
+            }
+          }
+        }
+      }
     }
-  },
-  clearAll: function() {
-    "use strict";
-    this.entities = [];
-    this.maxId = 0;
-  }
-}, {});
+  };
+  var clearAll = function() {
+    entities.length = 0;
+    maxId = 0;
+  };
+  var subscribe = function() {};
+  return Object.freeze({
+    clearAll: clearAll,
+    getEntityByName: getEntityByName,
+    addNew: addNew,
+    entities: entities,
+    init: function() {},
+    subscribe: subscribe
+  });
+}

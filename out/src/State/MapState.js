@@ -1,65 +1,101 @@
-var MapState = function MapState(canvas) {
-  "use strict";
-  this.wall = null;
-  this.processList = [];
-  this.frameCount = 0;
-  this.lastTime = 0;
-  this.elapsedTotal = 0;
-};
-($traceurRuntime.createClass)(MapState, {
-  draw: function() {
-    "use strict";
+function mapstate_constructor(sb) {
+  var wall = null;
+  var processList = [];
+  var frameCount = 0;
+  var lastTime = 0;
+  var elapsedTotal = 0;
+  var camera = sb.getCamera();
+  var gl = sb.getGL();
+  var actionMapper = map_action_mapper(sb);
+  var draw = function() {
     gl.clearColor(0, 0, 0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     camera.move();
-    for (var i = 0; i < this.processList.length; i++) {
-      this.processList[$traceurRuntime.toProperty(i)].draw();
+    {
+      try {
+        throw undefined;
+      } catch ($i) {
+        {
+          $i = 0;
+          for (; $i < processList.length; $i++) {
+            try {
+              throw undefined;
+            } catch (i) {
+              {
+                i = $i;
+                try {
+                  processList[$traceurRuntime.toProperty(i)].draw();
+                } finally {
+                  $i = i;
+                }
+              }
+            }
+          }
+        }
+      }
     }
     camera.drawCalls = 0;
-  },
-  init: function() {
-    "use strict";
-    actionMapper = new MapStateActionMapper();
+  };
+  var init = function() {
+    actionMapper = map_action_mapper(sb);
     document.onkeydown = actionMapper.handleKeyDown;
     document.onkeyup = actionMapper.handleKeyUp;
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
-    this.processList = [];
-    this.processList.push(new RenderProcess());
-    this.processList.push(new StarProcess());
-    this.processList.push(new MapProcess());
-    this.processList.push(new MomentumMovementProcess());
+    processList = [];
+    processList.push(RenderProcess());
     camera.setPos(0, 0, 0, 45);
     camera.setDistance(50);
-    ef.createMap();
-    ef.createBareMotherShip();
-    ef.createStars();
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
-    mat4.identity(camera.mvMatrix);
-  },
-  update: function() {
-    "use strict";
+    mat4.identity(camera.getMVMatrix());
+  };
+  var update = function() {
     var timeNow = new Date().getTime();
     actionMapper.handleKeys();
     this.frameCount++;
     if (this.lastTime != 0) {
-      var elapsed = timeNow - this.lastTime;
-      this.elapsedTotal += elapsed;
-      for (var i = 0; i < this.processList.length; i++) {
-        this.processList[$traceurRuntime.toProperty(i)].update(elapsed, false);
+      try {
+        throw undefined;
+      } catch (elapsed) {
+        {
+          elapsed = timeNow - this.lastTime;
+          this.elapsedTotal += elapsed;
+          {
+            try {
+              throw undefined;
+            } catch ($i) {
+              {
+                $i = 0;
+                for (; $i < this.processList.length; $i++) {
+                  try {
+                    throw undefined;
+                  } catch (i) {
+                    {
+                      i = $i;
+                      try {
+                        this.processList[$traceurRuntime.toProperty(i)].update(elapsed, false);
+                      } finally {
+                        $i = i;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
     this.lastTime = timeNow;
-  },
-  cleanup: function() {
-    "use strict";
-    document.onkeydown = null;
-    document.onkeyup = null;
-    document.onmousemove = null;
-    document.onmousedown = null;
-    actionMapper = null;
-    currentlyPressedKeys = {};
-    em.clearAll();
-  }
-}, {}, StateEngine);
+  };
+  var subscribe = function() {};
+  var cleanup = function() {};
+  return {
+    init: init,
+    subscribe: subscribe,
+    draw: draw,
+    update: update,
+    cleanup: cleanup
+  };
+}

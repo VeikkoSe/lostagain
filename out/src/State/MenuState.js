@@ -21,7 +21,7 @@ var MenuState = function MenuState(canvas) {
     gl.bindTexture(gl.TEXTURE_2D, this.wall.texture);
     gl.uniform1i(shaderProgram.samplerUniform, 0);
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.wall.indexPositionBuffer);
-    helpers.setMatrixUniforms();
+    setMatrixUniforms();
     gl.drawElements(gl.TRIANGLES, this.wall.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
     camera.mvPopMatrix();
   },

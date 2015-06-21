@@ -1,5 +1,4 @@
-var CameraController = function CameraController() {
-  "use strict";
-  this.name = "CameraController";
-};
-($traceurRuntime.createClass)(CameraController, {}, {}, Component);
+function cameracontrollercomponent_constructor() {
+  var name = "CameraController";
+  return Object.freeze({name: name});
+}

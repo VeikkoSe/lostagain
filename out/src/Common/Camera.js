@@ -1,87 +1,102 @@
-var Camera = function Camera() {
-  "use strict";
-  this.drawCalls = 0;
-  this.mvMatrix = mat4.create();
-  this.pMatrix = mat4.create();
-  this.cMatrix = mat4.create();
-  this.pvMatrix = mat4.create();
-  this.pvMatrixInverse = mat4.create();
-  this.mvMatrixStack = [];
-  this.eye = vec3.create([0, 0, 0]);
-  this.clickPosition = null;
-  this.distance = 500;
-  this.x = 0;
-  this.y = -1 * this.distance;
-  this.z = -1 * this.distance;
-  this.rotation = helpers.degToRad(60);
-  this.slideLeft = false;
-  this.slideRight = false;
-  this.slideUp = false;
-  this.slideDown = false;
-  this.centerPosition = false;
-  this.home = [this.x, this.y, this.z];
-  mat4.identity(this.mvMatrix);
-  mat4.translate(this.mvMatrix, this.home);
-  mat4.identity(this.cMatrix);
-  mat4.inverse(this.mvMatrix, this.cMatrix);
-  mat4.identity(this.pMatrix);
-};
-($traceurRuntime.createClass)(Camera, {
-  setDistance: function(d) {
-    "use strict";
-    this.distance = d;
-    this.y = -1 * this.distance;
-    this.z = -1 * this.distance;
-  },
-  setRotation: function(rot) {
-    "use strict";
-    this.rotation = rot;
-  },
-  setPos: function(x, y, z, rot) {
-    "use strict";
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.rotation = rot;
-    this.distance = z;
-  },
-  setPerspective: function() {
-    "use strict";
-    mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 20000.0, camera.pMatrix);
-  },
-  slideCameraLeft: function(xAddition) {
-    "use strict";
-    this.x += xAddition;
-  },
-  slideCameraRight: function(xDecrease) {
-    "use strict";
-    this.x -= xDecrease;
-  },
-  slideCameraUp: function(zAddition) {
-    "use strict";
-    this.z += zAddition;
-  },
-  slideCameraDown: function(zDecrease) {
-    "use strict";
-    this.z -= zDecrease;
-  },
-  move: function() {
-    "use strict";
-    mat4.identity(camera.mvMatrix);
-    mat4.rotate(this.mvMatrix, this.rotation, [1, 0, 0]);
-    mat4.translate(this.mvMatrix, [this.x, this.y, this.z]);
-  },
-  mvPushMatrix: function() {
-    "use strict";
+function camera_constructor(gl) {
+  var drawCalls = 0;
+  var mvMatrix = mat4.create();
+  var pMatrix = mat4.create();
+  var cMatrix = mat4.create();
+  var pvMatrix = mat4.create();
+  var pvMatrixInverse = mat4.create();
+  var mvMatrixStack = [];
+  var eye = vec3.create([0, 0, 0]);
+  var distance = 500;
+  var x = 0;
+  var y = -1 * distance;
+  var z = -1 * distance;
+  var rotation = degToRad(60);
+  var slideLeft = false;
+  var slideRight = false;
+  var slideUp = false;
+  var slideDown = false;
+  var centerPosition = false;
+  var home = [x, y, z];
+  var init = function() {
+    mat4.identity(mvMatrix);
+    mat4.translate(mvMatrix, home);
+    mat4.identity(cMatrix);
+    mat4.inverse(mvMatrix, cMatrix);
+    mat4.identity(pMatrix);
+  };
+  var setDistance = function(d) {
+    distance = d;
+    y = -1 * distance;
+    z = -1 * distance;
+  };
+  var setRotation = function(rot) {
+    rotation = rot;
+  };
+  var setPos = function(xp, yp, zp, rot) {
+    x = xp;
+    y = yp;
+    z = zp;
+    rotation = rot;
+    distance = z;
+  };
+  var setPerspective = function() {
+    mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 20000.0, pMatrix);
+  };
+  var slideCameraLeft = function(xAddition) {
+    x += xAddition;
+  };
+  var slideCameraRight = function(xDecrease) {
+    x -= xDecrease;
+  };
+  var slideCameraUp = function(zAddition) {
+    z += zAddition;
+  };
+  var slideCameraDown = function(zDecrease) {
+    z -= zDecrease;
+  };
+  var move = function() {
+    mat4.identity(mvMatrix);
+    mat4.rotate(mvMatrix, rotation, [1, 0, 0]);
+    mat4.translate(mvMatrix, [x, y, z]);
+  };
+  var getMVMatrix = function() {
+    return mvMatrix;
+  };
+  var getPMatrix = function() {
+    return pMatrix;
+  };
+  var mvPushMatrix = function() {
     var copy = mat4.create();
-    mat4.set(this.mvMatrix, copy);
-    this.mvMatrixStack.push(copy);
-  },
-  mvPopMatrix: function() {
-    "use strict";
-    if (this.mvMatrixStack.length == 0) {
+    mat4.set(mvMatrix, copy);
+    mvMatrixStack.push(copy);
+  };
+  var mvPopMatrix = function() {
+    if (mvMatrixStack.length == 0) {
       throw "Invalid popMatrix!";
     }
-    this.mvMatrix = this.mvMatrixStack.pop();
-  }
-}, {});
+    mvMatrix = mvMatrixStack.pop();
+  };
+  var subscribe = function() {};
+  return Object.freeze({
+    mvPopMatrix: mvPopMatrix,
+    mvPushMatrix: mvPushMatrix,
+    setPerspective: setPerspective,
+    setDistance: setDistance,
+    init: init,
+    getMVMatrix: getMVMatrix,
+    getPMatrix: getPMatrix,
+    move: move,
+    getX: function() {
+      return x;
+    },
+    getY: function() {
+      return y;
+    },
+    getZ: function() {
+      return z;
+    },
+    init: function() {},
+    subscribe: subscribe
+  });
+}

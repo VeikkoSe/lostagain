@@ -1,32 +1,47 @@
-class EntityManager {
-    constructor() {
-        this.entities = [];
-        this.maxId = 0;
+function entity_manager_constructor() {
+
+    let entities = [];
+    let maxId = 0;
+
+    let addNew = function (name) {
+
+        maxId++;
+        let ent = entity_constructor({id: maxId, name: name});
 
 
-    }
-
-    addNew(name = false) {
-        this.maxId++;
-        var ent = new Entity(this.maxId, name);
-
-        this.entities.push(ent);
+        entities.push(ent);
         return ent;
 
-    }
+
+    };
 
 
-    getEntityByName(name) {
-        for (var e = 0; e < this.entities.length; e++) {
-            if (this.entities[e].name == name)
-                return this.entities[e];
+    let getEntityByName = function (name) {
+        for (let e = 0; e < this.entities.length; e++) {
+            if (entities[e].name == name)
+                return entities[e];
         }
+    };
+
+
+    let clearAll = function () {
+
+        entities.length = 0;
+        maxId = 0;
+    };
+
+    let subscribe = function () {
+
     }
 
-    clearAll() {
-        this.entities = [];
-        this.maxId = 0;
-    }
-
+    return Object.freeze({
+        clearAll,
+        getEntityByName,
+        addNew,
+        entities,
+        init: function () {
+        },
+        subscribe
+    });
 
 }

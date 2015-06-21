@@ -1,36 +1,38 @@
-class MapProcess extends Processor {
-    constructor() {
+function mapprocess_constructor(sb) {
+    //constructor() {
 
-        this.vertexPositionBuffer = gl.createBuffer();
-        this.texturePositionBuffer = gl.createBuffer();
+    let vertexPositionBuffer = gl.createBuffer();
+    let texturePositionBuffer = gl.createBuffer();
 
-        this.mapProgram = sm.init('maps');
-
-
-        this.hexagon = game.map;
+    let mapProgram = sm.init('maps');
 
 
-    }
+    let hexagon = game.map;
+    let camera = sb.getCamera();
 
-    randomIntFromInterval(min, max) {
+
+    //}
+
+    let randomIntFromInterval = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    update() {
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+
+    let update = function () {
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if (le.components.MapComponent) {
-                var mc = le.components.MapComponent;
+                let mc = le.components.MapComponent;
 
-                this.hexagon.updateArea(mc.movingUp, mc.movingDown, mc.movingLeft, mc.movingRight, mc.selecting);
+                hexagon.updateArea(mc.movingUp, mc.movingDown, mc.movingLeft, mc.movingRight, mc.selecting);
 
             }
 
             if (le.components.HexItem && le.components.Renderable) {
-                var re = le.components.Renderable;
-                re.xPos = this.hexagon.getPlayerPosXInWC();
-                re.zPos = this.hexagon.getPlayerPosZInWC();
+                let re = le.components.Renderable;
+                re.xPos = hexagon.getPlayerPosXInWC();
+                re.zPos = hexagon.getPlayerPosZInWC();
                 //this.hexagon.setItemPos(le.components.HexItem.itemName);
 
             }
@@ -39,13 +41,13 @@ class MapProcess extends Processor {
         }
     }
 
-    draw() {
+    let draw = function () {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
             if (le.components.MapComponent) {
-                var mc = le.components.MapComponent;
+                let mc = le.components.MapComponent;
 
                 sm.setProgram(this.mapProgram);
 
@@ -79,5 +81,6 @@ class MapProcess extends Processor {
 
         }
     }
+    return {}
 
 }

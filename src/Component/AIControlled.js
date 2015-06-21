@@ -1,7 +1,10 @@
-class AIControlled extends Component {
-    constructor() {
-        this.name = "AiControlled";
-    }
+function aicontrolled_constructor() {
+
+    let name = "AiControlled";
+
+    return Object.freeze({
+        name
+    });
 
 
 }

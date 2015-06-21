@@ -1,6 +1,8 @@
-var MultiRenderable = function MultiRenderable(renderables) {
-  "use strict";
-  this.name = 'MultiRenderable';
-  this.renderables = renderables;
-};
-($traceurRuntime.createClass)(MultiRenderable, {}, {}, Component);
+function MultiRenderable(renderables) {
+  var name = 'MultiRenderable';
+  var renderables = renderables;
+  return {
+    name: name,
+    renderables: renderables
+  };
+}

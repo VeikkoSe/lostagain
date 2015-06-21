@@ -1,6 +1,9 @@
-class LinearMovementProcess extends Processor {
+function linearmovementprocess_construcotr(sb) {
 
-    isClose(currentCoord, newCoord) {
+    let em = sb.getEntityManager();
+
+
+    let isClose = function (currentCoord, newCoord) {
 
 
         if (currentCoord < newCoord + 0.1 && currentCoord > newCoord - 0.1) {
@@ -12,24 +15,24 @@ class LinearMovementProcess extends Processor {
         return false;
     }
 
-    update(deltatime) {
+    let update = function (deltatime) {
 
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
-            //for (var e = 0; e < foundMoveEntities.length; e++) {
+            //for (let e = 0; e < foundMoveEntities.length; e++) {
 
 
             if (le.components.Selectable && le.components.Renderable && le.components.Movable) {
 
-                var se = le.components.Selectable;
-                var re = le.components.Renderable;
-                var me = le.components.Movable;
+                let se = le.components.Selectable;
+                let re = le.components.Renderable;
+                let me = le.components.Movable;
 
-                //var re = em.searchComponentForEntity(foundMoveEntities[e], "Renderable");
+                //let re = em.searchComponentForEntity(foundMoveEntities[e], "Renderable");
 
-                //var me = em.searchComponentForEntity(foundMoveEntities[e], "Movable");
+                //let me = em.searchComponentForEntity(foundMoveEntities[e], "Movable");
                 //console.log(se.selected);
                 if (me && se.selected && camera.clickPosition) {
 
@@ -42,20 +45,20 @@ class LinearMovementProcess extends Processor {
 
 
                 //newX and newZ are false by default so we don't move anywhere if newpos is not set
-                if ((helpers.isNumeric(le.components.Movable.newXpos) && helpers.isNumeric(le.components.Movable.newZpos)) &&
-                    (!this.isClose(re.xPos, le.components.Movable.newXpos) || !this.isClose(re.zPos, le.components.Movable.newZpos))) {
+                if ((isNumeric(le.components.Movable.newXpos) && isNumeric(le.components.Movable.newZpos)) &&
+                    (!isClose(re.xPos, le.components.Movable.newXpos) || !isClose(re.zPos, le.components.Movable.newZpos))) {
 
                     //Create a vector in the direction
 
-                    var dirX = me.newXpos - re.xPos;
-                    var dirZ = me.newZpos - re.zPos;
+                    let dirX = me.newXpos - re.xPos;
+                    let dirZ = me.newZpos - re.zPos;
 
                     //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
-                    var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
+                    let hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
 
-                    var angR = Math.atan2(dirX, dirZ);
-                    var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
+                    let angR = Math.atan2(dirX, dirZ);
+                    let deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
 
                     dirX /= hyp;
                     dirZ /= hyp;
@@ -80,7 +83,5 @@ class LinearMovementProcess extends Processor {
     }
 
 
-    checkCollision() {
-
-    }
+    return {}
 }

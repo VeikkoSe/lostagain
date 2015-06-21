@@ -1,12 +1,14 @@
-class GasComponent extends Component {
-    constructor(amount = 1) {
+function GasComponent(amount = 1) {
+    //constructor(amount = 1) {
 
-        this.name = "GasComponent";
-
-
-        this.amount = amount;
+    let name = "GasComponent";
 
 
-    }
+    let amount = amount;
+
+
+    //   }
+    return {name}
+
 
 }

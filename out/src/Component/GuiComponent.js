@@ -1,6 +1,5 @@
-var GuiComponent = function GuiComponent(sprites) {
-  "use strict";
-  this.name = "GuiComponent";
-  this.sprites = sprites;
-};
-($traceurRuntime.createClass)(GuiComponent, {}, {}, Component);
+function GuiComponent(sprites) {
+  var name = "GuiComponent";
+  var sprites = sprites;
+  return {name: name};
+}

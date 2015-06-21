@@ -1,39 +1,40 @@
-class Text {
+function text_construcotr() {
 
-    textToC(text) {
-        var ret = [];
-        for (var i = 0; i < text.length; i++) {
+
+    let textToC = function (text) {
+        let ret = [];
+        for (let i = 0; i < text.length; i++) {
             if (text[i] == '\n') {
                 ret.push('newline');
             }
             else
-                ret.push(this.fontJson[text.charCodeAt(i)]);
+                ret.push(fontJson[text.charCodeAt(i)]);
         }
         //console.log(ret);
         return ret;
     }
 
-    formatPixel(pixel) {
-        var imageSize = 256;
-        var ret = (2 * pixel + 1) / (2 * imageSize);
+    let formatPixel = function (pixel) {
+        let imageSize = 256;
+        let ret = (2 * pixel + 1) / (2 * imageSize);
 
         return ret;
     }
 
 
-    buildData(letters, twoD = false) {
+    let buildData = function (letters, twoD = false) {
 
-        var scalingFactor = 2;
+        let scalingFactor = 2;
         //32 reads in the fnt file created by the program
-        var fontHeight = 32;
+        let fontHeight = 32;
 
 
-        var ret = [];
+        let ret = [];
 
-        var xAdvance = 0;
-        var yAdvance = 0;
+        let xAdvance = 0;
+        let yAdvance = 0;
         // console.log(letters);
-        for (var i = 0; i < letters.length; i++) {
+        for (let i = 0; i < letters.length; i++) {
 
 
             if (letters[i] === 'newline') {
@@ -42,10 +43,10 @@ class Text {
                 continue;
             }
 
-            var yOffsetandAdvance = yAdvance - pInt(letters[i].yoffset);
-            var xOffset = pInt(letters[i].xoffset);
-            var xOffsetandAdvance = xOffset + xAdvance;
-            var scale = 0.5;
+            let yOffsetandAdvance = yAdvance - pInt(letters[i].yoffset);
+            let xOffset = pInt(letters[i].xoffset);
+            let xOffsetandAdvance = xOffset + xAdvance;
+            let scale = 0.5;
             if (twoD) {
                 //zero,zero is bottom left
 
@@ -62,28 +63,28 @@ class Text {
                     //  1,0, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
 
 
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
+                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
+                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
                 );
 
             }
             else {
                 ret.push(
                     //first triangle and two texture coordinates
-                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
-                    xOffsetandAdvance, yOffsetandAdvance, 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y)),
-                    xOffsetandAdvance, yOffsetandAdvance - pInt(letters[i].height), 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance, 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    xOffsetandAdvance, yOffsetandAdvance, 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
+                    xOffsetandAdvance, yOffsetandAdvance - pInt(letters[i].height), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
-                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
-                    xOffsetandAdvance, yOffsetandAdvance - pInt(letters[i].height), 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
-                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance - pInt(letters[i].height), 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
+                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance, 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    xOffsetandAdvance, yOffsetandAdvance - pInt(letters[i].height), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance - pInt(letters[i].height), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
                 );
             }
 
@@ -99,7 +100,7 @@ class Text {
     }
 
 
-    constructor() {
+    let init = function () {
 
 
 
@@ -2306,6 +2307,8 @@ class Text {
 
 
     }
+
+    return {}
 
 }
 

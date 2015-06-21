@@ -1,16 +1,17 @@
-class Drivable extends Component {
-    constructor() {
-        this.name = "Drivable";
-        this.accelerationOn = 0;
-        this.acceleration = 20;
+function DrivableComponent() {
+    //constructor() {
+    let name = "Drivable";
+    let accelerationOn = 0;
+    let acceleration = 20;
 
-        this.velocityX = 0;
-        this.velocityZ = 0;
-        this.rotateRight = false;
-        this.rotateLeft = false;
+    let velocityX = 0;
+    let velocityZ = 0;
+    let rotateRight = false;
+    let rotateLeft = false;
 
 
-    }
+    //}
+    return {name}
 
 
 }

@@ -1,11 +1,12 @@
-class GunComponent extends Component {
-    constructor() {
-        this.name = "GunComponent";
-        this.shooting = false;
-        this.activeWeapon = 1;
+function GunComponent() {
+    //constructor() {
+    let name = "GunComponent";
+    let shooting = false;
+    let activeWeapon = 1;
 
 
-    }
+    //}
+    return {name}
 
 
 }

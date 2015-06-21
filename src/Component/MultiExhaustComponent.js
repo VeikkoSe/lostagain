@@ -1,14 +1,15 @@
-class MultiExhaustComponent extends Component {
-    constructor() {
-        this.name = "MultiExhaustComponent";
-        this.exhaustComponents = [];
+function MultiExhaustComponent() {
+    //constructor() {
+    let name = "MultiExhaustComponent";
+    let exhaustComponents = [];
 
 
+    //}
+
+    let addExhaust = function (exhaustComponent) {
+        exhaustComponents.push(exhaustComponent);
     }
 
-    addExhaust(exhaustComponent) {
-        this.exhaustComponents.push(exhaustComponent);
-    }
-
+    return {name, exhaustComponents}
 
 }

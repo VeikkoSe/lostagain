@@ -1,9 +1,11 @@
-class CameraController extends Component {
-    constructor() {
+function cameracontrollercomponent_constructor() {
 
-        this.name = "CameraController";
+    let name = "CameraController";
 
+    return Object.freeze({
+        name
+    });
 
-    }
 
 }
+

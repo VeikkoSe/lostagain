@@ -1,67 +1,78 @@
-class GameState extends StateEngine {
+function gamestate_constructor(sb) {
 
-    constructor(canvas) {
+    // constructor(canvas) {
 
-        this.elapsedTotal = 0;
+    let elapsedTotal = 0;
+    let gl = sb.getGL();
+    let camera = sb.getCamera();
 
-        this.frameCount = 0;
-        this.lastTime = 0;
+    let frameCount = 0;
+    let lastTime = 0;
 
-        this.processList = [];
-        this.startTime = null;
+    let processList = [];
+    let startTime = null;
+    let actionMapper = game_action_mapper(sb);
+    //let camera = camera_contructor();
+    //let lm = loadmanager_costructor();
 
+
+    //}
+
+    let subscribe = function () {
 
     }
 
 
-    init() {
+    let init = function () {
 
-
-        this.processList = [];
-
-        //this.processList.push(new TextProcess());
-        this.processList.push(new TextProcess2d());
-        this.processList.push(new AsteroidRenderProcess());
-        this.processList.push(new PlaneProcess());
-        //this.processList.push(new PostProcess());
-
-        //this.processList.push(new HealthProcess());
-        //this.processList.push(new ShieldProcess());
-        //this.processList.push(new LinearMovementProcess());
-        //this.processList.push(new DrivingMovementProcess());
-        this.processList.push(new CameraControllerProcess());
-        this.processList.push(new PrimitiveProcess());
-        this.processList.push(new TeleportProcess());
-        this.processList.push(new StarProcess());
-        this.processList.push(new EnemyProcess());
-        this.processList.push(new GunProcess());
-        this.processList.push(new LaserProcess());
-        this.processList.push(new MomentumMovementProcess());
-        this.processList.push(new ExhaustProcess());
-        this.processList.push(new ExplosionProcess());
-        this.processList.push(new LayoutProcess());
-        this.processList.push(new CollisionProcess());
-        this.processList.push(new RenderProcess());
-
-
-        if (game.currentLevel == null) {
-
-            loadManager.loadLevel('first');
-            game.currentLevel = 'first';
-
-            return;
-        }
-
-
-        actionMapper = new GameStateActionMapper();
+        processList = [];
 
 
         document.onkeydown = actionMapper.handleKeyDown;
         document.onkeyup = actionMapper.handleKeyUp;
         document.onmousemove = actionMapper.handleMouseMove;
         document.onmousedown = actionMapper.handleMouseDown;
-        var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
-        window.addEventListener(event, this.handleMouseWheel);
+
+
+        // processList.push(new TextProcess2d());
+        // processList.push(new AsteroidRenderProcess());
+        // processList.push(new PlaneProcess());
+
+        // processList.push(new CameraControllerProcess());
+        // processList.push(new PrimitiveProcess());
+        // processList.push(new TeleportProcess());
+        //processList.push(new StarProcess());
+        //processList.push(new EnemyProcess());
+        // processList.push(new GunProcess());
+        //  processList.push(new LaserProcess());
+        //  processList.push(new MomentumMovementProcess());
+        //   processList.push(new ExhaustProcess());
+        //  processList.push(new ExplosionProcess());
+        // processList.push(new LayoutProcess());
+        // processList.push(new CollisionProcess());
+        processList.push(renderprocess_constructor(sb));
+
+
+        //if (game.currentLevel == null) {
+
+        //lm.loadLevel('first');
+        //sb.publish("loadassets", 'first');
+        //  game.currentLevel = 'first';
+
+        // return;
+        //}
+
+
+        //actionMapper = new GameStateActionMapper();
+
+        /*
+         document.onkeydown = actionMapper.handleKeyDown;
+         document.onkeyup = actionMapper.handleKeyUp;
+         document.onmousemove = actionMapper.handleMouseMove;
+         document.onmousedown = actionMapper.handleMouseDown;
+         */
+        //let event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
+        //window.addEventListener(event, this.handleMouseWheel);
 
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
@@ -70,124 +81,54 @@ class GameState extends StateEngine {
         camera.setPerspective();
 
 
-        mat4.identity(camera.mvMatrix);
+        mat4.identity(camera.getMVMatrix());
         //mat4.translate(camera.mvMatrix, [0, 0, -300]);
 
-        this.startTime = new Date().getTime();
+        startTime = new Date().getTime();
 
 
-    }
+    };
 
 
-    update() {
+    let update = function () {
 
         actionMapper.handleKeys();
-        var timeNow = new Date().getTime();
+        let timeNow = new Date().getTime();
 
 
-        this.frameCount++;
+        frameCount++;
 
-        if (this.lastTime != 0) {
+        if (lastTime != 0) {
 
 
-            var totalElapsed = timeNow - this.startTime;
-            var elapsed = timeNow - this.lastTime;
-            this.elapsedTotal += elapsed;
+            let totalElapsed = timeNow - startTime;
 
-            for (var i = 0; i < this.processList.length; i++) {
-                this.processList[i].update(elapsed, totalElapsed);
+            let elapsed = timeNow - lastTime;
+            elapsedTotal += elapsed;
+
+            for (let i = 0; i < processList.length; i++) {
+                processList[i].update(elapsed, totalElapsed);
             }
 
-/*
-            if (this.elapsedTotal >= 1000) {
-                var fps = this.frameCount;
-                this.frameCount = 0;
-                this.elapsedTotal -= 1000;
+            /*
+             if (this.elapsedTotal >= 1000) {
+             let fps = this.frameCount;
+             this.frameCount = 0;
+             this.elapsedTotal -= 1000;
 
-                if (fps < 59)
-                    $('#fps').css('color', 'red');
-                else
-                    $('#fps').css('color', 'green');
-                $('#fps').html(fps);
-            }*/
+             if (fps < 59)
+             $('#fps').css('color', 'red');
+             else
+             $('#fps').css('color', 'green');
+             $('#fps').html(fps);
+             }*/
         }
-        this.lastTime = timeNow;
+        lastTime = timeNow;
 
 
     }
 
-    randomIntFromInterval(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-
-    drawAll() {
-
-
-
-        //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-
-        //gl.clearColor(0, 0, 0, 1.0);
-        //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        //camera.move();
-        // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        //  gl.disable(gl.BLEND);
-
-        //gl.useProgram(shaderProgram);
-
-
-        //off-screen rendering
-        //gl.bindFramebuffer(gl.FRAMEBUFFER, picker.framebuffer);
-        //gl.uniform1i(shaderProgram.uDrawColors, 1);
-        //this.simpleRenderProcess.draw();
-
-
-        //gl.uniform1f(shaderProgram.alphaUniform, 1);
-        //gl.uniform1i(shaderProgram.uDrawColors, 0);
-
-        //this.simpleRenderProcess.draw();
-
-        /*
-         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
-         //on-screen rendering
-
-
-         */
-
-
-        //gl.useProgram(starProgram);
-        //this.starProcess.draw();
-
-        //gl.useProgram(fontProgram);
-        //this.textProcess.draw();
-
-
-        //gl.clearColor(1, 0, 0, 1.0);
-        //gl.clear(gl.COLOR_BUFFER_BIT);
-
-
-        //gl.useProgram(particleProgram);
-        //this.healthProcess.draw();
-        //this.shieldProcess.draw();
-
-
-        //gl.disable(gl.DEPTH_TEST);
-        //gl.enable(gl.BLEND);
-        //this.gunProcess.draw();
-        //gl.useProgram(simplestProgram);
-
-        //gl.useProgram(simplestProgram);
-        // this.primitiveProcess.draw();
-        //this.laserProcess.draw();
-
-    }
-
-
-    draw() {
+    let draw = function () {
 
 
         gl.clearColor(0, 0, 0, 1.0);
@@ -198,15 +139,16 @@ class GameState extends StateEngine {
 
         //if(this.postProcessState) {
         camera.move();
+        camera.setDistance(350);
         // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         //  gl.disable(gl.BLEND);
 
-        for (var i = 0; i < this.processList.length; i++) {
-            this.processList[i].draw();
+        for (let i = 0; i < processList.length; i++) {
+            processList[i].draw();
         }
         //console.log(camera.drawCalls);
-        camera.drawCalls = 0;
+        //camera.drawCalls = 0;
 
 
         //gl.enable(gl.BLEND);
@@ -258,19 +200,27 @@ class GameState extends StateEngine {
         //}
 
 
+    };
+
+    let cleanup = function () {
+        /*
+         document.onkeydown = null;
+         document.onkeyup = null;
+         document.onmousemove = null;
+         document.onmousedown = null;
+         actionMapper = null;
+         currentlyPressedKeys = {};
+         em.clearAll();
+         */
     }
 
-    cleanup() {
-
-        document.onkeydown = null;
-        document.onkeyup = null;
-        document.onmousemove = null;
-        document.onmousedown = null;
-        actionMapper = null;
-        currentlyPressedKeys = {};
-        em.clearAll();
-
-    }
+    return {
+        init,
+        subscribe,
+        draw,
+        update,
+        cleanup
+    };
 
 
 }

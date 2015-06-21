@@ -1,64 +1,67 @@
-class DrivingMovementProcess extends Processor {
-    constructor() {
+/*
+ class DrivingMovementProcess extends Processor {
+ constructor() {
 
 
-    }
+ }
 
 
-    update(deltatime) {
+ update(deltatime) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
-
-
-            if (le.components.Drivable) {
-
-                var mm = le.components.Drivable;
-                var re = le.components.Renderable;
+ for (let e = 0; e < em.entities.length; e++) {
+ let le = em.entities[e];
 
 
-                var dirVectorX = Math.cos(helpers.degToRad(re.angleY));
-                var dirVectorZ = Math.sin(helpers.degToRad(re.angleY));
+ if (le.components.Drivable) {
 
-                if (mm.addSpeed) {
+ let mm = le.components.Drivable;
+ let re = le.components.Renderable;
 
-                    mm.velocityX += mm.acceleration * dirVectorX * (deltatime / 1000);
-                    mm.velocityZ += mm.acceleration * dirVectorZ * (deltatime / 1000);
 
-                }
 
-                if (mm.reduceSpeed) {
+ let dirVectorX = Math.cos(degToRad(re.angleY));
+ let dirVectorZ = Math.sin(degToRad(re.angleY));
 
-                    mm.velocityX -= mm.acceleration * dirVectorX * (deltatime / 1000);
-                    mm.velocityZ -= mm.acceleration * dirVectorZ * (deltatime / 1000);
+ if (mm.addSpeed) {
 
-                }
+ mm.velocityX += mm.acceleration * dirVectorX * (deltatime / 1000);
+ mm.velocityZ += mm.acceleration * dirVectorZ * (deltatime / 1000);
 
-                if (mm.rotateRight) {
+ }
 
-                    if (re.angleY >= 360)
-                        re.angleY = 0;
+ if (mm.reduceSpeed) {
 
-                    if (re.angleY < 0)
-                        re.angleY = 360;
+ mm.velocityX -= mm.acceleration * dirVectorX * (deltatime / 1000);
+ mm.velocityZ -= mm.acceleration * dirVectorZ * (deltatime / 1000);
 
-                    re.angleY -= 600 * (deltatime / 1000);
-                }
-                if (mm.rotateLeft) {
+ }
 
-                    if (re.angleY >= 360)
-                        re.angleY = 0;
+ if (mm.rotateRight) {
 
-                    if (re.angleY < 0)
-                        re.angleY = 360;
-                    re.angleY += 600 * (deltatime / 1000);
-                }
+ if (re.angleY >= 360)
+ re.angleY = 0;
 
-                re.xPos += mm.velocityX * (deltatime / 1000);
-                re.zPos -= mm.velocityZ * (deltatime / 1000);
+ if (re.angleY < 0)
+ re.angleY = 360;
 
-                //console.log(re.xPos);
-            }
-        }
-    }
-}
+ re.angleY -= 600 * (deltatime / 1000);
+ }
+ if (mm.rotateLeft) {
+
+ if (re.angleY >= 360)
+ re.angleY = 0;
+
+ if (re.angleY < 0)
+ re.angleY = 360;
+ re.angleY += 600 * (deltatime / 1000);
+ }
+
+ re.xPos += mm.velocityX * (deltatime / 1000);
+ re.zPos -= mm.velocityZ * (deltatime / 1000);
+
+ //console.log(re.xPos);
+ }
+ }
+ }
+ }
+ */

@@ -1,5 +1,4 @@
-var StarComponent = function StarComponent() {
-  "use strict";
-  this.name = "StarComponent";
-};
-($traceurRuntime.createClass)(StarComponent, {}, {}, Component);
+function StarComponent() {
+  var name = "StarComponent";
+  return {};
+}

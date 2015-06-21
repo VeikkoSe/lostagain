@@ -1,10 +1,11 @@
-class SpriteComponent extends Component {
-    constructor(sprite) {
-        this.name = "SpriteComponent";
-        this.sprite = sprite;
+function SpriteComponent(sprite) {
+    //constructor(sprite) {
+    let name = "SpriteComponent";
+    let sprite = sprite;
 
 
-    }
+    //}
 
+    return {name, sprite}
 
 }

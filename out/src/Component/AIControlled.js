@@ -1,5 +1,4 @@
-var AIControlled = function AIControlled() {
-  "use strict";
-  this.name = "AiControlled";
-};
-($traceurRuntime.createClass)(AIControlled, {}, {}, Component);
+function aicontrolled_constructor() {
+  var name = "AiControlled";
+  return Object.freeze({name: name});
+}
