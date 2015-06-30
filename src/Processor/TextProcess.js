@@ -21,7 +21,7 @@ function text_process_constructor(sb) {
     let squareBuffer = gl.createBuffer();
 
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.squareBuffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
     let size = textBuffer.length / 5;
 
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
@@ -41,24 +41,24 @@ function text_process_constructor(sb) {
             let le = em.entities[e];
 
             if (le.components.TextComponent) {
-                sm.setProgram(this.fontProgram);
+                // sm.setProgram(this.fontProgram);
                 camera.mvPushMatrix();
                 mat4.scale(camera.mvMatrix, [0.2, 0.2, 0.2]);
 
                 //mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotation), [1, 1,1]);
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.squareBuffer);
-                gl.vertexAttribPointer(this.fontProgram.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
-                gl.vertexAttribPointer(this.fontProgram.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
+                gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
+                gl.vertexAttribPointer(fontProgram.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
+                gl.vertexAttribPointer(fontProgram.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
 
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, this.texture);
-                gl.uniform1i(this.fontProgram.samplerUniform, 0);
+                gl.bindTexture(gl.TEXTURE_2D, texture);
+                gl.uniform1i(fontProgram.samplerUniform, 0);
 
-                gl.uniformMatrix4fv(this.fontProgram.uPMatrix, false, camera.pMatrix);
-                gl.uniformMatrix4fv(this.fontProgram.uMVMatrix, false, camera.mvMatrix);
+                gl.uniformMatrix4fv(fontProgram.uPMatrix, false, camera.getPMatrix());
+                gl.uniformMatrix4fv(fontProgram.uMVMatrix, false, camera.getMVMatrix());
 
 
-                gl.drawArrays(gl.TRIANGLES, 0, this.squareBuffer.size);
+                gl.drawArrays(gl.TRIANGLES, 0, squareBuffer.size);
                 camera.mvPopMatrix();
             }
 
@@ -66,5 +66,8 @@ function text_process_constructor(sb) {
 
 
     }
-    return {}
+    return {
+        draw, update, init: function () {
+        }
+    }
 }

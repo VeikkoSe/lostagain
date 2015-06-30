@@ -139,6 +139,8 @@ function camera_constructor(gl) {
         setPerspective,
         setDistance,
         init,
+
+
         getMVMatrix,
         getPMatrix,
         move,

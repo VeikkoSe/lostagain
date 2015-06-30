@@ -2,11 +2,14 @@ function teleport_process_constructor(sb) {
     //class TeleportProcess extends Processor {
     //}
     //constructor() {
-    let vertexPositionBuffer = gl.createBuffer();
-    let simplestProgram = sm.init('simplest');
+
+    let shadermanager = sb.getShaderManager();
+    let simplestProgram = shadermanager.init("simplest");
+
     let em = sb.getEntityManager();
     let gl = sb.getGL();
     let camera = sb.getCamera();
+    let vertexPositionBuffer = gl.createBuffer();
     //}
 
 
@@ -23,19 +26,19 @@ function teleport_process_constructor(sb) {
                 ms.components.JumpArea.visible = true;
 
             ms.components.JumpArea.points = circleXY({
-                x: ms.components.Renderable.xPos,
+                x: ms.components.RenderableComponent.xPos,
                 y: 0,
-                z: ms.components.Renderable.zPos
+                z: ms.components.RenderableComponent.zPos
             }, ms.components.JumpArea.radius, ms.components.JumpArea.pointAmount);
 
-            if (!isInCircle(ms.components.Renderable.xPos,
-                    ms.components.Renderable.zPos,
+            if (!isInCircle(ms.components.RenderableComponent.xPos,
+                    ms.components.RenderableComponent.zPos,
                     ms.components.JumpArea.radius,
-                    ship.components.Renderable.xPos,
-                    ship.components.Renderable.zPos)
+                    ship.components.RenderableComponent.xPos,
+                    ship.components.RenderableComponent.zPos)
             ) {
-                let dirX = ms.components.Renderable.xPos - ship.components.Renderable.xPos;
-                let dirZ = ms.components.Renderable.zPos - ship.components.Renderable.zPos;
+                let dirX = ms.components.RenderableComponent.xPos - ship.components.RenderableComponent.xPos;
+                let dirZ = ms.components.RenderableComponent.zPos - ship.components.RenderableComponent.zPos;
 
                 let origHyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
@@ -48,12 +51,12 @@ function teleport_process_constructor(sb) {
                 dirZ = (ms.components.JumpArea.radius - 1) * dirZnormal;
 
 
-                let posx = dirX + ms.components.Renderable.xPos;
-                let posZ = dirZ + ms.components.Renderable.zPos;
+                let posx = dirX + ms.components.RenderableComponent.xPos;
+                let posZ = dirZ + ms.components.RenderableComponent.zPos;
 
 
-                ship.components.Renderable.xPos = posx;
-                ship.components.Renderable.zPos = posZ;
+                ship.components.RenderableComponent.xPos = posx;
+                ship.components.RenderableComponent.zPos = posZ;
 
                 for (let i = 0; i < ship.components.MultiExhaustComponent.exhaustComponents.length; i++) {
                     ship.components.MultiExhaustComponent.exhaustComponents[i].points = [];
@@ -78,8 +81,8 @@ function teleport_process_constructor(sb) {
 
 
                 camera.mvPushMatrix();
-                gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
-                gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
+                gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
+                gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.getMVMatrix());
                 let c = le.components.JumpArea.color;
 
                 gl.uniform4f(simplestProgram.uColor, c[0], c[1], c[2], 1.0);
@@ -121,7 +124,10 @@ function teleport_process_constructor(sb) {
         return ret;
 
     }
-    return {}
+    return {
+        draw, update, init: function () {
+        }
+    }
 
 }
 

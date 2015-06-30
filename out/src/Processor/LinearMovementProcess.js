@@ -37,7 +37,7 @@ function linearmovementprocess_construcotr(sb) {
                             } catch (se) {
                               {
                                 se = le.components.Selectable;
-                                re = le.components.Renderable;
+                                re = le.components.RenderableComponent;
                                 me = le.components.Movable;
                                 if (me && se.selected && camera.clickPosition) {
                                   me.newXpos = camera.clickPosition[0];
@@ -96,5 +96,9 @@ function linearmovementprocess_construcotr(sb) {
       }
     }
   };
-  return {};
+  return {
+    update: update,
+    draw: function() {},
+    init: function() {}
+  };
 }

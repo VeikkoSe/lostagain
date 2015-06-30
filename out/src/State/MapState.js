@@ -53,28 +53,28 @@ function mapstate_constructor(sb) {
   var update = function() {
     var timeNow = new Date().getTime();
     actionMapper.handleKeys();
-    this.frameCount++;
-    if (this.lastTime != 0) {
+    frameCount++;
+    if (lastTime != 0) {
       try {
         throw undefined;
       } catch (elapsed) {
         {
-          elapsed = timeNow - this.lastTime;
-          this.elapsedTotal += elapsed;
+          elapsed = timeNow - lastTime;
+          elapsedTotal += elapsed;
           {
             try {
               throw undefined;
             } catch ($i) {
               {
                 $i = 0;
-                for (; $i < this.processList.length; $i++) {
+                for (; $i < processList.length; $i++) {
                   try {
                     throw undefined;
                   } catch (i) {
                     {
                       i = $i;
                       try {
-                        this.processList[$traceurRuntime.toProperty(i)].update(elapsed, false);
+                        processList[$traceurRuntime.toProperty(i)].update(elapsed, false);
                       } finally {
                         $i = i;
                       }
@@ -87,7 +87,7 @@ function mapstate_constructor(sb) {
         }
       }
     }
-    this.lastTime = timeNow;
+    lastTime = timeNow;
   };
   var subscribe = function() {};
   var cleanup = function() {};

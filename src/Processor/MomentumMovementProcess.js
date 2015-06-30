@@ -1,9 +1,6 @@
-function momemtummovementprocess_constructor() {
-    //constructor() {
+function momemtummovementprocess_constructor(sb) {
 
-
-    //}
-
+    let em = sb.getEntityManager();
 
     let update = function (deltatime) {
 
@@ -14,10 +11,10 @@ function momemtummovementprocess_constructor() {
                 continue;
 
 
-            if (le.components.MomentumMovable && le.components.Renderable) {
+            if (le.components.MomentumMovable && le.components.RenderableComponent) {
 
                 let mm = le.components.MomentumMovable;
-                let re = le.components.Renderable;
+                let re = le.components.RenderableComponent;
                 /*
                  if ((helpers.isNumeric(mm.routeEndXpos) && helpers.isNumeric(mm.routeEndZpos)) &&
                  (helpers.isClose(re.xPos, mm.routeEndXpos) && helpers.isClose(re.zPos, mm.routeEndZpos))) {
@@ -107,6 +104,10 @@ function momemtummovementprocess_constructor() {
     }
 
 
-    return {}
+    return {
+        update, draw: function () {
+        }, init: function () {
+        }
+    }
 
 }

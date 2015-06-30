@@ -34,23 +34,27 @@ function gamestate_constructor(sb) {
         document.onmousedown = actionMapper.handleMouseDown;
 
 
-        // processList.push(new TextProcess2d());
+        processList.push(text_process_2d_constructor(sb));
         // processList.push(new AsteroidRenderProcess());
         // processList.push(new PlaneProcess());
 
-        // processList.push(new CameraControllerProcess());
-        // processList.push(new PrimitiveProcess());
-        // processList.push(new TeleportProcess());
-        //processList.push(new StarProcess());
-        //processList.push(new EnemyProcess());
-        // processList.push(new GunProcess());
-        //  processList.push(new LaserProcess());
-        //  processList.push(new MomentumMovementProcess());
-        //   processList.push(new ExhaustProcess());
-        //  processList.push(new ExplosionProcess());
-        // processList.push(new LayoutProcess());
-        // processList.push(new CollisionProcess());
+        processList.push(cameracontrollerprocess_constructor(sb));
+        processList.push(primitiveprocess_constructor(sb));
+        //processList.push(teleport_process_constructor(sb));
+        processList.push(starprocess_constructor(sb));
+        processList.push(enemyprocess_constructor(sb));
+        processList.push(gunprocess_constructor(sb));
+        // processList.push(new LaserProcess());
+        processList.push(momemtummovementprocess_constructor(sb));
+        processList.push(exhaustprocess_constructor(sb));
+        processList.push(explosionprocess_constructor(sb));
+        processList.push(layoutprocess_constructor(sb));
+        processList.push(collisionprocess_constructor(sb));
         processList.push(renderprocess_constructor(sb));
+
+        for (let i = 0; i < processList.length; i++) {
+            processList[i].init();
+        }
 
 
         //if (game.currentLevel == null) {
@@ -144,7 +148,9 @@ function gamestate_constructor(sb) {
 
         //  gl.disable(gl.BLEND);
 
+
         for (let i = 0; i < processList.length; i++) {
+
             processList[i].draw();
         }
         //console.log(camera.drawCalls);

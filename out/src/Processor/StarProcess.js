@@ -1,31 +1,22 @@
-var StarProcess = function StarProcess() {
-  "use strict";
-  this.pointStartPositionsBuffer = null;
-  this.startPositions = [];
-  this.colors = [];
-  this.initBuffers();
-  this.starProgram = sm.init('star');
-};
-($traceurRuntime.createClass)(StarProcess, {
-  randomBetween: function(min, max) {
-    "use strict";
-    if (min < 0) {
-      return min + Math.random() * (Math.abs(min) + max);
-    } else {
-      return min + Math.random() * max;
-    }
-  },
-  initBuffers: function() {
-    "use strict";
-    var numParticles = 10000;
+function starprocess_constructor(sb) {
+  var gl = sb.getGL();
+  var pointStartPositionsBuffer = gl.createBuffer();
+  var startPositions = [];
+  var colors = [];
+  var em = sb.getEntityManager();
+  var camera = sb.getCamera();
+  var shadermanager = sb.getShaderManager();
+  var program = shadermanager.init("star");
+  var numParticles = 10000;
+  var init = function() {
     var color = [1, 1, 1, 1];
-    this.colors.push(color);
+    colors.push(color);
     var color = [1, 1, 1, 2];
-    this.colors.push(color);
+    colors.push(color);
     var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
-    this.colors.push(color);
+    colors.push(color);
     var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
-    this.colors.push(color);
+    colors.push(color);
     {
       try {
         throw undefined;
@@ -39,10 +30,10 @@ var StarProcess = function StarProcess() {
               {
                 i = $i;
                 try {
-                  this.startPositions.push(this.randomBetween(-4000, 4000));
-                  this.startPositions.push(this.randomBetween(-600, -500));
-                  this.startPositions.push(this.randomBetween(-4000, 4000));
-                  this.startPositions.push(this.randomBetween(1, 1));
+                  startPositions.push(randomBetween(-4000, 4000));
+                  startPositions.push(randomBetween(-600, -500));
+                  startPositions.push(randomBetween(-4000, 4000));
+                  startPositions.push(randomBetween(1, 1));
                 } finally {
                   $i = i;
                 }
@@ -52,13 +43,19 @@ var StarProcess = function StarProcess() {
         }
       }
     }
-    this.pointStartPositionsBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.startPositions), gl.STATIC_DRAW);
-    this.pointStartPositionsBuffer.numItems = numParticles;
-  },
-  draw: function() {
-    "use strict";
+    gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
+    pointStartPositionsBuffer.numItems = numParticles;
+  };
+  var randomBetween = function(min, max) {
+    if (min < 0) {
+      return min + Math.random() * (Math.abs(min) + max);
+    } else {
+      return min + Math.random() * max;
+    }
+  };
+  var draw = function() {
+    var mvMatrix = camera.getMVMatrix();
     {
       try {
         throw undefined;
@@ -78,17 +75,14 @@ var StarProcess = function StarProcess() {
                     {
                       le = em.entities[$traceurRuntime.toProperty(e)];
                       if (le.components.StarComponent) {
-                        sm.setProgram(this.starProgram);
-                        camera.mvPushMatrix();
-                        gl.uniform3fv(this.starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
-                        gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
-                        gl.vertexAttribPointer(this.starProgram.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
-                        gl.vertexAttribPointer(this.starProgram.aPointSize, 1, gl.FLOAT, false, 16, 12);
-                        gl.uniformMatrix4fv(this.starProgram.uPMatrix, false, camera.pMatrix);
-                        gl.uniformMatrix4fv(this.starProgram.uMVMatrix, false, camera.mvMatrix);
-                        gl.drawArrays(gl.POINTS, 0, this.pointStartPositionsBuffer.numItems);
-                        camera.drawCalls++;
-                        camera.mvPopMatrix();
+                        shadermanager.setProgram(program);
+                        gl.uniform3fv(program.uCameraPos, [camera.getX(), camera.getY(), camera.getZ()]);
+                        gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
+                        gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
+                        gl.vertexAttribPointer(program.aPointSize, 1, gl.FLOAT, false, 16, 12);
+                        gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
+                        gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
+                        gl.drawArrays(gl.POINTS, 0, pointStartPositionsBuffer.numItems);
                       }
                     }
                   }
@@ -101,5 +95,10 @@ var StarProcess = function StarProcess() {
         }
       }
     }
-  }
-}, {}, Processor);
+  };
+  return {
+    draw: draw,
+    update: function() {},
+    init: init
+  };
+}

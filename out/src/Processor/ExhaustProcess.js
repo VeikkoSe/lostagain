@@ -1,6 +1,8 @@
 function exhaustprocess_constructor(sb) {
+  var shadermanager = sb.getShaderManager();
+  var exhaustProgram = shadermanager.init("exhaust");
+  var em = sb.getEntityManager();
   var lastTime = 0;
-  var exhaustProgram = sm.init('exhaust');
   var elapsedTotal = 0;
   var gl = sb.getGL();
   var vertexPositionBuffer = gl.createBuffer();
@@ -196,7 +198,7 @@ function exhaustprocess_constructor(sb) {
                     {
                       le = em.entities[$traceurRuntime.toProperty(e)];
                       if (le.components.ExhaustComponent) {
-                        updateTail(le.components.ExhaustComponent, le.components.Renderable);
+                        updateTail(le.components.ExhaustComponent, le.components.RenderableComponent);
                       }
                       if (le.components.MultiExhaustComponent) {
                         {
@@ -212,7 +214,7 @@ function exhaustprocess_constructor(sb) {
                                   {
                                     i = $i;
                                     try {
-                                      this.updateTail(le.components.MultiExhaustComponent.exhaustComponents[$traceurRuntime.toProperty(i)], le.components.Renderable);
+                                      updateTail(le.components.MultiExhaustComponent.exhaustComponents[$traceurRuntime.toProperty(i)], le.components.RenderableComponent);
                                     } finally {
                                       $i = i;
                                     }
@@ -252,8 +254,8 @@ function exhaustprocess_constructor(sb) {
       gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ec.points), gl.STATIC_DRAW);
       gl.vertexAttribPointer(exhaustProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-      gl.uniformMatrix4fv(exhaustProgram.uPMatrix, false, camera.pMatrix);
-      gl.uniformMatrix4fv(exhaustProgram.uMVMatrix, false, camera.mvMatrix);
+      gl.uniformMatrix4fv(exhaustProgram.uPMatrix, false, camera.getPMatrix());
+      gl.uniformMatrix4fv(exhaustProgram.uMVMatrix, false, camera.getMVMatrix());
       gl.drawArrays(gl.TRIANGLES, 0, ec.points.length / 3);
       camera.drawCalls++;
       camera.mvPopMatrix();
@@ -322,5 +324,9 @@ function exhaustprocess_constructor(sb) {
       }
     }
   };
-  return {};
+  return {
+    update: update,
+    draw: draw,
+    init: function() {}
+  };
 }

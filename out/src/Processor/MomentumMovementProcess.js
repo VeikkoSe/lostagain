@@ -1,4 +1,5 @@
-function momemtummovementprocess_constructor() {
+function momemtummovementprocess_constructor(sb) {
+  var em = sb.getEntityManager();
   var update = function(deltatime) {
     {
       try {
@@ -20,7 +21,7 @@ function momemtummovementprocess_constructor() {
                       le = em.entities[$traceurRuntime.toProperty(e)];
                       if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
                         continue;
-                      if (le.components.MomentumMovable && le.components.Renderable) {
+                      if (le.components.MomentumMovable && le.components.RenderableComponent) {
                         try {
                           throw undefined;
                         } catch (re) {
@@ -29,7 +30,7 @@ function momemtummovementprocess_constructor() {
                           } catch (mm) {
                             {
                               mm = le.components.MomentumMovable;
-                              re = le.components.Renderable;
+                              re = le.components.RenderableComponent;
                               if (mm.accelerationOn) {
                                 try {
                                   throw undefined;
@@ -102,5 +103,9 @@ function momemtummovementprocess_constructor() {
       }
     }
   };
-  return {};
+  return {
+    update: update,
+    draw: function() {},
+    init: function() {}
+  };
 }

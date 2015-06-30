@@ -1,9 +1,10 @@
 function teleport_process_constructor(sb) {
-  var vertexPositionBuffer = gl.createBuffer();
-  var simplestProgram = sm.init('simplest');
+  var shadermanager = sb.getShaderManager();
+  var simplestProgram = shadermanager.init("simplest");
   var em = sb.getEntityManager();
   var gl = sb.getGL();
   var camera = sb.getCamera();
+  var vertexPositionBuffer = gl.createBuffer();
   var update = function(deltatime, totalElapsed) {
     var ms = em.getEntityByName('mothership');
     var ship = em.getEntityByName('ship');
@@ -11,11 +12,11 @@ function teleport_process_constructor(sb) {
       if (totalElapsed > 2000)
         ms.components.JumpArea.visible = true;
       ms.components.JumpArea.points = circleXY({
-        x: ms.components.Renderable.xPos,
+        x: ms.components.RenderableComponent.xPos,
         y: 0,
-        z: ms.components.Renderable.zPos
+        z: ms.components.RenderableComponent.zPos
       }, ms.components.JumpArea.radius, ms.components.JumpArea.pointAmount);
-      if (!isInCircle(ms.components.Renderable.xPos, ms.components.Renderable.zPos, ms.components.JumpArea.radius, ship.components.Renderable.xPos, ship.components.Renderable.zPos)) {
+      if (!isInCircle(ms.components.RenderableComponent.xPos, ms.components.RenderableComponent.zPos, ms.components.JumpArea.radius, ship.components.RenderableComponent.xPos, ship.components.RenderableComponent.zPos)) {
         try {
           throw undefined;
         } catch (posZ) {
@@ -38,17 +39,17 @@ function teleport_process_constructor(sb) {
                       throw undefined;
                     } catch (dirX) {
                       {
-                        dirX = ms.components.Renderable.xPos - ship.components.Renderable.xPos;
-                        dirZ = ms.components.Renderable.zPos - ship.components.Renderable.zPos;
+                        dirX = ms.components.RenderableComponent.xPos - ship.components.RenderableComponent.xPos;
+                        dirZ = ms.components.RenderableComponent.zPos - ship.components.RenderableComponent.zPos;
                         origHyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
                         dirXnormal = dirX / origHyp;
                         dirZnormal = dirZ / origHyp;
                         dirX = (ms.components.JumpArea.radius - 1) * dirXnormal;
                         dirZ = (ms.components.JumpArea.radius - 1) * dirZnormal;
-                        posx = dirX + ms.components.Renderable.xPos;
-                        posZ = dirZ + ms.components.Renderable.zPos;
-                        ship.components.Renderable.xPos = posx;
-                        ship.components.Renderable.zPos = posZ;
+                        posx = dirX + ms.components.RenderableComponent.xPos;
+                        posZ = dirZ + ms.components.RenderableComponent.zPos;
+                        ship.components.RenderableComponent.xPos = posx;
+                        ship.components.RenderableComponent.zPos = posZ;
                         {
                           try {
                             throw undefined;
@@ -110,8 +111,8 @@ function teleport_process_constructor(sb) {
                           {
                             sm.setProgram(simplestProgram);
                             camera.mvPushMatrix();
-                            gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
-                            gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
+                            gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
+                            gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.getMVMatrix());
                             c = le.components.JumpArea.color;
                             gl.uniform4f(simplestProgram.uColor, c[0], c[1], c[2], 1.0);
                             gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
@@ -150,5 +151,9 @@ function teleport_process_constructor(sb) {
       ret = angle + 180;
     return ret;
   };
-  return {};
+  return {
+    draw: draw,
+    update: update,
+    init: function() {}
+  };
 }

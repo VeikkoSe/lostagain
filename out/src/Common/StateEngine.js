@@ -41,7 +41,6 @@ function stateengine_constructor(sb) {
       states.pop();
     }
     states.push(state);
-    console.log(stateStr);
     currentState = state;
     states[$traceurRuntime.toProperty(states.length - 1)].init();
   };

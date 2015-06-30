@@ -3,9 +3,11 @@ function exhaustprocess_constructor(sb) {
     //this.exhaustAmount = 200;
     //this.exhaustInterval = 50;
     //this.exhaustTrail = [];
-
+    let shadermanager = sb.getShaderManager();
+    let exhaustProgram = shadermanager.init("exhaust");
+    let em = sb.getEntityManager();
     let lastTime = 0;
-    let exhaustProgram = sm.init('exhaust');
+    //let exhaustProgram = sm.init('exhaust');
     let elapsedTotal = 0;
     let gl = sb.getGL();
 
@@ -196,13 +198,13 @@ function exhaustprocess_constructor(sb) {
 
             if (le.components.ExhaustComponent) {
 
-                updateTail(le.components.ExhaustComponent, le.components.Renderable);
+                updateTail(le.components.ExhaustComponent, le.components.RenderableComponent);
 
             }
 
             if (le.components.MultiExhaustComponent) {
                 for (let i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++) {
-                    this.updateTail(le.components.MultiExhaustComponent.exhaustComponents[i], le.components.Renderable);
+                    updateTail(le.components.MultiExhaustComponent.exhaustComponents[i], le.components.RenderableComponent);
                 }
             }
 
@@ -242,8 +244,8 @@ function exhaustprocess_constructor(sb) {
 
             gl.vertexAttribPointer(exhaustProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-            gl.uniformMatrix4fv(exhaustProgram.uPMatrix, false, camera.pMatrix);
-            gl.uniformMatrix4fv(exhaustProgram.uMVMatrix, false, camera.mvMatrix);
+            gl.uniformMatrix4fv(exhaustProgram.uPMatrix, false, camera.getPMatrix());
+            gl.uniformMatrix4fv(exhaustProgram.uMVMatrix, false, camera.getMVMatrix());
             //gl.drawArrays(gl.LINE_STRIP, 0, ec.points.length/3);
             gl.drawArrays(gl.TRIANGLES, 0, ec.points.length / 3);
             camera.drawCalls++;
@@ -283,7 +285,10 @@ function exhaustprocess_constructor(sb) {
 
     }
 
-    return {}
+    return {
+        update, draw, init: function () {
+        }
+    }
 
 
     //}

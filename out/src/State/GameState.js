@@ -14,7 +14,41 @@ function gamestate_constructor(sb) {
     document.onkeyup = actionMapper.handleKeyUp;
     document.onmousemove = actionMapper.handleMouseMove;
     document.onmousedown = actionMapper.handleMouseDown;
+    processList.push(text_process_2d_constructor(sb));
+    processList.push(cameracontrollerprocess_constructor(sb));
+    processList.push(primitiveprocess_constructor(sb));
+    processList.push(starprocess_constructor(sb));
+    processList.push(enemyprocess_constructor(sb));
+    processList.push(gunprocess_constructor(sb));
+    processList.push(momemtummovementprocess_constructor(sb));
+    processList.push(exhaustprocess_constructor(sb));
+    processList.push(explosionprocess_constructor(sb));
+    processList.push(layoutprocess_constructor(sb));
+    processList.push(collisionprocess_constructor(sb));
     processList.push(renderprocess_constructor(sb));
+    {
+      try {
+        throw undefined;
+      } catch ($i) {
+        {
+          $i = 0;
+          for (; $i < processList.length; $i++) {
+            try {
+              throw undefined;
+            } catch (i) {
+              {
+                i = $i;
+                try {
+                  processList[$traceurRuntime.toProperty(i)].init();
+                } finally {
+                  $i = i;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.getMVMatrix());

@@ -1,21 +1,25 @@
-class MenuState extends StateEngine {
+function menustate_constructor(sb) {
 
-    constructor(canvas) {
+    //constructor(canvas) {
 
-        this.wall = null;
+    let wall = null;
+    let gl = sb.getGL();
 
+    let shadermanager = sb.getShaderManager();
+    let shaderprogram = shadermanager.init("simplest");
+    let camera = sb.getCamera();
 
-    }
+    //}
 
-    draw() {
+    let draw = function () {
 
 
         gl.disable(gl.BLEND);
         gl.enable(gl.DEPTH_TEST);
 
 
-        gl.uniform1f(shaderProgram.alphaUniform, 1);
-        gl.uniform1i(shaderProgram.uDrawColors, 0);
+        gl.uniform1f(shaderprogram.alphaUniform, 1);
+        gl.uniform1i(shaderprogram.uDrawColors, 0);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
 
@@ -25,29 +29,29 @@ class MenuState extends StateEngine {
         //mat4.scale(camera.mvMatrix, [0.05, 0.05, 0.05]);
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.wall.vertexPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, wall.vertexPositionBuffer);
+        gl.vertexAttribPointer(shaderprogram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.wall.normalPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, wall.normalPositionBuffer);
+        gl.vertexAttribPointer(shaderprogram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
 
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.wall.texturePositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, wall.texturePositionBuffer);
+        gl.vertexAttribPointer(shaderprogram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, this.wall.texture);
+        gl.bindTexture(gl.TEXTURE_2D, wall.texture);
 
 
-        gl.uniform1i(shaderProgram.samplerUniform, 0);
+        gl.uniform1i(shaderprogram.samplerUniform, 0);
 
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.wall.indexPositionBuffer);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wall.indexPositionBuffer);
 
         setMatrixUniforms();
 
 
-        gl.drawElements(gl.TRIANGLES, this.wall.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+        gl.drawElements(gl.TRIANGLES, wall.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 
         camera.mvPopMatrix();
 
@@ -55,10 +59,10 @@ class MenuState extends StateEngine {
     }
 
 
-    init() {
+    let init = function () {
         //global
 
-        this.wall = mm.getOrAdd('menu');
+        wall = mm.getOrAdd('menu');
 
         //console.log('init');
 
@@ -86,8 +90,8 @@ class MenuState extends StateEngine {
         camera.setPerspective();
 
 
-        mat4.identity(camera.mvMatrix);
-        mat4.translate(camera.mvMatrix, [0, 0, -90]);
+        mat4.identity(camera.getMVMatrix());
+        mat4.translate(camera.getMVMatrix(), [0, 0, -90]);
         //mat4.rotate(camera.mvMatrix, helpers.degToRad(-45),[0, 1, 0]);
         //mat4.rotate(camera.mvMatrix, helpers.degToRad(-70),[1, 0, 0]);
         //
@@ -99,22 +103,24 @@ class MenuState extends StateEngine {
     }
 
 
-    update() {
+    let update = function () {
 
         actionMapper.handleKeys();
 
 
     }
 
-    cleanup() {
-
-        document.onkeydown = null;
-        document.onkeyup = null;
-        document.onmousemove = null;
-        document.onmousedown = null;
-        actionMapper = null;
-        currentlyPressedKeys = {};
+    let cleanup = function () {
+        /*
+         document.onkeydown = null;
+         document.onkeyup = null;
+         document.onmousemove = null;
+         document.onmousedown = null;
+         actionMapper = null;
+         currentlyPressedKeys = {};
+         */
     }
+    return {};
 
 
 }

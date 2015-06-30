@@ -1,12 +1,17 @@
 function gunprocess_constructor(sb) {
     //constructor() {
+
+    let gl = sb.getGL();
+    let shadermanager = sb.getShaderManager();
+    let particleProgram3d = shadermanager.init("particle3d");
+
     let bulletsAmount = 80;
     let bulletReloadSpeed = 250;
     let bullets = [];
     let bulletShot = 0;
     let lastTime = 0;
     let camera = sb.getCamera();
-    let particleProgram3d = sm.init('particle3d');
+    // let particleProgram3d = sm.init('particle3d');
     let em = sb.getEntityManager();
     let collisions = [];
 
@@ -58,7 +63,7 @@ function gunprocess_constructor(sb) {
                 }
 
                 let c = le.components.CollisionComponent;
-                let r = le.components.Renderable;
+                let r = le.components.RenderableComponent;
 
                 c.entity = le;
 
@@ -100,7 +105,7 @@ function gunprocess_constructor(sb) {
                 le.components.GunComponent.activeWeapon == 1 &&
                 le.components.HealthComponent.amount > 0) {
 
-                shootBullet(le.components.Renderable);
+                shootBullet(le.components.RenderableComponent);
             }
         }
         for (let i = 0; i < bulletsAmount; i++) {
@@ -130,8 +135,8 @@ function gunprocess_constructor(sb) {
 
             if (le.components.PhotonTorpedoComponent) {
                 gl.disable(gl.DEPTH_TEST);
-                sm.setProgram(particleProgram3d);
-
+                //sm.setProgram(particleProgram3d);
+                shadermanager.setProgram(particleProgram3d);
                 gl.enable(gl.BLEND);
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
@@ -160,8 +165,8 @@ function gunprocess_constructor(sb) {
                     gl.uniform4f(particleProgram3d.colorUniform, 1, 1, 1, 1);
 
 
-                    gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.pMatrix);
-                    gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, camera.mvMatrix);
+                    gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.getPMatrix());
+                    gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, camera.getMVMatrix());
 
 
                     gl.drawArrays(gl.POINTS, 0, 1);
@@ -206,5 +211,5 @@ function gunprocess_constructor(sb) {
         }
 
     }
-    return {}
+    return {update, draw, init}
 }

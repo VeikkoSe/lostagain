@@ -1,4 +1,4 @@
-function collisionprocess_constructor() {
+function collisionprocess_constructor(sb) {
     //constructor() {
     let collisions = [];
     let gl = sb.getGL();
@@ -17,11 +17,11 @@ function collisionprocess_constructor() {
 
             hc.amount--;
             if (hc.amount > 0) {
-                pub.publish("explosion", enemyEntity.components.Renderable);
+                pub.publish("explosion", enemyEntity.components.RenderableComponent);
             }
             else {
                 hc.amount = 0;
-                pub.publish("bigexplosion", enemyEntity.components.Renderable);
+                pub.publish("bigexplosion", enemyEntity.components.RenderableComponent);
             }
         });
 
@@ -40,11 +40,11 @@ function collisionprocess_constructor() {
 
             hc.amount--;
             if (hc.amount > 0) {
-                pub.publish("explosion", enemyEntity.components.Renderable);
+                pub.publish("explosion", enemyEntity.components.RenderableComponent);
             }
             else {
                 hc.amount = 0;
-                pub.publish("bigexplosion", enemyEntity.components.Renderable);
+                pub.publish("bigexplosion", enemyEntity.components.RenderableComponent);
 
             }
 
@@ -58,7 +58,7 @@ function collisionprocess_constructor() {
             let hc = playerEntity.components.HealthComponent;
             let sc = playerEntity.components.ShieldComponent;
             //renderable contains xyz of object so we know where to explode
-            let pc = playerEntity.components.Renderable;
+            let pc = playerEntity.components.RenderableComponent;
 
             if (sc.amount > 0)
                 sc.amount--;
@@ -97,7 +97,7 @@ function collisionprocess_constructor() {
                 }
 
                 let c = le.components.CollisionComponent;
-                let r = le.components.Renderable;
+                let r = le.components.RenderableComponent;
                 c.xPos = r.xPos;
                 c.yPos = r.yPos;
                 c.zPos = r.zPos;
@@ -131,5 +131,11 @@ function collisionprocess_constructor() {
 
         }
     }
-    return {}
+
+
+    return {
+        update, draw: function () {
+        }, init: function () {
+        }
+    }
 }

@@ -16,6 +16,7 @@ $(document).ready(function () {
     //CORE.create_module("texture",texture_constructor(sb));
     CORE.create_module("shadermanager", shader_manager_constuctor(sb));
     CORE.create_module("layout", layout_constructor(sb));
+    CORE.create_module("text", text_constructor(sb));
     //CORE.create_module("text",shader_manager_constuctor(sb));
 
 

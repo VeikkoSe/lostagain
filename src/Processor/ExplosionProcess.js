@@ -1,17 +1,23 @@
 function explosionprocess_constructor(sb) {
     // constructor() {
     // let that = this;
-
+    let shadermanager = sb.getShaderManager();
+    let particleProgram = shadermanager.init("lifetimeparticle");
     let explosions = [];
-    let particleProgram = sm.init('lifetimeparticle');
+    //let particleProgram = sm.init('lifetimeparticle');
     let gl = sb.getGL();
     let camera = sb.getCamera();
+    let texture;
+    let t = texture_constructor(sb);
 
 
     let init = function () {
 
-        let texture = texture_constuctor('smoke');
+        //let texture = texture_constuctor('smoke');
 
+        t.load({name: 'smoke'});
+
+        texture = t.getLoadedTexture();
         sb.subscribe("explosion", function (name, entity) {
 
             createNewExplosion(entity.xPos, entity.zPos);
@@ -27,9 +33,9 @@ function explosionprocess_constructor(sb) {
         });
 
         explosions = [];
-        particleProgram = sm.init('lifetimeparticle');
+        //particleProgram = sm.init('lifetimeparticle');
 
-        texture = new Texture('smoke');
+        //texture = new Texture('smoke');
 
     }
 
@@ -72,7 +78,8 @@ function explosionprocess_constructor(sb) {
 
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-        sm.setProgram(particleProgram);
+        //sm.setProgram(particleProgram);
+        shadermanager.setProgram(particleProgram);
 
         for (let i = 0; i < explosions.length; i++) {
             camera.mvPushMatrix();
@@ -108,6 +115,7 @@ function explosionprocess_constructor(sb) {
 
 
     }
+    return {update, draw, init}
 }
 
 

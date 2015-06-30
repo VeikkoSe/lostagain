@@ -1,5 +1,6 @@
 function cameracontrollerprocess_constructor(sb) {
     let camera = sb.getCamera();
+    let em = sb.getEntityManager();
 
     let update = function (deltatime) {
 
@@ -8,9 +9,9 @@ function cameracontrollerprocess_constructor(sb) {
             let le = em.entities[e];
 
 
-            if (le.components.CameraController && le.components.Renderable) {
+            if (le.components.CameraController && le.components.RenderableComponent) {
 
-                let re = le.components.Renderable;
+                let re = le.components.RenderableComponent;
 
 
                 camera.x = -1 * re.xPos;
@@ -23,7 +24,11 @@ function cameracontrollerprocess_constructor(sb) {
         }
     }
 
-    return {}
+    return {
+        update, draw: function () {
+        }, init: function () {
+        }
+    }
 
 
 }

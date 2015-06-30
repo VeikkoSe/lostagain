@@ -6,10 +6,10 @@ function JumpAreaController(x, y, z, color) {
   var yPos = y;
   var zPos = z;
   var points = circleXY({
-    x: this.xPos,
-    y: this.yPos,
-    z: this.zPos
-  }, this.radius, this.pointAmount);
+    x: xPos,
+    y: yPos,
+    z: zPos
+  }, radius, pointAmount);
   var color = color;
   var visible = false;
   return {};

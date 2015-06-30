@@ -12,6 +12,7 @@ $(document).ready(function() {
   CORE.create_module("stateengine", stateengine_constructor(sb));
   CORE.create_module("shadermanager", shader_manager_constuctor(sb));
   CORE.create_module("layout", layout_constructor(sb));
+  CORE.create_module("text", text_constructor(sb));
   CORE.start_all();
 });
 function printMessage(msg) {

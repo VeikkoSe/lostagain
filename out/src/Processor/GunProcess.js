@@ -1,11 +1,13 @@
 function gunprocess_constructor(sb) {
+  var gl = sb.getGL();
+  var shadermanager = sb.getShaderManager();
+  var particleProgram3d = shadermanager.init("particle3d");
   var bulletsAmount = 80;
   var bulletReloadSpeed = 250;
   var bullets = [];
   var bulletShot = 0;
   var lastTime = 0;
   var camera = sb.getCamera();
-  var particleProgram3d = sm.init('particle3d');
   var em = sb.getEntityManager();
   var collisions = [];
   var init = function() {
@@ -108,7 +110,7 @@ function gunprocess_constructor(sb) {
                                 continue;
                               }
                               c = le.components.CollisionComponent;
-                              r = le.components.Renderable;
+                              r = le.components.RenderableComponent;
                               c.entity = le;
                               collisions.push(c);
                             }
@@ -193,7 +195,7 @@ function gunprocess_constructor(sb) {
                     {
                       le = em.entities[$traceurRuntime.toProperty(e)];
                       if (le.components.GunComponent && le.components.GunComponent.shooting && le.components.GunComponent.activeWeapon == 1 && le.components.HealthComponent.amount > 0) {
-                        shootBullet(le.components.Renderable);
+                        shootBullet(le.components.RenderableComponent);
                       }
                     }
                   }
@@ -268,7 +270,7 @@ function gunprocess_constructor(sb) {
                       le = em.entities[$traceurRuntime.toProperty(e)];
                       if (le.components.PhotonTorpedoComponent) {
                         gl.disable(gl.DEPTH_TEST);
-                        sm.setProgram(particleProgram3d);
+                        shadermanager.setProgram(particleProgram3d);
                         gl.enable(gl.BLEND);
                         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
                         {
@@ -301,8 +303,8 @@ function gunprocess_constructor(sb) {
                                           gl.bindTexture(gl.TEXTURE_2D, bc.sprite.texture);
                                           gl.uniform1i(particleProgram3d.samplerUniform, 0);
                                           gl.uniform4f(particleProgram3d.colorUniform, 1, 1, 1, 1);
-                                          gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.pMatrix);
-                                          gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, camera.mvMatrix);
+                                          gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.getPMatrix());
+                                          gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, camera.getMVMatrix());
                                           gl.drawArrays(gl.POINTS, 0, 1);
                                           camera.drawCalls++;
                                           camera.mvPopMatrix();
@@ -412,5 +414,9 @@ function gunprocess_constructor(sb) {
       game.stateEngine.gameState.asteroids.addnew(2);
     }
   };
-  return {};
+  return {
+    update: update,
+    draw: draw,
+    init: init
+  };
 }

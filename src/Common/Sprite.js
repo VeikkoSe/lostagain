@@ -1,45 +1,61 @@
-/*
- class Sprite {
- constructor(name) {
+function sprite_constructor(sb) {
+    //constructor(name) {
 
- this.speed = typeof speed === 'number' ? speed : 0;
+    let gl = sb.getGL();
 
- this.name = name;
+    //let speed = typeof speed === 'number' ? speed : 0;
 
- let t = new Texture(this.name);
- this.texture = t.loadedTexture;
- this.textureLoaded = t.loaded;
-
- this.pointStartPositionsBuffer = gl.createBuffer();
- this.time = 0;
- this.numParticles = 1;
-
- this.buildBuffers();
-
- }
+    // let name = name;
 
 
+    let t = texture_constructor(sb);
+
+    let loadReturn = {};
 
 
- buildBuffers() {
+    // let time = 0;
 
 
- let startPositions = [];
-
- startPositions.push(0);
- startPositions.push(0);
- startPositions.push(0);
-
- gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
- gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
- this.pointStartPositionsBuffer.itemSize = 3;
- this.pointStartPositionsBuffer.numItems = this.numParticles;
-
- }
+    let load = function (name) {
 
 
- }
+        t.load({name});
 
- */
+        //let texture =;
+
+        let pointStartPositionsBuffer = gl.createBuffer();
+        let numParticles = 1;
+
+
+        //build buffers
+        let startPositions = [];
+
+        startPositions.push(0);
+        startPositions.push(0);
+        startPositions.push(0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
+
+
+        //We don't create new objects
+        loadReturn = {};
+
+        loadReturn.itemSize = 3;
+        loadReturn.numItems = numParticles;
+        loadReturn.texture = t.getLoadedTexture();
+        loadReturn.buffer = pointStartPositionsBuffer;
+
+        return loadReturn;
+
+    };
+
+
+    return {
+        load
+    }
+}
+
+
 
 

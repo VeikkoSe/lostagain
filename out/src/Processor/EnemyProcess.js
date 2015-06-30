@@ -24,7 +24,7 @@ function enemyprocess_constructor(sb) {
                   } catch (le) {
                     {
                       le = em.entities[$traceurRuntime.toProperty(e)];
-                      if (le.components.Renderable && le.components.MeshComponent && le.components.EnemyComponent) {
+                      if (le.components.RenderableComponent && le.components.MeshComponent && le.components.EnemyComponent) {
                         try {
                           throw undefined;
                         } catch (re) {
@@ -36,7 +36,7 @@ function enemyprocess_constructor(sb) {
                               if (ship.components.HealthComponent.amount < 1) {
                                 ship = em.getEntityByName('mothership');
                               }
-                              re = le.components.Renderable;
+                              re = le.components.RenderableComponent;
                               if (!routeDone) {
                                 try {
                                   throw undefined;
@@ -54,8 +54,8 @@ function enemyprocess_constructor(sb) {
                                           throw undefined;
                                         } catch (dirZ) {
                                           {
-                                            dirZ = ship.components.Renderable.xPos - re.xPos;
-                                            dirX = ship.components.Renderable.zPos - re.zPos;
+                                            dirZ = ship.components.RenderableComponent.xPos - re.xPos;
+                                            dirX = ship.components.RenderableComponent.zPos - re.zPos;
                                             hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
                                             angR = Math.atan2(dirX, dirZ);
                                             deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
@@ -87,5 +87,9 @@ function enemyprocess_constructor(sb) {
       }
     }
   };
-  return {};
+  return {
+    update: update,
+    draw: function() {},
+    init: function() {}
+  };
 }

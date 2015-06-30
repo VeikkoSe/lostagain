@@ -20,7 +20,7 @@ function mesh_constructor(sb) {
   };
   var loadMesh = function(name) {
     var tc = texture_constructor(sb);
-    tc.loadTexture({name: name});
+    tc.load({name: name});
     texture = tc.getLoadedTexture();
     var request = new XMLHttpRequest();
     request.open("GET", "resources/models/" + name + ".js?" + Math.random(), true);

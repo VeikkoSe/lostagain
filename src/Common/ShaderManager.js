@@ -332,7 +332,7 @@ function shader_manager_constuctor(gl) {
 
     let initLifeTimeParticleShaders = function (id) {
 
-        let program = this.createP(id);
+        let program = createP(id);
 
         program.pointLifetimeAttribute = gl.getAttribLocation(program, "aLifetime");
         gl.enableVertexAttribArray(program.pointLifetimeAttribute);

@@ -1,7 +1,7 @@
-function Movable(speed = 0.1) {
+function MovableComponent(speed = 0.1) {
     //constructor(speed = 0.1) {
 
-    let name = "Movable";
+    let name = "MovableComponent";
 
     let newXpos = false;
     let newYpos = false;

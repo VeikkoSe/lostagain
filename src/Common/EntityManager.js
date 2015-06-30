@@ -17,7 +17,7 @@ function entity_manager_constructor() {
 
 
     let getEntityByName = function (name) {
-        for (let e = 0; e < this.entities.length; e++) {
+        for (let e = 0; e < entities.length; e++) {
             if (entities[e].name == name)
                 return entities[e];
         }

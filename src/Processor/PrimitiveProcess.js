@@ -1,7 +1,12 @@
-function primitiveprocess_constructor() {
+function primitiveprocess_constructor(sb) {
     //constructor() {
+    let gl = sb.getGL();
     let vertexPositionBuffer = gl.createBuffer();
-    let simplestProgram = sm.init('simplest');
+    let em = sb.getEntityManager();
+    let shadermanager = sb.getShaderManager();
+    let simplestProgram = shadermanager.init("simplest");
+
+    let camera = sb.getCamera();
 
     //}
 
@@ -11,9 +16,9 @@ function primitiveprocess_constructor() {
         for (let e = 0; e < em.entities.length; e++) {
             let le = em.entities[e];
 
-            if (le.components.PrimitiveComponent && le.components.Renderable) {
+            if (le.components.PrimitiveComponent && le.components.RenderableComponent) {
 
-                sm.setProgram(this.simplestProgram);
+                //sm.setProgram(this.simplestProgram);
                 //let re = le.components.Renderable;
                 //let p = {x: re.xPos, y: re.yPos, z: re.zPos};
 
@@ -21,16 +26,16 @@ function primitiveprocess_constructor() {
 
 
                 camera.mvPushMatrix();
-                gl.uniformMatrix4fv(this.simplestProgram.uPMatrix, false, camera.pMatrix);
-                gl.uniformMatrix4fv(this.simplestProgram.uMVMatrix, false, camera.mvMatrix);
+                gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
+                gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.getMVMatrix());
                 let c = le.components.PrimitiveComponent.color;
 
-                gl.uniform4f(this.simplestProgram.uColor, c[0], c[1], c[2], 1.0);
+                gl.uniform4f(simplestProgram.uColor, c[0], c[1], c[2], 1.0);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+                gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(le.components.PrimitiveComponent.points), gl.STATIC_DRAW);
-                gl.enableVertexAttribArray(this.simplestProgram.aVertexPosition);
-                gl.vertexAttribPointer(this.simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+                gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
+                gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
                 gl.drawArrays(gl.LINES, 0, le.components.PrimitiveComponent.points.length / 3);
@@ -42,7 +47,11 @@ function primitiveprocess_constructor() {
         }
     }
 
-    return {}
+    return {
+        update: function () {
+        }, draw, init: function () {
+        }
+    }
 
 
 }

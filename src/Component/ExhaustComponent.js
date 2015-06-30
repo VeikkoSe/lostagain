@@ -14,7 +14,7 @@ function ExhaustComponent(sprite, length = 30, width = 2, offSetFromCenter = 0, 
 
 
     //}
-    return {name}
+    return {name, flow}
 
 
 }

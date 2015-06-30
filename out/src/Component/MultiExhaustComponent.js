@@ -6,6 +6,7 @@ function MultiExhaustComponent() {
   };
   return {
     name: name,
-    exhaustComponents: exhaustComponents
+    exhaustComponents: exhaustComponents,
+    addExhaust: addExhaust
   };
 }

@@ -1,4 +1,4 @@
-function Controllable() {
-  var name = "Controllable";
+function ControllableComponent() {
+  var name = "ControllableComponent";
   return {name: name};
 }

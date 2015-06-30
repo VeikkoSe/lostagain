@@ -56,10 +56,15 @@ function renderprocess_constructor(sb) {
 
     let draw = function () {
 
+
+
+
         for (let e = 0; e < em.entities.length; e++) {
             let le = em.entities[e];
 
-            if (le.components.Renderable && le.components.MeshComponent) {
+            if (le.components.RenderableComponent && le.components.MeshComponent) {
+
+                //console.log(le);
                 /*
                  //we do not render objects wich health is zero
                  if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
@@ -71,7 +76,7 @@ function renderprocess_constructor(sb) {
 
                 //let rc = le.components.Renderable;
                 let mc = le.components.MeshComponent;
-                let rc = le.components.Renderable;
+                let rc = le.components.RenderableComponent;
 
                 //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
                 shadermanager.setProgram(shaderprogram);
@@ -91,7 +96,11 @@ function renderprocess_constructor(sb) {
                 gl.uniform3f(shaderprogram.uLightSpecular, 0.8, 0.8, 0.8);
                 gl.uniform1f(shaderprogram.uMaterialShininess, 200.0);
 
-                camera.mvPushMatrix();
+                //camera.mvPushMatrix();
+
+                //let pMatrix = camera.getPMatrix();
+                let mvMatrix = camera.getMVMatrix();
+
 
                 //gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
 
@@ -103,14 +112,14 @@ function renderprocess_constructor(sb) {
                     gl.uniform3fv(shaderprogram.uDrawColor, [0.5, 0.5, 0.5]);
                 }
 
-                //mat4.translate(camera.getMVMatrix(), [rc.xPos, rc.yPos, rc.zPos]);
+                mat4.translate(mvMatrix, [rc.xPos, rc.yPos, rc.zPos]);
 
                 //console.log(rc.angleY);
                 rotate(rc);
 
 
                 if (rc.scale) {
-                    mat4.scale(camera.getMVMatrix(), [rc.scale, rc.scale, rc.scale]);
+                    mat4.scale(mvMatrix, [rc.scale, rc.scale, rc.scale]);
                 }
 
 
@@ -119,7 +128,6 @@ function renderprocess_constructor(sb) {
                 let zRot = 0;
 
                 if (le.components.ConstantRotation && rotation) {
-
 
                     if (le.components.ConstantRotation.x > 0) {
                         xRot = 1;
@@ -154,17 +162,17 @@ function renderprocess_constructor(sb) {
                 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.mesh.indexPositionBuffer);
 
                 gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());
-                gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, camera.getMVMatrix());
+                gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, mvMatrix);
 
                 let normalMatrix = mat3.create();
-                mat4.toInverseMat3(camera.getMVMatrix(), normalMatrix);
+                mat4.toInverseMat3(mvMatrix, normalMatrix);
                 mat3.transpose(normalMatrix);
                 gl.uniformMatrix3fv(shaderprogram.uNMatrix, false, normalMatrix);
 
 
                 gl.drawElements(gl.TRIANGLES, mc.mesh.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
                 //camera.drawCalls++;
-                camera.mvPopMatrix();
+                //camera.mvPopMatrix();
 
 
             }
@@ -174,7 +182,9 @@ function renderprocess_constructor(sb) {
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
         update,
-        draw
+        draw,
+        init: function () {
+        }
 
 
     });

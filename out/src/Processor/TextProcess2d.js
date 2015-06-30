@@ -1,6 +1,7 @@
 function text_process_2d_constructor(sb) {
-  var program = sm.init('gui');
-  var text = new Text();
+  var shadermanager = sb.getShaderManager();
+  var program = shadermanager.init("per-fragment-lighting");
+  var text = sb.getText();
   var gl = sb.getGL();
   var t = texture_constructor(sb);
   var texture = t.loadedTexture;
@@ -131,5 +132,9 @@ function text_process_2d_constructor(sb) {
       }
     }
   };
-  return {};
+  return {
+    draw: draw,
+    update: update,
+    init: function() {}
+  };
 }

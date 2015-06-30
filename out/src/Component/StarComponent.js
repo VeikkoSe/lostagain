@@ -1,4 +1,4 @@
 function StarComponent() {
   var name = "StarComponent";
-  return {};
+  return {name: name};
 }

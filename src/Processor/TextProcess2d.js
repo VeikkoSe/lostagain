@@ -1,9 +1,10 @@
 function text_process_2d_constructor(sb) {
     //constructor() {
 
-    let program = sm.init('gui');
+    let shadermanager = sb.getShaderManager();
+    let program = shadermanager.init("per-fragment-lighting");
 
-    let text = new Text();
+    let text = sb.getText();
 
     let gl = sb.getGL();
     let t = texture_constructor(sb);
@@ -98,5 +99,8 @@ function text_process_2d_constructor(sb) {
 
     }
 
-    return {}
+    return {
+        draw, update, init: function () {
+        }
+    }
 }

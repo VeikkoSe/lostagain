@@ -82,7 +82,7 @@ function stateengine_constructor(sb) {
 
         // store and init the new state
         states.push(state);
-        console.log(stateStr);
+        //console.log(stateStr);
         currentState = state;
 
         states[states.length - 1].init();

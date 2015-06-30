@@ -1,93 +1,93 @@
-class Hexagon {
+function hexagon_constructor(size) {
 
-    constructor(size) {
+    let hexsizeX = size;
+    let hexsizeY = size * 3;
+    let mapLevels = [];
 
 
-        this.hexsizeX = size;
-        this.hexsizeY = size * 3;
-        this.mapLevels = [];
-        for (let x = 0; x < this.hexsizeX; x++) {
-            this.mapLevels[x] = [];
-            for (let y = 0; y < this.hexsizeY; y++) {
-                this.mapLevels[x][y] = [];
-                this.mapLevels[x][y] = this.randomIntFromInterval(1, 3);
+    //coordinates in hexagonimage
+    let deniedBlock = [2, 0];
+    let movableBlock = [3, 1];
+    let movingBlock = [0, 2];
+    let baseBlock = [2, 3];
+    let posBlock = [4, 0];
+    let bossBlock = [0, 3];
+
+    let deniedArea = [];
+    let bossPos = [3, 11];
+    let playerPos = [1, 1];
+    let mapArray = [];
+    let deniedAmount = 4;
+    let visited = [];
+
+    //constructor(size) {
+    let init = function () {
+
+
+        for (let x = 0; x < hexsizeX; x++) {
+            mapLevels[x] = [];
+            for (let y = 0; y < hexsizeY; y++) {
+                mapLevels[x][y] = [];
+                mapLevels[x][y] = randomIntFromInterval(1, 3);
             }
         }
 
+        deniedBlocks();
+        updateArea();
 
-        //coordinates in hexagonimage
-        this.deniedBlock = [2, 0];
-        this.movableBlock = [3, 1];
-        this.movingBlock = [0, 2];
-        this.baseBlock = [2, 3];
-        this.posBlock = [4, 0];
-        this.bossBlock = [0, 3];
-
-        this.deniedArea = [];
-        this.bossPos = [3, 11];
-        this.playerPos = [1, 1];
-        this.mapArray = [];
+        area = createHexagonArea();
+        textureCoordinates = createTextures();
 
 
-        this.deniedAmount = 4;
+        let tc = texture_constructor(sb);
+        tc.load({name});
 
-        this.visited = [];
-
-        this.deniedBlocks();
-        this.updateArea();
-
-        this.area = this.createHexagonArea();
-        this.textureCoordinates = this.createTextures();
-
-
-        let t = new Texture('maptiles', true);
-
-        this.texture = t.loadedTexture;
-
+        texture = tc.getLoadedTexture();
 
     }
+    // }
 
-    getPlayerPosXInWC() {
-        if (this.playerPos[1] % 2 == 0 && this.playerPos[1] != 0) {
-            return this.playerPos[0] * 7;
+    let getPlayerPosXInWC = function () {
+        if (playerPos[1] % 2 == 0 && playerPos[1] != 0) {
+            return playerPos[0] * 7;
         }
         else {
-            return 3 + this.playerPos[0] * 7;
+            return 3 + playerPos[0] * 7;
         }
     }
 
-    getPlayerPosZInWC() {
-        return this.playerPos[1] * 2.5;
+    let getPlayerPosZInWC = function () {
+        return playerPos[1] * 2.5;
     }
 
     //set 3 random denied blocks
-    deniedBlocks() {
+    let deniedBlocks = function () {
 
-        let amount = this.deniedAmount;
+        let amount = deniedAmount;
         let g = 0;
         for (let i = 0; i < amount; i++) {
-            let randX = this.randomIntFromInterval(0, this.hexsizeX - 1);
-            let randY = this.randomIntFromInterval(0, this.hexsizeY - 1);
+            let randX = randomIntFromInterval(0, hexsizeX - 1);
+            let randY = randomIntFromInterval(0, hexsizeY - 1);
             //When we originally create the denied blocks we cannot allow the player default position
-            if (randX == this.playerPos[0] && randY == this.playerPos[1]) {
+            if (randX == playerPos[0] && randY == playerPos[1]) {
                 amount++;
             }
             //bossblock cannot be denied
-            else if (randX == this.bossPos[0] && randY == this.bossPos[1]) {
+            else if (randX == bossPos[0] && randY == bossPos[1]) {
                 amount++;
             }
             //only unique positions
-            else if (typeof this.deniedArea[randX] !== 'undefined' && typeof this.deniedArea[randY] !== 'undefined') {
+            else if (typeof deniedArea[randX] !== 'undefined' && typeof deniedArea[randY] !== 'undefined') {
                 amount++;
             }
             else {
-                this.deniedArea[g] = [randX, randY];
+                deniedArea[g] = [randX, randY];
                 g++;
             }
         }
     }
 
-    surround(x, y) {
+    let surround = function (x, y) {
         if (y % 2 == 0 && y != 0) {
             let pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y + 1]];
         }
@@ -106,7 +106,7 @@ class Hexagon {
                 pos.splice(i, 1);
                 i--;
             }
-            if (pos[i][0] > this.hexsizeX - 1 || pos[i][1] > this.hexsizeY - 1) {
+            if (pos[i][0] > hexsizeX - 1 || pos[i][1] > hexsizeY - 1) {
                 pos.splice(i, 1);
                 i--;
             }
@@ -114,77 +114,77 @@ class Hexagon {
         return pos;
     }
 
-    updateArea(movingUp = 0, movingDown = 0, movingLeft = 0, movingRight = 0, selecting = false) {
+    let updateArea = function (movingUp = 0, movingDown = 0, movingLeft = 0, movingRight = 0, selecting = false) {
 
         //set all basepositions to "walkable"
-        for (let x = 0; x < this.hexsizeX; x++) {
-            this.mapArray[x] = [];
-            for (let y = 0; y < this.hexsizeY; y++) {
-                this.mapArray[x][y] = [];
+        for (let x = 0; x < hexsizeX; x++) {
+            mapArray[x] = [];
+            for (let y = 0; y < hexsizeY; y++) {
+                mapArray[x][y] = [];
 
-                this.mapArray[x][y][0] = this.baseBlock[0];
-                this.mapArray[x][y][1] = this.baseBlock[1];
+                mapArray[x][y][0] = baseBlock[0];
+                mapArray[x][y][1] = baseBlock[1];
 
 
             }
         }
 
         //player is surrounded with positions he can move
-        let surround = this.surround(this.playerPos[0], this.playerPos[1]);
+        let surround = surround(playerPos[0], playerPos[1]);
         for (let i = 0; i < surround.length; i++) {
-            this.mapArray[surround[i][0]][surround[i][1]][0] = this.movableBlock[0];
-            this.mapArray[surround[i][0]][surround[i][1]][1] = this.movableBlock[1];
+            mapArray[surround[i][0]][surround[i][1]][0] = movableBlock[0];
+            mapArray[surround[i][0]][surround[i][1]][1] = movableBlock[1];
         }
 
         //set the player pos with correct color
-        this.mapArray[this.playerPos[0]][this.playerPos[1]][0] = this.posBlock[0];
-        this.mapArray[this.playerPos[0]][this.playerPos[1]][1] = this.posBlock[1];
+        mapArray[playerPos[0]][playerPos[1]][0] = posBlock[0];
+        mapArray[playerPos[0]][playerPos[1]][1] = posBlock[1];
 
         //bossblock
-        this.mapArray[this.bossPos[0]][this.bossPos[1]][0] = this.bossBlock[0];
-        this.mapArray[this.bossPos[0]][this.bossPos[1]][1] = this.bossBlock[1];
+        mapArray[bossPos[0]][bossPos[1]][0] = bossBlock[0];
+        mapArray[bossPos[0]][bossPos[1]][1] = bossBlock[1];
 
 
-        if (this.playerPos[1] % 2 == 0 && this.playerPos[1] != 0) {
+        if (playerPos[1] % 2 == 0 && playerPos[1] != 0) {
 
-            this.movingPosition(movingUp, movingDown, movingLeft, movingRight, selecting);
+            movingPosition(movingUp, movingDown, movingLeft, movingRight, selecting);
         }
         else {
 
-            this.movingPositionOdd(movingUp, movingDown, movingLeft, movingRight, selecting);
+            movingPositionOdd(movingUp, movingDown, movingLeft, movingRight, selecting);
         }
 
         //set 3 random denied blocks
-        for (let i = 0; i < this.deniedArea.length; i++) {
-            let x = this.deniedArea[i][0];
-            let y = this.deniedArea[i][1];
+        for (let i = 0; i < deniedArea.length; i++) {
+            let x = deniedArea[i][0];
+            let y = deniedArea[i][1];
 
-            this.mapArray[x][y][0] = this.deniedBlock[0];
-            this.mapArray[x][y][1] = this.deniedBlock[1];
+            mapArray[x][y][0] = deniedBlock[0];
+            mapArray[x][y][1] = deniedBlock[1];
 
         }
 
-        this.textureCoordinates = this.createTextures();
+        textureCoordinates = createTextures();
 
 
     }
 
-    possiblemove(x, y) {
+    let possiblemove = function (x, y) {
         //we cant move to deneiedarea
-        for (let j = 0; j < this.deniedArea.length; j++) {
-            if (x == this.deniedArea[j][0] && y == this.deniedArea[j][1]) {
+        for (let j = 0; j < deniedArea.length; j++) {
+            if (x == deniedArea[j][0] && y == deniedArea[j][1]) {
                 return false;
             }
         }
 
-        if (x >= 0 && y >= 0 && y < this.hexsizeY && x < this.hexsizeX) {
+        if (x >= 0 && y >= 0 && y < hexsizeY && x < hexsizeX) {
             return true;
         }
 
         return false;
     }
 
-    setSelecting(selecting, x, y) {
+    let setSelecting = function (selecting, x, y) {
 
         for (let e = 0; e < em.entities.length; e++) {
             let le = em.entities[e];
@@ -192,22 +192,22 @@ class Hexagon {
             if (le.components.GasComponent) {
                 let gc = le.components.GasComponent;
                 if (gc.amount > 0 && selecting) {
-                    this.playerPos = [x, y];
+                    playerPos = [x, y];
                     gc.amount--;
 
 
                     game.stateEngine.changeState("gamestate");
-                    if (this.randomIntFromInterval(0, 1) == 1) {
-                        loadManager.loadLevel('third');
-                        game.currentLevel = 'third';
+                    if (randomIntFromInterval(0, 1) == 1) {
+                        // loadManager.loadLevel('third');
+                        // game.currentLevel = 'third';
                     }
-                    else if (this.randomIntFromInterval(0, 1) == 0) {
-                        loadManager.loadLevel('first');
-                        game.currentLevel = 'first';
+                    else if (randomIntFromInterval(0, 1) == 0) {
+                        //loadManager.loadLevel('first');
+                        //game.currentLevel = 'first';
                     }
                     else {
-                        loadManager.loadLevel('second');
-                        game.currentLevel = 'second';
+                        // loadManager.loadLevel('second');
+                        //game.currentLevel = 'second';
                     }
 
 
@@ -216,52 +216,52 @@ class Hexagon {
         }
     }
 
-    movingPosition(movingUp, movingDown, movingLeft, movingRight, selecting) {
+    let movingPosition = function (movingUp, movingDown, movingLeft, movingRight, selecting) {
 
-        let x = this.playerPos[0];
-        let y = this.playerPos[1];
+        let x = playerPos[0];
+        let y = playerPos[1];
 
 
         if (movingUp == 1) {
-            if (movingLeft == 1 && this.possiblemove(x - 1, y - 1)) {
-                this.mapArray[x - 1][y - 1][0] = this.movingBlock[0];
-                this.mapArray[x - 1][y - 1][1] = this.movingBlock[1];
+            if (movingLeft == 1 && possiblemove(x - 1, y - 1)) {
+                mapArray[x - 1][y - 1][0] = movingBlock[0];
+                mapArray[x - 1][y - 1][1] = movingBlock[1];
 
-                this.setSelecting(selecting, x - 1, y - 1);
-
-            }
-            else if (movingRight == 1 && this.possiblemove(x, y - 1)) {
-                this.mapArray[x][y - 1][0] = this.movingBlock[0];
-                this.mapArray[x][y - 1][1] = this.movingBlock[1];
-
-                this.setSelecting(selecting, x, y - 1);
+                setSelecting(selecting, x - 1, y - 1);
 
             }
-            else if (this.possiblemove(x, y - 2)) {
-                this.mapArray[x][y - 2][0] = this.movingBlock[0];
-                this.mapArray[x][y - 2][1] = this.movingBlock[1];
-                this.setSelecting(selecting, x, y - 2);
+            else if (movingRight == 1 && possiblemove(x, y - 1)) {
+                mapArray[x][y - 1][0] = movingBlock[0];
+                mapArray[x][y - 1][1] = movingBlock[1];
+
+                setSelecting(selecting, x, y - 1);
+
+            }
+            else if (possiblemove(x, y - 2)) {
+                mapArray[x][y - 2][0] = movingBlock[0];
+                mapArray[x][y - 2][1] = movingBlock[1];
+                setSelecting(selecting, x, y - 2);
 
             }
         }
 
         else if (movingDown == 1) {
-            if (movingLeft == 1 && this.possiblemove(x - 1, y + 1)) {
-                this.mapArray[x - 1][y + 1][0] = this.movingBlock[0];
-                this.mapArray[x - 1][y + 1][1] = this.movingBlock[1];
-                this.setSelecting(selecting, x - 1, y + 1);
+            if (movingLeft == 1 && possiblemove(x - 1, y + 1)) {
+                mapArray[x - 1][y + 1][0] = movingBlock[0];
+                mapArray[x - 1][y + 1][1] = movingBlock[1];
+                setSelecting(selecting, x - 1, y + 1);
 
             }
-            else if (movingRight == 1 && this.possiblemove(x, y + 1)) {
-                this.mapArray[x][y + 1][0] = this.movingBlock[0];
-                this.mapArray[x][y + 1][1] = this.movingBlock[1];
-                this.setSelecting(selecting, x, y + 1);
+            else if (movingRight == 1 && possiblemove(x, y + 1)) {
+                mapArray[x][y + 1][0] = movingBlock[0];
+                mapArray[x][y + 1][1] = movingBlock[1];
+                setSelecting(selecting, x, y + 1);
 
             }
-            else if (this.possiblemove(x, y + 2)) {
-                this.mapArray[x][y + 2][0] = this.movingBlock[0];
-                this.mapArray[x][y + 2][1] = this.movingBlock[1];
-                this.setSelecting(selecting, x, y + 2);
+            else if (possiblemove(x, y + 2)) {
+                mapArray[x][y + 2][0] = movingBlock[0];
+                mapArray[x][y + 2][1] = movingBlock[1];
+                setSelecting(selecting, x, y + 2);
 
             }
         }
@@ -270,68 +270,68 @@ class Hexagon {
     }
 
 
-    movingPositionOdd(movingUp, movingDown, movingLeft, movingRight, selecting) {
+    let movingPositionOdd = function (movingUp, movingDown, movingLeft, movingRight, selecting) {
 
-        let x = this.playerPos[0];
-        let y = this.playerPos[1];
+        let x = playerPos[0];
+        let y = playerPos[1];
 
 
         if (movingUp == 1) {
-            if (movingLeft == 1 && this.possiblemove(x, y - 1)) {
-                this.mapArray[x][y - 1][0] = this.movingBlock[0];
-                this.mapArray[x][y - 1][1] = this.movingBlock[1];
-                this.setSelecting(selecting, x, y - 1);
+            if (movingLeft == 1 && possiblemove(x, y - 1)) {
+                mapArray[x][y - 1][0] = movingBlock[0];
+                mapArray[x][y - 1][1] = movingBlock[1];
+                setSelecting(selecting, x, y - 1);
 
             }
-            else if (movingRight == 1 && this.possiblemove(x + 1, y - 1)) {
-                this.mapArray[x + 1][y - 1][0] = this.movingBlock[0];
-                this.mapArray[x + 1][y - 1][1] = this.movingBlock[1];
-                this.setSelecting(selecting, x + 1, y - 1);
+            else if (movingRight == 1 && possiblemove(x + 1, y - 1)) {
+                mapArray[x + 1][y - 1][0] = movingBlock[0];
+                mapArray[x + 1][y - 1][1] = movingBlock[1];
+                setSelecting(selecting, x + 1, y - 1);
             }
-            else if (this.possiblemove(x, y - 2)) {
-                this.mapArray[x][y - 2][0] = this.movingBlock[0];
-                this.mapArray[x][y - 2][1] = this.movingBlock[1];
-                this.setSelecting(selecting, x, y - 2);
+            else if (possiblemove(x, y - 2)) {
+                mapArray[x][y - 2][0] = movingBlock[0];
+                mapArray[x][y - 2][1] = movingBlock[1];
+                setSelecting(selecting, x, y - 2);
             }
         }
 
         else if (movingDown == 1) {
-            if (movingLeft == 1 && this.possiblemove(x, y + 1)) {
+            if (movingLeft == 1 && possiblemove(x, y + 1)) {
                 if (y == 0) {
-                    this.mapArray[x - 1][y + 1][0] = this.movingBlock[0];
-                    this.mapArray[x - 1][y + 1][1] = this.movingBlock[1];
-                    this.setSelecting(selecting, x - 1, y + 1);
+                    mapArray[x - 1][y + 1][0] = movingBlock[0];
+                    mapArray[x - 1][y + 1][1] = movingBlock[1];
+                    setSelecting(selecting, x - 1, y + 1);
                 }
                 else {
-                    this.mapArray[x][y + 1][0] = this.movingBlock[0];
-                    this.mapArray[x][y + 1][1] = this.movingBlock[1];
-                    this.setSelecting(selecting, x, y + 1);
+                    mapArray[x][y + 1][0] = movingBlock[0];
+                    mapArray[x][y + 1][1] = movingBlock[1];
+                    setSelecting(selecting, x, y + 1);
 
                 }
             }
-            else if (movingRight == 1 && this.possiblemove(x + 1, y + 1)) {
+            else if (movingRight == 1 && possiblemove(x + 1, y + 1)) {
                 if (y == 0) {
-                    this.mapArray[x][y + 1][0] = this.movingBlock[0];
-                    this.mapArray[x][y + 1][1] = this.movingBlock[1];
-                    this.setSelecting(selecting, x, y + 1);
+                    mapArray[x][y + 1][0] = movingBlock[0];
+                    mapArray[x][y + 1][1] = movingBlock[1];
+                    setSelecting(selecting, x, y + 1);
                 }
                 else {
-                    this.mapArray[x + 1][y + 1][0] = this.movingBlock[0];
-                    this.mapArray[x + 1][y + 1][1] = this.movingBlock[1];
-                    this.setSelecting(selecting, x + 1, y + 1);
+                    mapArray[x + 1][y + 1][0] = movingBlock[0];
+                    mapArray[x + 1][y + 1][1] = movingBlock[1];
+                    setSelecting(selecting, x + 1, y + 1);
                 }
             }
-            else if (this.possiblemove(x, y + 2)) {
-                this.mapArray[x][y + 2][0] = this.movingBlock[0];
-                this.mapArray[x][y + 2][1] = this.movingBlock[1];
-                this.setSelecting(selecting, x, y + 2);
+            else if (possiblemove(x, y + 2)) {
+                mapArray[x][y + 2][0] = movingBlock[0];
+                mapArray[x][y + 2][1] = movingBlock[1];
+                setSelecting(selecting, x, y + 2);
 
             }
         }
     }
 
 
-    oneTexture(posX, posY) {
+    let oneTexture = function (posX, posY) {
 
 
         let tex = [
@@ -375,7 +375,7 @@ class Hexagon {
     }
 
 
-    oneHexagon() {
+    let oneHexagon = function () {
         let oneHexagon = [
 
             //center square
@@ -404,15 +404,15 @@ class Hexagon {
         return oneHexagon;
     }
 
-    randomIntFromInterval(min, max) {
+    let randomIntFromInterval = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    createTextures() {
+    let createTextures = function () {
         let allTextures = [];
-        for (let i = 0; i < this.hexsizeX; i++) {
-            for (let k = 0; k < this.hexsizeY; k++) {
-                let oneTexture = this.oneTexture(this.mapArray[i][k][0], this.mapArray[i][k][1]);
+        for (let i = 0; i < hexsizeX; i++) {
+            for (let k = 0; k < hexsizeY; k++) {
+                let oneTexture = oneTexture(mapArray[i][k][0], mapArray[i][k][1]);
                 for (let j = 0; j < oneTexture.length; j++) {
                     allTextures.push(oneTexture[j]);
                 }
@@ -421,7 +421,7 @@ class Hexagon {
         return allTextures;
     }
 
-    createHexagonArea() {
+    let createHexagonArea = function () {
 
         /*
 
@@ -436,15 +436,15 @@ class Hexagon {
          */
 
 
-        let oneHexagon = this.oneHexagon();
+        let oneHexagon = oneHexagon();
 
 
         let allHexagons = [];
 
-        for (let x = 0; x < this.hexsizeX; x++) {
+        for (let x = 0; x < hexsizeX; x++) {
 
 
-            for (let y = 0; y < this.hexsizeY; y++) {
+            for (let y = 0; y < hexsizeY; y++) {
 
                 let addition = 0;
                 if ((y + 1) % 2 == 0)
@@ -465,6 +465,10 @@ class Hexagon {
 
         return allHexagons;
 
+    }
+
+    return {
+        init
     }
 
 

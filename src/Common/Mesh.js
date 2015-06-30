@@ -42,7 +42,7 @@ function mesh_constructor(sb) {
 
         //loadManager.loadTotal++;
         let tc = texture_constructor(sb);
-        tc.loadTexture({name});
+        tc.load({name});
 
         texture = tc.getLoadedTexture();
 
@@ -203,7 +203,7 @@ function mesh_constructor(sb) {
         vertexPositionBuffer,
         texturePositionBuffer,
         indexPositionBuffer,
-        normalPositionBuffer,
+        normalPositionBuffer
 
 
     });

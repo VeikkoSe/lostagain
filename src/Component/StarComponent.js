@@ -3,6 +3,6 @@ function StarComponent() {
     let name = "StarComponent";
     //}
 
-    return {}
+    return {name}
 
 }

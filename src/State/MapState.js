@@ -80,20 +80,20 @@ function mapstate_constructor(sb) {
         let timeNow = new Date().getTime();
         actionMapper.handleKeys();
 
-        this.frameCount++;
+        frameCount++;
 
-        if (this.lastTime != 0) {
+        if (lastTime != 0) {
 
-            let elapsed = timeNow - this.lastTime;
-            this.elapsedTotal += elapsed;
+            let elapsed = timeNow - lastTime;
+            elapsedTotal += elapsed;
 
-            for (let i = 0; i < this.processList.length; i++) {
-                this.processList[i].update(elapsed, false);
+            for (let i = 0; i < processList.length; i++) {
+                processList[i].update(elapsed, false);
             }
 
 
         }
-        this.lastTime = timeNow;
+        lastTime = timeNow;
 
     }
 

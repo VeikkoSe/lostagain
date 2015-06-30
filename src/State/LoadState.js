@@ -32,6 +32,8 @@ function loadstate_constructor(sb) {
 
     let init = function (ws) {
 
+
+        //console.log(ws);
         //we init callback listeners
         am.init();
         wantedstate = ws;

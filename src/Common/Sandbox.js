@@ -42,7 +42,7 @@ function sandbox_constructor(core) {
             topics[topic] = [];
         }
 
-        let token = ( ++this.subUid ).toString();
+        let token = ( ++subUid ).toString();
         topics[topic].push({
             token: token,
             func: func
@@ -56,8 +56,8 @@ function sandbox_constructor(core) {
     let unsubscribe = function (token) {
 
         for (let m in topics) {
-            if (this.topics[m]) {
-                for (let i = 0, j = this.topics[m].length; i < j; i++) {
+            if (topics[m]) {
+                for (let i = 0, j = topics[m].length; i < j; i++) {
                     if (topics[m][i].token === token) {
                         topics[m].splice(i, 1);
                         return token;
@@ -98,7 +98,18 @@ function sandbox_constructor(core) {
         },
         getShaderManager: function () {
             return core.getShaderManager();
+        },
+        getText: function () {
+            return core.getText();
+        },
+
+        getResolutionWidth: function () {
+            return core.getResolutionWidth();
+        },
+        getResolutionHeight: function () {
+            return core.getResolutionHeight();
         }
+
 
     });
 }

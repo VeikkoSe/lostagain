@@ -17,7 +17,7 @@ function entity_manager_constructor() {
       } catch ($e) {
         {
           $e = 0;
-          for (; $e < this.entities.length; $e++) {
+          for (; $e < entities.length; $e++) {
             try {
               throw undefined;
             } catch (e) {

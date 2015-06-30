@@ -5,6 +5,8 @@ function core_opengl_constructor() {
   var am = asset_manager_constructor();
   var camera;
   var sm;
+  var text;
+  var canvas;
   var create_module = function(name, func) {
     modules.push(func);
   };
@@ -63,7 +65,7 @@ function core_opengl_constructor() {
     var $__0 = $traceurRuntime.assertObject(params),
         width = $__0.width,
         height = $__0.height;
-    var canvas = find('canvas');
+    canvas = find('canvas');
     canvas.width = width;
     canvas.height = height;
     try {
@@ -76,6 +78,8 @@ function core_opengl_constructor() {
     }
     sm = shader_manager_constuctor(gl);
     camera = camera_constructor(gl);
+    text = text_constructor();
+    text.init();
   };
   return {
     create_module: create_module,
@@ -96,6 +100,15 @@ function core_opengl_constructor() {
     },
     getGL: function() {
       return gl;
+    },
+    getText: function() {
+      return text;
+    },
+    getResolutionWidth: function() {
+      return canvas.width;
+    },
+    getResolutionHeight: function() {
+      return canvas.height;
     }
   };
 }

@@ -17,7 +17,7 @@ function sandbox_constructor(core) {
     if (!topics[$traceurRuntime.toProperty(topic)]) {
       $traceurRuntime.setProperty(topics, topic, []);
     }
-    var token = (++this.subUid).toString();
+    var token = (++subUid).toString();
     topics[$traceurRuntime.toProperty(topic)].push({
       token: token,
       func: func
@@ -31,7 +31,7 @@ function sandbox_constructor(core) {
       } catch (m) {
         {
           m = $m;
-          if (this.topics[$traceurRuntime.toProperty(m)]) {
+          if (topics[$traceurRuntime.toProperty(m)]) {
             {
               try {
                 throw undefined;
@@ -42,7 +42,7 @@ function sandbox_constructor(core) {
                   {
                     {
                       $i = 0;
-                      $j = this.topics[$traceurRuntime.toProperty(m)].length;
+                      $j = topics[$traceurRuntime.toProperty(m)].length;
                     }
                     for (; $i < $j; $i++) {
                       try {
@@ -102,6 +102,15 @@ function sandbox_constructor(core) {
     },
     getShaderManager: function() {
       return core.getShaderManager();
+    },
+    getText: function() {
+      return core.getText();
+    },
+    getResolutionWidth: function() {
+      return core.getResolutionWidth();
+    },
+    getResolutionHeight: function() {
+      return core.getResolutionHeight();
     }
   });
 }

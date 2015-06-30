@@ -5,6 +5,8 @@ function core_opengl_constructor() {
     let am = asset_manager_constructor();
     let camera;
     let sm;
+    let text;
+    let canvas;
 
 
     let create_module = function (name, func) {
@@ -26,7 +28,7 @@ function core_opengl_constructor() {
     let init = function (params) {
         let {width,height} = params;
 
-        let canvas = find('canvas');
+        canvas = find('canvas');
         canvas.width = width;
         canvas.height = height;
         //console.log(canvas);
@@ -50,6 +52,9 @@ function core_opengl_constructor() {
 
         sm = shader_manager_constuctor(gl);
         camera = camera_constructor(gl);
+
+        text = text_constructor();
+        text.init();
 
 
     }
@@ -75,6 +80,17 @@ function core_opengl_constructor() {
         },
         getGL: function () {
             return gl;
+        },
+        getText: function () {
+            return text;
+        },
+
+        getResolutionWidth: function () {
+            return canvas.width;
+        },
+
+        getResolutionHeight: function () {
+            return canvas.height;
         }
 
     }

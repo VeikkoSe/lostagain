@@ -212,7 +212,7 @@ function shader_manager_constuctor(gl) {
     return program;
   };
   var initLifeTimeParticleShaders = function(id) {
-    var program = this.createP(id);
+    var program = createP(id);
     program.pointLifetimeAttribute = gl.getAttribLocation(program, "aLifetime");
     gl.enableVertexAttribArray(program.pointLifetimeAttribute);
     program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");

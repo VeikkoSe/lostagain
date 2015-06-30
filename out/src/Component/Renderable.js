@@ -3,19 +3,19 @@ function RenderableComponent(params) {
   var angleY = 0;
   var angleZ = 0;
   var $__0 = $traceurRuntime.assertObject(params),
-      x = $__0.x,
-      y = $__0.y,
-      z = $__0.z,
+      xPos = $__0.xPos,
+      yPos = $__0.yPos,
+      zPos = $__0.zPos,
       scale = $__0.scale,
       xWidth = $__0.xWidth,
       yWidth = $__0.yWidth,
       zWidth = $__0.zWidth;
   var name = "RenderableComponent";
-  return Object.freeze({
+  return {
     name: name,
-    x: x,
-    y: y,
-    z: z,
+    xPos: xPos,
+    yPos: yPos,
+    zPos: zPos,
     scale: scale,
     angleX: angleX,
     angleY: angleY,
@@ -23,5 +23,5 @@ function RenderableComponent(params) {
     xWidth: xWidth,
     yWidth: yWidth,
     zWidth: zWidth
-  });
+  };
 }

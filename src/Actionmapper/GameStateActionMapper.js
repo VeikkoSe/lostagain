@@ -2,6 +2,7 @@ function game_action_mapper(sb) {
 
 
     let currentlyPressedKeys = [];
+    let camera = sb.getCamera();
     let handleKeyDown = function (event) {
 
         currentlyPressedKeys[event.keyCode] = true;
@@ -17,7 +18,7 @@ function game_action_mapper(sb) {
 
         if (currentlyPressedKeys[32]) {
 
-            sb.publish("loadstate", 'introstate');
+            // sb.publish("loadstate", 'introstate');
         }
 
 
@@ -26,7 +27,7 @@ function game_action_mapper(sb) {
 
     let handleMouseDown = function (event) {
 
-        sb.publish("loadstate", 'introstate');
+        //sb.publish("loadstate", 'introstate');
 
     }
 
@@ -289,14 +290,14 @@ if (false) {
 
             let success = GLU.unProject(
                 x, y, 0,
-                camera.mvMatrix, camera.pMatrix,
+                camera.getMVMatrix(), camera.getPMatrix(),
                 viewportArray, modelPointArrayResultsNear);
 
             let modelPointArrayResultsFar = [];
 
             let success = GLU.unProject(
                 x, y, 1,
-                camera.mvMatrix, camera.pMatrix,
+                camera.getMVMatrix(), camera.getPMatrix(),
                 viewportArray, modelPointArrayResultsFar);
 
             camera.clickPosition = intersectionpoint(modelPointArrayResultsNear, modelPointArrayResultsFar);
@@ -321,14 +322,14 @@ if (false) {
 
             let success = GLU.unProject(
                 x, y, 0,
-                camera.mvMatrix, camera.pMatrix,
+                camera.getMVMatrix(), camera.getPMatrix(),
                 viewportArray, modelPointArrayResultsNear);
 
             let modelPointArrayResultsFar = [];
 
             let success = GLU.unProject(
                 x, y, 1,
-                camera.mvMatrix, camera.pMatrix,
+                camera.getMVMatrix(), camera.getPMatrix(),
                 viewportArray, modelPointArrayResultsFar);
 
             return intersectionpoint(modelPointArrayResultsNear, modelPointArrayResultsFar);
