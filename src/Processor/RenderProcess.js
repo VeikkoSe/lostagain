@@ -4,7 +4,7 @@ function renderprocess_constructor(sb) {
     let gl = sb.getGL();
     let camera = sb.getCamera();
     let shadermanager = sb.getShaderManager();
-    let shaderprogram = shadermanager.init("per-fragment-lighting");
+    let shaderprogram = shadermanager.useShader("per-fragment-lighting");
     let em = sb.getEntityManager();
     // constructor() {
 
@@ -42,24 +42,19 @@ function renderprocess_constructor(sb) {
 
     };
 
-    let rotate = function (rc) {
-        if (rc.angleY) {
-            mat4.rotate(camera.getMVMatrix(), degToRad(rc.angleY), [0, 1, 0]);
-        }
-        if (rc.angleZ) {
-            mat4.rotate(camera.getMVMatrix(), degToRad(rc.angleZ), [0, 0, 1]);
-        }
-        if (rc.angleX) {
-            mat4.rotate(camera.getMVMatrix(), degToRad(rc.angleX), [1, 0, 0]);
-        }
-    };
+
 
     let draw = function () {
+
 
         for (let e = 0; e < em.entities.length; e++) {
             let le = em.entities[e];
 
-            if (le.components.Renderable && le.components.MeshComponent) {
+            if (le.components.RenderableComponent && le.components.MeshComponent) {
+
+                camera.mvPushMatrix();
+                let mvMatrix = camera.getMVMatrix();
+                //console.log(le);
                 /*
                  //we do not render objects wich health is zero
                  if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
@@ -71,7 +66,7 @@ function renderprocess_constructor(sb) {
 
                 //let rc = le.components.Renderable;
                 let mc = le.components.MeshComponent;
-                let rc = le.components.Renderable;
+                let rc = le.components.RenderableComponent;
 
                 //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
                 shadermanager.setProgram(shaderprogram);
@@ -91,7 +86,11 @@ function renderprocess_constructor(sb) {
                 gl.uniform3f(shaderprogram.uLightSpecular, 0.8, 0.8, 0.8);
                 gl.uniform1f(shaderprogram.uMaterialShininess, 200.0);
 
-                camera.mvPushMatrix();
+                //camera.mvPushMatrix();
+
+                //let pMatrix = camera.getPMatrix();
+
+
 
                 //gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
 
@@ -103,23 +102,29 @@ function renderprocess_constructor(sb) {
                     gl.uniform3fv(shaderprogram.uDrawColor, [0.5, 0.5, 0.5]);
                 }
 
-                //mat4.translate(camera.getMVMatrix(), [rc.xPos, rc.yPos, rc.zPos]);
+                mat4.translate(mvMatrix, [rc.getXPos(), rc.getYPos(), rc.getZPos()]);
 
                 //console.log(rc.angleY);
-                rotate(rc);
+
+                mat4.rotate(mvMatrix, degToRad(rc.getAngleY()), [0, 1, 0]);
 
 
-                if (rc.scale) {
-                    mat4.scale(camera.getMVMatrix(), [rc.scale, rc.scale, rc.scale]);
+                mat4.rotate(mvMatrix, degToRad(rc.getAngleZ()), [0, 0, 1]);
+
+
+                mat4.rotate(mvMatrix, degToRad(rc.getAngleX()), [1, 0, 0]);
+
+
+                if (rc.getScale()!==1) {
+                    mat4.scale(mvMatrix, [rc.getScale(), rc.getScale(), rc.getScale()]);
                 }
 
 
                 let xRot = 0;
                 let yRot = 0;
                 let zRot = 0;
-
+/*
                 if (le.components.ConstantRotation && rotation) {
-
 
                     if (le.components.ConstantRotation.x > 0) {
                         xRot = 1;
@@ -133,7 +138,7 @@ function renderprocess_constructor(sb) {
                     }
                     mat4.rotate(camera.getMVMatrix(), degToRad(rotation), [xRot, yRot, zRot]);
                 }
-
+*/
 
                 // mat4.rotate(camera.getMVMatrix(), degToRad(rotation), [1, 1, 1]);
 
@@ -154,10 +159,10 @@ function renderprocess_constructor(sb) {
                 gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.mesh.indexPositionBuffer);
 
                 gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());
-                gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, camera.getMVMatrix());
+                gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, mvMatrix);
 
                 let normalMatrix = mat3.create();
-                mat4.toInverseMat3(camera.getMVMatrix(), normalMatrix);
+                mat4.toInverseMat3(mvMatrix, normalMatrix);
                 mat3.transpose(normalMatrix);
                 gl.uniformMatrix3fv(shaderprogram.uNMatrix, false, normalMatrix);
 
@@ -174,7 +179,9 @@ function renderprocess_constructor(sb) {
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
         update,
-        draw
+        draw,
+        init: function () {
+        }
 
 
     });

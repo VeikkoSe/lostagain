@@ -1,4 +1,4 @@
-function cameracontrollercomponent_constructor() {
-  var name = "CameraController";
+function CameraTargetComponent() {
+  var name = "CameraTargetComponent";
   return Object.freeze({name: name});
 }

@@ -1,4 +1,4 @@
-function text_construcotr() {
+function text_constructor() {
 
 
     let textToC = function (text) {
@@ -106,7 +106,7 @@ function text_construcotr() {
 
 
         //created with fontxmltojson.php
-        this.fontJson = {
+        fontJson = {
             "0": {
                 "id": "0",
                 "x": "255",
@@ -2308,7 +2308,14 @@ function text_construcotr() {
 
     }
 
-    return {}
+    return {
+        textToC, init, buildData, subscribe: function () {
+
+        },
+        start: function () {
+
+        }
+    }
 
 }
 

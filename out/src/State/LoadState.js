@@ -7,15 +7,13 @@ function loadstate_constructor(sb) {
   var rotationAngle = 0;
   var camera = sb.getCamera();
   var shadermanager = sb.getShaderManager();
-  var shaderprogram = shadermanager.init("simplest");
+  var shaderprogram = shadermanager.useShader("simplest");
   var wantedstate = '';
   var points = [];
   var vertexPositionBuffer = gl.createBuffer();
-  var am = asset_manager_constructor(sb);
   var currentLevel = 0;
   var wantedstate = '';
   var init = function(ws) {
-    am.init();
     wantedstate = ws;
     points.push(-0.2, 0, 0);
     points.push(0.2, 0, 0);

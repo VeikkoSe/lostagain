@@ -1,18 +1,9 @@
 $(document).ready(function() {
-  var CORE = core_opengl_constructor();
-  CORE.init({
-    width: 800,
-    height: 600
-  });
-  var sb = sandbox_constructor(CORE);
-  sb.init();
-  CORE.create_module("loader", loader_costructor(sb));
-  CORE.create_module("camera", camera_constructor(sb));
-  CORE.create_module("entitymanager", entity_manager_constructor(sb));
-  CORE.create_module("stateengine", stateengine_constructor(sb));
-  CORE.create_module("shadermanager", shader_manager_constuctor(sb));
-  CORE.create_module("layout", layout_constructor(sb));
-  CORE.start_all();
+  var CORE = new Core(800, 600);
+  CORE.start_modules();
+  CORE.start_game();
+  init();
+  startSound();
 });
 function printMessage(msg) {
   $('#debugarea').html(msg);

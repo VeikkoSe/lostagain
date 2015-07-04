@@ -1,12 +1,15 @@
-function stateengine_constructor(sb) {
+function stateengine_constructor() {
 
 
-    let introState = introstate_constructor(sb);
-    let gameState = gamestate_constructor(sb);
-    let lState = loadstate_constructor(sb);
-    let mapState = mapstate_constructor(sb);
-    let menuState = menustate_constructor(sb);
-    let endState = endstate_constructor(sb);
+    let introState;
+    let gameState;
+    let lState;
+    let mapState;
+    let menuState;
+    let endState;
+    let actionMapper;
+    let sb;
+
     //this.endState = null;
     //this.menuState = null;
 
@@ -82,7 +85,7 @@ function stateengine_constructor(sb) {
 
         // store and init the new state
         states.push(state);
-        console.log(stateStr);
+        //console.log(stateStr);
         currentState = state;
 
         states[states.length - 1].init();
@@ -120,16 +123,43 @@ function stateengine_constructor(sb) {
             tick();
         });
         let cs = getCurrentState();
-
+        //actionMapper.handleKeys();
         cs.update();
         cs.draw();
 
     };
 
     let subscribe = function () {
-        introState.subscribe();
-        lState.subscribe();
-        gameState.subscribe();
+
+
+    }
+
+    let start = function () {
+        introState = introstate_constructor(sb);
+        gameState = gamestate_constructor(sb);
+
+        lState = loadstate_constructor(sb);
+        mapState = mapstate_constructor(sb);
+        menuState = menustate_constructor(sb);
+        endState = endstate_constructor(sb);
+        actionMapper = sb.getActionMapper();
+
+
+        loadState('gamestate');
+
+        tick();
+
+    }
+
+    let init = function (sandbox) {
+
+
+        sb = sandbox;
+
+
+    };
+
+    let startState = function () {
 
         sb.subscribe("movetoloadstate", function (name, wantedstate) {
 
@@ -140,29 +170,16 @@ function stateengine_constructor(sb) {
         sb.subscribe("loadstate", function (name, wantedstate) {
             loadState(wantedstate);
         });
-
-        // sb.subscribe("allassetsloaded", function (name, assetname) {
-//alert('h');
-        //     sb.publish("movetoloadstate", assetname);
-        // });
-
     }
-
-    let init = function () {
-
-
-        loadState('gamestate');
-
-        tick();
-
-    };
 
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
         tick,
         init,
-        subscribe
+        subscribe,
+        start,
+        startState
 
 
     });

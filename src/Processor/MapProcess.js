@@ -29,8 +29,8 @@ function mapprocess_constructor(sb) {
 
             }
 
-            if (le.components.HexItem && le.components.Renderable) {
-                let re = le.components.Renderable;
+            if (le.components.HexItem && le.components.RenderableComponent) {
+                let re = le.components.RenderableComponent;
                 re.xPos = hexagon.getPlayerPosXInWC();
                 re.zPos = hexagon.getPlayerPosZInWC();
                 //this.hexagon.setItemPos(le.components.HexItem.itemName);
@@ -49,30 +49,30 @@ function mapprocess_constructor(sb) {
             if (le.components.MapComponent) {
                 let mc = le.components.MapComponent;
 
-                sm.setProgram(this.mapProgram);
+                sm.setProgram(mapProgram);
 
 
                 camera.mvPushMatrix();
-                gl.uniformMatrix4fv(this.mapProgram.uPMatrix, false, camera.pMatrix);
-                gl.uniformMatrix4fv(this.mapProgram.uMVMatrix, false, camera.mvMatrix);
+                gl.uniformMatrix4fv(mapProgram.uPMatrix, false, camera.getPMatrix());
+                gl.uniformMatrix4fv(mapProgram.uMVMatrix, false, camera.getMVMatrix());
 
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.hexagon.area), gl.STATIC_DRAW);
-                gl.vertexAttribPointer(this.mapProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+                gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hexagon.area), gl.STATIC_DRAW);
+                gl.vertexAttribPointer(mapProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.texturePositionBuffer);
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.hexagon.textureCoordinates), gl.STATIC_DRAW);
+                gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hexagon.textureCoordinates), gl.STATIC_DRAW);
 
-                gl.vertexAttribPointer(this.mapProgram.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
+                gl.vertexAttribPointer(mapProgram.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
 
 
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, this.hexagon.texture);
-                gl.uniform1i(this.mapProgram.samplerUniform, 0);
+                gl.bindTexture(gl.TEXTURE_2D, hexagon.texture);
+                gl.uniform1i(mapProgram.samplerUniform, 0);
 
 
-                gl.drawArrays(gl.TRIANGLES, 0, (this.hexagon.hexsizeX * (this.hexagon.hexsizeY)) * 12);
+                gl.drawArrays(gl.TRIANGLES, 0, (hexagon.hexsizeX * (hexagon.hexsizeY)) * 12);
                 //gl.drawArrays(gl.TRIANGLES, 0,12);
                 camera.drawCalls++;
 
@@ -81,6 +81,9 @@ function mapprocess_constructor(sb) {
 
         }
     }
-    return {}
+    return {
+        update, draw, init: function () {
+        }
+    }
 
 }

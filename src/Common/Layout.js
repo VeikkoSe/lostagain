@@ -24,6 +24,9 @@ function layout_constructor() {
         init: function () {
 
         },
+        start: function () {
+
+        },
         subscribe: function () {
 
         }

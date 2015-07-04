@@ -1,30 +1,91 @@
-function MomentumComponent(params) {
-  var $__0 = $traceurRuntime.assertObject(params),
-      speed = $__0.speed,
-      turnSpeed = $__0.turnSpeed,
-      routeEndXpos = $__0.routeEndXpos,
-      routeEndYpos = $__0.routeEndYpos,
-      routeEndZpos = $__0.routeEndZpos;
+function MomentumComponent() {
   var name = "MomentumComponent";
   var lt = 0;
-  var turnSpeed = turnSpeed;
-  var speed = speed;
+  var turnSpeed = 10000;
+  var speed = 10;
   var acceleration = 50;
   var accelerationOn = 0;
   var rotateLeft = 0;
   var rotateRight = 0;
   var velocityX = 0;
+  var velocityY = 0;
   var velocityZ = 0;
-  return Object.freeze({
+  var routeEndXpos = 0;
+  var routeEndYpos = 0;
+  var routeEndZpos = 0;
+  return {
     name: name,
-    lt: lt,
-    turnSpeed: turnSpeed,
-    speed: speed,
-    acceleration: acceleration,
-    accelerationOn: accelerationOn,
-    rotateLeft: rotateLeft,
-    rotateRight: rotateRight,
-    velocityX: velocityX,
-    velocityZ: velocityZ
-  });
+    getTurnSpeed: function() {
+      return turnSpeed;
+    },
+    setTurnSpeed: function(v) {
+      turnSpeed = v;
+    },
+    getSpeed: function() {
+      return speed;
+    },
+    setSpeed: function(v) {
+      speed = v;
+    },
+    getAccelerationAmount: function() {
+      return acceleration;
+    },
+    setAccelerationAmount: function(v) {
+      acceleration = v;
+    },
+    setCurrentlyAccelerating: function(v) {
+      accelerationOn = v;
+    },
+    getCurrentlyAccelerating: function() {
+      return accelerationOn;
+    },
+    getRotatingLeft: function() {
+      return rotateLeft;
+    },
+    setRotatingLeft: function(v) {
+      rotateLeft = v;
+    },
+    getRotatingRight: function() {
+      return rotateRight;
+    },
+    setRotatingRight: function(v) {
+      rotateRight = v;
+    },
+    getVelocityX: function() {
+      return velocityX;
+    },
+    setVelocityX: function(v) {
+      velocityX = v;
+    },
+    getVelocityZ: function() {
+      return velocityZ;
+    },
+    setVelocityZ: function(v) {
+      velocityZ = v;
+    },
+    getVelocityY: function() {
+      return velocityY;
+    },
+    setVelocityY: function(v) {
+      velocityY = v;
+    },
+    setRouteEndXpos: function(v) {
+      routeEndXpos = v;
+    },
+    getRouteEndXpos: function() {
+      return routeEndXpos;
+    },
+    setRouteEndYpos: function(v) {
+      routeEndYpos = v;
+    },
+    getRouteEndYpos: function() {
+      return routeEndYpos;
+    },
+    setRouteEndZpos: function(v) {
+      routeEndZpos = v;
+    },
+    getRouteEndZpos: function() {
+      return routeEndZpos;
+    }
+  };
 }

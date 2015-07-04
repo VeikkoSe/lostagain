@@ -1,7 +1,7 @@
-function ConstantRotation(params) {
+function RotationComponent(params) {
 
     let {x, y, z} = params;
-    let name = "ConstantRotation";
+    let name = "RotationComponent";
 
 
     return Object.freeze({

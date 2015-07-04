@@ -1,10 +1,12 @@
-function stateengine_constructor(sb) {
-  var introState = introstate_constructor(sb);
-  var gameState = gamestate_constructor(sb);
-  var lState = loadstate_constructor(sb);
-  var mapState = mapstate_constructor(sb);
-  var menuState = menustate_constructor(sb);
-  var endState = endstate_constructor(sb);
+function stateengine_constructor() {
+  var introState;
+  var gameState;
+  var lState;
+  var mapState;
+  var menuState;
+  var endState;
+  var actionMapper;
+  var sb;
   var states = [];
   var allStates = [];
   var currentState = null;
@@ -41,7 +43,6 @@ function stateengine_constructor(sb) {
       states.pop();
     }
     states.push(state);
-    console.log(stateStr);
     currentState = state;
     states[$traceurRuntime.toProperty(states.length - 1)].init();
   };
@@ -66,10 +67,22 @@ function stateengine_constructor(sb) {
     cs.update();
     cs.draw();
   };
-  var subscribe = function() {
-    introState.subscribe();
-    lState.subscribe();
-    gameState.subscribe();
+  var subscribe = function() {};
+  var start = function() {
+    introState = introstate_constructor(sb);
+    gameState = gamestate_constructor(sb);
+    lState = loadstate_constructor(sb);
+    mapState = mapstate_constructor(sb);
+    menuState = menustate_constructor(sb);
+    endState = endstate_constructor(sb);
+    actionMapper = sb.getActionMapper();
+    loadState('gamestate');
+    tick();
+  };
+  var init = function(sandbox) {
+    sb = sandbox;
+  };
+  var startState = function() {
     sb.subscribe("movetoloadstate", function(name, wantedstate) {
       moveToLoadedStage(wantedstate);
     });
@@ -77,13 +90,11 @@ function stateengine_constructor(sb) {
       loadState(wantedstate);
     });
   };
-  var init = function() {
-    loadState('gamestate');
-    tick();
-  };
   return Object.freeze({
     tick: tick,
     init: init,
-    subscribe: subscribe
+    subscribe: subscribe,
+    start: start,
+    startState: startState
   });
 }

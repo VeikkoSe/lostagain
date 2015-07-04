@@ -1,4 +1,4 @@
-function text_construcotr() {
+function text_constructor() {
   var textToC = function(text) {
     var ret = [];
     {
@@ -99,7 +99,7 @@ function text_construcotr() {
     return ret;
   };
   var init = function() {
-    this.fontJson = {
+    fontJson = {
       "0": {
         "id": "0",
         "x": "255",
@@ -2298,5 +2298,11 @@ function text_construcotr() {
       }
     };
   };
-  return {};
+  return {
+    textToC: textToC,
+    init: init,
+    buildData: buildData,
+    subscribe: function() {},
+    start: function() {}
+  };
 }

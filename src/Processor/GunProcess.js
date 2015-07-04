@@ -1,12 +1,17 @@
 function gunprocess_constructor(sb) {
     //constructor() {
+
+    let gl = sb.getGL();
+    let shadermanager = sb.getShaderManager();
+    let particleProgram3d = shadermanager.useShader("particle3d");
+
     let bulletsAmount = 80;
     let bulletReloadSpeed = 250;
     let bullets = [];
     let bulletShot = 0;
     let lastTime = 0;
     let camera = sb.getCamera();
-    let particleProgram3d = sm.init('particle3d');
+    // let particleProgram3d = sm.init('particle3d');
     let em = sb.getEntityManager();
     let collisions = [];
 
@@ -23,20 +28,21 @@ function gunprocess_constructor(sb) {
 
     let shootBullet = function (renderable) {
 
+
         let timeNow = new Date().getTime();
 
         if (timeNow - bulletReloadSpeed > bulletShot) {
 
             for (let i = 0; i < bulletsAmount; i++) {
 
-                if (bullets[i].visible == 0) {
+                if (bullets[i].getVisible() === 0) {
 
                     bulletShot = timeNow;
-                    bullets[i].visible = 1;
-                    bullets[i].birthTime = timeNow;
-                    bullets[i].angle = renderable.angleY;
-                    bullets[i].xPos = renderable.xPos;
-                    bullets[i].zPos = renderable.zPos;
+                    bullets[i].setVisible(1);
+                    bullets[i].setBirthTime(timeNow);
+                    bullets[i].setAngle(renderable.getAngleY());
+                    bullets[i].setXPos(renderable.getXPos());
+                    bullets[i].setZPos(renderable.getZPos());
                     break;
                 }
             }
@@ -46,7 +52,7 @@ function gunprocess_constructor(sb) {
 
     let update = function (deltatime) {
 
-
+/*
         collisions = [];
         for (let e = 0; e < em.entities.length; e++) {
             let le = em.entities[e];
@@ -58,7 +64,7 @@ function gunprocess_constructor(sb) {
                 }
 
                 let c = le.components.CollisionComponent;
-                let r = le.components.Renderable;
+                let r = le.components.RenderableComponent;
 
                 c.entity = le;
 
@@ -68,7 +74,8 @@ function gunprocess_constructor(sb) {
             }
         }
 
-
+*/
+        /*
         for (let i = 0; i < bullets.length; i++) {
             for (let j = 0; j < collisions.length; j++) {
                 if (j != i &&
@@ -88,6 +95,7 @@ function gunprocess_constructor(sb) {
             //console.log(collisions);
 
         }
+        */
 
 
         let timeNow = new Date().getTime();
@@ -96,24 +104,24 @@ function gunprocess_constructor(sb) {
             let le = em.entities[e];
 
             if (le.components.GunComponent &&
-                le.components.GunComponent.shooting &&
-                le.components.GunComponent.activeWeapon == 1 &&
-                le.components.HealthComponent.amount > 0) {
+                le.components.GunComponent.getShooting()===1 &&
+                le.components.GunComponent.getActiveWeapon() === 1 &&
+                le.components.HealthComponent.getAmount() > 0) {
 
-                shootBullet(le.components.Renderable);
+                shootBullet(le.components.RenderableComponent);
             }
         }
         for (let i = 0; i < bulletsAmount; i++) {
 
-            if (timeNow - bullets[i].deathtime > bullets[i].birthTime) {
-                bullets[i].visible = 0;
+            if (timeNow - bullets[i].getDeathtime() > bullets[i].getBirthTime()) {
+                bullets[i].setVisible(0);
             }
             else {
-                let posX = bullets[i].speed * ( deltatime / 1000.0 ) * Math.cos(degToRad(bullets[i].angle));
-                let posZ = bullets[i].speed * ( deltatime / 1000.0 ) * Math.sin(degToRad(bullets[i].angle));
+                let posX = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.cos(degToRad(bullets[i].getAngle()));
+                let posZ = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.sin(degToRad(bullets[i].getAngle()));
 
-                bullets[i].xPos += posX;
-                bullets[i].zPos -= posZ;
+                bullets[i].setXPos(bullets[i].getXPos() + posX);
+                bullets[i].setZPos(bullets[i].getZPos() - posZ);
             }
 
 
@@ -130,27 +138,28 @@ function gunprocess_constructor(sb) {
 
             if (le.components.PhotonTorpedoComponent) {
                 gl.disable(gl.DEPTH_TEST);
-                sm.setProgram(particleProgram3d);
-
+                //sm.setProgram(particleProgram3d);
+                shadermanager.setProgram(particleProgram3d);
                 gl.enable(gl.BLEND);
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
 
+                let mvMatrix = camera.getMVMatrix();
                 for (let i = 0; i < bulletsAmount; i++) {
 
-                    if (bullets[i].visible != 1) {
+                    if (bullets[i].getVisible() != 1) {
                         continue;
                     }
 
-//
+
                     let bc = le.components.PhotonTorpedoComponent;
                     gl.uniform1f(particleProgram3d.pointSize, 64.0);
                     camera.mvPushMatrix();
 
+                    gl.uniform3f(particleProgram3d.positionUniform, bullets[i].getXPos(), bullets[i].getYPos(), bullets[i].getZPos());
+                    gl.bindBuffer(gl.ARRAY_BUFFER, bc.sprite.buffer);
 
-                    gl.uniform3f(particleProgram3d.positionUniform, bullets[i].xPos, 0, bullets[i].zPos);
-                    gl.bindBuffer(gl.ARRAY_BUFFER, bc.sprite.pointStartPositionsBuffer);
-                    gl.vertexAttribPointer(particleProgram3d.pointStartPositionAttribute, bc.sprite.pointStartPositionsBuffer.itemSize, gl.FLOAT, false, 0, 0);
+                    gl.vertexAttribPointer(particleProgram3d.pointStartPositionAttribute, bc.sprite.itemSize, gl.FLOAT, false, 0, 0);
 
 
                     gl.activeTexture(gl.TEXTURE0);
@@ -160,8 +169,8 @@ function gunprocess_constructor(sb) {
                     gl.uniform4f(particleProgram3d.colorUniform, 1, 1, 1, 1);
 
 
-                    gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.pMatrix);
-                    gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, camera.mvMatrix);
+                    gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.getPMatrix());
+                    gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, mvMatrix);
 
 
                     gl.drawArrays(gl.POINTS, 0, 1);
@@ -176,7 +185,7 @@ function gunprocess_constructor(sb) {
         gl.disable(gl.BLEND);
     }
 
-
+/*
     let checkHit = function () {
 
         for (let i = 0; i < bulletsAmount; i++) {
@@ -206,5 +215,7 @@ function gunprocess_constructor(sb) {
         }
 
     }
-    return {}
+    */
+
+    return {update, draw, init}
 }

@@ -27,7 +27,7 @@ function linearmovementprocess_construcotr(sb) {
             if (le.components.Selectable && le.components.Renderable && le.components.Movable) {
 
                 let se = le.components.Selectable;
-                let re = le.components.Renderable;
+                let re = le.components.RenderableComponent;
                 let me = le.components.Movable;
 
                 //let re = em.searchComponentForEntity(foundMoveEntities[e], "Renderable");
@@ -83,5 +83,9 @@ function linearmovementprocess_construcotr(sb) {
     }
 
 
-    return {}
+    return {
+        update, draw: function () {
+        }, init: function () {
+        }
+    }
 }

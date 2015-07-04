@@ -8,26 +8,29 @@ function postprocess_constructor(sb) {
   var basebuffer = gl.createFramebuffer();
   var framebuffer = gl.createFramebuffer();
   var framebuffer2 = gl.createFramebuffer();
-  var texture = this.initTextureFramebuffer(this.framebuffer);
-  var texture2 = this.initTextureFramebuffer(this.framebuffer2);
-  var texture3 = this.initTextureFramebuffer(this.basebuffer);
+  var texture2 = null;
+  var texture3 = null;
+  var wall = null;
   var points = [];
   var gl = sb.getGL();
   var camera = sb.getCamera();
   points.push(-50, 0, 0);
   points.push(20, 0, 0);
   var vertexPositionBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
   var init = function() {
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
+    texture = initTextureFramebuffer(framebuffer);
+    texture2 = initTextureFramebuffer(framebuffer2);
+    texture3 = initTextureFramebuffer(basebuffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0]), gl.STATIC_DRAW);
     gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
     setRectangle(0, 0, gl.viewportWidth, gl.viewportHeight);
+    wall = mm.getOrAdd('maps');
   };
   var texCoordBuffer = gl.createBuffer();
   var vertBuffer = gl.createBuffer();
-  this.wall = mm.getOrAdd('maps');
   var setRectangle = function(x, y, width, height) {
     var x1 = x;
     var x2 = x + width;
@@ -92,5 +95,9 @@ function postprocess_constructor(sb) {
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     camera.drawCalls++;
   };
-  return {};
+  return {
+    update: update,
+    draw: draw,
+    init: init
+  };
 }

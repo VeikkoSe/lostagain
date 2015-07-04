@@ -1,6 +1,6 @@
-function Movable() {
+function MovableComponent() {
   var speed = arguments[0] !== (void 0) ? arguments[0] : 0.1;
-  var name = "Movable";
+  var name = "MovableComponent";
   var newXpos = false;
   var newYpos = false;
   var newZpos = false;

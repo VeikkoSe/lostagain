@@ -1,11 +1,32 @@
-function asset_manager_constructor(sb) {
+function asset_manager_constructor() {
     //  let sb = params;
-    let meshes = [];
-    let textures = [];
-    //let loading = 0;
-    let loadingAmount = 0;
-    let loadingMax = 0;
+    let meshes, textures, loadingAmount, loadingMax, sb;
 
+    let init = function (sandbox) {
+
+        sb = sandbox;
+
+        meshes = [];
+        textures = [];
+        loadingAmount = 0;
+        loadingMax = 0;
+
+    }
+
+    let start = function () {
+        sb.subscribe("assetload", function (name, assetname) {
+
+
+            loadingAmount--;
+            //console.log(loadingAmount);
+            if (loadingAmount === 0) {
+
+                sb.publish("allassetsloaded", true);
+            }
+
+
+        });
+    }
 
     let getMesh = function (name) {
         if (meshes[name])
@@ -37,24 +58,8 @@ function asset_manager_constructor(sb) {
 
 
     let subscribe = function () {
-        sb.subscribe("assetload", function (name, assetname) {
 
-
-            loadingAmount--;
-            //console.log(loadingAmount);
-            if (loadingAmount === 0) {
-
-                sb.publish("allassetsloaded", true);
-            }
-
-
-        });
     }
-
-    let init = function () {
-
-
-    };
 
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
@@ -62,6 +67,7 @@ function asset_manager_constructor(sb) {
         getMesh,
         init,
         subscribe,
+        start,
         getLoadingAmount: function () {
             return loadingAmount;
         }

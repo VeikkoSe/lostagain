@@ -6,7 +6,20 @@ function GunComponent() {
 
 
     //}
-    return {name}
-
+    return {
+        name,
+        setShooting: function (v) {
+            shooting = v;
+        },
+        getShooting: function () {
+            return shooting;
+        },
+        setActiveWeapon: function (v) {
+            activeWeapon = v;
+        },
+        getActiveWeapon: function () {
+            return activeWeapon;
+        }
+    }
 
 }

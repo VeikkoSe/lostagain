@@ -13,9 +13,9 @@ function postprocess_constructor(sb) {
     let basebuffer = gl.createFramebuffer();
     let framebuffer = gl.createFramebuffer();
     let framebuffer2 = gl.createFramebuffer();
-    let texture = this.initTextureFramebuffer(this.framebuffer);
-    let texture2 = this.initTextureFramebuffer(this.framebuffer2);
-    let texture3 = this.initTextureFramebuffer(this.basebuffer);
+    let texture2 = null;
+    let texture3 = null;
+    let wall = null;
 
 
     let points = [];
@@ -27,11 +27,16 @@ function postprocess_constructor(sb) {
     points.push(20, 0, 0);
 
     let vertexPositionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
 
     let init = function () {
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
+
+        texture = initTextureFramebuffer(framebuffer);
+        texture2 = initTextureFramebuffer(framebuffer2);
+        texture3 = initTextureFramebuffer(basebuffer);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
             1.0, 1.0,
             0.0, 1.0,
@@ -43,6 +48,9 @@ function postprocess_constructor(sb) {
 
         setRectangle(0, 0, gl.viewportWidth, gl.viewportHeight);
 
+        wall = mm.getOrAdd('maps');
+
+
     }
     let texCoordBuffer = gl.createBuffer();
 
@@ -52,7 +60,6 @@ function postprocess_constructor(sb) {
 
     // gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
     //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
-    this.wall = mm.getOrAdd('maps');
 
 
     let setRectangle = function (x, y, width, height) {
@@ -196,7 +203,7 @@ function postprocess_constructor(sb) {
 
     }
 
-    return {}
+    return {update, draw, init}
 
 
 }

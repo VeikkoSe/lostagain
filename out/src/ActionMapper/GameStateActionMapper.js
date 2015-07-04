@@ -1,5 +1,7 @@
 function game_action_mapper(sb) {
+  var em = sb.getEntityManager();
   var currentlyPressedKeys = [];
+  var camera = sb.getCamera();
   var handleKeyDown = function(event) {
     $traceurRuntime.setProperty(currentlyPressedKeys, event.keyCode, true);
   };
@@ -7,12 +9,29 @@ function game_action_mapper(sb) {
     $traceurRuntime.setProperty(currentlyPressedKeys, event.keyCode, false);
   };
   var handleKeys = function() {
-    if (currentlyPressedKeys[32]) {
-      sb.publish("loadstate", 'introstate');
-    }
+    if (currentlyPressedKeys[32]) {}
   };
   var handleMouseDown = function(event) {
-    sb.publish("loadstate", 'introstate');
+    sb.publish("mouseclick", 'mouse1');
+  };
+  var handleKeys = function() {
+    if (currentlyPressedKeys.length > 0)
+      sb.publish("keyboardevent", currentlyPressedKeys);
+    var ship = em.getEntityByName('ship');
+    if (ship) {
+      if (currentlyPressedKeys[38]) {
+        ship.components.MomentumMovable.accelerationOn = 1;
+      }
+      if (currentlyPressedKeys[37]) {
+        ship.components.MomentumMovable.rotateLeft = 1;
+      }
+      if (currentlyPressedKeys[39]) {
+        ship.components.MomentumMovable.rotateRight = 1;
+      }
+      if (currentlyPressedKeys[32]) {
+        ship.components.GunComponent.shooting = true;
+      }
+    }
   };
   return Object.freeze({
     handleKeyDown: handleKeyDown,
@@ -58,21 +77,6 @@ if (false) {
     },
     handleKeys: function() {
       "use strict";
-      if (currentlyPressedKeys[49]) {
-        loadManager.loadLevel('first');
-        game.currentLevel = 'first';
-      }
-      if (currentlyPressedKeys[50]) {
-        loadManager.loadLevel('second');
-        game.currentLevel = 'second';
-      }
-      if (currentlyPressedKeys[51]) {
-        loadManager.loadLevel('third');
-        game.currentLevel = 'third';
-      }
-      if (currentlyPressedKeys[52]) {
-        game.stateEngine.changeState("mapstate");
-      }
       var ms = em.getEntityByName('mothership');
       if (ms) {
         ms.components.MomentumMovable.rotateLeft = 0;
@@ -143,9 +147,9 @@ if (false) {
       var y = -(mouseY(event) - resolutionHeight / 2) / (resolutionHeight / 2);
       var viewportArray = [0, 0, resolutionWidth, resolutionHeight];
       var modelPointArrayResultsNear = [];
-      var success = GLU.unProject(x, y, 0, camera.mvMatrix, camera.pMatrix, viewportArray, modelPointArrayResultsNear);
+      var success = GLU.unProject(x, y, 0, camera.getMVMatrix(), camera.getPMatrix(), viewportArray, modelPointArrayResultsNear);
       var modelPointArrayResultsFar = [];
-      var success = GLU.unProject(x, y, 1, camera.mvMatrix, camera.pMatrix, viewportArray, modelPointArrayResultsFar);
+      var success = GLU.unProject(x, y, 1, camera.getMVMatrix(), camera.getPMatrix(), viewportArray, modelPointArrayResultsFar);
       camera.clickPosition = intersectionpoint(modelPointArrayResultsNear, modelPointArrayResultsFar);
     },
     getCenterPosition: function() {
@@ -154,9 +158,9 @@ if (false) {
       var y = 0;
       var viewportArray = [0, 0, resolutionWidth, resolutionHeight];
       var modelPointArrayResultsNear = [];
-      var success = GLU.unProject(x, y, 0, camera.mvMatrix, camera.pMatrix, viewportArray, modelPointArrayResultsNear);
+      var success = GLU.unProject(x, y, 0, camera.getMVMatrix(), camera.getPMatrix(), viewportArray, modelPointArrayResultsNear);
       var modelPointArrayResultsFar = [];
-      var success = GLU.unProject(x, y, 1, camera.mvMatrix, camera.pMatrix, viewportArray, modelPointArrayResultsFar);
+      var success = GLU.unProject(x, y, 1, camera.getMVMatrix(), camera.getPMatrix(), viewportArray, modelPointArrayResultsFar);
       return intersectionpoint(modelPointArrayResultsNear, modelPointArrayResultsFar);
     },
     handleMouseMove: function(e) {

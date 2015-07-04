@@ -11,22 +11,22 @@ function enemyprocess_constructor(sb) {
     let update = function (deltatime, timeFromStart) {
 
         //we don't instantly harass the player
-        if (timeFromStart < 30000) {
-            return false;
-        }
+        // if (timeFromStart < 30000) {
+        return false;
+        // }
 
 
         for (let e = 0; e < em.entities.length; e++) {
             let le = em.entities[e];
 
-            if (le.components.Renderable && le.components.MeshComponent && le.components.EnemyComponent) {
+            if (le.components.RenderableComponent && le.components.MeshComponent && le.components.EnemyComponent) {
 
                 let ship = em.getEntityByName('ship');
                 //if normal ship is dead we target the mothership
                 if (ship.components.HealthComponent.amount < 1) {
                     ship = em.getEntityByName('mothership');
                 }
-                let re = le.components.Renderable;
+                let re = le.components.RenderableComponent;
                 //let enemyHp = le.components.HealthComponent;
 
                 /*
@@ -56,8 +56,8 @@ function enemyprocess_constructor(sb) {
 
                     //Create a vector in the direction
 
-                    let dirZ = ship.components.Renderable.xPos - re.xPos;
-                    let dirX = ship.components.Renderable.zPos - re.zPos;
+                    let dirZ = ship.components.RenderableComponent.xPos - re.xPos;
+                    let dirX = ship.components.RenderableComponent.zPos - re.zPos;
 
                     //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
                     let hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
@@ -81,6 +81,10 @@ function enemyprocess_constructor(sb) {
             }
         }
     }
-    return {}
+    return {
+        update, draw: function () {
+        }, init: function () {
+        }
+    }
 
 }

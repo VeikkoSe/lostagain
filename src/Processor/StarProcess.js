@@ -1,39 +1,33 @@
-class StarProcess extends Processor {
-    constructor() {
+function starprocess_constructor(sb) {
+    let gl = sb.getGL();
+
+    let pointStartPositionsBuffer = gl.createBuffer();
+    let startPositions = [];
+    let colors = [];
+    let em = sb.getEntityManager();
+    let camera = sb.getCamera();
+
+    let shadermanager = sb.getShaderManager();
+    let program = shadermanager.useShader("star");
+
+
+    let numParticles = 10000;
+
+    let init = function () {
         //this.vertexPositionBuffer = gl.createBuffer();
-        this.pointStartPositionsBuffer = null;
-        this.startPositions = [];
-        this.colors = [];
-        this.initBuffers();
-        this.starProgram = sm.init('star');
 
-
-    }
-
-
-    randomBetween(min, max) {
-        if (min < 0) {
-            return min + Math.random() * (Math.abs(min) + max);
-        } else {
-            return min + Math.random() * max;
-        }
-    }
-
-
-    initBuffers() {
-        let numParticles = 10000;
 
         let color = [1, 1, 1, 1];
-        this.colors.push(color);
+        colors.push(color);
 
         let color = [1, 1, 1, 2];
-        this.colors.push(color);
+        colors.push(color);
 
         let color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
-        this.colors.push(color);
+        colors.push(color);
 
         let color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
-        this.colors.push(color);
+        colors.push(color);
 
         /*
 
@@ -56,11 +50,11 @@ class StarProcess extends Processor {
         for (let i = 0; i < numParticles; i++) {
 
 
-            this.startPositions.push(this.randomBetween(-4000, 4000));
-            this.startPositions.push(this.randomBetween(-600, -500));
-            this.startPositions.push(this.randomBetween(-4000, 4000));
+            startPositions.push(randomBetween(-4000, 4000));
+            startPositions.push(randomBetween(-600, -500));
+            startPositions.push(randomBetween(-4000, 4000));
             //pointsize
-            this.startPositions.push(this.randomBetween(1, 1));
+            startPositions.push(randomBetween(1, 1));
         }
 
 
@@ -119,107 +113,64 @@ class StarProcess extends Processor {
          */
 
 
-        this.pointStartPositionsBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.startPositions), gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
 
-        this.pointStartPositionsBuffer.numItems = numParticles;
+        pointStartPositionsBuffer.numItems = numParticles;
+        //let starProgram = sm.init('star');
 
 
     }
 
 
-    draw() {
+    let randomBetween = function (min, max) {
+        if (min < 0) {
+            return min + Math.random() * (Math.abs(min) + max);
+        } else {
+            return min + Math.random() * max;
+        }
+    }
 
 
+    let draw = function () {
+
+        let mvMatrix = camera.getMVMatrix();
+        //console.log(em);
         for (let e = 0; e < em.entities.length; e++) {
             let le = em.entities[e];
 
             if (le.components.StarComponent) {
-                sm.setProgram(this.starProgram);
-                camera.mvPushMatrix();
-                gl.uniform3fv(this.starProgram.uCameraPos, [camera.x, camera.y, camera.z]);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
+
+                // sm.setProgram(starProgram);
+                shadermanager.setProgram(program);
+                //camera.mvPushMatrix();
+                gl.uniform3fv(program.uCameraPos, [camera.getX(), camera.getY(), camera.getZ()]);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
                 //gl.vertexAttribPointer(starProgram.pointStartPositionAttribute, 1, gl.FLOAT, false, 15, 0);
                 //gl.vertexAttribPointer(starProgram.aWorldCoordinates, 3, gl.FLOAT, false, 18,3);
 
-                gl.vertexAttribPointer(this.starProgram.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
-                gl.vertexAttribPointer(this.starProgram.aPointSize, 1, gl.FLOAT, false, 16, 12);
+                gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
+                gl.vertexAttribPointer(program.aPointSize, 1, gl.FLOAT, false, 16, 12);
 
-                // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.startPositions), gl.STATIC_DRAW);
+                // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
 
-                gl.uniformMatrix4fv(this.starProgram.uPMatrix, false, camera.pMatrix);
+                gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
 
-                gl.uniformMatrix4fv(this.starProgram.uMVMatrix, false, camera.mvMatrix);
-                //console.log(this.pointStartPositionsBuffer.numItems);
+                gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
+                //console.log(pointStartPositionsBuffer.numItems);
 
-                gl.drawArrays(gl.POINTS, 0, this.pointStartPositionsBuffer.numItems);
-                camera.drawCalls++;
-                camera.mvPopMatrix();
+                gl.drawArrays(gl.POINTS, 0, pointStartPositionsBuffer.numItems);
+                //camera.drawCalls++;
+                //camera.mvPopMatrix();
             }
         }
 
     }
 
-    /**
-     *
-     * ar StarProcess = function StarProcess() {
-  "use strict";
-  this.pointStartPositionsBuffer = null;
-  this.startPositions = [];
-  this.colors = [];
-  this.initBuffers();
-};
-     ($traceurRuntime.createClass)(StarProcess, {
-  randomBetween: function(min, max) {
-    "use strict";
-    if (min < 0) {
-      return min + Math.random() * (Math.abs(min) + max);
-    } else {
-      return min + Math.random() * max;
+    return {
+        draw, update: function () {
+        }, init
     }
-  },
-  initBuffers: function() {
-    "use strict";
-    let numParticles = 50000;
-    let color = [1, 1, 1, 1];
-    this.colors.push(color);
-    let color = [1, 1, 1, 2];
-    this.colors.push(color);
-    let color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
-    this.colors.push(color);
-    let color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
-    this.colors.push(color);
-    for (let i = 0; i < numParticles; i++) {
-      this.startPositions.push(this.randomBetween(-25000, 25000));
-      this.startPositions.push(this.randomBetween(-5000, -5000));
-      this.startPositions.push(this.randomBetween(-25000, 25000));
-    }
-    this.pointStartPositionsBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.startPositions), gl.STATIC_DRAW);
-    this.pointStartPositionsBuffer.itemSize = 3;
-    this.pointStartPositionsBuffer.numItems = numParticles;
-  },
-  draw: function() {
-    "use strict";
-    camera.mvPushMatrix();
-    gl.uniformMatrix4fv(starProgram.uPMatrix, false, camera.pMatrix);
-    gl.uniformMatrix4fv(starProgram.uMVMatrix, false, camera.mvMatrix);
-    for (let i = 0; i < 3; i++) {
-      let color = this.colors[$traceurRuntime.toProperty(i)];
-      gl.uniform1f(starProgram.pointSize, color[3]);
-      gl.uniform3f(starProgram.colorUniform, color[0], color[1], color[2]);
-      gl.bindBuffer(gl.ARRAY_BUFFER, this.pointStartPositionsBuffer);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.startPositions), gl.STATIC_DRAW);
-      gl.enableVertexAttribArray(starProgram.pointStartPositionAttribute);
-      gl.vertexAttribPointer(starProgram.pointStartPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-      gl.drawArrays(gl.POINTS, i * this.pointStartPositionsBuffer.numItems / 3, this.pointStartPositionsBuffer.numItems / 3 / 3);
-    }
-    camera.mvPopMatrix();
-  }
-}, {}, Processor);
-     */
-
 }

@@ -14,6 +14,7 @@ function layout_constructor() {
       children.push(layout);
     },
     init: function() {},
+    start: function() {},
     subscribe: function() {}
   };
 }

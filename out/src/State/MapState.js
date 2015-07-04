@@ -6,7 +6,6 @@ function mapstate_constructor(sb) {
   var elapsedTotal = 0;
   var camera = sb.getCamera();
   var gl = sb.getGL();
-  var actionMapper = map_action_mapper(sb);
   var draw = function() {
     gl.clearColor(0, 0, 0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -37,11 +36,6 @@ function mapstate_constructor(sb) {
     camera.drawCalls = 0;
   };
   var init = function() {
-    actionMapper = map_action_mapper(sb);
-    document.onkeydown = actionMapper.handleKeyDown;
-    document.onkeyup = actionMapper.handleKeyUp;
-    document.onmousemove = actionMapper.handleMouseMove;
-    document.onmousedown = actionMapper.handleMouseDown;
     processList = [];
     processList.push(RenderProcess());
     camera.setPos(0, 0, 0, 45);
@@ -53,28 +47,28 @@ function mapstate_constructor(sb) {
   var update = function() {
     var timeNow = new Date().getTime();
     actionMapper.handleKeys();
-    this.frameCount++;
-    if (this.lastTime != 0) {
+    frameCount++;
+    if (lastTime != 0) {
       try {
         throw undefined;
       } catch (elapsed) {
         {
-          elapsed = timeNow - this.lastTime;
-          this.elapsedTotal += elapsed;
+          elapsed = timeNow - lastTime;
+          elapsedTotal += elapsed;
           {
             try {
               throw undefined;
             } catch ($i) {
               {
                 $i = 0;
-                for (; $i < this.processList.length; $i++) {
+                for (; $i < processList.length; $i++) {
                   try {
                     throw undefined;
                   } catch (i) {
                     {
                       i = $i;
                       try {
-                        this.processList[$traceurRuntime.toProperty(i)].update(elapsed, false);
+                        processList[$traceurRuntime.toProperty(i)].update(elapsed, false);
                       } finally {
                         $i = i;
                       }
@@ -87,7 +81,7 @@ function mapstate_constructor(sb) {
         }
       }
     }
-    this.lastTime = timeNow;
+    lastTime = timeNow;
   };
   var subscribe = function() {};
   var cleanup = function() {};

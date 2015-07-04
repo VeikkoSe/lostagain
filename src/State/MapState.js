@@ -14,7 +14,7 @@ function mapstate_constructor(sb) {
     let elapsedTotal = 0;
     let camera = sb.getCamera();
     let gl = sb.getGL();
-    let actionMapper = map_action_mapper(sb);
+    //let actionMapper = map_action_mapper(sb);
     //let ef = sb.getEn
 
 
@@ -39,14 +39,14 @@ function mapstate_constructor(sb) {
 
     let init = function () {
 
+        /*
+         actionMapper = map_action_mapper(sb);
 
-        actionMapper = map_action_mapper(sb);
-
-        document.onkeydown = actionMapper.handleKeyDown;
-        document.onkeyup = actionMapper.handleKeyUp;
-        document.onmousemove = actionMapper.handleMouseMove;
-        document.onmousedown = actionMapper.handleMouseDown;
-
+         document.onkeydown = actionMapper.handleKeyDown;
+         document.onkeyup = actionMapper.handleKeyUp;
+         document.onmousemove = actionMapper.handleMouseMove;
+         document.onmousedown = actionMapper.handleMouseDown;
+         */
         processList = [];
         //this.processList.push(new MapProcess());
         //this.processList.push(new PrimitiveProcess());
@@ -80,20 +80,20 @@ function mapstate_constructor(sb) {
         let timeNow = new Date().getTime();
         actionMapper.handleKeys();
 
-        this.frameCount++;
+        frameCount++;
 
-        if (this.lastTime != 0) {
+        if (lastTime != 0) {
 
-            let elapsed = timeNow - this.lastTime;
-            this.elapsedTotal += elapsed;
+            let elapsed = timeNow - lastTime;
+            elapsedTotal += elapsed;
 
-            for (let i = 0; i < this.processList.length; i++) {
-                this.processList[i].update(elapsed, false);
+            for (let i = 0; i < processList.length; i++) {
+                processList[i].update(elapsed, false);
             }
 
 
         }
-        this.lastTime = timeNow;
+        lastTime = timeNow;
 
     }
 

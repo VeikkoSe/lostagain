@@ -8,7 +8,8 @@ function HealthComponent(amount, sprite = null) {
 
 
     //}
-    return {name}
+    return {name, getSprite: function() {return sprite},getAmount(){return  amount},setAmount:function (v){amount = v;}
+    }
 
 
 }

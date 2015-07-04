@@ -1,15 +1,16 @@
 /**
  * Created by Vge on 3.3.2014.
  */
-function texture_constructor(sb) {
+function texture_constructor(sandbox) {
 
     //let {name,noflip} = params;
-    let gl = sb.getGL();
+
     let loadedTexture = null;
+    let gl = sandbox.getGL();
 
 
-    let loadTexture = function (params) {
-        let {name, noflip} = params;
+    let load = function (params) {
+        let {name, noflip,repeat} = params;
         loadedTexture = gl.createTexture();
 
         loadedTexture.image = new Image();
@@ -25,7 +26,7 @@ function texture_constructor(sb) {
 
             gl.bindTexture(gl.TEXTURE_2D, loadedTexture);
             gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, loadedTexture.image);
-            if (this.repeat) {
+            if (repeat) {
 
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
@@ -52,10 +53,9 @@ function texture_constructor(sb) {
     };
 
     return Object.freeze({
-        init: function () {
 
-        },
-        loadTexture,
+
+        load,
         getLoadedTexture
 
     });

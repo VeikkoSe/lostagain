@@ -1,19 +1,27 @@
-function shader_manager_constuctor(gl) {
-    //constructor() {
-    let allShaders = [];
-    let currentProgram = null;
+function shader_manager_constuctor() {
 
-    //let gl = sb.getGl();
-    // }
+    let sb, allShaders, currentProgram, gl;
+
+    let init = function (sandbox) {
+        sb = sandbox;
+        allShaders = [];
+        currentProgram = null;
+
+
+    }
+    let start = function () {
+        gl = sb.getGL();
+    }
 
     let setProgram = function (program) {
 
-        if (currentProgram != null && currentProgram.name == program.name) {
-            return true;
-        }
-        else {
-            gl.useProgram(program);
-        }
+        //if (currentProgram != null && currentProgram.name == program.name) {
+
+        //   return true;
+        // }
+        // else {
+        gl.useProgram(program);
+        // }
 
     };
 
@@ -22,7 +30,7 @@ function shader_manager_constuctor(gl) {
     }
 
 
-    let init = function (name) {
+    let useShader = function (name) {
         if (allShaders[name]) {
             return allShaders[name];
         }
@@ -71,6 +79,7 @@ function shader_manager_constuctor(gl) {
                 allShaders[name] = initLifeTimeParticleShaders(name);
                 break;
         }
+        currentProgram = name;
         return allShaders[name];
 
     };
@@ -332,7 +341,7 @@ function shader_manager_constuctor(gl) {
 
     let initLifeTimeParticleShaders = function (id) {
 
-        let program = this.createP(id);
+        let program = createP(id);
 
         program.pointLifetimeAttribute = gl.getAttribLocation(program, "aLifetime");
         gl.enableVertexAttribArray(program.pointLifetimeAttribute);
@@ -438,9 +447,12 @@ function shader_manager_constuctor(gl) {
 
     };
     return { // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
-        init,
+        useShader,
         setProgram,
-        subscribe
+        subscribe,
+        init,
+        start
+
     };
 
 }

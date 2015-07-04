@@ -6,7 +6,7 @@ function introstate_constructor(sb) {
     //let assetmanager = asset_manager_constructor();
     //let camera = game.camera;
     //let intro = assetmanager.getMesh('start');
-    let actionMapper = intro_action_mapper(sb);
+    //  let actionMapper = intro_action_mapper(sb);
     let processList = [];
     let camera = sb.getCamera();
     let gl = sb.getGL();
@@ -77,14 +77,15 @@ function introstate_constructor(sb) {
 
     let init = function () {
 
+
         processList.push(renderprocess_constructor(sb));
 
-
-        document.onkeydown = actionMapper.handleKeyDown;
-        document.onkeyup = actionMapper.handleKeyUp;
-        document.onmousemove = actionMapper.handleMouseMove;
-        document.onmousedown = actionMapper.handleMouseDown;
-
+        /*
+         document.onkeydown = actionMapper.handleKeyDown;
+         document.onkeyup = actionMapper.handleKeyUp;
+         document.onmousemove = actionMapper.handleMouseMove;
+         document.onmousedown = actionMapper.handleMouseDown;
+         */
 
         gl.clearColor(1, 0, 0, 1.0);
         gl.clearDepth(1.0);

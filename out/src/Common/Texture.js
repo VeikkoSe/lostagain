@@ -1,10 +1,11 @@
-function texture_constructor(sb) {
-  var gl = sb.getGL();
+function texture_constructor(sandbox) {
   var loadedTexture = null;
-  var loadTexture = function(params) {
+  var gl = sandbox.getGL();
+  var load = function(params) {
     var $__0 = $traceurRuntime.assertObject(params),
         name = $__0.name,
-        noflip = $__0.noflip;
+        noflip = $__0.noflip,
+        repeat = $__0.repeat;
     loadedTexture = gl.createTexture();
     loadedTexture.image = new Image();
     loadedTexture.image.onload = function() {
@@ -15,7 +16,7 @@ function texture_constructor(sb) {
       }
       gl.bindTexture(gl.TEXTURE_2D, loadedTexture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, loadedTexture.image);
-      if (this.repeat) {
+      if (repeat) {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -32,8 +33,7 @@ function texture_constructor(sb) {
     return loadedTexture;
   };
   return Object.freeze({
-    init: function() {},
-    loadTexture: loadTexture,
+    load: load,
     getLoadedTexture: getLoadedTexture
   });
 }

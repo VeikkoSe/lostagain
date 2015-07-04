@@ -1,6 +1,6 @@
-function mesh_constructor(sb) {
+function mesh_constructor(sandbox) {
     // let {name,game} = params;
-
+    let sb = sandbox;
     let vertices = [];
     let texturecoordinates = [];
     let normals = [];
@@ -9,6 +9,7 @@ function mesh_constructor(sb) {
     let yPos = 0;
     let zPos = 0;
     let gl = sb.getGL();
+
     //
 
 
@@ -42,7 +43,7 @@ function mesh_constructor(sb) {
 
         //loadManager.loadTotal++;
         let tc = texture_constructor(sb);
-        tc.loadTexture({name});
+        tc.load({name});
 
         texture = tc.getLoadedTexture();
 
@@ -195,15 +196,13 @@ function mesh_constructor(sb) {
 
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
-        init: function () {
 
-        },
         loadMesh,
         getTexture,
         vertexPositionBuffer,
         texturePositionBuffer,
         indexPositionBuffer,
-        normalPositionBuffer,
+        normalPositionBuffer
 
 
     });

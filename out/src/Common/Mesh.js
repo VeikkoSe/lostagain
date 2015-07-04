@@ -1,4 +1,5 @@
-function mesh_constructor(sb) {
+function mesh_constructor(sandbox) {
+  var sb = sandbox;
   var vertices = [];
   var texturecoordinates = [];
   var normals = [];
@@ -20,7 +21,7 @@ function mesh_constructor(sb) {
   };
   var loadMesh = function(name) {
     var tc = texture_constructor(sb);
-    tc.loadTexture({name: name});
+    tc.load({name: name});
     texture = tc.getLoadedTexture();
     var request = new XMLHttpRequest();
     request.open("GET", "resources/models/" + name + ".js?" + Math.random(), true);
@@ -215,7 +216,6 @@ function mesh_constructor(sb) {
     }
   };
   return Object.freeze({
-    init: function() {},
     loadMesh: loadMesh,
     getTexture: getTexture,
     vertexPositionBuffer: vertexPositionBuffer,

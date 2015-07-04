@@ -1,4 +1,4 @@
-function asteroidcomponent_constructor() {
+function AsteroidComponent() {
 
     let name = "AsteroidComponent";
 

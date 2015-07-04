@@ -13,5 +13,9 @@ function ExhaustComponent(sprite) {
   var texturecoordinates = [];
   var square = [];
   var offSetSideFromCenter = offSetSideFromCenter;
-  return {name: name};
+  return {
+    name: name,
+    flow: flow,
+    points: points
+  };
 }

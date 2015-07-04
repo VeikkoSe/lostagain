@@ -1,6 +1,6 @@
-function Controllable() {
+function ControllableComponent() {
     //constructor() {
-    let name = "Controllable";
+    let name = "ControllableComponent";
 
 
     //}

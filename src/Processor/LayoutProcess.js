@@ -1,17 +1,28 @@
 function layoutprocess_constructor(sb) {
 
     //constructor() {
-    let program = sb.getProgram('gui');
+    // let program = sb.getProgram('gui');
+
+    let gl = sb.getGL();
     let resolutionWidth = sb.getResolutionWidth();
     let resolutionHeight = sb.getResolutionHeight();
 
+    let shadermanager = sb.getShaderManager();
+    let program = shadermanager.useShader("gui");
 
     let points = [];
     let vertexPositionBuffer = gl.createBuffer();
     let texCoordBuffer = gl.createBuffer();
 
     let vertBuffer = gl.createBuffer();
+    let em = sb.getEntityManager();
+
+    let camera = sb.getCamera();
+
+
     let init = function () {
+
+
         points.push(-50, 0, 0);
         points.push(20, 0, 0);
 
@@ -37,8 +48,6 @@ function layoutprocess_constructor(sb) {
 
     }
 
-
-    //}
 
     let simpleWorldToViewX = function (x) {
         return x / resolutionWidth;
@@ -111,8 +120,8 @@ function layoutprocess_constructor(sb) {
 
 
             }
-            if (lloop[i].children.length > 0) {
-                recursiveLayout(lloop[i].children, lloop[i]);
+            if (lloop[i].getChildren().length > 0) {
+                recursiveLayout(lloop[i].getChildren(), lloop[i]);
             }
         }
     }
@@ -145,7 +154,7 @@ function layoutprocess_constructor(sb) {
 
         camera.mvPushMatrix();
 
-        this.vertBuffer = gl.createBuffer();
+        vertBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
 
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
@@ -157,7 +166,7 @@ function layoutprocess_constructor(sb) {
 
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, layout.component.sprite.texture);
-        gl.uniform1i(this.program.samplerUniform, 0);
+        gl.uniform1i(program.samplerUniform, 0);
 
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
@@ -171,15 +180,23 @@ function layoutprocess_constructor(sb) {
 
     let draw = function () {
 
+        for (let e = 0; e < em.entities.length; e++) {
+            let le = em.entities[e];
 
-        sm.setProgram(program);
+            if (le.components.LayoutComponent) {
+                shadermanager.setProgram(program);
 
 
-        recursiveLayout(lm, false);
-
+                recursiveLayout(le.components.LayoutComponent.layout, false);
+            }
+        }
 
     }
-    return {}
+    return {
+        update: function () {
+        }, draw, init: function () {
+        }
+    }
 
 
 }

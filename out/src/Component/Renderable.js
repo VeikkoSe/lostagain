@@ -1,27 +1,76 @@
-function RenderableComponent(params) {
+function RenderableComponent() {
   var angleX = 0;
   var angleY = 0;
   var angleZ = 0;
-  var $__0 = $traceurRuntime.assertObject(params),
-      x = $__0.x,
-      y = $__0.y,
-      z = $__0.z,
-      scale = $__0.scale,
-      xWidth = $__0.xWidth,
-      yWidth = $__0.yWidth,
-      zWidth = $__0.zWidth;
+  var xPos = 0;
+  var yPos = 0;
+  var zPos = 0;
+  var scale = 1;
+  var xWidth = 1;
+  var yWidth = 1;
+  var zWidth = 1;
   var name = "RenderableComponent";
-  return Object.freeze({
+  return {
     name: name,
-    x: x,
-    y: y,
-    z: z,
-    scale: scale,
-    angleX: angleX,
-    angleY: angleY,
-    angleZ: angleZ,
-    xWidth: xWidth,
-    yWidth: yWidth,
-    zWidth: zWidth
-  });
+    getXPos: function() {
+      return xPos;
+    },
+    setXPos: function(v) {
+      xPos = v;
+    },
+    getYPos: function() {
+      return yPos;
+    },
+    setYPos: function(v) {
+      yPos = v;
+    },
+    getZPos: function() {
+      return zPos;
+    },
+    setZPos: function(v) {
+      zPos = v;
+    },
+    getScale: function() {
+      return scale;
+    },
+    setScale: function(v) {
+      scale = v;
+    },
+    getAngleX: function() {
+      return angleX;
+    },
+    setAngleX: function(v) {
+      angleX = v;
+    },
+    getAngleY: function() {
+      return angleY;
+    },
+    setAngleY: function(v) {
+      angleY = v;
+    },
+    getAngleZ: function() {
+      return angleZ;
+    },
+    setAngleZ: function(v) {
+      angleZ = v;
+    },
+    getXWidth: function() {
+      return xWidth;
+    },
+    setXWidth: function(v) {
+      xWidth = v;
+    },
+    getYWidth: function() {
+      return yWidth;
+    },
+    setYWidth: function(v) {
+      yWidth = v;
+    },
+    getZWidth: function() {
+      return zWidth;
+    },
+    setZWidth: function(v) {
+      zWidth = v;
+    }
+  };
 }

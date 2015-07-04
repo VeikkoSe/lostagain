@@ -1,5 +1,41 @@
-function momemtummovementprocess_constructor() {
+function momemtummovementprocess_constructor(sb) {
+  var sb = sb;
+  var em = sb.getEntityManager();
   var update = function(deltatime) {
+    var ms = em.getEntityByName('mothership');
+    if (ms) {
+      ms.components.MomentumComponent.setRotatingLeft(0);
+      ms.components.MomentumComponent.setRotatingRight(0);
+      ms.components.MomentumComponent.setCurrentlyAccelerating(0);
+      if (sb.getActionMapper().getCurrentlyPressedKeys()[87]) {
+        ms.components.MomentumComponent.setCurrentlyAccelerating(1);
+      }
+      if (sb.getActionMapper().getCurrentlyPressedKeys()[65]) {
+        ms.components.MomentumComponent.setRotatingLeft(1);
+      }
+      if (sb.getActionMapper().getCurrentlyPressedKeys()[68]) {
+        ms.components.MomentumComponent.setRotatingRight(1);
+      }
+    }
+    var ship = em.getEntityByName('ship');
+    if (ship) {
+      ship.components.MomentumComponent.setRotatingLeft(0);
+      ship.components.MomentumComponent.setRotatingRight(0);
+      ship.components.MomentumComponent.setCurrentlyAccelerating(0);
+      ship.components.GunComponent.setShooting(0);
+      if (sb.getActionMapper().getCurrentlyPressedKeys()[38]) {
+        ship.components.MomentumComponent.setCurrentlyAccelerating(1);
+      }
+      if (sb.getActionMapper().getCurrentlyPressedKeys()[37]) {
+        ship.components.MomentumComponent.setRotatingLeft(1);
+      }
+      if (sb.getActionMapper().getCurrentlyPressedKeys()[39]) {
+        ship.components.MomentumComponent.setRotatingRight(1);
+      }
+      if (sb.getActionMapper().getCurrentlyPressedKeys()[32]) {
+        ship.components.GunComponent.setShooting(1);
+      }
+    }
     {
       try {
         throw undefined;
@@ -20,7 +56,7 @@ function momemtummovementprocess_constructor() {
                       le = em.entities[$traceurRuntime.toProperty(e)];
                       if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
                         continue;
-                      if (le.components.MomentumMovable && le.components.Renderable) {
+                      if (le.components.MomentumComponent && le.components.RenderableComponent) {
                         try {
                           throw undefined;
                         } catch (re) {
@@ -28,9 +64,9 @@ function momemtummovementprocess_constructor() {
                             throw undefined;
                           } catch (mm) {
                             {
-                              mm = le.components.MomentumMovable;
-                              re = le.components.Renderable;
-                              if (mm.accelerationOn) {
+                              mm = le.components.MomentumComponent;
+                              re = le.components.RenderableComponent;
+                              if (mm.getCurrentlyAccelerating() === 1) {
                                 try {
                                   throw undefined;
                                 } catch (posZ) {
@@ -50,17 +86,17 @@ function momemtummovementprocess_constructor() {
                                             throw undefined;
                                           } catch (dirVectorX) {
                                             {
-                                              dirVectorX = Math.cos(degToRad(re.angleY));
-                                              dirVectorZ = Math.sin(degToRad(re.angleY));
-                                              tx = mm.velocityX;
-                                              tz = mm.velocityZ;
-                                              tx += mm.acceleration * dirVectorX * (deltatime / 1000);
-                                              tz += mm.acceleration * dirVectorZ * (deltatime / 1000);
+                                              dirVectorX = Math.cos(degToRad(re.getAngleY()));
+                                              dirVectorZ = Math.sin(degToRad(re.getAngleY()));
+                                              tx = mm.getVelocityX();
+                                              tz = mm.getVelocityZ();
+                                              tx += mm.getAccelerationAmount() * dirVectorX * (deltatime / 1000);
+                                              tz += mm.getAccelerationAmount() * dirVectorZ * (deltatime / 1000);
                                               posX = (tx < 0) ? tx * -1 : tx;
                                               posZ = (tz < 0) ? tz * -1 : tz;
-                                              if (posX < mm.speed && posZ < mm.speed) {
-                                                mm.velocityX = tx;
-                                                mm.velocityZ = tz;
+                                              if (posX < mm.getSpeed() && posZ < mm.getSpeed()) {
+                                                mm.setVelocityX(tx);
+                                                mm.setVelocityZ(tz);
                                               }
                                             }
                                           }
@@ -70,22 +106,22 @@ function momemtummovementprocess_constructor() {
                                   }
                                 }
                               }
-                              if (mm.rotateRight) {
-                                if (re.angleY >= 360)
-                                  re.angleY = 0;
-                                if (re.angleY < 0)
-                                  re.angleY = 360;
-                                re.angleY -= mm.turnSpeed * (deltatime / 1000);
+                              if (mm.getRotatingRight() === 1) {
+                                if (re.getAngleY() >= 360)
+                                  re.setAngleY(0);
+                                if (re.getAngleY() < 0)
+                                  re.setAngleY(360);
+                                re.setAngleY(re.getAngleY() - mm.getTurnSpeed() * (deltatime / 1000));
                               }
-                              if (mm.rotateLeft) {
-                                if (re.angleY >= 360)
-                                  re.angleY = 0;
-                                if (re.angleY < 0)
-                                  re.angleY = 360;
-                                re.angleY += mm.turnSpeed * (deltatime / 1000);
+                              if (mm.getRotatingLeft() === 1) {
+                                if (re.getAngleY() >= 360)
+                                  re.setAngleY(0);
+                                if (re.getAngleY() < 0)
+                                  re.setAngleY(360);
+                                re.setAngleY(re.getAngleY() + mm.getTurnSpeed() * (deltatime / 1000));
                               }
-                              re.xPos += mm.velocityX * (deltatime / 1000);
-                              re.zPos -= mm.velocityZ * (deltatime / 1000);
+                              re.setXPos(re.getXPos() + mm.getVelocityX() * (deltatime / 1000));
+                              re.setZPos(re.getZPos() - mm.getVelocityZ() * (deltatime / 1000));
                             }
                           }
                         }
@@ -102,5 +138,10 @@ function momemtummovementprocess_constructor() {
       }
     }
   };
-  return {};
+  var init = function() {};
+  return {
+    update: update,
+    draw: function() {},
+    init: init
+  };
 }

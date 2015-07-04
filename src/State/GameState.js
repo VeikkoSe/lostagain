@@ -11,7 +11,7 @@ function gamestate_constructor(sb) {
 
     let processList = [];
     let startTime = null;
-    let actionMapper = game_action_mapper(sb);
+
     //let camera = camera_contructor();
     //let lm = loadmanager_costructor();
 
@@ -20,7 +20,8 @@ function gamestate_constructor(sb) {
 
     let subscribe = function () {
 
-    }
+
+    };
 
 
     let init = function () {
@@ -28,29 +29,34 @@ function gamestate_constructor(sb) {
         processList = [];
 
 
-        document.onkeydown = actionMapper.handleKeyDown;
-        document.onkeyup = actionMapper.handleKeyUp;
-        document.onmousemove = actionMapper.handleMouseMove;
-        document.onmousedown = actionMapper.handleMouseDown;
-
-
-        // processList.push(new TextProcess2d());
+        //processList.push(text_process_2d_constructor(sb));
         // processList.push(new AsteroidRenderProcess());
         // processList.push(new PlaneProcess());
 
-        // processList.push(new CameraControllerProcess());
-        // processList.push(new PrimitiveProcess());
-        // processList.push(new TeleportProcess());
-        //processList.push(new StarProcess());
-        //processList.push(new EnemyProcess());
-        // processList.push(new GunProcess());
-        //  processList.push(new LaserProcess());
-        //  processList.push(new MomentumMovementProcess());
-        //   processList.push(new ExhaustProcess());
-        //  processList.push(new ExplosionProcess());
-        // processList.push(new LayoutProcess());
-        // processList.push(new CollisionProcess());
+        sb.subscribe("movetoloadstate", function (name, wantedstate) {
+
+            moveToLoadedStage(wantedstate);
+        });
+
+
+        processList.push(cameracontrollerprocess_constructor(sb));
+        processList.push(primitiveprocess_constructor(sb));
+
+        processList.push(teleport_process_constructor(sb));
+        processList.push(starprocess_constructor(sb));
+        processList.push(enemyprocess_constructor(sb));
+        processList.push(gunprocess_constructor(sb));
+        // processList.push(new LaserProcess());
+        processList.push(momemtummovementprocess_constructor(sb));
+        processList.push(exhaustprocess_constructor(sb));
+        processList.push(explosionprocess_constructor(sb));
+        processList.push(layoutprocess_constructor(sb));
+        processList.push(collisionprocess_constructor(sb));
         processList.push(renderprocess_constructor(sb));
+
+        for (let i = 0; i < processList.length; i++) {
+            processList[i].init();
+        }
 
 
         //if (game.currentLevel == null) {
@@ -92,7 +98,7 @@ function gamestate_constructor(sb) {
 
     let update = function () {
 
-        actionMapper.handleKeys();
+
         let timeNow = new Date().getTime();
 
 
@@ -139,12 +145,14 @@ function gamestate_constructor(sb) {
 
         //if(this.postProcessState) {
         camera.move();
-        camera.setDistance(350);
+        //camera.setDistance(350);
         // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         //  gl.disable(gl.BLEND);
 
+
         for (let i = 0; i < processList.length; i++) {
+
             processList[i].draw();
         }
         //console.log(camera.drawCalls);

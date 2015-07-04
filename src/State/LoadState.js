@@ -12,14 +12,14 @@ function loadstate_constructor(sb) {
     let camera = sb.getCamera();
 
     let shadermanager = sb.getShaderManager();
-    let shaderprogram = shadermanager.init("simplest");
+    let shaderprogram = shadermanager.useShader("simplest");
     let wantedstate = '';
 
 
     let points = [];
 
     let vertexPositionBuffer = gl.createBuffer();
-    let am = asset_manager_constructor(sb);
+    //let am = asset_manager_constructor(sb);
 
 
     //let loadmanager = loadmanager_costructor(sb);
@@ -32,8 +32,10 @@ function loadstate_constructor(sb) {
 
     let init = function (ws) {
 
+
+        //console.log(ws);
         //we init callback listeners
-        am.init();
+        //am.init();
         wantedstate = ws;
         points.push(-0.2, 0, 0);
         points.push(0.2, 0, 0);

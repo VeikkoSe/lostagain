@@ -1,15 +1,21 @@
-function shader_manager_constuctor(gl) {
-  var allShaders = [];
-  var currentProgram = null;
+function shader_manager_constuctor() {
+  var sb,
+      allShaders,
+      currentProgram,
+      gl;
+  var init = function(sandbox) {
+    sb = sandbox;
+    allShaders = [];
+    currentProgram = null;
+  };
+  var start = function() {
+    gl = sb.getGL();
+  };
   var setProgram = function(program) {
-    if (currentProgram != null && currentProgram.name == program.name) {
-      return true;
-    } else {
-      gl.useProgram(program);
-    }
+    gl.useProgram(program);
   };
   var subscribe = function() {};
-  var init = function(name) {
+  var useShader = function(name) {
     if (allShaders[$traceurRuntime.toProperty(name)]) {
       return allShaders[$traceurRuntime.toProperty(name)];
     }
@@ -57,6 +63,7 @@ function shader_manager_constuctor(gl) {
         $traceurRuntime.setProperty(allShaders, name, initLifeTimeParticleShaders(name));
         break;
     }
+    currentProgram = name;
     return allShaders[$traceurRuntime.toProperty(name)];
   };
   var createP = function(id) {
@@ -212,7 +219,7 @@ function shader_manager_constuctor(gl) {
     return program;
   };
   var initLifeTimeParticleShaders = function(id) {
-    var program = this.createP(id);
+    var program = createP(id);
     program.pointLifetimeAttribute = gl.getAttribLocation(program, "aLifetime");
     gl.enableVertexAttribArray(program.pointLifetimeAttribute);
     program.pointStartPositionAttribute = gl.getAttribLocation(program, "aStartPosition");
@@ -288,8 +295,10 @@ function shader_manager_constuctor(gl) {
     gl.attachShader(program, fsshader);
   };
   return {
-    init: init,
+    useShader: useShader,
     setProgram: setProgram,
-    subscribe: subscribe
+    subscribe: subscribe,
+    init: init,
+    start: start
   };
 }

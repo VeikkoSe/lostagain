@@ -1,64 +1,105 @@
-function camera_constructor(gl) {
-  var drawCalls = 0;
-  var mvMatrix = mat4.create();
-  var pMatrix = mat4.create();
-  var cMatrix = mat4.create();
-  var pvMatrix = mat4.create();
-  var pvMatrixInverse = mat4.create();
-  var mvMatrixStack = [];
-  var eye = vec3.create([0, 0, 0]);
-  var distance = 500;
-  var x = 0;
-  var y = -1 * distance;
-  var z = -1 * distance;
-  var rotation = degToRad(60);
-  var slideLeft = false;
-  var slideRight = false;
-  var slideUp = false;
-  var slideDown = false;
-  var centerPosition = false;
-  var home = [x, y, z];
-  var init = function() {
+function camera_constructor() {
+  var gl,
+      mvMatrix,
+      pMatrix,
+      cMatrix,
+      pvMatrix,
+      pvMatrixInverse,
+      mvMatrixStack,
+      drawCalls,
+      eye,
+      distance,
+      x,
+      y,
+      z;
+  var rotationX,
+      rotationY,
+      slideLeft,
+      slideRight,
+      slideUp,
+      slideDown,
+      centerPosition,
+      home,
+      sb;
+  var init = function(sandbox) {
+    sb = sandbox;
+    mvMatrix = mat4.create();
+    pMatrix = mat4.create();
+    cMatrix = mat4.create();
+    pvMatrix = mat4.create();
+    pvMatrixInverse = mat4.create();
     mat4.identity(mvMatrix);
+    home = [x, y, z];
     mat4.translate(mvMatrix, home);
     mat4.identity(cMatrix);
     mat4.inverse(mvMatrix, cMatrix);
     mat4.identity(pMatrix);
+    drawCalls = 0;
+    mvMatrixStack = [];
+    eye = vec3.create([0, 0, 0]);
+    distance = 500;
+    x = 0;
+    y = -1 * distance;
+    z = -1 * distance;
+    rotationX = degToRad(60);
+    rotationY = 0;
+    slideLeft = false;
+    slideRight = false;
+    slideUp = false;
+    slideDown = false;
+    centerPosition = false;
+  };
+  var start = function() {
+    gl = sb.getGL();
   };
   var setDistance = function(d) {
     distance = d;
     y = -1 * distance;
     z = -1 * distance;
   };
-  var setRotation = function(rot) {
-    rotation = rot;
+  var setXRotation = function(rot) {
+    rotationX = rot;
   };
-  var setPos = function(xp, yp, zp, rot) {
-    x = xp;
-    y = yp;
-    z = zp;
-    rotation = rot;
-    distance = z;
+  var setYRotation = function(rot) {
+    if (rot.charAt(0) === '-') {
+      rotationY -= degToRad(parseInt(rot.substring(1), 10));
+    } else
+      rotationY += degToRad(parseInt(rot, 10));
+  };
+  var setPos = function() {
+    var xp = arguments[0] !== (void 0) ? arguments[0] : false;
+    var yp = arguments[1] !== (void 0) ? arguments[1] : false;
+    var zp = arguments[2] !== (void 0) ? arguments[2] : false;
+    if (xp) {
+      if (xp.charAt(0) === '-') {
+        x -= parseInt(xp.substring(1), 10);
+      } else {
+        x += parseInt(xp, 10);
+      }
+    }
+    if (yp) {
+      if (yp.charAt(0) === '-') {
+        y -= parseInt(yp.substring(1), 10);
+      } else {
+        y += parseInt(yp, 10);
+      }
+    }
+    if (zp) {
+      if (zp.charAt(0) === '-') {
+        z -= parseInt(zp.substring(1), 10);
+      } else {
+        z += parseInt(zp, 10);
+      }
+    }
   };
   var setPerspective = function() {
     mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 20000.0, pMatrix);
   };
-  var slideCameraLeft = function(xAddition) {
-    x += xAddition;
-  };
-  var slideCameraRight = function(xDecrease) {
-    x -= xDecrease;
-  };
-  var slideCameraUp = function(zAddition) {
-    z += zAddition;
-  };
-  var slideCameraDown = function(zDecrease) {
-    z -= zDecrease;
-  };
   var move = function() {
     mat4.identity(mvMatrix);
-    mat4.rotate(mvMatrix, rotation, [1, 0, 0]);
+    mat4.rotate(mvMatrix, rotationX, [1, 0, 0]);
     mat4.translate(mvMatrix, [x, y, z]);
+    mat4.rotate(mvMatrix, rotationY, [0, 1, 0]);
   };
   var getMVMatrix = function() {
     return mvMatrix;
@@ -84,6 +125,8 @@ function camera_constructor(gl) {
     setPerspective: setPerspective,
     setDistance: setDistance,
     init: init,
+    setXRotation: setXRotation,
+    setYRotation: setYRotation,
     getMVMatrix: getMVMatrix,
     getPMatrix: getPMatrix,
     move: move,
@@ -96,7 +139,8 @@ function camera_constructor(gl) {
     getZ: function() {
       return z;
     },
-    init: function() {},
-    subscribe: subscribe
+    setPos: setPos,
+    subscribe: subscribe,
+    start: start
   });
 }

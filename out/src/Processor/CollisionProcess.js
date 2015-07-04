@@ -1,4 +1,4 @@
-function collisionprocess_constructor() {
+function collisionprocess_constructor(sb) {
   var collisions = [];
   var gl = sb.getGL();
   var em = sb.getEntityManager();
@@ -9,10 +9,10 @@ function collisionprocess_constructor() {
       var hc = enemyEntity.components.HealthComponent;
       hc.amount--;
       if (hc.amount > 0) {
-        pub.publish("explosion", enemyEntity.components.Renderable);
+        pub.publish("explosion", enemyEntity.components.RenderableComponent);
       } else {
         hc.amount = 0;
-        pub.publish("bigexplosion", enemyEntity.components.Renderable);
+        pub.publish("bigexplosion", enemyEntity.components.RenderableComponent);
       }
     });
     pub.subscribe("collision", function(name, collisionComponents) {
@@ -37,10 +37,10 @@ function collisionprocess_constructor() {
       var hc = enemyEntity.components.HealthComponent;
       hc.amount--;
       if (hc.amount > 0) {
-        pub.publish("explosion", enemyEntity.components.Renderable);
+        pub.publish("explosion", enemyEntity.components.RenderableComponent);
       } else {
         hc.amount = 0;
-        pub.publish("bigexplosion", enemyEntity.components.Renderable);
+        pub.publish("bigexplosion", enemyEntity.components.RenderableComponent);
       }
       if (collisionComponents[0].group == 'player') {
         try {
@@ -62,7 +62,7 @@ function collisionprocess_constructor() {
       var playerEntity = player.entity;
       var hc = playerEntity.components.HealthComponent;
       var sc = playerEntity.components.ShieldComponent;
-      var pc = playerEntity.components.Renderable;
+      var pc = playerEntity.components.RenderableComponent;
       if (sc.amount > 0)
         sc.amount--;
       else
@@ -110,7 +110,7 @@ function collisionprocess_constructor() {
                                 continue;
                               }
                               c = le.components.CollisionComponent;
-                              r = le.components.Renderable;
+                              r = le.components.RenderableComponent;
                               c.xPos = r.xPos;
                               c.yPos = r.yPos;
                               c.zPos = r.zPos;
@@ -182,5 +182,9 @@ function collisionprocess_constructor() {
       }
     }
   };
-  return {};
+  return {
+    update: update,
+    draw: function() {},
+    init: function() {}
+  };
 }

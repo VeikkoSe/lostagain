@@ -160,7 +160,7 @@ function asteroidrenderprocess_constructor(sb) {
             if (le.components.AsteroidComponent) {
 
 
-                sm.setProgram(this.ambientProgram);
+                //sm.setProgram(this.ambientProgram);
 
                 gl.uniform3fv(ambientProgram.uCameraPos, [camera.getX(), camera.getY(), camera.getZ()]);
                 //gl.uniform3fv(this.ambientProgram.uCameraPos, [0, 20, -20]);
@@ -168,25 +168,25 @@ function asteroidrenderprocess_constructor(sb) {
 
                 let timeNow = new Date().getTime();
 
-                if (this.lastTime != 0) {
+                if (lastTime != 0) {
 
-                    let elapsed = timeNow - this.lastTime;
-                    this.elapsedTotal += elapsed;
+                    let elapsed = timeNow - lastTime;
+                    elapsedTotal += elapsed;
                     gl.uniform1f(ambientProgram.uElapsed, elapsedTotal.toFixed(1));
 
 
                 }
 
                 gl.uniform1f(ambientProgram.uElapsed, 0);
-                this.lastTime = timeNow;
+                lastTime = timeNow;
 
 
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, this.monstermap);
+                gl.bindTexture(gl.TEXTURE_2D, monstermap);
                 gl.uniform1i(ambientProgram.uVisibility, 0);
 
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+                gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
                 gl.vertexAttribPointer(ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
                 gl.vertexAttribPointer(ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
                 gl.vertexAttribPointer(ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
@@ -197,5 +197,5 @@ function asteroidrenderprocess_constructor(sb) {
             }
         }
     }
-    return {}
+    return {update, draw, init}
 }

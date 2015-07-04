@@ -6,22 +6,53 @@ function gamestate_constructor(sb) {
   var lastTime = 0;
   var processList = [];
   var startTime = null;
-  var actionMapper = game_action_mapper(sb);
   var subscribe = function() {};
   var init = function() {
     processList = [];
-    document.onkeydown = actionMapper.handleKeyDown;
-    document.onkeyup = actionMapper.handleKeyUp;
-    document.onmousemove = actionMapper.handleMouseMove;
-    document.onmousedown = actionMapper.handleMouseDown;
+    sb.subscribe("movetoloadstate", function(name, wantedstate) {
+      moveToLoadedStage(wantedstate);
+    });
+    processList.push(cameracontrollerprocess_constructor(sb));
+    processList.push(primitiveprocess_constructor(sb));
+    processList.push(teleport_process_constructor(sb));
+    processList.push(starprocess_constructor(sb));
+    processList.push(enemyprocess_constructor(sb));
+    processList.push(gunprocess_constructor(sb));
+    processList.push(momemtummovementprocess_constructor(sb));
+    processList.push(exhaustprocess_constructor(sb));
+    processList.push(explosionprocess_constructor(sb));
+    processList.push(layoutprocess_constructor(sb));
+    processList.push(collisionprocess_constructor(sb));
     processList.push(renderprocess_constructor(sb));
+    {
+      try {
+        throw undefined;
+      } catch ($i) {
+        {
+          $i = 0;
+          for (; $i < processList.length; $i++) {
+            try {
+              throw undefined;
+            } catch (i) {
+              {
+                i = $i;
+                try {
+                  processList[$traceurRuntime.toProperty(i)].init();
+                } finally {
+                  $i = i;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
     camera.setPerspective();
     mat4.identity(camera.getMVMatrix());
     startTime = new Date().getTime();
   };
   var update = function() {
-    actionMapper.handleKeys();
     var timeNow = new Date().getTime();
     frameCount++;
     if (lastTime != 0) {
@@ -68,7 +99,6 @@ function gamestate_constructor(sb) {
     gl.clearColor(0, 0, 0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     camera.move();
-    camera.setDistance(350);
     {
       try {
         throw undefined;

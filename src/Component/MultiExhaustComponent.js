@@ -10,6 +10,6 @@ function MultiExhaustComponent() {
         exhaustComponents.push(exhaustComponent);
     }
 
-    return {name, exhaustComponents}
+    return {name, exhaustComponents, addExhaust}
 
 }

@@ -1,5 +1,4 @@
 function introstate_constructor(sb) {
-  var actionMapper = intro_action_mapper(sb);
   var processList = [];
   var camera = sb.getCamera();
   var gl = sb.getGL();
@@ -31,10 +30,6 @@ function introstate_constructor(sb) {
   var subscribe = function() {};
   var init = function() {
     processList.push(renderprocess_constructor(sb));
-    document.onkeydown = actionMapper.handleKeyDown;
-    document.onkeyup = actionMapper.handleKeyUp;
-    document.onmousemove = actionMapper.handleMouseMove;
-    document.onmousedown = actionMapper.handleMouseDown;
     gl.clearColor(1, 0, 0, 1.0);
     gl.clearDepth(1.0);
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);

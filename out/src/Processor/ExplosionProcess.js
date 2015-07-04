@@ -1,10 +1,14 @@
 function explosionprocess_constructor(sb) {
+  var shadermanager = sb.getShaderManager();
+  var particleProgram = shadermanager.useShader("lifetimeparticle");
   var explosions = [];
-  var particleProgram = sm.init('lifetimeparticle');
   var gl = sb.getGL();
   var camera = sb.getCamera();
+  var texture;
+  var t = texture_constructor(sb);
   var init = function() {
-    var texture = texture_constuctor('smoke');
+    t.load({name: 'smoke'});
+    texture = t.getLoadedTexture();
     sb.subscribe("explosion", function(name, entity) {
       createNewExplosion(entity.xPos, entity.zPos);
     });
@@ -12,8 +16,6 @@ function explosionprocess_constructor(sb) {
       createNewExplosion(entity.xPos, entity.zPos);
     });
     explosions = [];
-    particleProgram = sm.init('lifetimeparticle');
-    texture = new Texture('smoke');
   };
   var simpleWorldToViewX = function(x) {
     return x / resolutionWidth;
@@ -58,7 +60,7 @@ function explosionprocess_constructor(sb) {
     gl.disable(gl.DEPTH_TEST);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-    sm.setProgram(particleProgram);
+    shadermanager.setProgram(particleProgram);
     {
       try {
         throw undefined;
@@ -100,5 +102,10 @@ function explosionprocess_constructor(sb) {
     }
     gl.enable(gl.DEPTH_TEST);
     gl.disable(gl.BLEND);
+  };
+  return {
+    update: update,
+    draw: draw,
+    init: init
   };
 }

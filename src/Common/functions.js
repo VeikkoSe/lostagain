@@ -1,63 +1,16 @@
 $(document).ready(function () {
 
 
-    let CORE = core_opengl_constructor();
-    CORE.init({width: 800, height: 600});
-    let sb = sandbox_constructor(CORE);
-    sb.init();
 
-    //CORE.create_module("game",game_constuctor(sb));
-    CORE.create_module("loader", loader_costructor(sb));
-    CORE.create_module("camera", camera_constructor(sb));
-    CORE.create_module("entitymanager", entity_manager_constructor(sb));
-    CORE.create_module("stateengine", stateengine_constructor(sb));
+    let CORE = new Core(800, 600);
+    CORE.start_modules();
+    CORE.start_game();
 
-    //CORE.create_module("mesh",mesh_constructor(sb));
-    //CORE.create_module("texture",texture_constructor(sb));
-    CORE.create_module("shadermanager", shader_manager_constuctor(sb));
-    CORE.create_module("layout", layout_constructor(sb));
-    //CORE.create_module("text",shader_manager_constuctor(sb));
+    init();
+
+    startSound();
 
 
-    CORE.start_all();
-    /*
-     let mediator = function() {
-
-
-     let params = {canvas:document.getElementById('canvas'),'resolutionWidth':1024,'resolutionHeight':768};
-     let game = game_constuctor(params);
-     let event = publish_constuctor();
-     let stateEngine = stateengine_constructor(event);
-     let entitymanager = entity_manager_constructor(event);
-     let camera = camera_contructor(event);
-
-     let init = function() {
-     game.init();
-     stateEngine.init();
-     stateEngine.tick();
-     }
-
-     //let tick
-
-     return {
-     init,
-     tick
-     }
-     }
-     */
-
-    //let intro_action_mapper();
-
-
-    //mediator.init();
-    //mediator.tick();
-
-    //stateEngine.loadState("introstate");
-    //game.event.publish("loadstate", 'introstate');
-    //stateEngine.tick();
-
-
-    //game = new Game(document.getElementById('canvas'));
 });
 
 

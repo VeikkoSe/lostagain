@@ -1,11 +1,15 @@
 function layoutprocess_constructor(sb) {
-  var program = sb.getProgram('gui');
+  var gl = sb.getGL();
   var resolutionWidth = sb.getResolutionWidth();
   var resolutionHeight = sb.getResolutionHeight();
+  var shadermanager = sb.getShaderManager();
+  var program = shadermanager.useShader("gui");
   var points = [];
   var vertexPositionBuffer = gl.createBuffer();
   var texCoordBuffer = gl.createBuffer();
   var vertBuffer = gl.createBuffer();
+  var em = sb.getEntityManager();
+  var camera = sb.getCamera();
   var init = function() {
     points.push(-50, 0, 0);
     points.push(20, 0, 0);
@@ -171,8 +175,8 @@ function layoutprocess_constructor(sb) {
                       }
                     }
                   }
-                  if (lloop[$traceurRuntime.toProperty(i)].children.length > 0) {
-                    recursiveLayout(lloop[$traceurRuntime.toProperty(i)].children, lloop[$traceurRuntime.toProperty(i)]);
+                  if (lloop[$traceurRuntime.toProperty(i)].getChildren().length > 0) {
+                    recursiveLayout(lloop[$traceurRuntime.toProperty(i)].getChildren(), lloop[$traceurRuntime.toProperty(i)]);
                   }
                 } finally {
                   $i = i;
@@ -194,7 +198,7 @@ function layoutprocess_constructor(sb) {
   };
   var render = function(layout, pd) {
     camera.mvPushMatrix();
-    this.vertBuffer = gl.createBuffer();
+    vertBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
     gl.vertexAttribPointer(program.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
@@ -202,14 +206,49 @@ function layoutprocess_constructor(sb) {
     gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, layout.component.sprite.texture);
-    gl.uniform1i(this.program.samplerUniform, 0);
+    gl.uniform1i(program.samplerUniform, 0);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     camera.drawCalls++;
     camera.mvPopMatrix();
   };
   var draw = function() {
-    sm.setProgram(program);
-    recursiveLayout(lm, false);
+    {
+      try {
+        throw undefined;
+      } catch ($e) {
+        {
+          $e = 0;
+          for (; $e < em.entities.length; $e++) {
+            try {
+              throw undefined;
+            } catch (e) {
+              {
+                e = $e;
+                try {
+                  try {
+                    throw undefined;
+                  } catch (le) {
+                    {
+                      le = em.entities[$traceurRuntime.toProperty(e)];
+                      if (le.components.LayoutComponent) {
+                        shadermanager.setProgram(program);
+                        recursiveLayout(le.components.LayoutComponent.layout, false);
+                      }
+                    }
+                  }
+                } finally {
+                  $e = e;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   };
-  return {};
+  return {
+    update: function() {},
+    draw: draw,
+    init: function() {}
+  };
 }

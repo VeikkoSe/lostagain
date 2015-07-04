@@ -3,5 +3,16 @@ function HealthComponent(amount) {
   var name = "HealthComponent";
   var amount = amount;
   var sprite = sprite;
-  return {name: name};
+  return {
+    name: name,
+    getSprite: function() {
+      return sprite;
+    },
+    getAmount: function() {
+      return amount;
+    },
+    setAmount: function(v) {
+      amount = v;
+    }
+  };
 }

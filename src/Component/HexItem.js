@@ -1,7 +1,7 @@
-function HexItemConstructor(itemName) {
+function HexItemComponent(itemName) {
     //constructor(itemName) {
 
-    let name = "HexItemConstructor";
+    let name = "HexItemComponent";
     let itemName = itemName;
 
 
