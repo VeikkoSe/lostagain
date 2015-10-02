@@ -1,11 +1,17 @@
 function SpriteComponent(sprite) {
+    "use strict";
+
     //constructor(sprite) {
-    let name = "SpriteComponent";
-    let sprite = sprite;
+    var name = "SpriteComponent";
+    var sprite = sprite;
 
 
     //}
 
-    return {name, sprite}
+    return {
+        getName: function () {
+            return name;
+        }, sprite
+    }
 
 }

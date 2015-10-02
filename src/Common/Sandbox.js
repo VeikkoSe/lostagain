@@ -1,25 +1,26 @@
 //http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript
 function sandbox_constructor(CORE) {
+    "use strict";
 
-    let core = CORE;
+    var core = CORE;
     // Storage for topics that can be broadcast
     // or listened to
 
 
-    let publish = function (topic, args) {
+    var publish = function (topic, args) {
         core.publish(topic, args);
-    }
+    };
 
-    let subscribe = function (topic, func) {
+    var subscribe = function (topic, func) {
         core.subscribe(topic, func);
-    }
+    };
 
-    let unsubscribe = function (token) {
+    var unsubscribe = function (token) {
         core.unsubscribe(token);
-    }
+    };
 
 
-    let find = function (element) {
+    var find = function (element) {
         return core.find(element);
     };
 
@@ -37,7 +38,7 @@ function sandbox_constructor(CORE) {
             return core.getCamera();
         },
         getEntityManager: function () {
-            let cm = core.getEntityManager();
+            var cm = core.getEntityManager();
 
             return cm;
         },

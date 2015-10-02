@@ -1,13 +1,16 @@
 function GunComponent() {
-    //constructor() {
-    let name = "GunComponent";
-    let shooting = false;
-    let activeWeapon = 1;
+    "use strict";
+
+    var name = "GunComponent";
+    var shooting = false;
+    var activeWeapon = 1;
 
 
     //}
     return {
-        name,
+        getName: function () {
+            return name;
+        },
         setShooting: function (v) {
             shooting = v;
         },

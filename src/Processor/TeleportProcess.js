@@ -1,124 +1,126 @@
 function teleport_process_constructor(sb) {
+    "use strict";
+
     //class TeleportProcess extends Processor {
     //}
     //constructor() {
 
-    let shadermanager = sb.getShaderManager();
-    let simplestProgram = shadermanager.useShader("simplest");
+    var shadermanager = sb.getShaderManager();
+    var simplestProgram = shadermanager.useShader("simplest");
 
-    let em = sb.getEntityManager();
-    let gl = sb.getGL();
-    let camera = sb.getCamera();
+    var em = sb.getEntityManager();
+    var gl = sb.getGL();
+    var camera = sb.getCamera();
 
     //}
 
 
-    let update = function (deltatime, totalElapsed) {
+    var update = function (deltatime, totalElapsed) {
 
-        return false;
-        let ms = em.getEntityByName('mothership');
-        let ship = em.getEntityByName('ship');
+
+        var ms = em.getEntityByName('mothership');
+        var ship = em.getEntityByName('ship');
 
         if (ms && ship) {
 
 
-            if (totalElapsed > 2000)
-                ms.components.JumpAreaComponent.visible = true;
 
-            ms.components.JumpAreaComponent.points = circleXY({
-                x: ms.components.RenderableComponent.xPos,
-                y: 0,
-                z: ms.components.RenderableComponent.zPos
-            }, ms.components.JumpAreaComponent.radius, ms.components.JumpAreaComponent.pointAmount);
 
-            if (!isInCircle(ms.components.RenderableComponent.xPos,
-                    ms.components.RenderableComponent.zPos,
-                    ms.components.JumpAreaComponent.radius,
-                    ship.components.RenderableComponent.xPos,
-                    ship.components.RenderableComponent.zPos)
+            //if (totalElapsed > 2000)
+            //ms.components.JumpAreaComponent.visible = true;
+
+
+            //TODO: change to vectors
+            ms.components.JumpAreaComponent.setPoints(
+                circleXY(ms.components.RenderableComponent.getXPos(),
+                    0,
+                    ms.components.RenderableComponent.getZPos(),
+                    ms.components.JumpAreaComponent.getRadius(),
+                    ms.components.JumpAreaComponent.getPointAmount()));
+
+            if (!isInCircle(ms.components.RenderableComponent.getXPos(),
+                    ms.components.RenderableComponent.getZPos(),
+                    ms.components.JumpAreaComponent.getRadius(),
+                    ship.components.RenderableComponent.getXPos(),
+                    ship.components.RenderableComponent.getZPos())
             ) {
-                let dirX = ms.components.RenderableComponent.xPos - ship.components.RenderableComponent.xPos;
-                let dirZ = ms.components.RenderableComponent.zPos - ship.components.RenderableComponent.zPos;
 
-                let origHyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
+                var dirX = ms.components.RenderableComponent.getXPos() - ship.components.RenderableComponent.getXPos();
+                var dirZ = ms.components.RenderableComponent.getZPos() - ship.components.RenderableComponent.getZPos();
+
+                var origHyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
                 //normalize
-                let dirXnormal = dirX / origHyp;
-                let dirZnormal = dirZ / origHyp;
+                var dirXnormal = dirX / origHyp;
+                var dirZnormal = dirZ / origHyp;
 
                 //we get new vector that is in same direction but always inside the circle
-                dirX = (ms.components.JumpAreaComponent.radius - 1) * dirXnormal;
-                dirZ = (ms.components.JumpAreaComponent.radius - 1) * dirZnormal;
+                dirX = (ms.components.JumpAreaComponent.getRadius() - 1) * dirXnormal;
+                dirZ = (ms.components.JumpAreaComponent.getRadius() - 1) * dirZnormal;
 
 
-                let posx = dirX + ms.components.RenderableComponent.xPos;
-                let posZ = dirZ + ms.components.RenderableComponent.zPos;
+                var posx = dirX + ms.components.RenderableComponent.getXPos();
+                var posZ = dirZ + ms.components.RenderableComponent.getZPos();
 
 
-                ship.components.RenderableComponent.xPos = posx;
-                ship.components.RenderableComponent.zPos = posZ;
+                ship.components.RenderableComponent.setXPos(posx);
+                ship.components.RenderableComponent.setZPos(posZ);
 
-                for (let i = 0; i < ship.components.MultiExhaustComponent.exhaustComponents.length; i++) {
-                    ship.components.MultiExhaustComponent.exhaustComponents[i].points = [];
-                    ship.components.MultiExhaustComponent.exhaustComponents[i].flow = [];
-                }
+                //for (var i = 0; i < ship.components.MultiExhaustComponent.exhaustComponents.length; i++) {
+                //   ship.components.MultiExhaustComponent.exhaustComponents[i].points = [];
+                //  ship.components.MultiExhaustComponent.exhaustComponents[i].flow = [];
+                //}
                 //ship.components.ExhaustComponent.points = [];
                 //ship.components.ExhaustComponent.flow = [];
 
             }
         }
-    }
+
+    };
 
 
-    let draw = function () {
+    var draw = function () {
 
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
-            if (le.components.JumpAreaComponent && le.components.JumpAreaComponent.visible === true) {
+            if (le.components.JumpAreaComponent && le.components.JumpAreaComponent.getVisible() === true) {
 
                 shadermanager.setProgram(simplestProgram);
 
 
-                let mvMatrix = camera.getMVMatrix();
+                var mvMatrix = camera.getMVMatrix();
 
-                //camera.mvPushMatrix();
                 gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
                 gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, mvMatrix);
-                let c = le.components.JumpAreaComponent.color;
 
+                var c = le.components.JumpAreaComponent.getColor();
                 gl.uniform4f(simplestProgram.uColor, c[0], c[1], c[2], 1.0);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, le.components.JumpAreaComponent.vertexPositionBuffer);
+                gl.bindBuffer(gl.ARRAY_BUFFER, le.components.JumpAreaComponent.getVertexPositionBuffer());
 
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(le.components.JumpAreaComponent.points), gl.STATIC_DRAW);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(le.components.JumpAreaComponent.getPoints()), gl.STATIC_DRAW);
                 gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
                 gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
-                gl.drawArrays(gl.LINES, 0, le.components.JumpAreaComponent.points.length / 3);
-                //camera.drawCalls++;
+                gl.drawArrays(gl.LINES, 0, le.components.JumpAreaComponent.getPoints().length / 3);
 
-                //camera.mvPopMatrix();
             }
 
         }
-    }
+    };
 
 
-    let isInCircle = function (centerX, centerY, radius, x, y) {
-        return ((centerX - x) * (centerX - x)) + ((centerY - y) * (centerY - y)) < (radius * radius);
-    }
-
-    let isInRectangle = function (centerX, centerY, radius, x, y) {
+    var isInRectangle = function (centerX, centerY, radius, x, y) {
         return x >= centerX - radius && x <= centerX + radius &&
             y >= centerY - radius && y <= centerY + radius;
-    }
+    };
 
-    let getOppositeAngle = function (angle) {
+    var getOppositeAngle = function (angle) {
         //angle = angle * Math.PI/180;
-        let ret = false;
+        var ret = false;
         if (angle > 180)
             ret = angle - 180;
         else if (angle < 180)
@@ -127,7 +129,7 @@ function teleport_process_constructor(sb) {
 
         return ret;
 
-    }
+    };
     return {
         draw, update, init: function () {
         }

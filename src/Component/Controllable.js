@@ -1,10 +1,15 @@
 function ControllableComponent() {
-    //constructor() {
-    let name = "ControllableComponent";
+    "use strict";
+
+    var name = "ControllableComponent";
 
 
     //}
-    return {name}
+    return {
+        getName: function () {
+            return name;
+        }
+    }
 
 
 }

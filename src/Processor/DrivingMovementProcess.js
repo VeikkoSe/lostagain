@@ -8,19 +8,19 @@
 
  update(deltatime) {
 
- for (let e = 0; e < em.entities.length; e++) {
- let le = em.entities[e];
+ for (var e = 0; e < em.entities.length; e++) {
+ var le = em.entities[e];
 
 
  if (le.components.Drivable) {
 
- let mm = le.components.Drivable;
- let re = le.components.Renderable;
+ var mm = le.components.Drivable;
+ var re = le.components.Renderable;
 
 
 
- let dirVectorX = Math.cos(degToRad(re.angleY));
- let dirVectorZ = Math.sin(degToRad(re.angleY));
+ var dirVectorX = Math.cos(degToRad(re.angleY));
+ var dirVectorZ = Math.sin(degToRad(re.angleY));
 
  if (mm.addSpeed) {
 

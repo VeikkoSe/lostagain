@@ -1,39 +1,41 @@
 function gunprocess_constructor(sb) {
+    "use strict";
+
     //constructor() {
+    var sb = sb;
+    var gl = sb.getGL();
+    var shadermanager = sb.getShaderManager();
+    var particleProgram3d = shadermanager.useShader("particle3d");
 
-    let gl = sb.getGL();
-    let shadermanager = sb.getShaderManager();
-    let particleProgram3d = shadermanager.useShader("particle3d");
+    var bulletsAmount = 80;
+    var bulletReloadSpeed = 250;
+    var bullets = [];
+    var bulletShot = 0;
+    //var lastTime = 0;
+    var camera = sb.getCamera();
+    // var particleProgram3d = sm.init('particle3d');
+    var em = sb.getEntityManager();
+    var collisions = [];
 
-    let bulletsAmount = 80;
-    let bulletReloadSpeed = 250;
-    let bullets = [];
-    let bulletShot = 0;
-    let lastTime = 0;
-    let camera = sb.getCamera();
-    // let particleProgram3d = sm.init('particle3d');
-    let em = sb.getEntityManager();
-    let collisions = [];
 
-    //    let bullet;
-    let init = function () {
-        for (let i = 0; i < bulletsAmount; i++) {
-            let bullet = photontorpedo_constructor();
-            bullets.push(bullet);
+    //    var bullet;
+    var init = function () {
+        for (var i = 0; i < bulletsAmount; i++) {
+            var bulVar = photontorpedo_constructor();
+            bullets.push(bulVar);
         }
-    }
-
+    };
 
     //}
 
-    let shootBullet = function (renderable) {
+    var shootBullet = function (renderable) {
 
 
-        let timeNow = new Date().getTime();
+        var timeNow = new Date().getTime();
 
         if (timeNow - bulletReloadSpeed > bulletShot) {
 
-            for (let i = 0; i < bulletsAmount; i++) {
+            for (var i = 0; i < bulletsAmount; i++) {
 
                 if (bullets[i].getVisible() === 0) {
 
@@ -47,26 +49,26 @@ function gunprocess_constructor(sb) {
                 }
             }
         }
-    }
+    };
 
 
-    let update = function (deltatime) {
+    var update = function (deltatime) {
 
-/*
+
         collisions = [];
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
             if (le.components.CollisionComponent) {
                 //object is dead. no need to check for collisions
 
-                if (le.components.HealthComponent && le.components.HealthComponent.amount < 1) {
+                if (le.components.HealthComponent && le.components.HealthComponent.getAmount() < 1) {
                     continue;
                 }
 
-                let c = le.components.CollisionComponent;
-                let r = le.components.RenderableComponent;
+                var c = le.components.CollisionComponent;
+                //var r = le.components.RenderableComponent;
 
-                c.entity = le;
+                c.setEntity(le);
 
 
                 collisions.push(c);
@@ -74,16 +76,15 @@ function gunprocess_constructor(sb) {
             }
         }
 
-*/
-        /*
-        for (let i = 0; i < bullets.length; i++) {
-            for (let j = 0; j < collisions.length; j++) {
+
+        for (var i = 0; i < bullets.length; i++) {
+            for (var j = 0; j < collisions.length; j++) {
                 if (j != i &&
-                    bullets[i].xPos > collisions[j].xPos - collisions[j].xWidth &&
-                    bullets[i].xPos < collisions[j].xPos + collisions[j].xWidth &&
-                    bullets[i].zPos > collisions[j].zPos - collisions[j].zWidth &&
-                    bullets[i].zPos < collisions[j].zPos + collisions[j].zWidth
-                    && collisions[j].group == 'enemy' && bullets[i].visible == 1) {
+                    bullets[i].getXPos() > collisions[j].getXPos() - collisions[j].getXWidth() &&
+                    bullets[i].getXPos() < collisions[j].getXPos() + collisions[j].getXWidth() &&
+                    bullets[i].getZPos() > collisions[j].getZPos() - collisions[j].getZWidth() &&
+                    bullets[i].getZPos() < collisions[j].getZPos() + collisions[j].getZWidth()
+                    && collisions[j].getGroup() == 'enemy' && bullets[i].getVisible() == 1) {
 
 
                     sb.publish("bulletcollision", collisions[j]);
@@ -95,30 +96,30 @@ function gunprocess_constructor(sb) {
             //console.log(collisions);
 
         }
-        */
 
 
-        let timeNow = new Date().getTime();
+        var timeNow = new Date().getTime();
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.GunComponent &&
-                le.components.GunComponent.getShooting()===1 &&
+                le.components.GunComponent.getShooting() === 1 &&
                 le.components.GunComponent.getActiveWeapon() === 1 &&
                 le.components.HealthComponent.getAmount() > 0) {
 
                 shootBullet(le.components.RenderableComponent);
             }
         }
-        for (let i = 0; i < bulletsAmount; i++) {
+        for (var i = 0; i < bulletsAmount; i++) {
 
             if (timeNow - bullets[i].getDeathtime() > bullets[i].getBirthTime()) {
                 bullets[i].setVisible(0);
             }
             else {
-                let posX = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.cos(degToRad(bullets[i].getAngle()));
-                let posZ = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.sin(degToRad(bullets[i].getAngle()));
+
+                var posX = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.cos(degToRad(bullets[i].getAngle()));
+                var posZ = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.sin(degToRad(bullets[i].getAngle()));
 
                 bullets[i].setXPos(bullets[i].getXPos() + posX);
                 bullets[i].setZPos(bullets[i].getZPos() - posZ);
@@ -127,43 +128,57 @@ function gunprocess_constructor(sb) {
 
         }
 
-    }
+    };
 
 
-    let draw = function () {
+    var draw = function () {
 
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.PhotonTorpedoComponent) {
-                gl.disable(gl.DEPTH_TEST);
-                //sm.setProgram(particleProgram3d);
+                //gl.disable(gl.DEPTH_TEST);
+
                 shadermanager.setProgram(particleProgram3d);
-                gl.enable(gl.BLEND);
-                gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+                //gl.enable(gl.BLEND);
+                //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
 
-                let mvMatrix = camera.getMVMatrix();
-                for (let i = 0; i < bulletsAmount; i++) {
+                var mvMatrix = camera.getMVMatrix();
+                for (var i = 0; i < bulletsAmount; i++) {
 
                     if (bullets[i].getVisible() != 1) {
                         continue;
                     }
 
 
-                    let bc = le.components.PhotonTorpedoComponent;
+                    var bc = le.components.PhotonTorpedoComponent;
+
                     gl.uniform1f(particleProgram3d.pointSize, 64.0);
                     camera.mvPushMatrix();
+                    var sprite = bc.getSprite();
 
-                    gl.uniform3f(particleProgram3d.positionUniform, bullets[i].getXPos(), bullets[i].getYPos(), bullets[i].getZPos());
-                    gl.bindBuffer(gl.ARRAY_BUFFER, bc.sprite.buffer);
+                    var pointStartPositionsBuffer = gl.createBuffer();
 
-                    gl.vertexAttribPointer(particleProgram3d.pointStartPositionAttribute, bc.sprite.itemSize, gl.FLOAT, false, 0, 0);
+                    //build buffers
+                    var position = [];
+
+
+                    //cant create buffer on every loop. Need to create one buffer for every bullet.
+                    position.push(bullets[i].getXPos());
+                    position.push(bullets[i].getYPos());
+                    position.push(bullets[i].getZPos());
+
+                    gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
+                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(position), gl.STATIC_DRAW);
+
+
+                    gl.vertexAttribPointer(particleProgram3d.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
                     gl.activeTexture(gl.TEXTURE0);
-                    gl.bindTexture(gl.TEXTURE_2D, bc.sprite.texture);
+                    gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
                     gl.uniform1i(particleProgram3d.samplerUniform, 0);
 
                     gl.uniform4f(particleProgram3d.colorUniform, 1, 1, 1, 1);
@@ -174,48 +189,17 @@ function gunprocess_constructor(sb) {
 
 
                     gl.drawArrays(gl.POINTS, 0, 1);
-                    camera.drawCalls++;
+                    //camera.drawCalls++;
 
                     camera.mvPopMatrix();
                 }
-                gl.enable(gl.DEPTH_TEST);
-
+                //gl.enable(gl.DEPTH_TEST);
+                //gl.disable(gl.BLEND);
             }
         }
-        gl.disable(gl.BLEND);
-    }
 
-/*
-    let checkHit = function () {
+    };
 
-        for (let i = 0; i < bulletsAmount; i++) {
-            for (let j = 0; j < game.stateEngine.gameState.asteroids.asteroids.length; j++) {
-
-                if (bullets[i].visible == 1 && game.stateEngine.gameState.asteroids.asteroids[j].visible == 1 && bullets[i].xPos > game.stateEngine.gameState.asteroids.asteroids[j].xPos - 4 && bullets[i].xPos < game.stateEngine.gameState.asteroids.asteroids[j].xPos + 4 &&
-                    bullets[i].yPos > game.stateEngine.gameState.asteroids.asteroids[j].yPos - 4 && bullets[i].yPos < game.stateEngine.gameState.asteroids.asteroids[j].yPos + 4
-                ) {
-                    game.stateEngine.gameState.asteroids.asteroids[j].visible = 0;
-                    game.stateEngine.gameState.asteroids.amountshot++;
-                    bullets[i].visible = 0;
-                    game.shotAsteroids++;
-
-                    game.stateEngine.gameState.particles.newAsteroidExplosion(bullets[i].yPos, bullets[i].xPos);
-
-
-                }
-            }
-        }
-        if (game.stateEngine.gameState.asteroids.asteroids.length == game.stateEngine.gameState.asteroids.amountshot) {
-
-            for (let j = 0; j < game.stateEngine.gameState.asteroids.asteroids.length; j++) {
-                game.stateEngine.gameState.asteroids.asteroids[j].visible = 1;
-            }
-            game.stateEngine.gameState.asteroids.amountshot = 0;
-            game.stateEngine.gameState.asteroids.addnew(2);
-        }
-
-    }
-    */
 
     return {update, draw, init}
 }

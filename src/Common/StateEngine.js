@@ -1,14 +1,15 @@
 function stateengine_constructor() {
+    "use strict";
 
 
-    let introState;
-    let gameState;
-    let lState;
-    let mapState;
-    let menuState;
-    let endState;
-    let actionMapper;
-    let sb;
+    var introState;
+    var gameState;
+    var lState;
+    var mapState;
+    var menuState;
+    var endState;
+    var actionMapper;
+    var sb;
 
     //this.endState = null;
     //this.menuState = null;
@@ -16,22 +17,22 @@ function stateengine_constructor() {
 
     //this.mapState = null;
 
-    //let running = true;
-    let states = [];
-    let allStates = [];
-    let currentState = null;
+    //var running = true;
+    var states = [];
+    var allStates = [];
+    var currentState = null;
 
 
-    let cleanup = function () {
+    var cleanup = function () {
 
         document.onkeydown = null;
         document.onkeyup = null;
     };
 
 
-    //let introstate =
+    //var introstate =
 
-    let getState = function (sn) {
+    var getState = function (sn) {
 
 
         //if (allStates[sn]) {
@@ -72,9 +73,9 @@ function stateengine_constructor() {
     };
 
 
-    let moveToLoadedStage = function (stateStr) {
+    var moveToLoadedStage = function (stateStr) {
 
-        let state = getState(stateStr);
+        var state = getState(stateStr);
 
         // cleanup the current state
         if (states.length > 0) {
@@ -93,11 +94,8 @@ function stateengine_constructor() {
     };
 
 
-    let loadState = function (wantedState) {
+    var loadState = function (wantedState) {
 
-        //let state = this.determineState(stateStr);
-
-        // cleanup the current state
         if (states.length > 0) {
 
             states[states.length - 1].cleanup();
@@ -106,35 +104,35 @@ function stateengine_constructor() {
 
         // store and init the new state
 
-        let ls = getState('loadstate');
+        var ls = getState('loadstate');
         states.push(ls);
         currentState = ls;
         states[states.length - 1].init(wantedState);
 
     };
-    let getCurrentState = function () {
+    var getCurrentState = function () {
         return currentState;
     };
 
 
-    let tick = function () {
+    var tick = function () {
 
         requestAnimFrame(function () {
             tick();
         });
-        let cs = getCurrentState();
+        var cs = getCurrentState();
         //actionMapper.handleKeys();
         cs.update();
         cs.draw();
 
     };
 
-    let subscribe = function () {
+    var subscribe = function () {
 
 
-    }
+    };
 
-    let start = function () {
+    var start = function () {
         introState = introstate_constructor(sb);
         gameState = gamestate_constructor(sb);
 
@@ -149,9 +147,9 @@ function stateengine_constructor() {
 
         tick();
 
-    }
+    };
 
-    let init = function (sandbox) {
+    var init = function (sandbox) {
 
 
         sb = sandbox;
@@ -159,7 +157,7 @@ function stateengine_constructor() {
 
     };
 
-    let startState = function () {
+    var startState = function () {
 
         sb.subscribe("movetoloadstate", function (name, wantedstate) {
 
@@ -170,7 +168,7 @@ function stateengine_constructor() {
         sb.subscribe("loadstate", function (name, wantedstate) {
             loadState(wantedstate);
         });
-    }
+    };
 
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)

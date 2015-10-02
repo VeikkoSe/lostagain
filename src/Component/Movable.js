@@ -1,23 +1,29 @@
-function MovableComponent(speed = 0.1) {
+function MovableComponent(speed) {
+    "use strict";
+
     //constructor(speed = 0.1) {
 
-    let name = "MovableComponent";
+    var name = "MovableComponent";
 
-    let newXpos = false;
-    let newYpos = false;
-    let newZpos = false;
-    let path = {};
+    var newXpos = false;
+    var newYpos = false;
+    var newZpos = false;
+    var path = {};
 
-    let angle = 90;
-    let lt = 0;
-    let speed = speed;
-    let acceleration = 5;
+    var angle = 90;
+    var lt = 0;
+    var speed = speed;
+    var acceleration = 5;
     //every jump in the map takes one unit of gas
-    //let gas = 1;
+    //var gas = 1;
 
 
 //    }
 
-    return {name, newXpos, newYpos, newZpos, path, angle, lt, speed, acceleration}
+    return {
+        getName: function () {
+            return name;
+        }, newXpos, newYpos, newZpos, path, angle, lt, speed, acceleration
+    }
 
 }

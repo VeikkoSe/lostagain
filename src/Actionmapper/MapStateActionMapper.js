@@ -1,19 +1,19 @@
 function map_action_mapper(sb) {
+    "use strict";
 
-
-    let handleKeyDown = function (event) {
+    var handleKeyDown = function (event) {
 
         currentlyPressedKeys[event.keyCode] = true;
-    }
+    };
 
 
-    let handleKeyUp = function (event) {
+    var handleKeyUp = function (event) {
 
         currentlyPressedKeys[event.keyCode] = false;
-    }
+    };
 
 
-    let handleKeys = function () {
+    var handleKeys = function () {
 
 
         if (currentlyPressedKeys[49]) {
@@ -39,7 +39,7 @@ function map_action_mapper(sb) {
         }
 
 
-        let map = em.getEntityByName('map');
+        var map = em.getEntityByName('map');
         if (map) {
 
 
@@ -90,9 +90,9 @@ function map_action_mapper(sb) {
             //game.stateEngine.changeState("gamestate");
             sb.publish("loadstate", 'gamestate');
         }
-    }
+    };
 
-    let handleMouseDown = function (event) {
+    var handleMouseDown = function (event) {
 
         //game.stateEngine.changeState("gamestate");
         sb.publish("loadstate", 'gamestate');

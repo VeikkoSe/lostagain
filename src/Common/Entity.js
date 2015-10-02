@@ -1,20 +1,40 @@
-function entity_constructor(params) {
-    let {id, name} = params;
+function entity_constructor(id, name) {
+    "use strict";
+
+    //var {id, name} = params;
     // this.id = id;
     //  this.name = name;
-    let components = {};
+    var id = id;
+    var name = name;
+    var components = [];
+    var componentCount = 0;
 
+    var hasComponent = function (name) {
 
-    let addComponent = function (component) {
-        components[component.name] = component;
+        for (var i = 0; i < 5; i++) {
+
+            if (components[name] !== undefined) {
+
+                return true;
+                break;
+            }
+
+        }
+        return false;
+    }
+
+    var addComponent = function (component) {
+        componentCount++;
+        components[component.getName()] = component;
     };
 
 
-    return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+    return { // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
         addComponent,
+        hasComponent,
         id,
         name,
         components
 
-    });
+    };
 }

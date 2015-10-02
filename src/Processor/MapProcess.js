@@ -1,36 +1,38 @@
 function mapprocess_constructor(sb) {
+    "use strict";
+
     //constructor() {
 
-    let vertexPositionBuffer = gl.createBuffer();
-    let texturePositionBuffer = gl.createBuffer();
+    var vertexPositionBuffer = gl.createBuffer();
+    var texturePositionBuffer = gl.createBuffer();
 
-    let mapProgram = sm.init('maps');
+    var mapProgram = sm.init('maps');
 
 
-    let hexagon = game.map;
-    let camera = sb.getCamera();
+    var hexagon = game.map;
+    var camera = sb.getCamera();
 
 
     //}
 
-    let randomIntFromInterval = function (min, max) {
+    var randomIntFromInterval = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+    };
 
 
-    let update = function () {
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+    var update = function () {
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.MapComponent) {
-                let mc = le.components.MapComponent;
+                var mc = le.components.MapComponent;
 
                 hexagon.updateArea(mc.movingUp, mc.movingDown, mc.movingLeft, mc.movingRight, mc.selecting);
 
             }
 
             if (le.components.HexItem && le.components.RenderableComponent) {
-                let re = le.components.RenderableComponent;
+                var re = le.components.RenderableComponent;
                 re.xPos = hexagon.getPlayerPosXInWC();
                 re.zPos = hexagon.getPlayerPosZInWC();
                 //this.hexagon.setItemPos(le.components.HexItem.itemName);
@@ -39,15 +41,15 @@ function mapprocess_constructor(sb) {
 
 
         }
-    }
+    };
 
-    let draw = function () {
+    var draw = function () {
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.MapComponent) {
-                let mc = le.components.MapComponent;
+                var mc = le.components.MapComponent;
 
                 sm.setProgram(mapProgram);
 
@@ -80,7 +82,7 @@ function mapprocess_constructor(sb) {
             }
 
         }
-    }
+    };
     return {
         update, draw, init: function () {
         }

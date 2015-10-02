@@ -1,44 +1,46 @@
 function text_process_2d_constructor(sb) {
+    "use strict";
+
     //constructor() {
 
-    let shadermanager = sb.getShaderManager();
-    let program = shadermanager.useShader("per-fragment-lighting");
+    var shadermanager = sb.getShaderManager();
+    var program = shadermanager.useShader("per-fragment-lighting");
 
-    let text = sb.getText();
+    var text = sb.getText();
 
-    let gl = sb.getGL();
-    let t = texture_constructor(sb);
+    var gl = sb.getGL();
+    var t = texture_constructor(sb);
 
-    let texture = t.loadedTexture;
-    let textBuffer = null;
-    let rotation = null;
-    let currentString = '';
+    var texture = t.loadedTexture;
+    var textBuffer = null;
+    var rotation = null;
+    var currentString = '';
 
-    let vertexPositionBuffer = gl.createBuffer();
+    var vertexPositionBuffer = gl.createBuffer();
 
-    let em = sb.getEntityManager();
+    var em = sb.getEntityManager();
 
 
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
     //this.squareBuffer.size = textBuffer.length / 5;
 
 
-    let str = '';
-    let characterArray = text.textToC(str);
-    let textBuffer = text.buildData(characterArray, true);
+    var str = '';
+    var characterArray = text.textToC(str);
+    var textBuffer = text.buildData(characterArray, true);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
     //}
 
-    let update = function (deltatime, timeSinceStart) {
+    var update = function (deltatime, timeSinceStart) {
 
         currentString = '';
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
             if (le.components.TextComponent) {
-                let tc = le.components.TextComponent;
+                var tc = le.components.TextComponent;
 
-                for (let key in tc.texts) {
+                for (var key in tc.texts) {
                     if (tc.texts.hasOwnProperty(key)) {
 
                         if (parseInt(key, 10) < timeSinceStart) {
@@ -51,24 +53,24 @@ function text_process_2d_constructor(sb) {
             }
         }
         if (currentString != '') {
-            let str = currentString;
-            let characterArray = text.textToC(str);
+            var str = currentString;
+            var characterArray = text.textToC(str);
             textBuffer = text.buildData(characterArray, true);
             //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
         }
 
 
-    }
+    };
 
 
-    let draw = function () {
+    var draw = function () {
 
         if (textBuffer == null && currentString != '') {
             return true;
         }
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.TextComponent) {
                 sm.setProgram(program);
@@ -97,7 +99,7 @@ function text_process_2d_constructor(sb) {
         }
 
 
-    }
+    };
 
     return {
         draw, update, init: function () {

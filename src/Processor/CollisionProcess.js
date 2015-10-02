@@ -1,110 +1,129 @@
 function collisionprocess_constructor(sb) {
+    "use strict";
+
     //constructor() {
-    let collisions = [];
-    let gl = sb.getGL();
-    let em = sb.getEntityManager();
+    var collisions = [];
+    var em = sb.getEntityManager();
+    var sb = sb;
 
 
-    //let that = this;
+    //var that = this;
+    var init = function () {
 
-    let subscribe = function () {
-        pub.subscribe("bulletcollision", function (name, collisionComponent) {
-            let enemy = collisionComponent;
+        sb.subscribe("bulletcollision", function (name, collisionComponent) {
 
-            let enemyEntity = enemy.entity;
-            let hc = enemyEntity.components.HealthComponent;
+            var enemy = collisionComponent;
+
+            var enemyEntity = enemy.getEntity();
+            var hc = enemyEntity.components.HealthComponent;
 
 
-            hc.amount--;
-            if (hc.amount > 0) {
-                pub.publish("explosion", enemyEntity.components.RenderableComponent);
+            hc.setAmount(hc.getAmount() - 1);
+            if (hc.getAmount() > 0) {
+                console.log('exp')
+                sb.publish("explosion", enemyEntity.components.RenderableComponent);
             }
             else {
-                hc.amount = 0;
-                pub.publish("bigexplosion", enemyEntity.components.RenderableComponent);
+                console.log('bigexp')
+                hc.setAmount(0);
+
+                sb.publish("bigexplosion", enemyEntity.components.RenderableComponent);
             }
         });
 
-        pub.subscribe("collision", function (name, collisionComponents) {
+        sb.subscribe("collision", function (name, collisionComponents) {
 
 
-            if (collisionComponents[0].group == 'enemy') {
-                let enemy = collisionComponents[0];
-            }
-            else if (collisionComponents[1].group == 'enemy') {
-                let enemy = collisionComponents[1];
-            }
-            let enemyEntity = enemy.entity;
-            let hc = enemyEntity.components.HealthComponent;
+            var enemy = null;
 
-
-            hc.amount--;
-            if (hc.amount > 0) {
-                pub.publish("explosion", enemyEntity.components.RenderableComponent);
+            if (collisionComponents[0].getGroup() === 'enemy') {
+                enemy = collisionComponents[0];
             }
             else {
-                hc.amount = 0;
-                pub.publish("bigexplosion", enemyEntity.components.RenderableComponent);
+                enemy = collisionComponents[1];
+            }
+            var enemyEntity = enemy.getEntity();
+            var hc = enemyEntity.components.HealthComponent;
+
+
+            hc.setAmount(hc.getAmount() - 1);
+            if (hc.getAmount() > 0) {
+
+                sb.publish("explosion", enemyEntity.components.RenderableComponent);
+            }
+            else {
+                hc.setAmount(0);
+
+                sb.publish("bigexplosion", enemyEntity.components.RenderableComponent);
 
             }
+            var player = null;
 
-            if (collisionComponents[0].group == 'player') {
-                let player = collisionComponents[0];
+            if (collisionComponents[0].getGroup() == 'player') {
+                player = collisionComponents[0];
             }
-            else if (collisionComponents[1].group == 'player') {
-                let player = collisionComponents[1];
+            else /*if (collisionComponents[1].group == 'player') */{
+                player = collisionComponents[1];
             }
-            let playerEntity = player.entity;
-            let hc = playerEntity.components.HealthComponent;
-            let sc = playerEntity.components.ShieldComponent;
+            var playerEntity = player.getEntity();
+            var hc = playerEntity.components.HealthComponent;
+            var sc = playerEntity.components.ShieldComponent;
             //renderable contains xyz of object so we know where to explode
-            let pc = playerEntity.components.RenderableComponent;
+            var pc = playerEntity.components.RenderableComponent;
 
-            if (sc.amount > 0)
-                sc.amount--;
+
+            if (sc.getAmount() > 0)
+                sc.setAmount(sc.getAmount() - 1);
             else
-                hc.amount--;
+                hc.setAmount(hc.getAmount() - 1);
 
-            if (hc.amount > 0) {
+            if (hc.getAmount() > 0) {
 
-                pub.publish("explosion", pc);
+                sb.publish("explosion", pc);
             }
             else {
+
 
                 if (playerEntity.name == 'mothership') {
-                    pub.publish("gameover", true);
+                    sb.publish("gameover", true);
                 }
-                hc.amount = 0;
-                pub.publish("bigexplosion", pc);
+                hc.setAmount(0);
+                sb.publish("bigexplosion", pc);
             }
 
 
         });
-    }
 
+    };
 
     //}
 
-    let update = function () {
+    var update = function () {
+
+
         collisions.length = 0;
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
             if (le.components.CollisionComponent) {
                 //object is dead. no need to check for collisions
                 if (le.components.HealthComponent && le.components.HealthComponent.amount < 1) {
-
                     continue;
                 }
 
-                let c = le.components.CollisionComponent;
-                let r = le.components.RenderableComponent;
-                c.xPos = r.xPos;
-                c.yPos = r.yPos;
-                c.zPos = r.zPos;
-                c.xWidth = r.xWidth;
-                c.yWidth = r.yWidth;
-                c.zWidth = r.zWidth;
-                c.entity = le;
+                var c = le.components.CollisionComponent;
+                var r = le.components.RenderableComponent;
+
+                c.setXPos(r.getXPos());
+                c.setYPos(r.getYPos());
+                c.setZPos(r.getZPos());
+                c.setXWidth(r.getXWidth());
+                c.setYWidth(r.getYWidth());
+                c.setZWidth(r.getZWidth());
+
+
+                //console.log(le);
+
+                c.setEntity(le);
 
 
                 collisions.push(c);
@@ -113,14 +132,14 @@ function collisionprocess_constructor(sb) {
         }
 
 
-        for (let i = 0; i < collisions.length; i++) {
-            for (let j = 0; j < collisions.length; j++) {
+        for (var i = 0; i < collisions.length; i++) {
+            for (var j = 0; j < collisions.length; j++) {
                 if (j != i &&
-                    collisions[i].xPos - collisions[i].xWidth > collisions[j].xPos - collisions[j].xWidth &&
-                    collisions[i].xPos - collisions[i].xWidth < collisions[j].xPos + collisions[j].xWidth &&
-                    collisions[i].zPos - collisions[i].zWidth > collisions[j].zPos - collisions[j].zWidth &&
-                    collisions[i].zPos - collisions[i].zWidth < collisions[j].zPos + collisions[j].zWidth
-                    && collisions[i].group != collisions[j].group) {
+                    collisions[i].getXPos() - collisions[i].getXWidth() > collisions[j].getXPos() - collisions[j].getXWidth() &&
+                    collisions[i].getXPos() - collisions[i].getXWidth() < collisions[j].getXPos() + collisions[j].getXWidth() &&
+                    collisions[i].getZPos() - collisions[i].getZWidth() > collisions[j].getZPos() - collisions[j].getZWidth() &&
+                    collisions[i].getZPos() - collisions[i].getZWidth() < collisions[j].getZPos() + collisions[j].getZWidth()
+                    && collisions[i].getGroup() != collisions[j].getGroup()) {
 
 
                     sb.publish("collision", [collisions[i], collisions[j]]);
@@ -130,12 +149,11 @@ function collisionprocess_constructor(sb) {
 
 
         }
-    }
+    };
 
 
     return {
         update, draw: function () {
-        }, init: function () {
-        }
+        }, init
     }
 }

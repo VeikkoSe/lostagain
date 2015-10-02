@@ -1,11 +1,17 @@
 function HexItemComponent(itemName) {
+    "use strict";
+
     //constructor(itemName) {
 
-    let name = "HexItemComponent";
-    let itemName = itemName;
+    var name = "HexItemComponent";
+    var itemName = itemName;
 
 
     //}
-    return {name}
+    return {
+        getName: function () {
+            return name;
+        }
+    }
 
 }

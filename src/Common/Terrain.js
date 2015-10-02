@@ -1,6 +1,6 @@
 /*class Terrain {
  constructor(heightmap) {
- //let t = ;
+ //var t = ;
 
  this.texture = new Texture(heightmap);
  this.data = null;
@@ -25,29 +25,29 @@
  }
 
  getHeightData(img) {
- let size = 128;
- let canvas = document.createElement('canvas');
+ var size = 128;
+ var canvas = document.createElement('canvas');
  canvas.width = size;
  canvas.height = size;
- let context = canvas.getContext('2d', {preserveDrawingBuffer: true});
+ var context = canvas.getContext('2d', {preserveDrawingBuffer: true});
 
- let data = this.matrix(size, size, 0);
+ var data = this.matrix(size, size, 0);
 
 
  context.drawImage(img, 0, 0);
 
- let imgd = context.getImageData(0, 0, size, size);
+ var imgd = context.getImageData(0, 0, size, size);
 
- let pix = imgd.data;
- let x = 0;
- let y = 0;
+ var pix = imgd.data;
+ var x = 0;
+ var y = 0;
 
- for (let i = 0, n = pix.length; i < n; i += (4)) {
+ for (var i = 0, n = pix.length; i < n; i += (4)) {
  if (x == 128) {
  y++;
  x = 0;
  }
- let all = pix[i] + pix[i + 1] + pix[i + 2];
+ var all = pix[i] + pix[i + 1] + pix[i + 2];
 
  data[y][x] = all / 30;
  x++;
@@ -58,10 +58,10 @@
 
  matrix(rows, cols, defaultValue) {
 
- let arr = [];
+ var arr = [];
 
  // Creates all lines:
- for (let i = 0; i < rows; i++) {
+ for (var i = 0; i < rows; i++) {
 
  // Creates an empty line
  arr.push([]);
@@ -69,7 +69,7 @@
  // Adds cols to the empty line:
  arr[i].push(new Array(cols));
 
- for (let j = 0; j < cols; j++) {
+ for (var j = 0; j < cols; j++) {
  // Initializes:
  arr[i][j] = defaultValue;
  }
@@ -81,44 +81,44 @@
  createHeightMap() {
 
 
- let heightData = this.getHeightData(this.texture.loadedTexture.image);
+ var heightData = this.getHeightData(this.texture.loadedTexture.image);
 
- let squares = 256;
- let width = 256;
+ var squares = 256;
+ var width = 256;
 
- let xLength = squares;
- let yLength = squares;
+ var xLength = squares;
+ var yLength = squares;
 
- let heightMapVertexData = [];
- let hd = [];
+ var heightMapVertexData = [];
+ var hd = [];
 
- let part = width / squares;
+ var part = width / squares;
 
- let c = 0;
+ var c = 0;
  // First, build the data for the vertex buffer
- for (let x = 0; x < xLength; x++) {
+ for (var x = 0; x < xLength; x++) {
 
- for (let y = 0; y < yLength; y++) {
+ for (var y = 0; y < yLength; y++) {
 
  //first triangle of square
- let xPosition1 = x + 1;
- let yPosition1 = y;
+ var xPosition1 = x + 1;
+ var yPosition1 = y;
 
- let xPosition2 = x + 1;
- let yPosition2 = y + 1;
+ var xPosition2 = x + 1;
+ var yPosition2 = y + 1;
 
- let xPosition3 = x;
- let yPosition3 = y;
+ var xPosition3 = x;
+ var yPosition3 = y;
 
  //second triangle of square
- let xPosition4 = x;
- let yPosition4 = y;
+ var xPosition4 = x;
+ var yPosition4 = y;
 
- let xPosition5 = x + 1;
- let yPosition5 = y + 1;
+ var xPosition5 = x + 1;
+ var yPosition5 = y + 1;
 
- let xPosition6 = x;
- let yPosition6 = y + 1;
+ var xPosition6 = x;
+ var yPosition6 = y + 1;
 
 
  // Position
@@ -135,16 +135,16 @@
 
  c = 0;
  //keeps the indices;
- let iloop = [];
+ var iloop = [];
  //indice order number
- let il = 0;
+ var il = 0;
  //if we have already used a vertice don't add it again
  //just link the original with index
- let added = {};
- let alreadyAdded;
+ var added = {};
+ var alreadyAdded;
 
  //we create indexbuffer
- for (let i = 0; i < hd.length; i++) {
+ for (var i = 0; i < hd.length; i++) {
  alreadyAdded = false;
 
  if (hd[i][0] + ',' + hd[i][1] in added) {
@@ -168,11 +168,11 @@
  }
  }
 
- let normals = this.createNormals(heightMapVertexData, iloop);
+ var normals = this.createNormals(heightMapVertexData, iloop);
 
- let fakeTexture = [];
- let c = 0;
- for (let i = 0; i < normals.length; i++) {
+ var fakeTexture = [];
+ var c = 0;
+ for (var i = 0; i < normals.length; i++) {
  fakeTexture[c] = 0;
  c++;
  fakeTexture[c] = 1;
@@ -199,19 +199,19 @@
 
 
  createNormals(vs, ind) {
- let x = 0;
- let y = 1;
- let z = 2;
+ var x = 0;
+ var y = 1;
+ var z = 2;
 
- let ns = [];
- for (let i = 0; i < vs.length; i++) { //for each vertex, initialize normal x, normal y, normal z
+ var ns = [];
+ for (var i = 0; i < vs.length; i++) { //for each vertex, initialize normal x, normal y, normal z
  ns[i] = 0.0;
  }
 
- for (let i = 0; i < ind.length; i = i + 3) { //we work on triads of vertices to calculate normals so i = i+3 (i = indices index)
- let v1 = [];
- let v2 = [];
- let normal = [];
+ for (var i = 0; i < ind.length; i = i + 3) { //we work on triads of vertices to calculate normals so i = i+3 (i = indices index)
+ var v1 = [];
+ var v2 = [];
+ var normal = [];
  //p1 - p0
  v1[x] = vs[3 * ind[i + 1] + x] - vs[3 * ind[i] + x];
  v1[y] = vs[3 * ind[i + 1] + y] - vs[3 * ind[i] + y];
@@ -236,21 +236,21 @@
  // ns[3*ind[i]+x] += normal[x];
  // ns[3*ind[i]+y] += normal[y];
  // ns[3*ind[i]+z] += normal[z];
- for (let j = 0; j < 3; j++) { //update the normals of that triangle: sum of vectors
+ for (var j = 0; j < 3; j++) { //update the normals of that triangle: sum of vectors
  ns[3 * ind[i + j] + x] = ns[3 * ind[i + j] + x] + normal[x];
  ns[3 * ind[i + j] + y] = ns[3 * ind[i + j] + y] + normal[y];
  ns[3 * ind[i + j] + z] = ns[3 * ind[i + j] + z] + normal[z];
  }
  }
  //normalize the result
- for (let i = 0; i < vs.length; i = i + 3) { //the increment here is because each vertex occurs with an offset of 3 in the array (due to x, y, z contiguous values)
+ for (var i = 0; i < vs.length; i = i + 3) { //the increment here is because each vertex occurs with an offset of 3 in the array (due to x, y, z contiguous values)
 
- let nn = [];
+ var nn = [];
  nn[x] = ns[i + x];
  nn[y] = ns[i + y];
  nn[z] = ns[i + z];
 
- let len = Math.sqrt((nn[x] * nn[x]) + (nn[y] * nn[y]) + (nn[z] * nn[z]));
+ var len = Math.sqrt((nn[x] * nn[x]) + (nn[y] * nn[y]) + (nn[z] * nn[z]));
  if (len == 0) len = 0.00001;
 
  nn[x] = nn[x] / len;

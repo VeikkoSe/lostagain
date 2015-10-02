@@ -1,9 +1,12 @@
 function aicontrolled_constructor() {
+    "use strict";
 
-    let name = "AiControlled";
+    var name = "AiControlled";
 
     return Object.freeze({
-        name
+        getName: function () {
+            return name;
+        }
     });
 
 

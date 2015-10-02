@@ -1,10 +1,14 @@
+/*
+ handles camera TODO
+ */
 function camera_constructor() {
+    "use strict";
 
-    let gl, mvMatrix, pMatrix, cMatrix, pvMatrix, pvMatrixInverse, mvMatrixStack, drawCalls, eye, distance, x, y, z;
-    let rotationX,rotationY, slideLeft, slideRight, slideUp, slideDown, centerPosition, home, sb;
+    var gl, mvMatrix, pMatrix, cMatrix, pvMatrix, pvMatrixInverse, mvMatrixStack, drawCalls, eye, distance, x, y, z;
+    var rotationX, rotationY, slideLeft, slideRight, slideUp, slideDown, centerPosition, home, sb, pitch, mindistance, maxdistance;
 
 
-    let init = function (sandbox) {
+    var init = function (sandbox) {
 
         sb = sandbox;
 
@@ -14,36 +18,41 @@ function camera_constructor() {
 
         pvMatrix = mat4.create();
         pvMatrixInverse = mat4.create();
+        mindistance = 40;
+        maxdistance = 200;
+        distance = 50;
+        pitch = 70;
 
+        //mat4.identity(mvMatrix);
 
-        mat4.identity(mvMatrix);
+        x = 0;
+        z = 70;
+        y = Math.tan(pitch * (Math.PI / 180)) * z;
+
 
         home = [x, y, z];
 
-        mat4.translate(mvMatrix, home);
+
+        //mat4.translate(mvMatrix, home);
 
         //Initialize Camera matrix as the inverse of the Model-View Matrix
-        mat4.identity(cMatrix);
-        mat4.inverse(mvMatrix, cMatrix);
+        //mat4.identity(cMatrix);
+        //mat4.inverse(mvMatrix, cMatrix);
 
         //Initialize Perspective matrix
         mat4.identity(pMatrix);
         drawCalls = 0;
 
         mvMatrixStack = [];
-        eye = vec3.create([0, 0, 0]);  // negation of actual eye position
-        //let clickPosition = null;
+        //eye = vec3.create([0, 0, 0]);  // negation of actual eye position
+        //var clickPosition = null;
 
-        distance = 500;
 
         //initial pos
-        x = 0;
-        y = -1 * distance;
-        z = -1 * distance;
 
 
-        rotationX = degToRad(60);
-        rotationY =0;
+        //rotationX = degToRad(60);
+        rotationY = 0;
 
         slideLeft = false;
         slideRight = false;
@@ -54,59 +63,75 @@ function camera_constructor() {
         centerPosition = false;
 
 
+        //mat4.lookAt([x,y,z],[0,0,0],[0,1,0],mvMatrix);
+
+
     };
 
-    let start = function () {
+    var start = function () {
         gl = sb.getGL();
-    }
+    };
 
 
-    let setDistance = function (d) {
-        distance = d;
+    var setDistance = function (d) {
+        if (d.charAt(0) === '-') {
+            if (distance <= mindistance) {
+                distance = mindistance;
+                return;
+            }
+            distance -= parseInt(d.substring(1), 10);
+        }
+        else {
+            if (distance >= maxdistance) {
+                distance = maxdistance;
+                return;
+            }
+            distance += parseInt(d, 10);
+        }
 
-        //this.x = 0;
-        y = -1 * distance;
-        z = -1 * distance;
 
-    }
+    };
 
-    let setXRotation = function (rot) {
+    var setXRotation = function (rot) {
 
         rotationX = rot;
+    };
+
+
+    var setYRotation = function (rot) {
+
+        if (rot.charAt(0) === '-') {
+            rotationY -= degToRad(parseInt(rot.substring(1), 10));
+        }
+        else rotationY += degToRad(parseInt(rot, 10));
+    };
+    var getYRotation = function () {
+        return rotationY;
     }
 
-
-    let setYRotation = function (rot) {
-
-        if(rot.charAt(0)==='-') {
-            rotationY -= degToRad(parseInt(rot.substring(1),10));
-        }
-        else rotationY += degToRad(parseInt(rot,10));
-    }
-
-    let setPos = function (xp=false, yp=false, zp=false) {
-        if(xp) {
-            if(xp.charAt(0)==='-') {
-        x -= parseInt(xp.substring(1),10);
-            }
-                else {
-                x += parseInt(xp,10);
-            }
-        }
-        if(yp) {
-            if(yp.charAt(0)==='-') {
-        y -= parseInt(yp.substring(1),10);
+    var setPos = function (xp, yp, zp) {
+        if (xp) {
+            if (xp.charAt(0) === '-') {
+                x = parseInt(xp.substring(1), 10);
             }
             else {
-            y+=parseInt(yp,10);
+                x = parseInt(xp, 10);
             }
         }
-        if(zp) {
-            if(zp.charAt(0)==='-') {
-        z -=parseInt(zp.substring(1),10);
+        if (yp) {
+            if (yp.charAt(0) === '-') {
+                y = parseInt(yp.substring(1), 10);
             }
             else {
-            z+=parseInt(zp,10);
+                y = parseInt(yp, 10);
+            }
+        }
+        if (zp) {
+            if (zp.charAt(0) === '-') {
+                z = parseInt(zp.substring(1), 10);
+            }
+            else {
+                z = parseInt(zp, 10);
             }
         }
         //rotation = rot;
@@ -114,90 +139,96 @@ function camera_constructor() {
     };
 
 
-    let setPerspective = function () {
+    var setPerspective = function () {
         mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 20000.0, pMatrix);
     };
-    /*
-     let slideCameraLeft = function (xAddition) {
-     x += xAddition;
-     };
 
-     let slideCameraRight = function (xDecrease) {
-     x -= xDecrease;
-     };
 
-     let slideCameraUp = function (zAddition) {
-     z += zAddition;
+    var lookAt = function (epos, direction) {
+        mat4.lookAt([x, y, z], epos, direction, mvMatrix);
+    }
+    var move = function () {
 
-     };
-
-     let slideCameraDown = function (zDecrease) {
-     z -= zDecrease;
-
-     };
-     */
-
-    let move = function () {
-
-        mat4.identity(mvMatrix);
+        // mat4.identity(mvMatrix);
         //orbit camera rotate before translate
         //tracking camera translate before rotate
-        mat4.rotate(mvMatrix, rotationX, [1, 0, 0]);
-
-        mat4.translate(mvMatrix, [x, y, z]);
-        mat4.rotate(mvMatrix, rotationY, [0, 1, 0]);
+        // mat4.rotate(mvMatrix, rotationX, [1, 0, 0]);
+        // mat4.rotate(mvMatrix, rotationY, [0, 1, 0]);
+        //mat4.translate(mvMatrix, [x, y, z]);
+        //mat4.lookAt([0,30,-30],[0,0,0],[0,1,0],mvMatrix);
+        //mat4.rotate(mvMatrix, rotationY, [0, 1, 0]);
 
     };
 
-    let getMVMatrix = function () {
-        return mvMatrix;
-    };
 
-    let getPMatrix = function () {
-        return pMatrix;
-    };
-
-    let mvPushMatrix = function () {
-        let copy = mat4.create();
+    var mvPushMatrix = function () {
+        var copy = mat4.create();
         mat4.set(mvMatrix, copy);
         mvMatrixStack.push(copy);
     };
 
 
-    let mvPopMatrix = function () {
+    var mvPopMatrix = function () {
         if (mvMatrixStack.length == 0) {
             throw "Invalid popMatrix!";
         }
         mvMatrix = mvMatrixStack.pop();
     };
 
-    let subscribe = function () {
+    var subscribe = function () {
 
-    }
+    };
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
         mvPopMatrix,
         mvPushMatrix,
         setPerspective,
         setDistance,
+        lookAt,
         init,
         setXRotation,
         setYRotation,
-        getMVMatrix,
-        getPMatrix,
+        getYRotation,
+        getMVMatrix: function () {
+            return mvMatrix;
+        },
+        getPMatrix: function () {
+            return pMatrix;
+        },
         move,
-        getX: function () {
-            return x
+        getXPos: function () {
+            return x;
         },
-        getY: function () {
-            return y
+        getYPos: function () {
+            return y;
         },
-        getZ: function () {
-            return z
+        getZPos: function () {
+            return z;
         },
+        getMinDistance: function () {
+            return mindistance;
+        },
+
+        setXPos: function (v) {
+            x = v;
+        },
+        setYPos: function (v) {
+            y = v;
+        },
+        setZPos: function (v) {
+            z = v;
+        },
+        getPitch: function () {
+            return pitch;
+        },
+
         setPos,
         subscribe,
-        start
+        start,
+        getDistance: function () {
+            return distance;
+        },
+        setDistance
 
 
     });

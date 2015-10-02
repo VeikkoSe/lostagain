@@ -1,9 +1,11 @@
 function linearmovementprocess_construcotr(sb) {
+    "use strict";
 
-    let em = sb.getEntityManager();
+
+    var em = sb.getEntityManager();
 
 
-    let isClose = function (currentCoord, newCoord) {
+    var isClose = function (currentCoord, newCoord) {
 
 
         if (currentCoord < newCoord + 0.1 && currentCoord > newCoord - 0.1) {
@@ -13,26 +15,26 @@ function linearmovementprocess_construcotr(sb) {
 
 
         return false;
-    }
+    };
 
-    let update = function (deltatime) {
+    var update = function (deltatime) {
 
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
-            //for (let e = 0; e < foundMoveEntities.length; e++) {
+            //for (var e = 0; e < foundMoveEntities.length; e++) {
 
 
             if (le.components.Selectable && le.components.Renderable && le.components.Movable) {
 
-                let se = le.components.Selectable;
-                let re = le.components.RenderableComponent;
-                let me = le.components.Movable;
+                var se = le.components.Selectable;
+                var re = le.components.RenderableComponent;
+                var me = le.components.Movable;
 
-                //let re = em.searchComponentForEntity(foundMoveEntities[e], "Renderable");
+                //var re = em.searchComponentForEntity(foundMoveEntities[e], "Renderable");
 
-                //let me = em.searchComponentForEntity(foundMoveEntities[e], "Movable");
+                //var me = em.searchComponentForEntity(foundMoveEntities[e], "Movable");
                 //console.log(se.selected);
                 if (me && se.selected && camera.clickPosition) {
 
@@ -50,15 +52,15 @@ function linearmovementprocess_construcotr(sb) {
 
                     //Create a vector in the direction
 
-                    let dirX = me.newXpos - re.xPos;
-                    let dirZ = me.newZpos - re.zPos;
+                    var dirX = me.newXpos - re.xPos;
+                    var dirZ = me.newZpos - re.zPos;
 
                     //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
-                    let hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
+                    var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
 
-                    let angR = Math.atan2(dirX, dirZ);
-                    let deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
+                    var angR = Math.atan2(dirX, dirZ);
+                    var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
 
                     dirX /= hyp;
                     dirZ /= hyp;
@@ -80,7 +82,7 @@ function linearmovementprocess_construcotr(sb) {
 
             }
         }
-    }
+    };
 
 
     return {

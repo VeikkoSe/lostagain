@@ -1,26 +1,28 @@
 function primitiveprocess_constructor(sb) {
-    //constructor() {
-    let gl = sb.getGL();
-    let vertexPositionBuffer = gl.createBuffer();
-    let em = sb.getEntityManager();
-    let shadermanager = sb.getShaderManager();
-    let simplestProgram = shadermanager.useShader("simplest");
+    "use strict";
 
-    let camera = sb.getCamera();
+    //constructor() {
+    var gl = sb.getGL();
+    var vertexPositionBuffer = gl.createBuffer();
+    var em = sb.getEntityManager();
+    var shadermanager = sb.getShaderManager();
+    var simplestProgram = shadermanager.useShader("simplest");
+
+    var camera = sb.getCamera();
 
     //}
 
 
-    let draw = function () {
+    var draw = function () {
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.PrimitiveComponent && le.components.RenderableComponent) {
 
-                //sm.setProgram(this.simplestProgram);
-                //let re = le.components.Renderable;
-                //let p = {x: re.xPos, y: re.yPos, z: re.zPos};
+                sm.setProgram(this.simplestProgram);
+                //var re = le.components.Renderable;
+                //var p = {x: re.xPos, y: re.yPos, z: re.zPos};
 
                 //this.points = this.circleXY(p, ;
 
@@ -28,7 +30,7 @@ function primitiveprocess_constructor(sb) {
                 camera.mvPushMatrix();
                 gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
                 gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.getMVMatrix());
-                let c = le.components.PrimitiveComponent.color;
+                var c = le.components.PrimitiveComponent.color;
 
                 gl.uniform4f(simplestProgram.uColor, c[0], c[1], c[2], 1.0);
 
@@ -45,7 +47,7 @@ function primitiveprocess_constructor(sb) {
             }
 
         }
-    }
+    };
 
     return {
         update: function () {

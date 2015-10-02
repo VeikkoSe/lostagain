@@ -1,60 +1,126 @@
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
+    "use strict";
 
 
-
-    let CORE = new Core(800, 600);
+    //var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+    //var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+    var w = 500;
+    var h = 500;
+    var CORE = new Core(w, h);
     CORE.start_modules();
     CORE.start_game();
-
-    init();
-
-    startSound();
-
-
 });
 
 
+function randomRangedInt() {
+
+    var rnd = getRandomInt(500, -500);
+    if (rnd > 100 ||
+        rnd < -100) {
+        return rnd;
+    }
+    else
+        return randomRangedInt();
+};
+
+function randomCloseInt() {
+
+    var rnd = getRandomInt(30, -30);
+
+    return rnd;
+
+};
+
 function printMessage(msg) {
-    $('#debugarea').html(msg);
+    "use strict";
+    //$('#debugarea').html(msg);
 }
 
 
 function pInt(nro) {
+    "use strict";
     return parseInt(nro, 10);
 }
 
 function randomIntFromInterval(min, max) {
+    "use strict";
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function logGLCall(functionName, args) {
-    console.log("gl." + functionName + "(" +
-    WebGLDebugUtils.glFunctionArgsToString(functionName, args) + ")");
+
+function updateMatrices(camera) {
+    /*
+     $('mv').innerHTML='';
+     var mv = camera.getMVMatrix();
+
+     var tr;
+     var g=0;
+     for (var i = 0; i < 4; i++) {
+     tr = $('<tr/>');
+     for (var j = 0; j < 4; j++) {
+     tr.append("<td>" + mv[g++].toFixed(1) + "</td>");
+
+
+     }
+     $('#mv').append(tr);
+
+
+     }
+     $('#projection').empty();
+     var projection = camera.getPMatrix();
+
+     var tr;
+     var g=0;
+     for (var i = 0; i < 4; i++) {
+     tr = $('<tr/>');
+     for (var j = 0; j < 4; j++) {
+     tr.append("<td>" + projection[g++].toFixed(1) + "</td>");
+
+
+     }
+     $('#projection').append(tr);
+
+
+     }
+
+
+
+     */
+
+
 }
 
 function getMousePos(canvas, evt) {
-    let rect = canvas.getBoundingClientRect();
+    "use strict";
+    var rect = canvas.getBoundingClientRect();
     return {
         x: evt.clientX - rect.left,
         y: evt.clientY - rect.top
     };
 }
 
-function circleXY(center, radius, amount) {
-    let points = [];
-    let stepSize = ((2 * Math.PI) / amount);
-    let y = 0;
-    for (let d = 0; d <= (2 * Math.PI) - stepSize; d += stepSize) {
-        points.push(((Math.sin(d) * radius) + center.x)
-            , y, (Math.cos(d) * radius) + center.z);
+function isInCircle(centerX, centerY, radius, x, y) {
+    "use strict";
+    return ((centerX - x) * (centerX - x)) + ((centerY - y) * (centerY - y)) < (radius * radius);
+}
+
+function circleXY(x, y, z, radius, amount) {
+    "use strict";
+    var points = [];
+    var stepSize = ((2 * Math.PI) / amount);
+    var y = 0;
+    for (var d = 0; d <= (2 * Math.PI) - stepSize; d += stepSize) {
+        points.push(((Math.sin(d) * radius) + x)
+            , y, (Math.cos(d) * radius) + z);
     }
     return points;
 }
 
 
 function viewport() {
-    let e = window;
-    let a = 'inner';
+    "use strict";
+    var e = window;
+    var a = 'inner';
     if (!('innerWidth' in window)) {
         a = 'client';
         e = document.documentElement || document.body;
@@ -64,9 +130,10 @@ function viewport() {
 
 
 function updateLightPosition() {
-    let x = $('#slider-x').slider("value");
-    let y = $('#slider-y').slider("value");
-    let z = $('#slider-z').slider("value");
+    "use strict";
+    var x = $('#slider-x').slider("value");
+    var y = $('#slider-y').slider("value");
+    var z = $('#slider-z').slider("value");
     $('#slider-x-value').html(x);
     $('#slider-y-value').html(y);
     $('#slider-z-value').html(z);
@@ -74,9 +141,10 @@ function updateLightPosition() {
 
 
 function updateCameraPosition() {
-    let x = $('#cslider-x').slider("value");
-    let y = $('#cslider-y').slider("value");
-    let z = $('#cslider-z').slider("value");
+    "use strict";
+    var x = $('#cslider-x').slider("value");
+    var y = $('#cslider-y').slider("value");
+    var z = $('#cslider-z').slider("value");
 
     $('#cslider-x-value').html(x);
     $('#cslider-y-value').html(y);
@@ -84,7 +152,8 @@ function updateCameraPosition() {
 }
 
 function updateRotation() {
-    let x = $('#rslider-x').slider("value");
+    "use strict";
+    var x = $('#rslider-x').slider("value");
     $('#rotslider-x-value').html(x);
 
 }
@@ -93,10 +162,10 @@ function updateRotation() {
 function intersectionpoint(A, B) {
 
 //http://stackoverflow.com/questions/2447361/3d-line-plane-intersection-with-simple-plane
-    let r = -A[1] / B[1];
+    var r = -A[1] / B[1];
 
-    let x = (r * B[0] + A[0]) / (r + 1);
-    let z = (r * B[2] + A[2]) / (r + 1);
+    var x = (r * B[0] + A[0]) / (r + 1);
+    var z = (r * B[2] + A[2]) / (r + 1);
 
     return [x, 0, z];
 
@@ -105,8 +174,9 @@ function intersectionpoint(A, B) {
 
 
 function objectLabelGenerator() {
-    let color = [Math.random(), Math.random(), Math.random(), 1.0];
-    let key = color[0] + ':' + color[1] + ':' + color[2];
+    "use strict";
+    var color = [Math.random(), Math.random(), Math.random(), 1.0];
+    var key = color[0] + ':' + color[1] + ':' + color[2];
     if (key in colorset) {
         return uniqueColorGenerator();
     }
@@ -117,12 +187,13 @@ function objectLabelGenerator() {
 }
 
 function degToRad(degrees) {
+    "use strict";
     return degrees * Math.PI / 180;
 }
 
 
 function isClose(currentCoord, newCoord) {
-
+    "use strict";
     if (currentCoord <= newCoord + 0.1 && currentCoord >= newCoord - 0.1) {
         return true;
     }
@@ -131,6 +202,7 @@ function isClose(currentCoord, newCoord) {
 }
 
 function mouseX(e) {
+    "use strict";
     if (e.pageX) return e.pageX;
     else if (e.clientX)
         return e.clientX + (document.documentElement.scrollLeft ?
@@ -140,10 +212,12 @@ function mouseX(e) {
 }
 
 function isNumeric(n) {
+    "use strict";
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 function mouseY(e) {
+    "use strict";
     if (e.pageY) return e.pageY;
     else if (e.clientY)
         return e.clientY + (document.documentElement.scrollTop ?
@@ -153,10 +227,12 @@ function mouseY(e) {
 }
 
 function simpleWorldToViewX(x) {
+    "use strict";
     return x / resolutionWidth;
 }
 
 function simpleWorldToViewY(y) {
+    "use strict";
 
     return y / resolutionHeight;
 }
@@ -168,51 +244,53 @@ function simpleWorldToViewY(y) {
  gl.uniformMatrix4fv(shaderProgram.uPMatrix, false, camera.pMatrix);
  gl.uniformMatrix4fv(shaderProgram.uMVMatrix, false, camera.mvMatrix);
 
- let normalMatrix = mat3.create();
+ var normalMatrix = mat3.create();
  mat4.toInverseMat3(camera.mvMatrix, normalMatrix);
  mat3.transpose(normalMatrix);
  gl.uniformMatrix3fv(shaderProgram.uNMatrix, false, normalMatrix);
  }
  */
 function getRandomInt(min, max) {
+    "use strict";
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function buildPlane(width, squares) {
+    "use strict";
 
-    let xLength = squares;
-    let yLength = squares;
+    var xLength = squares;
+    var yLength = squares;
 
-    let heightMapVertexData = [];
-    let hd = [];
+    var heightMapVertexData = [];
+    var hd = [];
 
-    let zPosition = 0;
+    var zPosition = 0;
 
-    let part = width / squares;
+    var part = width / squares;
 
-    let c = 0;
+    var c = 0;
     // First, build the data for the vertex buffer
-    for (let x = 0; x < xLength; x++) {
+    for (var x = 0; x < xLength; x++) {
 
-        for (let y = 0; y < yLength; y++) {
+        for (var y = 0; y < yLength; y++) {
 
-            let xPosition1 = part * x + part;
-            let yPosition1 = part * y;
+            var xPosition1 = part * x + part;
+            var yPosition1 = part * y;
 
-            let xPosition2 = part * x + part;
-            let yPosition2 = part * y + part;
+            var xPosition2 = part * x + part;
+            var yPosition2 = part * y + part;
 
-            let xPosition3 = part * x;
-            let yPosition3 = part * y;
+            var xPosition3 = part * x;
+            var yPosition3 = part * y;
 
-            let xPosition4 = part * x;
-            let yPosition4 = part * y;
+            var xPosition4 = part * x;
+            var yPosition4 = part * y;
 
-            let xPosition5 = part * x + part;
-            let yPosition5 = part * y + part;
+            var xPosition5 = part * x + part;
+            var yPosition5 = part * y + part;
 
-            let xPosition6 = part * x;
-            let yPosition6 = part * y + part;
+            var xPosition6 = part * x;
+            var yPosition6 = part * y + part;
 
 
             // Position
@@ -228,13 +306,13 @@ function buildPlane(width, squares) {
     }
     //console.log(hd);
     c = 0;
-    let iloop = [];
-    let il = 0;
-    let added = {};
-    let val = [];
-    let alreadyAdded;
+    var iloop = [];
+    var il = 0;
+    var added = {};
+    var val = [];
+    var alreadyAdded;
 
-    for (let i = 0; i < hd.length; i++) {
+    for (var i = 0; i < hd.length; i++) {
         alreadyAdded = false;
 
         if (hd[i][0] + ',' + hd[i][1] in added) {
@@ -255,7 +333,7 @@ function buildPlane(width, squares) {
             il++;
         }
     }
-    let plane = [];
+    var plane = [];
     plane.push(iloop);
     plane.push(heightMapVertexData);
     return plane;

@@ -1,9 +1,12 @@
 function text_constructor() {
+    "use strict";
+
+    var fontJson = false;
 
 
-    let textToC = function (text) {
-        let ret = [];
-        for (let i = 0; i < text.length; i++) {
+    var textToC = function (text) {
+        var ret = [];
+        for (var i = 0; i < text.length; i++) {
             if (text[i] == '\n') {
                 ret.push('newline');
             }
@@ -12,29 +15,29 @@ function text_constructor() {
         }
         //console.log(ret);
         return ret;
-    }
+    };
 
-    let formatPixel = function (pixel) {
-        let imageSize = 256;
-        let ret = (2 * pixel + 1) / (2 * imageSize);
+    var formatPixel = function (pixel) {
+        var imageSize = 256;
+        var ret = (2 * pixel + 1) / (2 * imageSize);
 
         return ret;
-    }
+    };
 
 
-    let buildData = function (letters, twoD = false) {
+    var buildData = function (letters, twoD) {
 
-        let scalingFactor = 2;
+        var scalingFactor = 2;
         //32 reads in the fnt file created by the program
-        let fontHeight = 32;
+        var fontHeight = 32;
 
 
-        let ret = [];
+        var ret = [];
 
-        let xAdvance = 0;
-        let yAdvance = 0;
+        var xAdvance = 0;
+        var yAdvance = 0;
         // console.log(letters);
-        for (let i = 0; i < letters.length; i++) {
+        for (var i = 0; i < letters.length; i++) {
 
 
             if (letters[i] === 'newline') {
@@ -43,10 +46,10 @@ function text_constructor() {
                 continue;
             }
 
-            let yOffsetandAdvance = yAdvance - pInt(letters[i].yoffset);
-            let xOffset = pInt(letters[i].xoffset);
-            let xOffsetandAdvance = xOffset + xAdvance;
-            let scale = 0.5;
+            var yOffsetandAdvance = yAdvance - pInt(letters[i].yoffset);
+            var xOffset = pInt(letters[i].xoffset);
+            var xOffsetandAdvance = xOffset + xAdvance;
+            var scale = 0.5;
             if (twoD) {
                 //zero,zero is bottom left
 
@@ -97,10 +100,10 @@ function text_constructor() {
         return ret;
 
 
-    }
+    };
 
 
-    let init = function () {
+    var init = function () {
 
 
 
@@ -2306,7 +2309,7 @@ function text_constructor() {
         }
 
 
-    }
+    };
 
     return {
         textToC, init, buildData, subscribe: function () {

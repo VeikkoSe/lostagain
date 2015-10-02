@@ -1,11 +1,18 @@
-function PrimitiveComponent(points, color = [0.0, 1.0, 0.0]) {
+function PrimitiveComponent(points, color) { // = [0.0, 1.0, 0.0]
+    "use strict";
+
     //constructor(points, color = [0.0, 1.0, 0.0]) {
-    let name = "PrimitiveComponent";
-    let points = points;
-    let color = color;
+    var name = "PrimitiveComponent";
+    var points = points;
+    var color = color;
 
 
-    return {name, points, color}
+    return {
+        getName: function () {
+            return name;
+        }
+        , points, color
+    }
 
 
 }

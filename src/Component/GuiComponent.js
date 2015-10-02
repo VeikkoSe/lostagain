@@ -1,12 +1,17 @@
 function GuiComponent(sprites) {
-    //constructor(sprites) {
-    let name = "GuiComponent";
+    "use strict";
 
-    let sprites = sprites;
+    var name = "GuiComponent";
+
+    var sprites = sprites;
 
 
     //}
-    return {name}
+    return {
+        getName: function () {
+            return name;
+        }
+    }
 
 
 }

@@ -1,20 +1,48 @@
-function ExhaustComponent(sprite, length = 30, width = 2, offSetFromCenter = 0, offSetSideFromCenter = 0) {
+function ExhaustComponent(sprite, length, width, offSetFromCenter, offSetSideFromCenter) {
+    "use strict";
+
     //constructor(sprite, length = 30, width = 2, offSetFromCenter = 0, offSetSideFromCenter = 0) {
-    let name = "ExhaustComponent";
-    let sprite = sprite;
+    var name = "ExhaustComponent";
+    var sprite = sprite;
     //points that are calculated from flow points
-    let points = [];
-    let flow = [];
-    let length = length;
-    let width = width;
-    let offSetFromCenter = offSetFromCenter;
-    let texturecoordinates = [];
-    let square = [];
-    let offSetSideFromCenter = offSetSideFromCenter;
+    var points = [];
+    var flow = [];
+    var length = length;
+    var width = width;
+    var offSetFromCenter = offSetFromCenter;
+    var texturecoordinates = [];
+    var square = [];
+    var offSetSideFromCenter = offSetSideFromCenter;
 
 
     //}
-    return {name, flow, points}
+    return {
+        getName: function () {
+            return name;
+        },
+        getFlow: function () {
+            return flow;
+        },
+        getSquare: function () {
+            return square;
+        },
+        getTexturecoordinates: function () {
+            return texturecoordinates;
+        },
+        setFlow: function (v) {
+            flow = v;
+        },
+
+        getSprite: function () {
+            return sprite;
+        },
+        getPoints: function () {
+            return points;
+        },
+        setPoints: function (v) {
+            points = v;
+        }
+    }
 
 
 }

@@ -1,10 +1,16 @@
 function MultiRenderable(renderables) {
+    "use strict";
+
     //constructor(renderables) {
-    let name = 'MultiRenderable';
-    let renderables = renderables;
+    var name = 'MultiRenderable';
+    var renderables = renderables;
 
 
-    return {name, renderables}
+    return {
+        getName: function () {
+            return name;
+        }, renderables
+    }
 
 
 }

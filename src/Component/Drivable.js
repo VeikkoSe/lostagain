@@ -1,17 +1,22 @@
 function DrivableComponent() {
-    //constructor() {
-    let name = "Drivable";
-    let accelerationOn = 0;
-    let acceleration = 20;
+    "use strict";
 
-    let velocityX = 0;
-    let velocityZ = 0;
-    let rotateRight = false;
-    let rotateLeft = false;
+    var name = "Drivable";
+    var accelerationOn = 0;
+    var acceleration = 20;
+
+    var velocityX = 0;
+    var velocityZ = 0;
+    var rotateRight = false;
+    var rotateLeft = false;
 
 
     //}
-    return {name}
+    return {
+        getName: function () {
+            return name;
+        }
+    }
 
 
 }

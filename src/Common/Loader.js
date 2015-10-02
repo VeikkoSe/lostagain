@@ -1,19 +1,18 @@
 function loader_costructor() {
-    let sb, em, am, loadingLevelName, t, sprite_loader, loading, loadTotal, maxLoad, camera;
+    "use strict";
+    var sb, em, am, loadingLevelName, t, sprite_loader, loading, loadTotal, maxLoad, camera;
 
 
-    let getLoadingLevelName = function () {
+    var getLoadingLevelName = function () {
         return loadingLevelName;
-    }
+    };
 
-    let subscribe = function () {
-
-        //am.subscribe();
+    var subscribe = function () {
 
 
-    }
+    };
 
-    let init = function (sandbox) {
+    var init = function (sandbox) {
         sb = sandbox;
 
         loadingLevelName = '';
@@ -21,9 +20,9 @@ function loader_costructor() {
         loadTotal = 0;
         maxLoad = 0;
 
-    }
+    };
 
-    let start = function () {
+    var start = function () {
 
 
         camera = sb.getCamera();
@@ -31,13 +30,13 @@ function loader_costructor() {
         sb.subscribe("loadassets", function (name, wantedState) {
 
             loadAllAssets(wantedState);
-            //sb.publish("movetoloadstate", assetname);
+
         });
 
 
         sb.subscribe("allassetsloaded", function (name, dummy) {
 
-            level = getLoadingLevelName();
+            var level = getLoadingLevelName();
             sb.publish("movetoloadstate", level);
             //sb.publish("movetoloadstate", assetname);
         });
@@ -49,15 +48,28 @@ function loader_costructor() {
         em = sb.getEntityManager();
         am = sb.getAssetManager();
 
-    }
+    };
 //
-    //let loadLevel = function(name) {
-
-    //game.stateengine.loadS(name);
-    //};
 
 
-    let loadAllAssets = function (name) {
+    var createPlane = function () {
+
+        var e = em.addNew();
+
+        /*
+         var rc = RenderableComponent();
+         rc.setXPos(0);
+         rc.setZPos(0);
+         rc.setYPos(0);
+         e.addComponent(rc);
+         */
+        e.addComponent(PlaneComponent(new Plane(sb, 10)));
+        return e;
+
+    };
+
+
+    var loadAllAssets = function (name) {
 
         //nextState = false;
 
@@ -66,42 +78,40 @@ function loader_costructor() {
 
         loading = true;
 
-
+        console.log('state:' + name);
         switch (name) {
             case ('introstate'):
 
-                //console.log(name);
+
                 createIntro();
-                createShip();
+
                 break;
             case ('gamestate'):
 
 
-                camera.setDistance(350);
+                createDestroyer();
 
-
-                //createText();
+                createText();
 
 
                 createFuel(false);
 
                 createStars();
 
-                let mothership = createMotherShip();
-                let ship = createShip();
+                var mothership = createMotherShip();
+                var ship = createShip();
+                createSatellite(mothership);
 
 
-
-
-                for (let i = 0; i < 10; i++) {
+                for (var i = 0; i < 10; i++) {
                     createEnemy();
                 }
 
 
-                // let radar = createRadar();
-                //let currency = createCurrency();
+                var radar = createRadar();
+                var currency = createCurrency();
 
-               // createLayout(mothership, ship);
+                createLayout(mothership, ship);
 
 
                 break;
@@ -126,37 +136,66 @@ function loader_costructor() {
 
 
         }
-        maxLoad = loadTotal;
-        loading = false;
+
+        //maxLoad = loadTotal;
+        //loading = false;
     };
 
 
-    let createShip = function () {
+    var createSatellite = function (mothership) {
 
-        //em.clearAll();
-        let e = em.addNew('ship');
+        var e = em.addNew();
+        var mesh = am.getMesh('satellite');
 
-        let mesh = am.getMesh('ship');
-        // e.addComponent(entity_constructor({visibility:false}));
-        // e.addComponent(MeshComp({mesh:mesh,width:1}));
+        var rc = RenderableComponent();
 
-        let rc =RenderableComponent();
-        rc.setXPos(10);
-        rc.setZPos(20);
-        //rc, yPos: 0, zPos: 20}
+        rc.setXPos(0);
+        rc.setZPos(0);
+
+
         e.addComponent(rc);
 
 
+        var mc = MeshComponent();
+        mc.setMesh(mesh);
 
-        e.addComponent(MeshComponent({mesh}));
-
-       // e.addComponent(RotationComponent());
-
-        //let {speed,turnSpeed,routeEndXpos,routeEndYpos,routeEndZpos} = params;
-        //let mm = MomentumMovable({});
+        e.addComponent(mc);
+    };
 
 
-        e.addComponent(MomentumComponent({}));
+    var createShip = function () {
+
+
+        //em.clearAll();
+        var e = em.addNew('ship');
+
+        var mesh = am.getMesh('ship');
+        // e.addComponent(entity_constructor({visibility:false}));
+        // e.addComponent(MeshComp({mesh:mesh,width:1}));
+
+        var rc = RenderableComponent();
+
+        rc.setXPos(10);
+        rc.setZPos(20);
+
+        //rc, yPos: 0, zPos: 20}
+
+
+        e.addComponent(rc);
+
+        var mc = MeshComponent();
+        mc.setMesh(mesh);
+        e.addComponent(mc);
+
+        // e.addComponent(RotationComponent());
+
+        //var {speed,turnSpeed,routeEndXpos,routeEndYpos,routeEndZpos} = params;
+        //var mm = MomentumMovable({});
+
+        var mc = MomentumComponent();
+        mc.setTurnSpeed(250);
+        mc.setSpeed(50);
+        e.addComponent(mc);
         /*
          e.addComponent(new Renderable(1,//x
          0,//y
@@ -171,45 +210,76 @@ function loader_costructor() {
          */
 
 
-        t.load({name: 'hp'});
+        //t.load('hp');
 
-        let texture = t.getLoadedTexture();
+        //var texture = t.getLoadedTexture();
 
         e.addComponent(ControllableComponent());
-        //let sc = sprite_constructor(sb);
-        //e.addComponent(HealthComponent(5,sprite_loader.load("hp", -0.9, -0.8) ));
-        //e.addComponent(PhotonTorpedoComponent(sc.loadSprite("bigbullet", 0, 0)));
-        //e.addComponent(ShieldComponent(10, sc.loadSprite("shield", -0.9, -0.74)));
-        e.addComponent(HealthComponent(5, sprite_loader.load("hp")));
-        e.addComponent(ShieldComponent(10, sprite_loader.load("shield")));
-        e.addComponent(PhotonTorpedoComponent(sprite_loader.load("bigbullet")));
-        e.addComponent(GunComponent());
+
+
+        e.addComponent(PhotonTorpedoComponent(am.getSprite('bigbullet')));
+        e.addComponent(ShieldComponent(10, am.getSprite('shield')));
+
+
+        e.addComponent(ShieldComponent(10, am.getSprite('shield')));
+
+
         e.addComponent(CollisionComponent('player'));
 
+        var sp = am.getSprite('hp');
 
-        t.load({name: 'exhausttrail'});
 
-        let texture = t.getLoadedTexture();
-        //let texture = t.loadTexture('exhausttrail', false, true);
+        e.addComponent(GunComponent());
 
-        //let tc = texture_constructor(sb);
+        e.addComponent(HealthComponent(5, sp));
+
+        //var texture = t.loadTexture('exhausttrail', false, true);
+
+        //var tc = texture_constructor(sb);
         //t.loadTexture({name});
 
         //texture = tc.getLoadedTexture();
 
-        let mec = MultiExhaustComponent();
-        mec.addExhaust(ExhaustComponent(texture, 30, 1, 3.5));
-        mec.addExhaust(ExhaustComponent(texture, 30, 1, -3.5));
+
+        var mec = MultiExhaustComponent();
+        mec.addExhaust(ExhaustComponent(am.getSprite('exhausttrail'), 30, 1, 3.5));
+        mec.addExhaust(ExhaustComponent(am.getSprite('exhausttrail'), 30, 1, -3.5));
         e.addComponent(mec);
 
         return e;
 
     };
 
-    let createIntro = function () {
 
-        let e = em.addNew();
-        let m = am.getMesh('start');
+    var createDestroyer = function () {
+
+
+        //em.clearAll();
+        var e = em.addNew();
+
+        var mesh = am.getMesh('destroyer');
+        var mc = MeshComponent();
+        mc.setMesh(mesh);
+        e.addComponent(mc);
+        e.addComponent(LaserComponent());
+
+
+        var rc = RenderableComponent();
+
+        rc.setXPos(100);
+        rc.setZPos(-150);
+
+        e.addComponent(rc);
+
+
+        return e;
+
+    };
+
+    var createIntro = function () {
+
+        var e = em.addNew();
+        var m = am.getMesh('start');
 
 
         e.addComponent(RenderableComponent());
@@ -217,74 +287,60 @@ function loader_costructor() {
 
         return e;
     };
-    let createStars = function () {
+    var createStars = function () {
 
-        let e = em.addNew('stars');
+        var e = em.addNew('stars');
 
         e.addComponent(StarComponent());
 
         return e;
     };
-    let randomRangedInt = function () {
 
-        let rnd = getRandomInt(500, -500);
-        if (rnd > 100 ||
-            rnd < -100) {
-            return rnd;
-        }
-        else
-            return randomRangedInt();
-    }
 
-    let randomCloseInt = function () {
-
-        let rnd = getRandomInt(30, -30);
-
-        return rnd;
-
-    }
-
-    let createLayout = function (mothership, ship, radar = false, currency = false) {
-        let e = em.addNew('enemymirror');
-        let lm = [];
-        let gt = layout_constructor(0, 0.1);
+    var createLayout = function (mothership, ship, radar, currency) {
+        var e = em.addNew('enemymirror');
+        var lm = [];
+        var gt = layout_constructor(0, 0.1);
         gt.addChildren(layout_constructor(5, 0, mothership.components.HealthComponent, 8));
         gt.addChildren(layout_constructor(5, 10, mothership.components.ShieldComponent, 8));
         lm.push(gt);
 
-        let rt = layout_constructor(0, 0);
+        var rt = layout_constructor(0, 0);
         rt.addChildren(layout_constructor(5, 5, ship.components.HealthComponent, 8));
         rt.addChildren(layout_constructor(5, 15, ship.components.ShieldComponent, 8));
         lm.push(rt);
         if (radar) {
 
-            let lb = layout_constructor(1, 1);
+            var lb = layout_constructor(1, 1);
             lb.addChildren(layout_constructor(5, 5, radar.components.RadarComponent, 55));
             lm.push(lb);
         }
         if (currency) {
-            let lh = layout_constructor(0, 1);
+            var lh = layout_constructor(0, 1);
             lh.addChildren(layout_constructor(5, 5, currency.components.CurrencyComponent, 8));
             lm.push(lh);
         }
         e.addComponent(LayoutComponent(lm));
-    }
+    };
 
-    let createEnemy = function () {
+    var createEnemy = function () {
 
 
-        let e = em.addNew('enemymirror');
-        let mesh = am.getMesh('enemy');
-
-        e.addComponent(MeshComponent({mesh: mesh}));
+        var e = em.addNew('enemymirror');
+        var mesh = am.getMesh('enemy');
+        var m = MeshComponent();
+        m.setMesh(mesh);
+        e.addComponent(m);
         e.addComponent(EnemyComponent());
+
+        //e.addComponent(HealthComponent(2));
 
         //e.addComponent(new MomentumMovable(30, 15, 0, 0));
 
 
-        let rc = RenderableComponent();
-        rc.setXPos(randomCloseInt());
-        rc.setZPos(randomCloseInt());
+        var rc = RenderableComponent();
+        rc.setXPos(randomRangedInt());
+        rc.setZPos(randomRangedInt());
         e.addComponent(rc);
 
         /*xp, //x
@@ -299,101 +355,123 @@ function loader_costructor() {
          10//zWidth5
          )*/
 
-        // e.addComponent(CollisionComponent('enemy'));
-        //e.addComponent(HealthComponent(1));
+        e.addComponent(CollisionComponent('enemy'));
+        e.addComponent(HealthComponent(1));
 
         return e;
 
     };
-    let createCurrency = function () {
+    var createCurrency = function () {
 
-        let e = em.addNew();
+        var e = em.addNew();
 
-        let sc = sprite_constructor(sb);
+        //var sc = sprite_constructor(sb);
 //"currency", 0.9, 0.74
-        e.addComponent(CurrencyComponent(sprite_loader.load("currency")));
-        return e;
-    }
-    let createRadar = function () {
-
-        let e = em.addNew();
-        //let sc = sprite_constructor(sb);
-        //, 0.9, 0.74
-        e.addComponent(new RadarComponent(sprite_loader.load("radar")));
+        e.addComponent(CurrencyComponent(am.getSprite('currency')));
         return e;
     };
-    let createMotherShip = function () {
+    var createRadar = function () {
+
+        var e = em.addNew();
+        //var sc = sprite_constructor(sb);
+        //, 0.9, 0.74
+        e.addComponent(RadarComponent(am.getSprite('radar')));
+        return e;
+    };
+
+    var createMotherShip = function () {
 
 
-        let e = em.addNew('mothership');
-
-        let mesh = am.getMesh('mothership');
-        //let m = am.getMesh('mothership');
-        e.addComponent(MeshComponent({mesh}));
+        var e = em.addNew('mothership');
 
 
-        e.addComponent(MovableComponent(30));
+        var mesh = am.getMesh('mothership');
+
+        var m = MeshComponent();
+        m.setMesh(mesh);
+        e.addComponent(m);
+
+
+        var mc = MomentumComponent();
+
+        mc.setTurnSpeed(250);
+        mc.setSpeed(50);
+        e.addComponent(mc);
+
         /*m.xPos, m.yPos, m.zPos, 2)*/
         //{xPos: 10, yPos: 0, zPos: 20}
-        e.addComponent(RenderableComponent());
-        e.addComponent(ControllableComponent());
-        // e.addComponent(VisibilityComponent({}));
-        e.addComponent(MomentumComponent({}));
+        var rc = RenderableComponent();
+        rc.setXPos(0);
+        rc.setZPos(0);
+        rc.setYPos(0);
+        e.addComponent(rc);
 
-        //e.addComponent(new Drivable());
-        //can be only one. Camera follows this entity
+        e.addComponent(HealthComponent(50, am.getSprite('hp')));
+        e.addComponent(ShieldComponent(2, am.getSprite('shield')));
+        e.addComponent(ControllableComponent());
         e.addComponent(CameraTargetComponent());
 
-        let points = circleXY({x: 0, y: 0, z: 0}, 300, 200);
-        let buffer = sb.getGL().createBuffer();
-        //let bd = sb.getGL().bufferData(gl.ARRAY_BUFFER, new Float32Array(points), sb.getGL().STATIC_DRAW);
+        e.addComponent(VisibilityComponent());
+
+
+        var points = circleXY(0, 0, 0, 300, 200);
+        var buffer = sb.getGL().createBuffer();
+        //var bd = sb.getGL().bufferData(gl.ARRAY_BUFFER, new Float32Array(points), sb.getGL().STATIC_DRAW);
 
 
         sb.getGL().bindBuffer(sb.getGL().ARRAY_BUFFER, buffer);
         sb.getGL().bufferData(sb.getGL().ARRAY_BUFFER, new Float32Array(points), sb.getGL().STATIC_DRAW);
 
-        let jArea = JumpAreaComponent(buffer, points, 0, 0, 0, [0.23, 1.00, 0.63]);
+        var jArea = JumpAreaComponent(buffer, points, 0, 0, 0, [0.23, 1.00, 0.63]);
 
         e.addComponent(jArea);
 
-        //let sc = sprite_component(sb);
-        //let hp = sc.loadSprite("hp", -0.9, -0.8);
-        //let shield = sc.loadSprite("shield", -0.9, -0.74);
-        e.addComponent(HealthComponent(10, sprite_loader.load("hp")));
-        e.addComponent(ShieldComponent(2, sprite_loader.load("shield")));
+        e.addComponent(CollisionComponent('player'));
 
 
-        //let tc = texture_constructor(sb);
-        t.load({name: 'exhaust'});
+        //var tc = texture_constructor(sb);
+        // t.load({name: 'exhaust'});
 
-        let texture = t.getLoadedTexture();
+        //var texture = t.getLoadedTexture();
 
-        let mec = new MultiExhaustComponent();
-        mec.addExhaust(ExhaustComponent(texture, 5, 4, 12, 18));
-        mec.addExhaust(ExhaustComponent(texture, 5, 4, -12, 18));
+        var sprite = am.getSprite('exhaust');
+
+        var mec = MultiExhaustComponent();
+        mec.addExhaust(ExhaustComponent(sprite, 5, 4, 12, 18));
+        mec.addExhaust(ExhaustComponent(sprite, 5, 4, -12, 18));
         e.addComponent(mec);
 
-        e.addComponent(new CollisionComponent('player'));
+
+        /*
+
+
+         //e.addComponent(new Drivable());
+         //can be only one. Camera follows this entity
+
+
+
+
+         //var sc = sprite_component(sb);
+
+         //var shield = sc.loadSprite("shield", -0.9, -0.74);
+         e.addComponent(HealthComponent(10, am.getSprite('hp')));
+
+
+
+
+
+
+         */
+
         return e;
-    }
-    let createTerrain = function () {
-        //createTerrain() {
-
-        let e = em.addNew('terrain');
-        let m = am.getMesh('terrain');
-
-        e.addComponent(MeshComponent(m));
-        e.addComponent(Renderable(m.xPos, m.yPos, m.zPos));
-
-        return e;
-
-    }
-    let createBareMotherShip = function () {
+    };
+    //for map
+    var createBareMotherShip = function () {
         // createBareMotherShip() {
 
-        let e = em.addNew('baremothership');
-        let m = am.getMesh('mothership');
-        e.addComponent(new MeshComponent(m));
+        var e = em.addNew('baremothership');
+        var m = am.getMesh('mothership');
+        e.addComponent(MeshComponent(m));
 //0, 0.5, 0, 0.05
         e.addComponent(RenderableComponent());
 
@@ -404,19 +482,19 @@ function loader_costructor() {
 
         return e;
     };
-    let createAsteroidField = function () {
+    var createAsteroidField = function () {
         //   createAsteroidField() {
 
-        let e = em.addNew();
+        var e = em.addNew();
         e.addComponent(AsteroidComponent());
         return e;
 
     };
-    let createBackground = function () {
+    var createBackground = function () {
         // createBackground() {
 
-        let e = em.addNew();
-        let m = Mesh("background");
+        var e = em.addNew();
+        var m = Mesh("background");
 
         /*m.xPos, m.yPos, m.zPos)
 
@@ -427,61 +505,48 @@ function loader_costructor() {
         return e;
 
     };
-    let createFuel = function (rand) {
-
-        let e2 = em.addNew();
-        let m = am.getMesh('satellite');
+    var createFuel = function (rand) {
 
 
-        e2.addComponent(RenderableComponent());
-        e2.addComponent(MeshComponent({mesh: m}));
+        var e = em.addNew();
+        var m = am.getMesh('fuel');
+        var me = MeshComponent();
+        me.setMesh(m);
+        e.addComponent(me);
 
-
-
-
-        //createFuel(rand) {
-
-
-        let e = em.addNew();
-        let m = am.getMesh('fuel');
-        e.addComponent(MeshComponent({mesh: m}));
-        //e.addComponent(new JumpHold());
-
-        //e.addComponent(new Movable(12));
-        // if (rand) {
-
-        //getRandomInt(-200, 200), 0, getRandomInt(200, -200), 50)
-        //     e.addComponent(RenderableComponent({}));
-        // }
-        //else {
-        //110, 0, 50, 50
-        //{xPos: 10, yPos: 0, zPos: 10}
-        let rc = RenderableComponent();
+        var rc = RenderableComponent();
         rc.setScale(50);
         rc.setXPos(100);
         rc.setZPos(200);
         e.addComponent(rc);
         // }
-        // e.addComponent(RotationComponent({x: 10, y: 10, z: 10}));
-        //e.addComponent(CollisionComponent('enemy'));
+        e.addComponent(RotationComponent(10, 10, 10));
+        e.addComponent(CollisionComponent('enemy'));
         e.addComponent(HealthComponent(5));
 
         return e;
 
     };
-    let createPlane = function () {
-        //createPlane() {
-        let e = em.addNew();
-        //e.addComponent(new PlaneComponent(new Plane(80)));
+    var createPlane = function () {
+
+        var e = em.addNew();
+
+        var rc = RenderableComponent();
+        rc.setXPos(0);
+        rc.setZPos(0);
+        rc.setYPos(0);
+        e.addComponent(rc);
+
+        e.addComponent(PlaneComponent(new Plane(80)));
         return e;
 
     };
-    let createMap = function () {
+    var createMap = function () {
         // createMap() {
-        let e = em.addNew('map');
-        //let t = new Texture('maptiles');
+        var e = em.addNew('map');
+        //var t = new Texture('maptiles');
         e.addComponent(MapComponent());
-        //let hg = new Hexagon(5);
+        //var hg = new Hexagon(5);
         //e.addComponent(new PrimitiveComponent(hg.area,[0.75,0.75,0]));
 
         e.addComponent(new Renderable(0,//x
@@ -493,9 +558,9 @@ function loader_costructor() {
         return e;
 
     };
-    let createText = function () {
+    var createText = function () {
         //createText(level) {
-        let e = em.addNew();
+        var e = em.addNew();
         e.addComponent(TextComponent('first'));
     };
 

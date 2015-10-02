@@ -1,11 +1,17 @@
 function TextComponent(level) {
-    //constructor(level) {
-    let name = "TextComponent";
+    "use strict";
 
-    // let t = texttimer_constructor();
-    //let texts = t.getLevelText(level);
+    //constructor(level) {
+    var name = "TextComponent";
+
+    // var t = texttimer_constructor();
+    //var texts = t.getLevelText(level);
     //}
-    return {}
+    return {
+        getName: function () {
+            return name;
+        }
+    }
 
 }
 

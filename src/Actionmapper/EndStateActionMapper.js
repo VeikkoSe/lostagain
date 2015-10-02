@@ -1,19 +1,19 @@
 function end_action_mapper(sb) {
+    "use strict";
 
-
-    let currentlyPressedKeys = [];
-    let handleKeyDown = function (event) {
+    var currentlyPressedKeys = [];
+    var handleKeyDown = function (event) {
 
         currentlyPressedKeys[event.keyCode] = true;
-    }
+    };
 
 
-    let handleKeyUp = function (event) {
+    var handleKeyUp = function (event) {
         currentlyPressedKeys[event.keyCode] = false;
-    }
+    };
 
 
-    let handleKeys = function () {
+    var handleKeys = function () {
 
         if (currentlyPressedKeys[32]) {
 
@@ -24,11 +24,11 @@ function end_action_mapper(sb) {
     };
 
 
-    let handleMouseDown = function (event) {
+    var handleMouseDown = function (event) {
 
         sb.publish("loadstate", 'introstate');
 
-    }
+    };
 
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)

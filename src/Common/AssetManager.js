@@ -1,8 +1,12 @@
+/*
+ * Loads assets
+ */
 function asset_manager_constructor() {
-    //  let sb = params;
-    let meshes, textures, loadingAmount, loadingMax, sb;
+    "use strict";
+    //  var sb = params;
+    var meshes, sprites, textures, loadingAmount, loadingMax, sb;
 
-    let init = function (sandbox) {
+    var init = function (sandbox) {
 
         sb = sandbox;
 
@@ -10,10 +14,11 @@ function asset_manager_constructor() {
         textures = [];
         loadingAmount = 0;
         loadingMax = 0;
+        sprites = [];
 
-    }
+    };
 
-    let start = function () {
+    var start = function () {
         sb.subscribe("assetload", function (name, assetname) {
 
 
@@ -26,9 +31,9 @@ function asset_manager_constructor() {
 
 
         });
-    }
+    };
 
-    let getMesh = function (name) {
+    var getMesh = function (name) {
         if (meshes[name])
             return meshes[name];
 
@@ -36,8 +41,8 @@ function asset_manager_constructor() {
         loadingMax++;
 
         //console.log(loadingAmount);
-        //let params = {name,game};
-        let m = mesh_constructor(sb);
+        //var params = {name,game};
+        var m = mesh_constructor(sb);
         m.loadMesh(name);
 
         meshes[name] = m;
@@ -45,26 +50,32 @@ function asset_manager_constructor() {
         return meshes[name];
     };
 
-    let getTexture = function (name) {
-        /*
-         if (textures[name])
-         return textures[name];
+    var getSprite = function (name) {
+        if (sprites[name])
+            return sprites[name];
 
-         let m = new Texture(name);
+        //loadingAmount++;
+        //loadingMax++;
 
-         textures[name] = m;
-         return m;*/
+        //console.log(loadingAmount);
+        //var params = {name,game};
+        var s = sprite_constructor(sb);
+        s.load(name);
+
+        sprites[name] = s;
+
+        return sprites[name];
     };
 
 
-    let subscribe = function () {
+    var subscribe = function () {
 
-    }
+    };
 
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
-        getTexture,
         getMesh,
+        getSprite,
         init,
         subscribe,
         start,

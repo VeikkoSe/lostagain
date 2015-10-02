@@ -1,21 +1,23 @@
 function introstate_constructor(sb) {
-    //let {game} = params;
+    "use strict";
 
-    //let shadermanager = shader_manager_constuctor();
-    //let shaderprogram = shadermanager.init("per-fragment-lighting");
-    //let assetmanager = asset_manager_constructor();
-    //let camera = game.camera;
-    //let intro = assetmanager.getMesh('start');
-    //  let actionMapper = intro_action_mapper(sb);
-    let processList = [];
-    let camera = sb.getCamera();
-    let gl = sb.getGL();
+    //var {game} = params;
+
+    //var shadermanager = shader_manager_constuctor();
+    //var shaderprogram = shadermanager.init("per-fragment-lighting");
+    //var assetmanager = asset_manager_constructor();
+    //var camera = game.camera;
+    //var intro = assetmanager.getMesh('start');
+    //  var actionMapper = intro_action_mapper(sb);
+    var processList = [];
+    var camera = sb.getCamera();
+    var gl = sb.getGL();
 
 
-    let draw = function () {
+    var draw = function () {
 
 
-        for (let i = 0; i < processList.length; i++) {
+        for (var i = 0; i < processList.length; i++) {
             processList[i].draw(sb);
         }
         /*
@@ -57,7 +59,7 @@ function introstate_constructor(sb) {
          gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());
          gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, camera.getMVMatrix());
 
-         let normalMatrix = mat3.create();
+         var normalMatrix = mat3.create();
          mat4.toInverseMat3(camera.getMVMatrix(), normalMatrix);
          mat3.transpose(normalMatrix);
          gl.uniformMatrix3fv(shaderprogram.uNMatrix, false, normalMatrix);
@@ -70,12 +72,12 @@ function introstate_constructor(sb) {
 
     };
 
-    let subscribe = function () {
+    var subscribe = function () {
 
-    }
+    };
 
 
-    let init = function () {
+    var init = function () {
 
 
         processList.push(renderprocess_constructor(sb));
@@ -100,7 +102,7 @@ function introstate_constructor(sb) {
 
     };
 
-    let cleanup = function () {
+    var cleanup = function () {
         /*
          document.onkeydown = null;
          document.onkeyup = null;
@@ -112,7 +114,7 @@ function introstate_constructor(sb) {
     };
 
 
-    let update = function () {
+    var update = function () {
         // actionMapper.handleKeys();
     };
 

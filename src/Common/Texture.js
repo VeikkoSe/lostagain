@@ -2,15 +2,16 @@
  * Created by Vge on 3.3.2014.
  */
 function texture_constructor(sandbox) {
+    "use strict";
 
-    //let {name,noflip} = params;
+    //var {name,noflip} = params;
 
-    let loadedTexture = null;
-    let gl = sandbox.getGL();
+    var loadedTexture = null;
+    var gl = sandbox.getGL();
 
 
-    let load = function (params) {
-        let {name, noflip,repeat} = params;
+    var load = function (name, noflip, repeat) {
+        console.log(name);
         loadedTexture = gl.createTexture();
 
         loadedTexture.image = new Image();
@@ -43,12 +44,12 @@ function texture_constructor(sandbox) {
             gl.bindTexture(gl.TEXTURE_2D, null);
 
 
-        }
+        };
 
         loadedTexture.image.src = 'resources/images/' + name + '.png';
-    }
+    };
 
-    let getLoadedTexture = function () {
+    var getLoadedTexture = function () {
         return loadedTexture;
     };
 

@@ -1,199 +1,205 @@
 function exhaustprocess_constructor(sb) {
+    "use strict";
+
     //constructor() {
     //this.exhaustAmount = 200;
     //this.exhaustInterval = 50;
     //this.exhaustTrail = [];
-    let shadermanager = sb.getShaderManager();
-    let exhaustProgram = shadermanager.useShader("exhaust");
-    let em = sb.getEntityManager();
-    let lastTime = 0;
-    //let exhaustProgram = sm.init('exhaust');
-    let elapsedTotal = 0;
-    let gl = sb.getGL();
+    var shadermanager = sb.getShaderManager();
+    var exhaustProgram = shadermanager.useShader("exhaust");
+    var em = sb.getEntityManager();
+    var lastTime = 0;
+    //var exhaustProgram = sm.init('exhaust');
+    var elapsedTotal = 0;
+    var gl = sb.getGL();
 
-    let vertexPositionBuffer = gl.createBuffer();
+    var vertexPositionBuffer = gl.createBuffer();
 
-    let texturePositionBuffer = gl.createBuffer();
+    var texturePositionBuffer = gl.createBuffer();
 
-    let camera = sb.getCamera();
+    var camera = sb.getCamera();
 
-    let init = function () {
+    var init = function () {
         gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
         gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
-    }
+    };
 
 
     //}
 
 
-    let pushArray = function (arr, arr2) {
+    var pushArray = function (arr, arr2) {
         arr.push.apply(arr, arr2);
-    }
+    };
 
 
-    let updateTail = function (exhaustComponent, renderableComponent) {
+    var updateTail = function (exhaustComponent, renderableComponent) {
 
 
-        let re = renderableComponent;
-        let ec = exhaustComponent;
+        var re = renderableComponent;
+        var ec = exhaustComponent;
 
 
-        let posX = re.xPos;
-        let posZ = re.zPos;
+        var posX = re.xPos;
+        var posZ = re.zPos;
 
-        let unitX = Math.cos(degToRad(re.angleY));
-        let unitZ = Math.sin(degToRad(re.angleY));
+        var unitX = Math.cos(degToRad(re.angleY));
+        var unitZ = Math.sin(degToRad(re.angleY));
 
-        let rendX = (posX - (unitX * ec.offSetSideFromCenter)) - ((-1 * unitZ) * ec.offSetFromCenter);
-        let rendZ = (posZ + (unitZ * ec.offSetSideFromCenter)) + (unitX * ec.offSetFromCenter);
+        var rendX = (posX - (unitX * ec.offSetSideFromCenter)) - ((-1 * unitZ) * ec.offSetFromCenter);
+        var rendZ = (posZ + (unitZ * ec.offSetSideFromCenter)) + (unitX * ec.offSetFromCenter);
 
+        var flow = ec.getFlow();
+        var square = ec.getSquare();
+        var points = ec.getPoints();
+        var textureCoordinates = ec.getTexturecoordinates();
 
         //drop from the end of array
-        if ((ec.flow.length / 3) >= ec.length) {
-            ec.flow.shift();
-            ec.flow.shift();
-            ec.flow.shift();
-            for (let i = 0; i < 18; i++)
-                ec.points.shift();
+        if ((flow.length / 3) >= ec.length) {
+            flow.shift();
+            flow.shift();
+            flow.shift();
+            for (var i = 0; i < 18; i++)
+                ec.getPoints().shift();
 
-            for (let i = 0; i < 12; i++)
+            for (var i = 0; i < 12; i++)
                 ec.texturecoordinates.shift();
 
         }
 
-        if (ec.flow.length == 0) {
+        if (flow.length == 0) {
 
-            ec.flow.push(rendX);
-            ec.flow.push(0);
-            ec.flow.push(rendZ);
+            flow.push(rendX);
+            flow.push(0);
+            flow.push(rendZ);
 
         }
 
-        let xd = rendX - ec.flow[ec.flow.length - 3];
-        let zd = rendZ - ec.flow[ec.flow.length - 1];
-        let xdh = xd / 2;
-        let zdh = zd / 2;
-        let distance = Math.sqrt(xd * xd + zd * zd);
+        var xd = rendX - flow[flow.length - 3];
+        var zd = rendZ - flow[flow.length - 1];
+        var xdh = xd / 2;
+        var zdh = zd / 2;
+        var distance = Math.sqrt(xd * xd + zd * zd);
 
 
         //when to create new
         if (distance > ec.width) {
 
 
-            if (ec.flow.length > 3) {
+            if (flow.length > 3) {
 
                 //quarter of a turn. That means if blue = (x, y), red = (-y, x)
 
 
-                let i = 0;
+                var i = 0;
                 //first triangle
-                ec.square[i++] = ec.points[ec.points.length - 6];
-                ec.square[i++] = 0;
-                ec.square[i++] = ec.points[ec.points.length - 4];
+                square[i++] = points[points.length - 6];
+                square[i++] = 0;
+                square[i++] = points[points.length - 4];
 
-                ec.square[i++] = zdh + rendX;
-                ec.square[i++] = 0;
-                ec.square[i++] = -1 * xdh + rendZ;
+                square[i++] = zdh + rendX;
+                square[i++] = 0;
+                square[i++] = -1 * xdh + rendZ;
 
-                ec.square[i++] = ec.points[ec.points.length - 3];
-                ec.square[i++] = 0;
-                ec.square[i++] = ec.points[ec.points.length - 1];
+                square[i++] = points[points.length - 3];
+                square[i++] = 0;
+                square[i++] = points[points.length - 1];
 
 
                 //second triangle
-                ec.square[i++] = ec.points[ec.points.length - 6];
-                ec.square[i++] = 0;
-                ec.square[i++] = ec.points[ec.points.length - 4];
+                square[i++] = points[points.length - 6];
+                square[i++] = 0;
+                square[i++] = points[points.length - 4];
 
-                ec.square[i++] = -1 * zdh + rendX;
-                ec.square[i++] = 0;
-                ec.square[i++] = xdh + rendZ;
+                square[i++] = -1 * zdh + rendX;
+                square[i++] = 0;
+                square[i++] = xdh + rendZ;
 
-                ec.square[i++] = zdh + rendX;
-                ec.square[i++] = 0;
-                ec.square[i++] = -1 * xdh + rendZ;
+                square[i++] = zdh + rendX;
+                square[i++] = 0;
+                square[i++] = -1 * xdh + rendZ;
 
-                for (let i = 0; i < 18; i++) {
-                    ec.points.push(ec.square[i]);
+                for (var i = 0; i < 18; i++) {
+                    points.push(square[i]);
                 }
 
 
-                ec.flow.push(rendX);
-                ec.flow.push(0);
-                ec.flow.push(rendZ);
+                flow.push(rendX);
+                flow.push(0);
+                flow.push(rendZ);
 
             }
             else {
                 //first triangle
-                ec.points.push(-1 * zdh + ec.flow[ec.flow.length - 3]);
-                ec.points.push(0);
-                ec.points.push(xdh + ec.flow[ec.flow.length - 1]);
+                points.push(-1 * zdh + flow[flow.length - 3]);
+                points.push(0);
+                points.push(xdh + flow[flow.length - 1]);
 
-                ec.points.push(zdh + rendX);
-                ec.points.push(0);
-                ec.points.push(-1 * xdh + rendZ);
+                points.push(zdh + rendX);
+                points.push(0);
+                points.push(-1 * xdh + rendZ);
 
-                ec.points.push(zdh + ec.flow[ec.flow.length - 3]);
-                ec.points.push(0);
-                ec.points.push(-1 * xdh + ec.flow[ec.flow.length - 1]);
+                points.push(zdh + flow[flow.length - 3]);
+                points.push(0);
+                points.push(-1 * xdh + flow[flow.length - 1]);
 
                 //second triangle
-                ec.points.push(-1 * zdh + ec.flow[ec.flow.length - 3]);
-                ec.points.push(0);
-                ec.points.push(xdh + ec.flow[ec.flow.length - 1]);
+                points.push(-1 * zdh + flow[flow.length - 3]);
+                points.push(0);
+                points.push(xdh + flow[flow.length - 1]);
 
-                ec.points.push(-1 * zdh + rendX);
-                ec.points.push(0);
-                ec.points.push(xdh + rendZ);
+                points.push(-1 * zdh + rendX);
+                points.push(0);
+                points.push(xdh + rendZ);
 
-                ec.points.push(zdh + rendX);
-                ec.points.push(0);
-                ec.points.push(-1 * xdh + rendZ);
+                points.push(zdh + rendX);
+                points.push(0);
+                points.push(-1 * xdh + rendZ);
 
 
-                ec.flow.push(rendX);
-                ec.flow.push(0);
-                ec.flow.push(rendZ);
+                flow.push(rendX);
+                flow.push(0);
+                flow.push(rendZ);
 
 
             }
 
-            ec.texturecoordinates.push(1);
-            ec.texturecoordinates.push(0);
+            textureCoordinates.push(1);
+            textureCoordinates.push(0);
 
-            ec.texturecoordinates.push(0);
-            ec.texturecoordinates.push(1);
+            textureCoordinates.push(0);
+            textureCoordinates.push(1);
 
-            ec.texturecoordinates.push(0);
-            ec.texturecoordinates.push(0);
+            textureCoordinates.push(0);
+            textureCoordinates.push(0);
 
 
-            ec.texturecoordinates.push(1);
-            ec.texturecoordinates.push(0);
+            textureCoordinates.push(1);
+            textureCoordinates.push(0);
 
-            ec.texturecoordinates.push(1);
-            ec.texturecoordinates.push(1);
+            textureCoordinates.push(1);
+            textureCoordinates.push(1);
 
-            ec.texturecoordinates.push(0);
-            ec.texturecoordinates.push(1);
+            textureCoordinates.push(0);
+            textureCoordinates.push(1);
 
 
         }
 
 
-    }
+    };
 
-    let update = function (deltatime) {
-
-
-        let timeNow = new Date().getTime();
+    var update = function (deltatime) {
 
 
-        let elapsed = timeNow - lastTime;
+        var timeNow = new Date().getTime();
+
+
+        var elapsed = timeNow - lastTime;
         elapsedTotal += elapsed;
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
 
             if (le.components.ExhaustComponent) {
@@ -203,7 +209,7 @@ function exhaustprocess_constructor(sb) {
             }
 
             if (le.components.MultiExhaustComponent) {
-                for (let i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++) {
+                for (var i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++) {
                     updateTail(le.components.MultiExhaustComponent.exhaustComponents[i], le.components.RenderableComponent);
                 }
             }
@@ -211,19 +217,19 @@ function exhaustprocess_constructor(sb) {
         }
 
 
-    }
+    };
 
 
-    let drawTail = function (exhaustComponent) {
-        let ec = exhaustComponent;
-        //for (let i = 0; i < this.exhaustAmount; i++) {
+    var drawTail = function (exhaustComponent) {
+        var ec = exhaustComponent;
+        //for (var i = 0; i < this.exhaustAmount; i++) {
 
-        if (ec.points.length > 8) {
+        if (ec.getPoints().length > 8) {
             sm.setProgram(exhaustProgram);
 
-            gl.enable(gl.BLEND);
-            gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-            gl.disable(gl.DEPTH_TEST);
+            //gl.enable(gl.BLEND);
+            //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+            //gl.disable(gl.DEPTH_TEST);
 
             gl.activeTexture(gl.TEXTURE0);
 
@@ -252,17 +258,17 @@ function exhaustprocess_constructor(sb) {
 
             camera.mvPopMatrix();
 
-            gl.enable(gl.DEPTH_TEST);
-            gl.disable(gl.BLEND);
+            //gl.enable(gl.DEPTH_TEST);
+            //gl.disable(gl.BLEND);
 
         }
-    }
+    };
 
-    let draw = function () {
+    var draw = function () {
 
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if ((le.components.ExhaustComponent || le.components.MultiExhaustComponent) && le.components.HealthComponent.amount > 0) {
 
@@ -272,7 +278,7 @@ function exhaustprocess_constructor(sb) {
                 }
                 if (le.components.MultiExhaustComponent) {
 
-                    for (let i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++)
+                    for (var i = 0; i < le.components.MultiExhaustComponent.exhaustComponents.length; i++)
                         drawTail(le.components.MultiExhaustComponent.exhaustComponents[i]);
 
                 }
@@ -283,12 +289,12 @@ function exhaustprocess_constructor(sb) {
 
         }
 
-    }
+    };
 
     return {
         update, draw, init: function () {
         }
-    }
+    };
 
 
     //}

@@ -1,14 +1,18 @@
 function SelectableComponent() {
+    "use strict";
+
 
     //constructor() {
-    let name = "SelectableComponent";
-    let selected = false;
-    //let color = picker.createColor();
+    var name = "SelectableComponent";
+    var selected = false;
+    //var color = picker.createColor();
 
 
     //}
     return {
-        name, selected
+        getName: function () {
+            return name;
+        }, selected
     }
 
 

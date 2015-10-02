@@ -1,44 +1,46 @@
 function text_process_constructor(sb) {
+    "use strict";
+
     //constructor() {
 
-    let fontProgram = sm.init('font');
+    var fontProgram = sm.init('font');
 
-    let text = new Text();
-    let str = 'The quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog';
-    let characterArray = text.textToC(str);
-    let textBuffer = text.buildData(characterArray);
+    var text = new Text();
+    var str = 'The quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog';
+    var characterArray = text.textToC(str);
+    var textBuffer = text.buildData(characterArray);
 
 
-    let gl = sb.getGL();
-    let rotation = null;
+    var gl = sb.getGL();
+    var rotation = null;
 
-    let t = texture_constructor(sb);
+    var t = texture_constructor(sb);
 
-    let texture = t.loadedTexture;
+    var texture = t.loadedTexture;
 
-    let em = sb.getEntityManager();
+    var em = sb.getEntityManager();
 
-    let squareBuffer = gl.createBuffer();
+    var squareBuffer = gl.createBuffer();
 
 
     gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
-    let size = textBuffer.length / 5;
+    var size = textBuffer.length / 5;
 
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
     //}
 
-    let update = function (deltatime) {
+    var update = function (deltatime) {
 
 
-    }
+    };
 
 
-    let draw = function (text) {
+    var draw = function (text) {
 
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.TextComponent) {
                 // sm.setProgram(this.fontProgram);
@@ -65,7 +67,7 @@ function text_process_constructor(sb) {
         }
 
 
-    }
+    };
     return {
         draw, update, init: function () {
         }

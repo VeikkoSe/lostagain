@@ -1,6 +1,8 @@
 function endstate_constructor(sb) {
+    "use strict";
 
-    let gl = sb.getGL();
+
+    var gl = sb.getGL();
     /*
      constructor(canvas) {
      this.background = null;
@@ -8,7 +10,7 @@ function endstate_constructor(sb) {
 
      }
      */
-    let draw = function () {
+    var draw = function () {
 
         //sm.setProgram(this.shaderProgram);
 
@@ -51,7 +53,7 @@ function endstate_constructor(sb) {
          gl.uniformMatrix4fv(this.shaderProgram.uPMatrix, false, camera.pMatrix);
          gl.uniformMatrix4fv(this.shaderProgram.uMVMatrix, false, camera.mvMatrix);
 
-         let normalMatrix = mat3.create();
+         var normalMatrix = mat3.create();
          mat4.toInverseMat3(camera.mvMatrix, normalMatrix);
          mat3.transpose(normalMatrix);
          gl.uniformMatrix3fv(this.shaderProgram.uNMatrix, false, normalMatrix);
@@ -62,10 +64,10 @@ function endstate_constructor(sb) {
          camera.mvPopMatrix();
          */
 
-    }
+    };
 
 
-    let init = function () {
+    var init = function () {
         /*
 
          //global
@@ -100,9 +102,9 @@ function endstate_constructor(sb) {
          mat4.translate(camera.mvMatrix, [0, 0, -10]);
          */
 
-    }
+    };
 
-    let cleanup = function () {
+    var cleanup = function () {
         /*
 
          document.onkeydown = null;
@@ -112,12 +114,12 @@ function endstate_constructor(sb) {
          actionMapper = null;
          currentlyPressedKeys = {};
          */
-    }
+    };
 
 
-    let update = function () {
+    var update = function () {
         //actionMapper.handleKeys();
-    }
+    };
     return {
         update,
         init,

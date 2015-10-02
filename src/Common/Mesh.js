@@ -1,59 +1,61 @@
 function mesh_constructor(sandbox) {
-    // let {name,game} = params;
-    let sb = sandbox;
-    let vertices = [];
-    let texturecoordinates = [];
-    let normals = [];
-    let indices = [];
-    let xPos = 0;
-    let yPos = 0;
-    let zPos = 0;
-    let gl = sb.getGL();
+    "use strict";
+    // var {name,game} = params;
+    var sb = sandbox;
+    var vertices = [];
+    var texturecoordinates = [];
+    var normals = [];
+    var indices = [];
+    var xPos = 0;
+    var yPos = 0;
+    var zPos = 0;
+    var gl = sb.getGL();
 
     //
 
 
-    let ambient = null;
-    let diffuse = null;
-    let specular = null;
-    let texture = null;
+    var ambient = null;
+    var diffuse = null;
+    var specular = null;
+    var texture = null;
 
 
-    //let rotation = 0;
+    //var rotation = 0;
 
-    let vertexPositionBuffer = gl.createBuffer();
-    let texturePositionBuffer = gl.createBuffer();
-    let indexPositionBuffer = gl.createBuffer();
-    let normalPositionBuffer = gl.createBuffer();
+    var vertexPositionBuffer = gl.createBuffer();
+    var texturePositionBuffer = gl.createBuffer();
+    var indexPositionBuffer = gl.createBuffer();
+    var normalPositionBuffer = gl.createBuffer();
 
 
     //loadMesh();
 
-    //let t = new Texture(this.name);
+    //var t = new Texture(this.name);
 
     //this.texture = t.loadedTexture;
     //this.textureLoaded = t.loaded;
 
 
-    let getTexture = function () {
+    var getTexture = function () {
         return texture;
-    }
+    };
 
-    let loadMesh = function (name) {
+    var loadMesh = function (name) {
 
         //loadManager.loadTotal++;
-        let tc = texture_constructor(sb);
-        tc.load({name});
+        var tc = texture_constructor(sb);
+        console.log(name);
+        tc.load(name, false, false);
 
         texture = tc.getLoadedTexture();
 
         //texture = tc.loadedTexture;
 
 
-        let request = new XMLHttpRequest();
+        var request = new XMLHttpRequest();
         request.open("GET", "resources/models/" + name + ".js?" + Math.random(), true);
         request.send();
-        //let that = this;
+        //var that = this;
 
         request.onreadystatechange = function () {
 
@@ -71,10 +73,10 @@ function mesh_constructor(sandbox) {
     };
 
 
-    let inputData = function (data) {
+    var inputData = function (data) {
 
 
-        let d = JSON.parse(data);
+        var d = JSON.parse(data);
 
         vertices = d.vertices;
         texturecoordinates = d.texturecoordinates;
@@ -99,20 +101,20 @@ function mesh_constructor(sandbox) {
 
     };
 
-    let createNormals = function (vs, ind) {
-        let x = 0;
-        let y = 1;
-        let z = 2;
+    var createNormals = function (vs, ind) {
+        var x = 0;
+        var y = 1;
+        var z = 2;
 
-        let ns = [];
-        for (let i = 0; i < vs.length; i++) { //for each vertex, initialize normal x, normal y, normal z
+        var ns = [];
+        for (var i = 0; i < vs.length; i++) { //for each vertex, initialize normal x, normal y, normal z
             ns[i] = 0.0;
         }
 
-        for (let i = 0; i < ind.length; i = i + 3) { //we work on triads of vertices to calculate normals so i = i+3 (i = indices index)
-            let v1 = [];
-            let v2 = [];
-            let normal = [];
+        for (var i = 0; i < ind.length; i = i + 3) { //we work on triads of vertices to calculate normals so i = i+3 (i = indices index)
+            var v1 = [];
+            var v2 = [];
+            var normal = [];
             //p1 - p0
             v1[x] = vs[3 * ind[i + 1] + x] - vs[3 * ind[i] + x];
             v1[y] = vs[3 * ind[i + 1] + y] - vs[3 * ind[i] + y];
@@ -137,21 +139,21 @@ function mesh_constructor(sandbox) {
             // ns[3*ind[i]+x] += normal[x];
             // ns[3*ind[i]+y] += normal[y];
             // ns[3*ind[i]+z] += normal[z];
-            for (let j = 0; j < 3; j++) { //update the normals of that triangle: sum of vectors
+            for (var j = 0; j < 3; j++) { //update the normals of that triangle: sum of vectors
                 ns[3 * ind[i + j] + x] = ns[3 * ind[i + j] + x] + normal[x];
                 ns[3 * ind[i + j] + y] = ns[3 * ind[i + j] + y] + normal[y];
                 ns[3 * ind[i + j] + z] = ns[3 * ind[i + j] + z] + normal[z];
             }
         }
         //normalize the result
-        for (let i = 0; i < vs.length; i = i + 3) { //the increment here is because each vertex occurs with an offset of 3 in the array (due to x, y, z contiguous values)
+        for (var i = 0; i < vs.length; i = i + 3) { //the increment here is because each vertex occurs with an offset of 3 in the array (due to x, y, z contiguous values)
 
-            let nn = [];
+            var nn = [];
             nn[x] = ns[i + x];
             nn[y] = ns[i + y];
             nn[z] = ns[i + z];
 
-            let len = Math.sqrt((nn[x] * nn[x]) + (nn[y] * nn[y]) + (nn[z] * nn[z]));
+            var len = Math.sqrt((nn[x] * nn[x]) + (nn[y] * nn[y]) + (nn[z] * nn[z]));
             if (len == 0) len = 0.00001;
 
             nn[x] = nn[x] / len;
@@ -167,7 +169,7 @@ function mesh_constructor(sandbox) {
     };
 
 
-    let buildBuffers = function () {
+    var buildBuffers = function () {
 
         gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
@@ -192,17 +194,25 @@ function mesh_constructor(sandbox) {
             normalPositionBuffer.itemSize = 1;
             normalPositionBuffer.numItems = normals.length / 3;
         }
-    }
+    };
 
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
         loadMesh,
         getTexture,
-        vertexPositionBuffer,
-        texturePositionBuffer,
-        indexPositionBuffer,
-        normalPositionBuffer
+        getVertexPositionBuffer: function () {
+            return vertexPositionBuffer;
+        },
+        getTexturePositionBuffer: function () {
+            return texturePositionBuffer;
+        },
+        getIndexPositionBuffer: function () {
+            return indexPositionBuffer;
+        },
+        getNormalPositionBuffer: function () {
+            return normalPositionBuffer;
+        }
 
 
     });

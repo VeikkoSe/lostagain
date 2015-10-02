@@ -1,26 +1,28 @@
 function menustate_constructor(sb) {
+    "use strict";
+
 
     //constructor(canvas) {
 
-    let wall = null;
-    let gl = sb.getGL();
+    var wall = null;
+    var gl = sb.getGL();
 
-    let shadermanager = sb.getShaderManager();
-    let shaderprogram = shadermanager.useShader("simplest");
-    let camera = sb.getCamera();
+    var shadermanager = sb.getShaderManager();
+    var shaderprogram = shadermanager.useShader("simplest");
+    var camera = sb.getCamera();
 
     //}
 
-    let draw = function () {
+    var draw = function () {
 
 
-        gl.disable(gl.BLEND);
-        gl.enable(gl.DEPTH_TEST);
+        //gl.disable(gl.BLEND);
+        //gl.enable(gl.DEPTH_TEST);
 
 
         gl.uniform1f(shaderprogram.alphaUniform, 1);
         gl.uniform1i(shaderprogram.uDrawColors, 0);
-        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        // gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
 
         camera.mvPushMatrix();
@@ -56,23 +58,23 @@ function menustate_constructor(sb) {
         camera.mvPopMatrix();
 
 
-    }
+    };
 
 
-    let init = function () {
+    var init = function () {
         //global
 
         wall = mm.getOrAdd('menu');
 
         //console.log('init');
 
-        actionMapper = new MapStateActionMapper();
-
-        document.onkeydown = actionMapper.handleKeyDown;
-        document.onkeyup = actionMapper.handleKeyUp;
-        document.onmousemove = actionMapper.handleMouseMove;
-        document.onmousedown = actionMapper.handleMouseDown;
-
+        //actionMapper = new MapStateActionMapper();
+        /*
+         document.onkeydown = actionMapper.handleKeyDown;
+         document.onkeyup = actionMapper.handleKeyUp;
+         document.onmousemove = actionMapper.handleMouseMove;
+         document.onmousedown = actionMapper.handleMouseDown;
+         */
 
         //simplestProgram = initSimplestShaders("simplest");
         //shaderProgram = initShaders("per-fragment-lighting");
@@ -100,17 +102,21 @@ function menustate_constructor(sb) {
         sm.setProgram(shaderProgram);
 
 
-    }
+    };
 
 
-    let update = function () {
+    var update = function () {
 
         actionMapper.handleKeys();
 
 
-    }
+    };
+    var subscribe = function () {
 
-    let cleanup = function () {
+
+    };
+
+    var cleanup = function () {
         /*
          document.onkeydown = null;
          document.onkeyup = null;
@@ -119,8 +125,16 @@ function menustate_constructor(sb) {
          actionMapper = null;
          currentlyPressedKeys = {};
          */
-    }
-    return {};
+    };
+    return {
+        init,
+        subscribe,
+        draw,
+        update,
+        cleanup
+
+
+    };
 
 
 }

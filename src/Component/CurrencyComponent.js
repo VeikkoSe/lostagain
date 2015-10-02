@@ -1,11 +1,19 @@
 function CurrencyComponent(sprite) {
-    //constructor(sprite) {
-    let name = "CurrencyComponent";
-    let sprite = sprite;
+    "use strict";
+
+    var name = "CurrencyComponent";
+    var sprite = sprite;
 
 
     //}
-    return {name}
+    return {
+        getName: function () {
+            return name;
+        },
+        getSprite: function () {
+            return sprite;
+        }
+    }
 
 
 }

@@ -1,9 +1,13 @@
 function AsteroidComponent() {
+    "use strict";
 
-    let name = "AsteroidComponent";
+
+    var name = "AsteroidComponent";
 
     return Object.freeze({
-        name
+        getName: function () {
+            return name;
+        }
     });
 
 

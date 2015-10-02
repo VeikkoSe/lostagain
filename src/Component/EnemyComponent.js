@@ -1,11 +1,19 @@
 function EnemyComponent() {
-    //constructor() {
-    let name = "EnemyComponent";
-    let speed = 30;
+    "use strict";
+
+    var name = "EnemyComponent";
+    var speed = 30;
 
 
     //}
 
-    return {name}
+    return {
+        getName: function () {
+            return name;
+        },
+        getSpeed: function () {
+            return speed;
+        }
+    }
 
 }

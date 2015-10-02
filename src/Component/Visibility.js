@@ -1,11 +1,14 @@
-function VisibilityComponent(params) {
+function VisibilityComponent(visibility) {
+    "use strict";
 
-    let {visibility} = params;
-    let name = "VisibilityComponent";
+
+    var name = "VisibilityComponent";
 
 
     return Object.freeze({
-        name,
+        getName: function () {
+            return name;
+        },
         visibility
     });
 

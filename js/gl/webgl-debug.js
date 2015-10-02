@@ -249,10 +249,8 @@ function glFunctionArgsToString(functionName, args) {
         glFunctionArgToString(functionName, numArgs, ii, args[ii]);
   }
   return argStr;
-};
-
-
-function makePropertyWrapper(wrapper, original, propertyName) {
+}
+    function makePropertyWrapper(wrapper, original, propertyName) {
   //log("wrap prop: " + propertyName);
   wrapper.__defineGetter__(propertyName, function() {
     return original[propertyName];

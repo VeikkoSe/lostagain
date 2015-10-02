@@ -1,84 +1,56 @@
 function gamestate_constructor(sb) {
-
-    // constructor(canvas) {
-
-    let elapsedTotal = 0;
-    let gl = sb.getGL();
-    let camera = sb.getCamera();
-
-    let frameCount = 0;
-    let lastTime = 0;
-
-    let processList = [];
-    let startTime = null;
-
-    //let camera = camera_contructor();
-    //let lm = loadmanager_costructor();
+    "use strict";
 
 
-    //}
+    var elapsedTotal = 0;
+    var gl = sb.getGL();
+    var camera = sb.getCamera();
 
-    let subscribe = function () {
+    var frameCount = 0;
+    var lastTime = 0;
+
+    var processList = [];
+    var startTime = null;
+
+    var fb = null;
 
 
+    var subscribe = function () {
     };
 
 
-    let init = function () {
+    var init = function () {
+
 
         processList = [];
+        fb = gl.createFramebuffer();
 
-
-        //processList.push(text_process_2d_constructor(sb));
-        // processList.push(new AsteroidRenderProcess());
-        // processList.push(new PlaneProcess());
 
         sb.subscribe("movetoloadstate", function (name, wantedstate) {
 
             moveToLoadedStage(wantedstate);
         });
 
-
+        //order matters
         processList.push(cameracontrollerprocess_constructor(sb));
         processList.push(primitiveprocess_constructor(sb));
-
-        processList.push(teleport_process_constructor(sb));
-        processList.push(starprocess_constructor(sb));
         processList.push(enemyprocess_constructor(sb));
         processList.push(gunprocess_constructor(sb));
-        // processList.push(new LaserProcess());
         processList.push(momemtummovementprocess_constructor(sb));
         processList.push(exhaustprocess_constructor(sb));
         processList.push(explosionprocess_constructor(sb));
         processList.push(layoutprocess_constructor(sb));
         processList.push(collisionprocess_constructor(sb));
         processList.push(renderprocess_constructor(sb));
+        processList.push(starprocess_constructor(sb));
+        processList.push(teleport_process_constructor(sb));
+        processList.push(laserprocess_constructor(sb));
+        //processList.push(postprocess_constructor(sb));
 
-        for (let i = 0; i < processList.length; i++) {
+
+        for (var i = 0; i < processList.length; i++) {
             processList[i].init();
         }
-
-
-        //if (game.currentLevel == null) {
-
-        //lm.loadLevel('first');
-        //sb.publish("loadassets", 'first');
-        //  game.currentLevel = 'first';
-
-        // return;
-        //}
-
-
-        //actionMapper = new GameStateActionMapper();
-
-        /*
-         document.onkeydown = actionMapper.handleKeyDown;
-         document.onkeyup = actionMapper.handleKeyUp;
-         document.onmousemove = actionMapper.handleMouseMove;
-         document.onmousedown = actionMapper.handleMouseDown;
-         */
-        //let event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
-        //window.addEventListener(event, this.handleMouseWheel);
 
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
@@ -87,71 +59,80 @@ function gamestate_constructor(sb) {
         camera.setPerspective();
 
 
-        mat4.identity(camera.getMVMatrix());
-        //mat4.translate(camera.mvMatrix, [0, 0, -300]);
-
         startTime = new Date().getTime();
 
 
     };
 
 
-    let update = function () {
+    var update = function () {
+        //TODO remove
+        updateMatrices(camera);
 
 
-        let timeNow = new Date().getTime();
+        var timeNow = new Date().getTime();
 
+        //camera.move();
 
         frameCount++;
 
         if (lastTime != 0) {
 
 
-            let totalElapsed = timeNow - startTime;
+            var totalElapsed = timeNow - startTime;
 
-            let elapsed = timeNow - lastTime;
+            var elapsed = timeNow - lastTime;
             elapsedTotal += elapsed;
 
-            for (let i = 0; i < processList.length; i++) {
+            for (var i = 0; i < processList.length; i++) {
                 processList[i].update(elapsed, totalElapsed);
             }
 
-            /*
-             if (this.elapsedTotal >= 1000) {
-             let fps = this.frameCount;
-             this.frameCount = 0;
-             this.elapsedTotal -= 1000;
 
-             if (fps < 59)
-             $('#fps').css('color', 'red');
-             else
-             $('#fps').css('color', 'green');
-             $('#fps').html(fps);
-             }*/
+            if (elapsedTotal >= 1000) {
+                /*
+                 var fps = frameCount;
+                 */
+                frameCount = 0;
+                elapsedTotal -= 1000;
+                /*
+                 if (fps < 59)
+                 $('#fps').css('color', 'red');
+                 else
+                 $('#fps').css('color', 'green');
+                 $('#fps').html(fps);
+                 */
+            }
         }
         lastTime = timeNow;
 
 
-    }
+    };
 
-    let draw = function () {
+    var draw = function () {
 
 
-        gl.clearColor(0, 0, 0, 1.0);
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+        gl.disable(gl.BLEND);
+        gl.enable(gl.DEPTH_TEST);
+
+        //gl.clearColor(1, 1, 0, 1); // red
+        //gl.clear(gl.COLOR_BUFFER_BIT);
+
+
         //gl.enable(gl.BLEND);
         //gl.disable(gl.DEPTH_TEST);
         //gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
         //if(this.postProcessState) {
-        camera.move();
+
         //camera.setDistance(350);
-        // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         //  gl.disable(gl.BLEND);
 
 
-        for (let i = 0; i < processList.length; i++) {
+        for (var i = 0; i < processList.length; i++) {
 
             processList[i].draw();
         }
@@ -210,7 +191,7 @@ function gamestate_constructor(sb) {
 
     };
 
-    let cleanup = function () {
+    var cleanup = function () {
         /*
          document.onkeydown = null;
          document.onkeyup = null;
@@ -220,7 +201,7 @@ function gamestate_constructor(sb) {
          currentlyPressedKeys = {};
          em.clearAll();
          */
-    }
+    };
 
     return {
         init,

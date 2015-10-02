@@ -1,12 +1,15 @@
 function entity_manager_constructor() {
+    "use strict";
 
-    let entities = [];
-    let maxId = 0;
+    var entities = [];
+    var maxId = 0;
 
-    let addNew = function (name) {
+    var addNew = function (name) {
+
 
         maxId++;
-        let ent = entity_constructor({id: maxId, name: name});
+
+        var ent = entity_constructor(maxId, name);
 
 
         entities.push(ent);
@@ -16,23 +19,23 @@ function entity_manager_constructor() {
     };
 
 
-    let getEntityByName = function (name) {
-        for (let e = 0; e < entities.length; e++) {
+    var getEntityByName = function (name) {
+        for (var e = 0; e < entities.length; e++) {
             if (entities[e].name == name)
                 return entities[e];
         }
     };
 
 
-    let clearAll = function () {
+    var clearAll = function () {
 
         entities.length = 0;
         maxId = 0;
     };
 
-    let subscribe = function () {
+    var subscribe = function () {
 
-    }
+    };
 
     return Object.freeze({
         clearAll,

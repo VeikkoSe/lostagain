@@ -1,21 +1,26 @@
+/*
+ *
+ * Handles key press and publishes event so those that want them can use them
+ */
 function action_mapper() {
+    "use strict";
 
 
-    let currentlyPressedKeys = {};
-    let sb;
+    var currentlyPressedKeys = {};
+    var sb;
 
 
-    let handleKeyDown = function (event) {
+    var handleKeyDown = function (event) {
 
         currentlyPressedKeys[event.keyCode] = true;
-    }
+    };
 
 
-    let handleKeyUp = function (event) {
+    var handleKeyUp = function (event) {
         currentlyPressedKeys[event.keyCode] = false;
-    }
+    };
 
-    let init = function (sandbox) {
+    var init = function (sandbox) {
         sb = sandbox;
         document.onkeydown = handleKeyDown;
         document.onkeyup = handleKeyUp;
@@ -23,13 +28,13 @@ function action_mapper() {
         document.onmousedown = handleMouseDown;
         document.onmouseup = handleMouseUp;
 
-        let event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
+        var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
         window.addEventListener(event, handleMouseWheel);
 
-    }
+    };
 
 
-    let handleMouseWheel = function(event) {
+    var handleMouseWheel = function (event) {
         //http://jsfiddle.net/BXhzD/
         var normalized;
         if (event.wheelDelta) {
@@ -41,38 +46,37 @@ function action_mapper() {
 
         sb.publish("mousewheel", normalized);
 
-    }
+    };
 
 
-    let handleMouseMove = function (e) {
-
+    var handleMouseMove = function (e) {
 
 
         sb.publish("mousemove", e);
-    }
+    };
 
-    let handleMouseDown = function (event) {
+    var handleMouseDown = function (event) {
 
         sb.publish("mousedown", event);
 
-    }
-    let handleMouseUp = function (event) {
+    };
+    var handleMouseUp = function (event) {
 
         sb.publish("mouseup", event);
 
-    }
+    };
 
 
+    var start = function () {
 
-    let start = function() {
-
-    }
+    };
 
     return { // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
         init, subscribe: function () {
-        },start,getCurrentlyPressedKeys :function() {return currentlyPressedKeys}
-
+        }, start, getCurrentlyPressedKeys: function () {
+            return currentlyPressedKeys
+        }
 
 
     };

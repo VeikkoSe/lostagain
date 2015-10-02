@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions">
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\Common\\\$FileName$ --script src\\\Common\\\$FileName$ " />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
@@ -21,7 +21,7 @@
       <option name="workingDir" value="$ProjectFileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\Component\\\$FileName$ --script src\\\Component\\\$FileName$ " />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
@@ -41,7 +41,7 @@
       <option name="workingDir" value="$ProjectFileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\State\\\$FileName$ --script src\\\State\\\$FileName$ " />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
@@ -61,7 +61,7 @@
       <option name="workingDir" value="$ProjectFileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\Processor\\\$FileName$ --script src\\\Processor\\\$FileName$ " />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
@@ -81,7 +81,7 @@
       <option name="workingDir" value="$ProjectFileDir$" />
       <envs />
     </TaskOptions>
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="E:\\\git\\\git2\\\newship\\\ --sourcemap --experimental --out out\\\src\\\ActionMapper\\\$FileName$ --script src\\\ActionMapper\\\$FileName$ " />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />

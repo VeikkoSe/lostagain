@@ -1,32 +1,34 @@
 function renderprocess_constructor(sb) {
+    "use strict";
 
-    //let {camera} = params;
-    let gl = sb.getGL();
-    let camera = sb.getCamera();
-    let shadermanager = sb.getShaderManager();
-    let shaderprogram = shadermanager.useShader("per-fragment-lighting");
-    let em = sb.getEntityManager();
+
+    //var {camera} = params;
+    var gl = sb.getGL();
+    var camera = sb.getCamera();
+    var shadermanager = sb.getShaderManager();
+    var shaderprogram = shadermanager.useShader("per-fragment-lighting");
+    var em = sb.getEntityManager();
     // constructor() {
 
-    let deltatime = null;
-    let rotation = 0;
+    var deltatime = null;
+    var rotation = 0;
 
-    //let shaderProgram = sm.init("per-fragment-lighting");
+    //var shaderProgram = sm.init("per-fragment-lighting");
 
 
-    //let shadermanager = shader_manager_constuctor();
-    //let shaderprogram = shadermanager.init("per-fragment-lighting");
+    //var shadermanager = shader_manager_constuctor();
+    //var shaderprogram = shadermanager.init("per-fragment-lighting");
 
 
     //}
 
 
-    let update = function (deltatime, timeFromStart) {
+    var update = function (deltatime, timeFromStart) {
 
 
         if (timeFromStart > 2000) {
-            for (let e = 0; e < em.entities.length; e++) {
-                let le = em.entities[e];
+            for (var e = 0; e < em.entities.length; e++) {
+                var le = em.entities[e];
                 if (le.components.Visibility && le.components.Visibility.visibility == false) {
                     le.components.Visibility.visibility = true;
 
@@ -43,44 +45,40 @@ function renderprocess_constructor(sb) {
     };
 
 
+    var draw = function () {
 
-    let draw = function () {
 
-
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.RenderableComponent && le.components.MeshComponent) {
 
                 camera.mvPushMatrix();
-                let mvMatrix = camera.getMVMatrix();
+                var mvMatrix = camera.getMVMatrix();
                 //console.log(le);
-                /*
-                 //we do not render objects wich health is zero
-                 if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
-                 continue;
-                 if (le.components.Visibility && le.components.Visibility.visibility == false) {
-                 continue;
-                 }
-                 */
 
-                //let rc = le.components.Renderable;
-                let mc = le.components.MeshComponent;
-                let rc = le.components.RenderableComponent;
+                //we do not render objects wich health is zero
+                if (le.components.HealthComponent && le.components.HealthComponent.getAmount() < 1)
+                    continue;
+                if (le.components.Visibility && le.components.Visibility.visibility == false) {
+                    continue;
+                }
+
+
+                //var rc = le.components.Renderable;
+                var mc = le.components.MeshComponent;
+                var rc = le.components.RenderableComponent;
 
                 //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
                 shadermanager.setProgram(shaderprogram);
 
 
-                // gl.disable(gl.BLEND);
-                // gl.enable(gl.DEPTH_TEST);
-
-
                 gl.uniform1f(shaderprogram.alphaUniform, 1);
                 gl.uniform1i(shaderprogram.uDrawColors, 0);
 
-                gl.uniform1i(shaderprogram.uUseLighting, true);
-                gl.uniform3f(shaderprogram.uLightPosition, camera.getX(), -1 * camera.getY(), -1 * camera.getZ());
+                gl.uniform1i(shaderprogram.uUseLighting, 1);
+                //model coordinates
+                gl.uniform3f(shaderprogram.uLightPosition, 100, 20, 100);
                 gl.uniform3f(shaderprogram.uLightAmbient, 0, 0, 0);
                 gl.uniform3f(shaderprogram.uLightDiffuse, 0.8, 0.8, 0.8);
                 gl.uniform3f(shaderprogram.uLightSpecular, 0.8, 0.8, 0.8);
@@ -88,15 +86,14 @@ function renderprocess_constructor(sb) {
 
                 //camera.mvPushMatrix();
 
-                //let pMatrix = camera.getPMatrix();
-
+                //var pMatrix = camera.getPMatrix();
 
 
                 //gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
 
 
-                if (le.components.Selectable) {
-                    gl.uniform3fv(shaderprogram.uDrawColor, le.components.Selectable.color);
+                if (le.components.SelectableComponent) {
+                    gl.uniform3fv(shaderprogram.uDrawColor, le.components.SelectableComponent.getColor());
                 }
                 else {
                     gl.uniform3fv(shaderprogram.uDrawColor, [0.5, 0.5, 0.5]);
@@ -115,66 +112,64 @@ function renderprocess_constructor(sb) {
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleX()), [1, 0, 0]);
 
 
-                if (rc.getScale()!==1) {
+                if (rc.getScale() !== 1) {
                     mat4.scale(mvMatrix, [rc.getScale(), rc.getScale(), rc.getScale()]);
                 }
 
 
-                let xRot = 0;
-                let yRot = 0;
-                let zRot = 0;
-/*
-                if (le.components.ConstantRotation && rotation) {
+                var xRot = 0;
+                var yRot = 0;
+                var zRot = 0;
 
-                    if (le.components.ConstantRotation.x > 0) {
+                if (le.components.RotationComponent && rotation) {
+
+                    if (le.components.RotationComponent.getX() > 0) {
                         xRot = 1;
                     }
-                    if (le.components.ConstantRotation.y > 0) {
+                    if (le.components.RotationComponent.getY() > 0) {
                         yRot = 1;
                     }
 
-                    if (le.components.ConstantRotation.z > 0) {
+                    if (le.components.RotationComponent.getZ() > 0) {
                         zRot = 1;
                     }
                     mat4.rotate(camera.getMVMatrix(), degToRad(rotation), [xRot, yRot, zRot]);
                 }
-*/
 
-                // mat4.rotate(camera.getMVMatrix(), degToRad(rotation), [1, 1, 1]);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.vertexPositionBuffer);
+                gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getVertexPositionBuffer());
                 gl.vertexAttribPointer(shaderprogram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.normalPositionBuffer);
+                gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getNormalPositionBuffer());
                 gl.vertexAttribPointer(shaderprogram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
 
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, mc.mesh.texturePositionBuffer);
+                gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getTexturePositionBuffer());
                 gl.vertexAttribPointer(shaderprogram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, mc.mesh.getTexture());
+                gl.bindTexture(gl.TEXTURE_2D, mc.getMesh().getTexture());
                 gl.uniform1i(shaderprogram.samplerUniform, 0);
 
-                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.mesh.indexPositionBuffer);
+                gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.getMesh().getIndexPositionBuffer());
 
                 gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());
                 gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, mvMatrix);
 
-                let normalMatrix = mat3.create();
+                var normalMatrix = mat3.create();
                 mat4.toInverseMat3(mvMatrix, normalMatrix);
                 mat3.transpose(normalMatrix);
                 gl.uniformMatrix3fv(shaderprogram.uNMatrix, false, normalMatrix);
 
 
-                gl.drawElements(gl.TRIANGLES, mc.mesh.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+                gl.drawElements(gl.TRIANGLES, mc.getMesh().getIndexPositionBuffer().numItems, gl.UNSIGNED_SHORT, 0);
                 //camera.drawCalls++;
                 camera.mvPopMatrix();
 
 
             }
         }
-    }
+    };
 
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)

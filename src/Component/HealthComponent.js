@@ -1,14 +1,28 @@
-function HealthComponent(amount, sprite = null) {
+function HealthComponent(amount, sprite) {
+    "use strict";
+
     //constructor(amount, sprite = null) {
 
-    let name = "HealthComponent";
-    let amount = amount;
+    var name = "HealthComponent";
+    var amount = amount;
 
-    let sprite = sprite;
+    var sprite = sprite;
 
 
     //}
-    return {name, getSprite: function() {return sprite},getAmount(){return  amount},setAmount:function (v){amount = v;}
+    return {
+        getName: function () {
+            return name;
+        },
+        getSprite: function () {
+            return sprite;
+        },
+        getAmount: function () {
+            return amount;
+        },
+        setAmount: function (v) {
+            amount = v;
+        }
     }
 
 

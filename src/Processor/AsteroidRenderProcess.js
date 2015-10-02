@@ -1,32 +1,34 @@
 function asteroidrenderprocess_constructor(sb) {
-
-    let normalMatrix = mat3.create();
-
-    let megaElapsedTotal = 0;
-
-    let ambientProgram = sm.init('ambient');
-
-    let monstermap = null;
-    let lastTime = 0;
-    let vertexPositionBuffer = gl.createBuffer();
-
-    let cube = cube_constructor();
-
-    let camera = sb.getCamera();
-    let gl = sb.getGL();
-
-    let elapsedTotal = 0;
+    "use strict";
 
 
-    let lastTime = 0;
+    var normalMatrix = mat3.create();
+
+    var megaElapsedTotal = 0;
+
+    var ambientProgram = sm.init('ambient');
+
+    var monstermap = null;
+    var lastTime = 0;
+    var vertexPositionBuffer = gl.createBuffer();
+
+    var cube = cube_constructor();
+
+    var camera = sb.getCamera();
+    var gl = sb.getGL();
+
+    var elapsedTotal = 0;
 
 
-    let combinedMeshes = {};
+    var lastTime = 0;
 
 
-    let verts = cube.vertices();
+    var combinedMeshes = {};
 
-    let init = function () {
+
+    var verts = cube.vertices();
+
+    var init = function () {
 
 
         vertexPositionBuffer.nums = 0;
@@ -34,14 +36,14 @@ function asteroidrenderprocess_constructor(sb) {
         vertexPositionBuffer.nums = 0;
 
 
-        for (let g = 0; g < 5000; g++) {
-            let x = getRandomInt(-100, 100);
-            let y = getRandomInt(0, 0);
-            let z = getRandomInt(-100, 100);
+        for (var g = 0; g < 5000; g++) {
+            var x = getRandomInt(-100, 100);
+            var y = getRandomInt(0, 0);
+            var z = getRandomInt(-100, 100);
 
-            for (let i = 0; i < verts.length; i += 3) {
+            for (var i = 0; i < verts.length; i += 3) {
 
-                let newVerts = [];
+                var newVerts = [];
 
                 //object coordinates
                 newVerts.push(verts[i]);
@@ -69,21 +71,21 @@ function asteroidrenderprocess_constructor(sb) {
         //console.log(this.combinedMeshes);
         gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(combinedMeshes.vertices), gl.STATIC_DRAW);
-    }
+    };
 
 
-    let textureFromPixelArray = function (dataArray, type, width, height) {
-        let dataTypedArray = new Uint8Array(dataArray); // Don't need to do this if the data is already in a typed array
-        let texture = gl.createTexture();
+    var textureFromPixelArray = function (dataArray, type, width, height) {
+        var dataTypedArray = new Uint8Array(dataArray); // Don't need to do this if the data is already in a typed array
+        var texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);
 
         gl.texImage2D(gl.TEXTURE_2D, 0, type, width, height, 0, type, gl.UNSIGNED_BYTE, dataTypedArray);
         // Other texture setup here, like filter modes and mipmap generation
         return texture;
-    }
+    };
 
     /*
-     let randomIntFromInterval(min, max) {
+     var randomIntFromInterval(min, max) {
      return Math.floor(Math.random() * (max - min + 1) + min);
      }
      */
@@ -93,16 +95,16 @@ function asteroidrenderprocess_constructor(sb) {
      }
 
      */
-    let createTexture = function (elapsed) {
+    var createTexture = function (elapsed) {
 
         megaElapsedTotal += elapsed;
         if (megaElapsedTotal > 100 || monstermap == null) {
 
             megaElapsedTotal = 0;
-            let b = new ArrayBuffer(128 * 128 * 4);
-            let v1 = new Uint8Array(b);
-            let g = 0;
-            for (let i = 0; i < 128 * 128; i++) {
+            var b = new ArrayBuffer(128 * 128 * 4);
+            var v1 = new Uint8Array(b);
+            var g = 0;
+            for (var i = 0; i < 128 * 128; i++) {
 
                 if (randomIntFromInterval(0, 1) == 1) {
                     v1[g++] = 255;
@@ -121,7 +123,7 @@ function asteroidrenderprocess_constructor(sb) {
             }
 
 
-            let texture = gl.createTexture();
+            var texture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, texture);
             //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR ) ;
             //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR ) ;
@@ -136,12 +138,12 @@ function asteroidrenderprocess_constructor(sb) {
         }
 
 
-    }
+    };
 
 
-    let update = function (deltatime, timeSinceBeginning) {
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+    var update = function (deltatime, timeSinceBeginning) {
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
 
             if (le.components.AsteroidComponent) {
@@ -149,12 +151,12 @@ function asteroidrenderprocess_constructor(sb) {
                 createTexture(deltatime);
             }
         }
-    }
+    };
 
-    let draw = function () {
+    var draw = function () {
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
 
             if (le.components.AsteroidComponent) {
@@ -162,15 +164,15 @@ function asteroidrenderprocess_constructor(sb) {
 
                 //sm.setProgram(this.ambientProgram);
 
-                gl.uniform3fv(ambientProgram.uCameraPos, [camera.getX(), camera.getY(), camera.getZ()]);
+                gl.uniform3fv(ambientProgram.uCameraPos, [camera.getXPos(), camera.getYPos(), camera.getZPos()]);
                 //gl.uniform3fv(this.ambientProgram.uCameraPos, [0, 20, -20]);
                 gl.uniformMatrix4fv(ambientProgram.uPMatrix, false, camera.getPMatrix());
 
-                let timeNow = new Date().getTime();
+                var timeNow = new Date().getTime();
 
                 if (lastTime != 0) {
 
-                    let elapsed = timeNow - lastTime;
+                    var elapsed = timeNow - lastTime;
                     elapsedTotal += elapsed;
                     gl.uniform1f(ambientProgram.uElapsed, elapsedTotal.toFixed(1));
 
@@ -196,6 +198,6 @@ function asteroidrenderprocess_constructor(sb) {
                 camera.drawCalls++;
             }
         }
-    }
+    };
     return {update, draw, init}
 }

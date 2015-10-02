@@ -1,32 +1,36 @@
 function hexagon_constructor(size) {
+    "use strict";
 
-    let hexsizeX = size;
-    let hexsizeY = size * 3;
-    let mapLevels = [];
+    var hexsizeX = size;
+    var hexsizeY = size * 3;
+    var mapLevels = [];
 
 
     //coordinates in hexagonimage
-    let deniedBlock = [2, 0];
-    let movableBlock = [3, 1];
-    let movingBlock = [0, 2];
-    let baseBlock = [2, 3];
-    let posBlock = [4, 0];
-    let bossBlock = [0, 3];
+    var deniedBlock = [2, 0];
+    var movableBlock = [3, 1];
+    var movingBlock = [0, 2];
+    var baseBlock = [2, 3];
+    var posBlock = [4, 0];
+    var bossBlock = [0, 3];
 
-    let deniedArea = [];
-    let bossPos = [3, 11];
-    let playerPos = [1, 1];
-    let mapArray = [];
-    let deniedAmount = 4;
-    let visited = [];
+    var deniedArea = [];
+    var bossPos = [3, 11];
+    var playerPos = [1, 1];
+    var mapArray = [];
+    var deniedAmount = 4;
+    var visited = [];
+    var area = null;
+    var textureCoordinates = null;
+    var texture = null;
 
     //constructor(size) {
-    let init = function () {
+    var init = function () {
 
 
-        for (let x = 0; x < hexsizeX; x++) {
+        for (var x = 0; x < hexsizeX; x++) {
             mapLevels[x] = [];
-            for (let y = 0; y < hexsizeY; y++) {
+            for (var y = 0; y < hexsizeY; y++) {
                 mapLevels[x][y] = [];
                 mapLevels[x][y] = randomIntFromInterval(1, 3);
             }
@@ -39,35 +43,35 @@ function hexagon_constructor(size) {
         textureCoordinates = createTextures();
 
 
-        let tc = texture_constructor(sb);
+        var tc = texture_constructor(sb);
         tc.load({name});
 
         texture = tc.getLoadedTexture();
 
-    }
+    };
     // }
 
-    let getPlayerPosXInWC = function () {
+    var getPlayerPosXInWC = function () {
         if (playerPos[1] % 2 == 0 && playerPos[1] != 0) {
             return playerPos[0] * 7;
         }
         else {
             return 3 + playerPos[0] * 7;
         }
-    }
+    };
 
-    let getPlayerPosZInWC = function () {
+    var getPlayerPosZInWC = function () {
         return playerPos[1] * 2.5;
-    }
+    };
 
     //set 3 random denied blocks
-    let deniedBlocks = function () {
+    var deniedBlocks = function () {
 
-        let amount = deniedAmount;
-        let g = 0;
-        for (let i = 0; i < amount; i++) {
-            let randX = randomIntFromInterval(0, hexsizeX - 1);
-            let randY = randomIntFromInterval(0, hexsizeY - 1);
+        var amount = deniedAmount;
+        var g = 0;
+        for (var i = 0; i < amount; i++) {
+            var randX = randomIntFromInterval(0, hexsizeX - 1);
+            var randY = randomIntFromInterval(0, hexsizeY - 1);
             //When we originally create the denied blocks we cannot allow the player default position
             if (randX == playerPos[0] && randY == playerPos[1]) {
                 amount++;
@@ -85,14 +89,14 @@ function hexagon_constructor(size) {
                 g++;
             }
         }
-    }
+    };
 
-    let surround = function (x, y) {
+    var surround = function (x, y) {
         if (y % 2 == 0 && y != 0) {
-            let pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y + 1]];
+            var pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y + 1]];
         }
         else {
-            let pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x + 1, y - 1]];
+            var pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x + 1, y - 1]];
             if (y !== 0) {
                 pos.push([x + 1, y + 1]);
             }
@@ -101,7 +105,7 @@ function hexagon_constructor(size) {
             }
         }
         //we remove those positions that are out of bounds
-        for (let i = 0; i < pos.length; i++) {
+        for (var i = 0; i < pos.length; i++) {
             if (pos[i][0] < 0 || pos[i][1] < 0) {
                 pos.splice(i, 1);
                 i--;
@@ -112,14 +116,14 @@ function hexagon_constructor(size) {
             }
         }
         return pos;
-    }
+    };
 
-    let updateArea = function (movingUp = 0, movingDown = 0, movingLeft = 0, movingRight = 0, selecting = false) {
+    var updateArea = function (movingUp, movingDown, movingLeft, movingRight, selecting) {
 
         //set all basepositions to "walkable"
-        for (let x = 0; x < hexsizeX; x++) {
+        for (var x = 0; x < hexsizeX; x++) {
             mapArray[x] = [];
-            for (let y = 0; y < hexsizeY; y++) {
+            for (var y = 0; y < hexsizeY; y++) {
                 mapArray[x][y] = [];
 
                 mapArray[x][y][0] = baseBlock[0];
@@ -130,8 +134,8 @@ function hexagon_constructor(size) {
         }
 
         //player is surrounded with positions he can move
-        let surround = surround(playerPos[0], playerPos[1]);
-        for (let i = 0; i < surround.length; i++) {
+        var surround = surround(playerPos[0], playerPos[1]);
+        for (var i = 0; i < surround.length; i++) {
             mapArray[surround[i][0]][surround[i][1]][0] = movableBlock[0];
             mapArray[surround[i][0]][surround[i][1]][1] = movableBlock[1];
         }
@@ -155,9 +159,9 @@ function hexagon_constructor(size) {
         }
 
         //set 3 random denied blocks
-        for (let i = 0; i < deniedArea.length; i++) {
-            let x = deniedArea[i][0];
-            let y = deniedArea[i][1];
+        for (var i = 0; i < deniedArea.length; i++) {
+            var x = deniedArea[i][0];
+            var y = deniedArea[i][1];
 
             mapArray[x][y][0] = deniedBlock[0];
             mapArray[x][y][1] = deniedBlock[1];
@@ -167,11 +171,11 @@ function hexagon_constructor(size) {
         textureCoordinates = createTextures();
 
 
-    }
+    };
 
-    let possiblemove = function (x, y) {
+    var possiblemove = function (x, y) {
         //we cant move to deneiedarea
-        for (let j = 0; j < deniedArea.length; j++) {
+        for (var j = 0; j < deniedArea.length; j++) {
             if (x == deniedArea[j][0] && y == deniedArea[j][1]) {
                 return false;
             }
@@ -182,15 +186,15 @@ function hexagon_constructor(size) {
         }
 
         return false;
-    }
+    };
 
-    let setSelecting = function (selecting, x, y) {
+    var setSelecting = function (selecting, x, y) {
 
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.GasComponent) {
-                let gc = le.components.GasComponent;
+                var gc = le.components.GasComponent;
                 if (gc.amount > 0 && selecting) {
                     playerPos = [x, y];
                     gc.amount--;
@@ -214,12 +218,12 @@ function hexagon_constructor(size) {
                 }
             }
         }
-    }
+    };
 
-    let movingPosition = function (movingUp, movingDown, movingLeft, movingRight, selecting) {
+    var movingPosition = function (movingUp, movingDown, movingLeft, movingRight, selecting) {
 
-        let x = playerPos[0];
-        let y = playerPos[1];
+        var x = playerPos[0];
+        var y = playerPos[1];
 
 
         if (movingUp == 1) {
@@ -267,13 +271,13 @@ function hexagon_constructor(size) {
         }
 
 
-    }
+    };
 
 
-    let movingPositionOdd = function (movingUp, movingDown, movingLeft, movingRight, selecting) {
+    var movingPositionOdd = function (movingUp, movingDown, movingLeft, movingRight, selecting) {
 
-        let x = playerPos[0];
-        let y = playerPos[1];
+        var x = playerPos[0];
+        var y = playerPos[1];
 
 
         if (movingUp == 1) {
@@ -328,13 +332,13 @@ function hexagon_constructor(size) {
 
             }
         }
-    }
+    };
 
 
-    let oneTexture = function (posX, posY) {
+    var oneTexture = function (posX, posY) {
 
 
-        let tex = [
+        var tex = [
 
 
             //center square
@@ -361,7 +365,7 @@ function hexagon_constructor(size) {
 
         ];
 
-        for (let i = 0; i < tex.length; i++) {
+        for (var i = 0; i < tex.length; i++) {
             if ((i + 1) % 2 == 0 && i != 0) {
                 tex[i] = (tex[i] / 4) + (posY * (1 / 4));
             }
@@ -372,11 +376,11 @@ function hexagon_constructor(size) {
         }
 
         return tex;
-    }
+    };
 
 
-    let oneHexagon = function () {
-        let oneHexagon = [
+    var oneHexagon = function () {
+        var oneHexagon = [
 
             //center square
             1, 0, 2,
@@ -402,26 +406,26 @@ function hexagon_constructor(size) {
 
         ];
         return oneHexagon;
-    }
+    };
 
-    let randomIntFromInterval = function (min, max) {
+    var randomIntFromInterval = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+    };
 
-    let createTextures = function () {
-        let allTextures = [];
-        for (let i = 0; i < hexsizeX; i++) {
-            for (let k = 0; k < hexsizeY; k++) {
-                let oneTexture = oneTexture(mapArray[i][k][0], mapArray[i][k][1]);
-                for (let j = 0; j < oneTexture.length; j++) {
+    var createTextures = function () {
+        var allTextures = [];
+        for (var i = 0; i < hexsizeX; i++) {
+            for (var k = 0; k < hexsizeY; k++) {
+                var oneTexture = oneTexture(mapArray[i][k][0], mapArray[i][k][1]);
+                for (var j = 0; j < oneTexture.length; j++) {
                     allTextures.push(oneTexture[j]);
                 }
             }
         }
         return allTextures;
-    }
+    };
 
-    let createHexagonArea = function () {
+    var createHexagonArea = function () {
 
         /*
 
@@ -436,22 +440,22 @@ function hexagon_constructor(size) {
          */
 
 
-        let oneHexagon = oneHexagon();
+        var oneHexagon = oneHexagon();
 
 
-        let allHexagons = [];
+        var allHexagons = [];
 
-        for (let x = 0; x < hexsizeX; x++) {
+        for (var x = 0; x < hexsizeX; x++) {
 
 
-            for (let y = 0; y < hexsizeY; y++) {
+            for (var y = 0; y < hexsizeY; y++) {
 
-                let addition = 0;
+                var addition = 0;
                 if ((y + 1) % 2 == 0)
                     addition = 3.5;
 
 
-                for (let h = 0; h < oneHexagon.length; h += 3) {
+                for (var h = 0; h < oneHexagon.length; h += 3) {
 
 
                     allHexagons.push(oneHexagon[h] + (x * 7) + addition);
@@ -465,7 +469,7 @@ function hexagon_constructor(size) {
 
         return allHexagons;
 
-    }
+    };
 
     return {
         init

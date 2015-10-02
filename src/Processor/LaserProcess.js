@@ -1,114 +1,117 @@
-/*
- class LaserProcess extends Processor {
- constructor() {
+function laserprocess_constructor(sb) {
+    "use strict";
 
 
- this.lastTime = 0;
- this.elapsedTotal = 0;
- this.x = 0;
- // this.framebuffer = null;
- //this.renderbuffer = null;
+    var lastTime = 0;
+    var elapsedTotal = 0;
+    var x = 0;
+
+    var ship = null;
+
+    var gl = sb.getGL();
+    var camera = sb.getCamera();
+
+    var em = sb.getEntityManager();
+    var shadermanager = sb.getShaderManager();
+    var simplestProgram = shadermanager.useShader("simplest");
+
+    //this.texture = null;
+    // this.framebuffer = gl.createFramebuffer();
+
+    var points = [];
+    var targets = [];
+
+    var vertexPositionBuffer = gl.createBuffer();
+
+    var init = function () {
+
+        targets.push(em.getEntityByName('mothership'));
+        targets.push(em.getEntityByName('ship'));
+
+        points.push(-50, 0, 0);
+        points.push(20, 0, 0);
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
+    };
 
 
- //this.texture = null;
- // this.framebuffer = gl.createFramebuffer();
+    var railXY = function (startX, startY, startZ, endX, endY, endZ) {
+        points = [];
 
- let points = [];
+        points.push(startX, startY, startZ);
+        points.push(endX, endY, endZ);
+        return points;
+    };
 
- points.push(-50, 0, 0);
- points.push(20, 0, 0);
-
- this.vertexPositionBuffer = gl.createBuffer();
- gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
- gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
-
-
-
- }
+    var update = function () {
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
 
- railXY(elapsed) {
- let points = [];
- //let stepSize = (end-start)/dots;
- //let stepSize = 1;
- let y = 0;
- let z = 0;
+            if (le.components.LaserComponent) {
+                var shooter = le.components.RenderableComponent;
 
- if (this.x < -150)
- this.x = 0;
+                for (var i = 0; i < targets.length; i++) {
+                    var target = targets[i].components.RenderableComponent;
+                    if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, target.getXPos(), target.getZPos())) {
+                        sb.publish("explosion", target);
+                        break; //shoot only one target at a time
 
- this.x = (elapsed * 0.05);
-
- //this.x = 20;
-
- points.push(0, y, z);
- points.push(this.x, y, z);
- return points;
- }
+                    }
+                }
+            }
+        }
 
 
- draw() {
+    };
+
+    var draw = function () {
 
 
- for (let e = 0; e < em.entities.length; e++) {
- let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
- if (le.components.LaserComponent) {
- sm.setProgram(simplestProgram);
+            if (le.components.LaserComponent) {
 
+                var shooter = le.components.RenderableComponent;
+                //var target = ship.components.RenderableComponent;
 
+                for (var i = 0; i < targets.length; i++) {
+                    var target = targets[i].components.RenderableComponent;
 
- let points = [];
-
- // let timeNow = new Date().getTime();
-
-
- //if (this.lastTime != 0) {
+                    if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, target.getXPos(), target.getZPos())) {
 
 
- //let elapsed = timeNow - this.lastTime;
- //this.elapsedTotal += elapsed;
+                        points = railXY(shooter.getXPos(), shooter.getYPos(), shooter.getZPos(), target.getXPos(), target.getYPos(), target.getZPos());
 
- points = this.railXY(-1500);
-
-
- //gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
-
-
- //gl.clearColor(0, 0, 0, 1.0);
- //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                        //sm.setProgram(simplestProgram);
+                        shadermanager.setProgram(simplestProgram);
+                        var mvMatrix = camera.getMVMatrix();
+                        camera.mvPushMatrix();
 
 
- //gl.clearColor(1, 1, 0, 1.0);
- //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                        gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
 
 
- camera.mvPushMatrix();
+                        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
 
 
- gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
+                        gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+
+                        gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
+                        gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, mvMatrix);
+                        gl.drawArrays(gl.LINES, 0, 2);
+                        //camera.drawCalls++;
+
+                        camera.mvPopMatrix();
+                        break;
+                    }
+                }
+
+            }
 
 
- gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
-
-
- gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-
- gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.pMatrix);
- gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, camera.mvMatrix);
- gl.drawArrays(gl.LINES, 0, 2);
- camera.drawCalls++;
-
- camera.mvPopMatrix();
-
-
- //}
- //this.lastTime = timeNow;
-
-
- }
-
- }
- }
- }
- */
+        }
+    };
+    return {update, draw, init}
+}

@@ -1,10 +1,17 @@
 function RadarComponent(sprite) {
+    "use strict";
+
     //constructor(sprite) {
-    let name = "RadarComponent";
+    var name = "RadarComponent";
 
-    let sprite = sprite;
+    var sprite = sprite;
 
-    return {name, sprite}
+    return {
+        getName: function () {
+            return name;
+        }
+        , sprite
+    }
 
 
 }

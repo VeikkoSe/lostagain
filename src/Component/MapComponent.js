@@ -1,27 +1,33 @@
 function MapComponent() {
+    "use strict";
+
     //constructor() {
-    let name = "MapComponent";
+    var name = "MapComponent";
     //this.map = map;
-    let xGridWorldPos = 0;
-    let yGridWorldPos = 0;
-    let xPlayerPos = 0;
-    let yPlayerPos = 0;
-    let width = 0;
-    let height = 0;
-    let visited = {};
-    let holes = {};
-    let xEndBoss = 5;
-    let yEndBoss = 5;
+    var xGridWorldPos = 0;
+    var yGridWorldPos = 0;
+    var xPlayerPos = 0;
+    var yPlayerPos = 0;
+    var width = 0;
+    var height = 0;
+    var visited = {};
+    var holes = {};
+    var xEndBoss = 5;
+    var yEndBoss = 5;
     //this.texture = texture;
 
-    let movingUp = 0;
-    let movingDown = 0;
-    let movingLeft = 0;
-    let movingRight = 0;
-    let selecting = false;
-    let selectMap = false;
+    var movingUp = 0;
+    var movingDown = 0;
+    var movingLeft = 0;
+    var movingRight = 0;
+    var selecting = false;
+    var selectMap = false;
 
-    return {};
+    return {
+        getName: function () {
+            return name;
+        }
+    };
 
     //}
 

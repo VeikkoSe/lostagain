@@ -1,17 +1,15 @@
 function momemtummovementprocess_constructor(sb) {
-
-    let sb = sb;
-    let em = sb.getEntityManager();
+    "use strict";
 
 
+    var sb = sb;
+    var em = sb.getEntityManager();
 
 
+    var update = function (deltatime) {
 
 
-    let update = function (deltatime) {
-
-
-        let ms = em.getEntityByName('mothership');
+        var ms = em.getEntityByName('mothership');
         if (ms) {
 
 
@@ -35,7 +33,7 @@ function momemtummovementprocess_constructor(sb) {
         }
 
 
-        let ship = em.getEntityByName('ship');
+        var ship = em.getEntityByName('ship');
         if (ship) {
             ship.components.MomentumComponent.setRotatingLeft(0);
             ship.components.MomentumComponent.setRotatingRight(0);
@@ -60,12 +58,8 @@ function momemtummovementprocess_constructor(sb) {
         }
 
 
-
-
-
-
-        for (let e = 0; e < em.entities.length; e++) {
-            let le = em.entities[e];
+        for (var e = 0; e < em.entities.length; e++) {
+            var le = em.entities[e];
 
             if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
                 continue;
@@ -73,9 +67,9 @@ function momemtummovementprocess_constructor(sb) {
 
             if (le.components.MomentumComponent && le.components.RenderableComponent) {
 
-                let mm = le.components.MomentumComponent;
+                var mm = le.components.MomentumComponent;
 
-                let re = le.components.RenderableComponent;
+                var re = le.components.RenderableComponent;
                 /*
                  if ((helpers.isNumeric(mm.routeEndXpos) && helpers.isNumeric(mm.routeEndZpos)) &&
                  (helpers.isClose(re.xPos, mm.routeEndXpos) && helpers.isClose(re.zPos, mm.routeEndZpos))) {
@@ -89,15 +83,15 @@ function momemtummovementprocess_constructor(sb) {
 
                  //Create a vector in the direction
 
-                 let dirX = mm.routeEndXpos - re.xPos;
-                 let dirZ = mm.routeEndZpos - re.zPos;
+                 var dirX = mm.routeEndXpos - re.xPos;
+                 var dirZ = mm.routeEndZpos - re.zPos;
 
                  //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
-                 let hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
+                 var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
 
-                 let angR = Math.atan2(dirX, dirZ);
-                 let deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
+                 var angR = Math.atan2(dirX, dirZ);
+                 var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
 
                  dirX /= hyp;
                  dirZ /= hyp;
@@ -115,20 +109,20 @@ function momemtummovementprocess_constructor(sb) {
                  */
                 //console.log(re.angleY);
 
-                if (mm.getCurrentlyAccelerating() ===1) {
+                if (mm.getCurrentlyAccelerating() === 1) {
 
 
-                    let dirVectorX = Math.cos(degToRad(re.getAngleY()));
+                    var dirVectorX = Math.cos(degToRad(re.getAngleY()));
                     //result works but re.zPos is minus instead of addition in the end
-                    let dirVectorZ = Math.sin(degToRad(re.getAngleY()));
+                    var dirVectorZ = Math.sin(degToRad(re.getAngleY()));
 
-                    let tx = mm.getVelocityX();
-                    let tz = mm.getVelocityZ();
+                    var tx = mm.getVelocityX();
+                    var tz = mm.getVelocityZ();
 
                     tx += mm.getAccelerationAmount() * dirVectorX * (deltatime / 1000);
                     tz += mm.getAccelerationAmount() * dirVectorZ * (deltatime / 1000);
-                    let posX = (tx < 0) ? tx * -1 : tx;
-                    let posZ = (tz < 0) ? tz * -1 : tz;
+                    var posX = (tx < 0) ? tx * -1 : tx;
+                    var posZ = (tz < 0) ? tz * -1 : tz;
 
                     //we cant go past top speed on x or z axel but allow deasselerating
                     if (posX < mm.getSpeed() && posZ < mm.getSpeed()) {
@@ -139,8 +133,7 @@ function momemtummovementprocess_constructor(sb) {
 
                     //console.log(mm.acceleration);
                 }
-                if (mm.getRotatingRight()===1) {
-
+                if (mm.getRotatingRight() === 1) {
 
 
                     if (re.getAngleY() >= 360)
@@ -151,7 +144,7 @@ function momemtummovementprocess_constructor(sb) {
 
                     re.setAngleY(re.getAngleY() - mm.getTurnSpeed() * (deltatime / 1000));
                 }
-                if (mm.getRotatingLeft() ===1) {
+                if (mm.getRotatingLeft() === 1) {
 
                     if (re.getAngleY() >= 360)
                         re.setAngleY(0);
@@ -166,12 +159,12 @@ function momemtummovementprocess_constructor(sb) {
             }
 
         }
-    }
+    };
 
-    let init= function() {
+    var init = function () {
 
 
-    }
+    };
 
 
     return {

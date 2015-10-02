@@ -1,10 +1,17 @@
 function LayoutComponent(laS) {
+    "use strict";
+
     //constructor() {
-    let name = "LayoutComponent";
-    let layout = laS;
+    var name = "LayoutComponent";
+    var layout = laS;
     // this.holdTime = 5000;
     //}
-    return {name, layout}
+    return {
+        getName: function () {
+            return name;
+        },
+        layout
+    }
 
 
 }

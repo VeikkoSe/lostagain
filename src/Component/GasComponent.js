@@ -1,14 +1,19 @@
-function GasComponent(amount = 1) {
-    //constructor(amount = 1) {
-
-    let name = "GasComponent";
+function GasComponent(amount) {
+    "use strict";
 
 
-    let amount = amount;
+    var name = "GasComponent";
+
+
+    var amount = amount;
 
 
     //   }
-    return {name}
+    return {
+        getName: function () {
+            return name;
+        }
+    }
 
 
 }
