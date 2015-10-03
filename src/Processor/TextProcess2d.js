@@ -12,6 +12,8 @@ function text_process_2d_constructor(sb) {
     var t = texture_constructor(sb);
 
     var texture = t.loadedTexture;
+
+    var camera = sb.getCamera();
     var textBuffer = null;
     var rotation = null;
     var currentString = '';
@@ -73,7 +75,7 @@ function text_process_2d_constructor(sb) {
             var le = em.entities[e];
 
             if (le.components.TextComponent) {
-                sm.setProgram(program);
+                shadermanager.setProgram(program);
                 camera.mvPushMatrix();
 
 

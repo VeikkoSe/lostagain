@@ -20,11 +20,11 @@ function collisionprocess_constructor(sb) {
 
             hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
-                console.log('exp')
+
                 sb.publish("explosion", enemyEntity.components.RenderableComponent);
             }
             else {
-                console.log('bigexp')
+
                 hc.setAmount(0);
 
                 sb.publish("bigexplosion", enemyEntity.components.RenderableComponent);

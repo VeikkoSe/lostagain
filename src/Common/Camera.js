@@ -1,6 +1,3 @@
-/*
- handles camera TODO
- */
 function camera_constructor() {
     "use strict";
 

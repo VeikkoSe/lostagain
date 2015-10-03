@@ -1,32 +1,55 @@
 function text_process_constructor(sb) {
     "use strict";
-
+    var gl = sb.getGL();
     //constructor() {
 
-    var fontProgram = sm.init('font');
+    var camera = sb.getCamera();
+    //var fontProgram = sm.init('font');
 
-    var text = new Text();
-    var str = 'The quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog';
-    var characterArray = text.textToC(str);
-    var textBuffer = text.buildData(characterArray);
+    var shadermanager = sb.getShaderManager();
+    var program = shadermanager.useShader("font");
+
+    var am = sb.getAssetManager();
 
 
-    var gl = sb.getGL();
-    var rotation = null;
+    var squareBuffer = gl.createBuffer();
+    var sprite = null;
+    var size = null;
+    //var rotation = null;
 
-    var t = texture_constructor(sb);
 
-    var texture = t.loadedTexture;
+
 
     var em = sb.getEntityManager();
 
-    var squareBuffer = gl.createBuffer();
 
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
-    var size = textBuffer.length / 5;
+    var init= function() {
+        //var t = texture_constructor(sb);
 
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
+        var text = text_constructor();
+        text.init();
+
+        var str = 'The quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog';
+
+        var characterArray = text.textToC(str);
+
+        var textBuffer = text.buildData(characterArray);
+
+        //var texture = t.loadedTexture;
+        sprite = am.getSprite('hp');
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
+        size = textBuffer.length / 5;
+
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
+    }
+
+
+
+
+
+
 
     //}
 
@@ -43,21 +66,25 @@ function text_process_constructor(sb) {
             var le = em.entities[e];
 
             if (le.components.TextComponent) {
-                // sm.setProgram(this.fontProgram);
+
                 camera.mvPushMatrix();
-                mat4.scale(camera.mvMatrix, [0.2, 0.2, 0.2]);
+                var mvMatrix = camera.getMVMatrix();
+                shadermanager.setProgram(program);
+
+
+                mat4.scale(mvMatrix, [0.2, 0.2, 0.2]);
 
                 //mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotation), [1, 1,1]);
                 gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
-                gl.vertexAttribPointer(fontProgram.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
-                gl.vertexAttribPointer(fontProgram.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
+                gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
+                gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
 
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, texture);
-                gl.uniform1i(fontProgram.samplerUniform, 0);
+                gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
+                gl.uniform1i(program.samplerUniform, 0);
 
-                gl.uniformMatrix4fv(fontProgram.uPMatrix, false, camera.getPMatrix());
-                gl.uniformMatrix4fv(fontProgram.uMVMatrix, false, camera.getMVMatrix());
+                gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
+                gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
 
 
                 gl.drawArrays(gl.TRIANGLES, 0, squareBuffer.size);
@@ -69,7 +96,6 @@ function text_process_constructor(sb) {
 
     };
     return {
-        draw, update, init: function () {
-        }
+        draw, update, init
     }
 }

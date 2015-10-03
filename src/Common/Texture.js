@@ -11,7 +11,7 @@ function texture_constructor(sandbox) {
 
 
     var load = function (name, noflip, repeat) {
-        console.log(name);
+
         loadedTexture = gl.createTexture();
 
         loadedTexture.image = new Image();

@@ -45,6 +45,9 @@ function gamestate_constructor(sb) {
         processList.push(starprocess_constructor(sb));
         processList.push(teleport_process_constructor(sb));
         processList.push(laserprocess_constructor(sb));
+        processList.push(text_process_2d_constructor(sb));
+        processList.push(text_process_constructor(sb));
+
         //processList.push(postprocess_constructor(sb));
 
 
@@ -66,9 +69,6 @@ function gamestate_constructor(sb) {
 
 
     var update = function () {
-        //TODO remove
-        updateMatrices(camera);
-
 
         var timeNow = new Date().getTime();
 

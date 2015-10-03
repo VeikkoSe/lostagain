@@ -78,7 +78,7 @@ function loader_costructor() {
 
         loading = true;
 
-        console.log('state:' + name);
+
         switch (name) {
             case ('introstate'):
 
@@ -406,7 +406,7 @@ function loader_costructor() {
         rc.setYPos(0);
         e.addComponent(rc);
 
-        e.addComponent(HealthComponent(50, am.getSprite('hp')));
+        e.addComponent(HealthComponent(5000, am.getSprite('hp')));
         e.addComponent(ShieldComponent(2, am.getSprite('shield')));
         e.addComponent(ControllableComponent());
         e.addComponent(CameraTargetComponent());

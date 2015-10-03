@@ -44,7 +44,7 @@ function mesh_constructor(sandbox) {
 
         //loadManager.loadTotal++;
         var tc = texture_constructor(sb);
-        console.log(name);
+
         tc.load(name, false, false);
 
         texture = tc.getLoadedTexture();

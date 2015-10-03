@@ -10,10 +10,12 @@ function text_constructor() {
             if (text[i] == '\n') {
                 ret.push('newline');
             }
-            else
+            else {
+
                 ret.push(fontJson[text.charCodeAt(i)]);
+            }
         }
-        //console.log(ret);
+
         return ret;
     };
 
