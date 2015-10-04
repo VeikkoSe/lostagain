@@ -1,11 +1,13 @@
 /*
  * Handles creating the point sprites that represent explosion
  */
-function asteroidexplosion_constructor(sb, x, y, z) {
+function asteroidexplosion_constructor(sb, x, y, z, sizeString) {
     "use strict";
     //constructor(x, y, z) {
 
     var sb = sb;
+
+    var size = sizeString;
 
     var time = 0;
     var numParticles = 500;
@@ -30,10 +32,22 @@ function asteroidexplosion_constructor(sb, x, y, z) {
             startPositions.push((Math.random() * 0.25) - 0.125);
             startPositions.push((Math.random() * 0.25) - 0.125);
             startPositions.push((Math.random() * 0.25) - 0.125);
+            if (size == 'small') {
+                endPositions.push((Math.random() * 10) - 5);
+                endPositions.push((Math.random() * 10) - 5);
+                endPositions.push((Math.random() * 10) - 5);
+            }
+            else if (size == 'medium') {
+                endPositions.push((Math.random() * 30) - 20);
+                endPositions.push((Math.random() * 30) - 20);
+                endPositions.push((Math.random() * 30) - 20);
+            }
+            else if (size == 'large') {
 
-            endPositions.push((Math.random() * 50) - 40);
-            endPositions.push((Math.random() * 50) - 40);
-            endPositions.push((Math.random() * 50) - 40);
+                endPositions.push((Math.random() * 50) - 40);
+                endPositions.push((Math.random() * 50) - 40);
+                endPositions.push((Math.random() * 50) - 40);
+            }
         }
 
 

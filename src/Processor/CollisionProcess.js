@@ -31,6 +31,26 @@ function collisionprocess_constructor(sb) {
             }
         });
 
+        sb.subscribe("enemylasercollision", function (name, target) {
+
+            //var enemy = collisionComponent;
+
+            //var enemyEntity = enemy.getEntity();
+            var hc = target.components.HealthComponent;
+
+
+            hc.setAmount(hc.getAmount() - 1);
+            if (hc.getAmount() > 0) {
+                //console.log('b');
+                sb.publish("smallexplosion", target.components.RenderableComponent);
+            }
+            else {
+
+                em.removeEntityByName(target.getName());
+                sb.publish("bigexplosion", target.components.RenderableComponent);
+            }
+        });
+
         sb.subscribe("collision", function (name, collisionComponents) {
 
 
@@ -85,6 +105,8 @@ function collisionprocess_constructor(sb) {
 
 
                 if (playerEntity.name == 'mothership') {
+
+
                     sb.publish("gameover", true);
                 }
                 hc.setAmount(0);

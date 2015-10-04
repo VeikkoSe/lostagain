@@ -35,7 +35,7 @@ function text_process_2d_constructor(sb) {
 
     var init = function() {
         characterArray = text.textToC(str);
-        console.log(characterArray);
+
         textBuffer = text.buildData(characterArray, true);
 
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);

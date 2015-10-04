@@ -25,8 +25,8 @@ function laserprocess_constructor(sb) {
 
     var init = function () {
 
-        targets.push(em.getEntityByName('mothership'));
-        targets.push(em.getEntityByName('ship'));
+        targets.push('mothership');
+        targets.push('ship');
 
         points.push(-50, 0, 0);
         points.push(20, 0, 0);
@@ -52,11 +52,20 @@ function laserprocess_constructor(sb) {
                 var shooter = le.components.RenderableComponent;
 
                 for (var i = 0; i < targets.length; i++) {
-                    var target = targets[i].components.RenderableComponent;
-                    var hc = targets[i].components.HealthComponent;
-                    if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, target.getXPos(), target.getZPos())) {
-                        hc.setAmount(hc.getAmount()-1);
-                        sb.publish("explosion", target);
+
+                    var target = em.getEntityByName(targets[i]);
+                    if(!target)
+                      continue;
+
+                    var rc = target.components.RenderableComponent;
+
+
+
+                    //var hc = targets[i].components.HealthComponent;
+                    if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
+
+                        sb.publish("enemylasercollision", target);
+                        //sb.publish("smallexplosion", target);
 
                         break; //shoot only one target at a time
 
@@ -81,12 +90,20 @@ function laserprocess_constructor(sb) {
                 //var target = ship.components.RenderableComponent;
 
                 for (var i = 0; i < targets.length; i++) {
-                    var target = targets[i].components.RenderableComponent;
 
-                    if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, target.getXPos(), target.getZPos())) {
+                    var target = em.getEntityByName(targets[i]);
+                    if(!target)
+                        continue;
+
+                    var rc = target.components.RenderableComponent;
+
+                    //if (targets[i].components.HealthComponent.getAmount() < 1)
+                     //   continue;
+
+                    if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
 
 
-                        points = railXY(shooter.getXPos(), shooter.getYPos(), shooter.getZPos(), target.getXPos(), target.getYPos(), target.getZPos());
+                        points = railXY(shooter.getXPos(), shooter.getYPos(), shooter.getZPos(), rc.getXPos(), rc.getYPos(), rc.getZPos());
 
                         //sm.setProgram(simplestProgram);
                         shadermanager.setProgram(simplestProgram);

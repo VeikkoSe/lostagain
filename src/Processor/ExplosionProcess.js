@@ -8,7 +8,7 @@ function explosionprocess_constructor(sb) {
     var am = sb.getAssetManager();
     var shadermanager = sb.getShaderManager();
     var particleProgram = shadermanager.useShader("lifetimeparticle");
-    var explosions = [];
+    var explosions;
     //var particleProgram = sm.init('lifetimeparticle');
 
     var camera = sb.getCamera();
@@ -33,14 +33,21 @@ function explosionprocess_constructor(sb) {
         //texture = t.getLoadedTexture();
         sb.subscribe("explosion", function (name, entity) {
 
-            createNewExplosion(entity.getXPos(), entity.getZPos());
+            createNewMediumExplosion(entity.getXPos(), entity.getZPos());
+
+
+        });
+
+        sb.subscribe("smallexplosion", function (name, entity) {
+
+            createNewSmallExplosion(entity.getXPos(), entity.getZPos());
 
 
         });
 
         sb.subscribe("bigexplosion", function (name, entity) {
 
-            createNewExplosion(entity.getXPos(), entity.getZPos());
+            createNewBigExplosion(entity.getXPos(), entity.getZPos());
 
 
         });
@@ -65,8 +72,10 @@ function explosionprocess_constructor(sb) {
     var update = function (elapsed) {
 
         for (var i = 0; i < explosions.length; i++) {
-            if (explosions[i].getTime() > 5)
+
+            if (explosions[i].getTime() > 5) {
                 explosions.splice(i, 1);
+            }
             else {
                 explosions[i].setTime(explosions[i].getTime() + elapsed / 3000);
             }
@@ -75,10 +84,31 @@ function explosionprocess_constructor(sb) {
     };
 
 
-    var createNewExplosion = function (x, z) {
+    var createNewSmallExplosion = function (x, z) {
         //slow
 
-        var particle = asteroidexplosion_constructor(sb, x, 0, z);
+        var particle = asteroidexplosion_constructor(sb, x, 0, z,'small');
+        particle.init();
+
+        explosions.push(particle);
+
+    };
+
+    var createNewMediumExplosion = function (x, z) {
+        //slow
+
+        var particle = asteroidexplosion_constructor(sb, x, 0, z,'medium');
+        particle.init();
+
+        explosions.push(particle);
+
+    };
+
+
+    var createNewBigExplosion = function (x, z) {
+        //slow
+
+        var particle = asteroidexplosion_constructor(sb, x, 0, z,'large');
         particle.init();
 
         explosions.push(particle);
@@ -94,6 +124,10 @@ function explosionprocess_constructor(sb) {
         //sm.setProgram(particleProgram);
         shadermanager.setProgram(particleProgram);
         var mvMatrix = camera.getMVMatrix();
+
+        //TODO stays too long up to 5 seconds
+        //console.log(explosions.length);
+
         for (var i = 0; i < explosions.length; i++) {
             camera.mvPushMatrix();
 

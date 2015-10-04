@@ -34,7 +34,7 @@ function momemtummovementprocess_constructor(sb) {
 
 
         var ship = em.getEntityByName('ship');
-        if (ship) {
+        if (ship ) {
             ship.components.MomentumComponent.setRotatingLeft(0);
             ship.components.MomentumComponent.setRotatingRight(0);
             ship.components.MomentumComponent.setCurrentlyAccelerating(0);
@@ -61,11 +61,12 @@ function momemtummovementprocess_constructor(sb) {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
-            if (le.components.HealthComponent && le.components.HealthComponent.amount < 1)
-                continue;
+
 
 
             if (le.components.MomentumComponent && le.components.RenderableComponent) {
+
+
 
                 var mm = le.components.MomentumComponent;
 

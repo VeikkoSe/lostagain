@@ -24,103 +24,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="StarProcess.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Processor/StarProcess.js">
+      <file leaf-file-name="EnemyProcess.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Processor/EnemyProcess.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="966" max-vertical-offset="1818">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="350" max-vertical-offset="1764">
+              <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameState.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/State/GameState.js">
+      <file leaf-file-name="LaserProcess.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Processor/LaserProcess.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.72043014" vertical-offset="462" max-vertical-offset="3960">
-              <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="2592">
+              <caret line="0" column="26" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gui-vs.shader" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shaders/gui-vs.shader">
+      <file leaf-file-name="ExplosionProcess.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Processor/ExplosionProcess.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+            <state vertical-scroll-proportion="-0.021067416" vertical-offset="2301" max-vertical-offset="3474">
+              <caret line="127" column="45" selection-start-line="127" selection-start-column="45" selection-end-line="127" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CollisionComponent.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Component/CollisionComponent.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoadState.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/State/LoadState.js">
+      <file leaf-file-name="AsteroidExplosion.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Common/AsteroidExplosion.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="516" max-vertical-offset="3150">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state vertical-scroll-proportion="-10.285714" vertical-offset="486" max-vertical-offset="1980">
+              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Text.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Common/Text.js">
+      <file leaf-file-name="CollisionProcess.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Processor/CollisionProcess.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.2142856" vertical-offset="0" max-vertical-offset="42030">
-              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="537" max-vertical-offset="3276">
+              <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TextProcess2d.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Processor/TextProcess2d.js">
+      <file leaf-file-name="AsteroidRenderProcess.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Processor/AsteroidRenderProcess.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.428572" vertical-offset="810" max-vertical-offset="2340">
-              <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1074" max-vertical-offset="3708">
+              <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Sprite.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Common/Sprite.js">
+      <file leaf-file-name="Entity.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Common/Entity.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1152">
-              <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="206" max-vertical-offset="918">
+              <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Texture.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Common/Texture.js">
+      <file leaf-file-name="LaserComponent.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Component/LaserComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1242">
-              <caret line="12" column="45" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AssetManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Common/AssetManager.js">
+      <file leaf-file-name="EntityManager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Common/EntityManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="846" max-vertical-offset="1728">
-              <caret line="57" column="23" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TeleportProcess.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Processor/TeleportProcess.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="2646">
-              <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="206" max-vertical-offset="1188">
+              <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -136,9 +134,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Common/EntityManager.js" />
-        <option value="$PROJECT_DIR$/src/Common/Entity.js" />
-        <option value="$PROJECT_DIR$/src/Component/HealthComponent.js" />
         <option value="$PROJECT_DIR$/src/Component/PhotonTorpedoComponent.js" />
         <option value="$PROJECT_DIR$/shaders/particle3d-vs.shader" />
         <option value="$PROJECT_DIR$/shaders/star-vs.shader" />
@@ -159,7 +154,6 @@
         <option value="$PROJECT_DIR$/src/Common/Mesh.js" />
         <option value="$PROJECT_DIR$/src/Common/Texture.js" />
         <option value="$PROJECT_DIR$/src/Common/BlockManager.js" />
-        <option value="$PROJECT_DIR$/src/Processor/LaserProcess.js" />
         <option value="$PROJECT_DIR$/src/Processor/TextProcess.js" />
         <option value="$PROJECT_DIR$/src/Common/TextTimer.js" />
         <option value="$PROJECT_DIR$/src/Component/TextComponent.js" />
@@ -169,15 +163,11 @@
         <option value="$PROJECT_DIR$/src/Common/StateEngine.js" />
         <option value="$PROJECT_DIR$/src/Processor/AsteroidRenderProcess.js" />
         <option value="$PROJECT_DIR$/src/Processor/CameraControllerProcess.js" />
-        <option value="$PROJECT_DIR$/src/Processor/CollisionProcess.js" />
         <option value="$PROJECT_DIR$/src/Processor/DrivingMovementProcess.js" />
         <option value="$PROJECT_DIR$/src/Processor/EnemyProcess.js" />
-        <option value="$PROJECT_DIR$/src/Processor/ExplosionProcess.js" />
         <option value="$PROJECT_DIR$/src/Processor/GunProcess.js" />
         <option value="$PROJECT_DIR$/src/Processor/LinearMovementProcess.js" />
-        <option value="$PROJECT_DIR$/src/Processor/MomentumMovementProcess.js" />
         <option value="$PROJECT_DIR$/src/Processor/PostProcess.js" />
-        <option value="$PROJECT_DIR$/src/Processor/RenderProcess.js" />
         <option value="$PROJECT_DIR$/src/Processor/StarProcess.js" />
         <option value="$PROJECT_DIR$/src/State/LoadState.js" />
         <option value="$PROJECT_DIR$/src/State/MenuState.js" />
@@ -185,8 +175,16 @@
         <option value="$PROJECT_DIR$/src/Common/Text.js" />
         <option value="$PROJECT_DIR$/src/Common/Sprite.js" />
         <option value="$PROJECT_DIR$/src/Common/AssetManager.js" />
-        <option value="$PROJECT_DIR$/src/Processor/TextProcess2d.js" />
         <option value="$PROJECT_DIR$/src/State/GameState.js" />
+        <option value="$PROJECT_DIR$/src/Processor/TextProcess2d.js" />
+        <option value="$PROJECT_DIR$/src/Processor/RenderProcess.js" />
+        <option value="$PROJECT_DIR$/src/Processor/MomentumMovementProcess.js" />
+        <option value="$PROJECT_DIR$/src/Common/Entity.js" />
+        <option value="$PROJECT_DIR$/src/Common/EntityManager.js" />
+        <option value="$PROJECT_DIR$/src/Processor/CollisionProcess.js" />
+        <option value="$PROJECT_DIR$/src/Common/AsteroidExplosion.js" />
+        <option value="$PROJECT_DIR$/src/Processor/LaserProcess.js" />
+        <option value="$PROJECT_DIR$/src/Processor/ExplosionProcess.js" />
       </list>
     </option>
   </component>
@@ -205,7 +203,7 @@
     <scope name="Actionmapper" pattern="file:src/Actionmapper/*" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="24" />
+    <option name="y" value="36" />
     <option name="width" value="1920" />
     <option name="height" value="1030" />
   </component>
@@ -520,13 +518,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1920" height="1030" extended-state="0" />
+    <frame x="0" y="36" width="1920" height="1030" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277311" sideWeight="0.4997367" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49124727" sideWeight="0.4997367" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35855263" sideWeight="0.4997367" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18969299" sideWeight="0.4997367" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21823932" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20189774" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -637,49 +635,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/shaders/simplest-fs.shader">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-          <caret line="6" column="40" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Common/Laser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1602">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/MapProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1746">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DOMCore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="19800">
-          <caret line="854" column="0" selection-start-line="854" selection-start-column="0" selection-end-line="854" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Common/Camera.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4284">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/PrimitiveProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="263" max-vertical-offset="1152">
-          <caret line="47" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="58" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Processor/PlaneProcess.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1404">
@@ -719,13 +674,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
           <caret line="22" column="17" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/LaserProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="2159">
-          <caret line="50" column="34" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -826,34 +774,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Common/StateEngine.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1380" max-vertical-offset="3456">
-          <caret line="87" column="27" selection-start-line="87" selection-start-column="27" selection-end-line="87" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/AsteroidRenderProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1074" max-vertical-offset="3708">
-          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Processor/CameraControllerProcess.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="954" max-vertical-offset="1512">
           <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/CollisionProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2010" max-vertical-offset="2880">
-          <caret line="120" column="43" selection-start-line="120" selection-start-column="43" selection-end-line="120" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -866,30 +790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/EnemyProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1206" max-vertical-offset="1764">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/ExplosionProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1578" max-vertical-offset="2862">
-          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/GunProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1506" max-vertical-offset="3708">
-          <caret line="92" column="13" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Processor/LinearMovementProcess.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="462" max-vertical-offset="1692">
@@ -898,26 +798,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/MomentumMovementProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2190" max-vertical-offset="3204">
-          <caret line="131" column="21" selection-start-line="131" selection-start-column="21" selection-end-line="131" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Processor/PostProcess.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3738" max-vertical-offset="5022">
           <caret line="218" column="93" selection-start-line="218" selection-start-column="93" selection-end-line="218" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/RenderProcess.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1560" max-vertical-offset="3258">
-          <caret line="100" column="85" selection-start-line="100" selection-start-column="85" selection-end-line="100" selection-end-column="85" />
           <folding />
         </state>
       </provider>
@@ -991,7 +875,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="846" max-vertical-offset="1728">
           <caret line="57" column="23" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1012,18 +896,138 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Processor/TextProcess2d.js">
+    <entry file="file://$PROJECT_DIR$/src/State/GameState.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.428572" vertical-offset="810" max-vertical-offset="2340">
-          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1782" max-vertical-offset="3960">
+          <caret line="111" column="28" selection-start-line="111" selection-start-column="28" selection-end-line="111" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/State/GameState.js">
+    <entry file="file://$PROJECT_DIR$/src/Processor/TextProcess2d.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72043014" vertical-offset="462" max-vertical-offset="3960">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+        <state vertical-scroll-proportion="-3.2142856" vertical-offset="1386" max-vertical-offset="2340">
+          <caret line="82" column="28" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Common/StateEngine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1434" max-vertical-offset="3456">
+          <caret line="75" column="49" selection-start-line="75" selection-start-column="49" selection-end-line="75" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Processor/RenderProcess.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="750" max-vertical-offset="3258">
+          <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="60" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Component/MomentumMovable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1926">
+          <caret line="38" column="29" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Processor/MomentumMovementProcess.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-42.214287" vertical-offset="42" max-vertical-offset="3222">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Processor/GunProcess.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="966" max-vertical-offset="3708">
+          <caret line="89" column="20" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Component/LaserComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="712">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Processor/EnemyProcess.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="188" max-vertical-offset="1764">
+          <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Common/Entity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
+          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Common/EntityManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="206" max-vertical-offset="1188">
+          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Component/CollisionComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1440">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Processor/AsteroidRenderProcess.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1074" max-vertical-offset="3708">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Processor/CollisionProcess.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="537" max-vertical-offset="3276">
+          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Common/AsteroidExplosion.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.285714" vertical-offset="486" max-vertical-offset="1980">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Processor/LaserProcess.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="2592">
+          <caret line="0" column="26" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Processor/ExplosionProcess.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.021067416" vertical-offset="2301" max-vertical-offset="3474">
+          <caret line="127" column="45" selection-start-line="127" selection-start-column="45" selection-end-line="127" selection-end-column="45" />
           <folding />
         </state>
       </provider>

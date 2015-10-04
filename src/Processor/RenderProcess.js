@@ -59,9 +59,9 @@ function renderprocess_constructor(sb) {
                 //we do not render objects wich health is zero
                 if (le.components.HealthComponent && le.components.HealthComponent.getAmount() < 1)
                     continue;
-                if (le.components.Visibility && le.components.Visibility.visibility == false) {
-                    continue;
-                }
+                //if (le.components.Visibility && le.components.Visibility.visibility == false) {
+                //    continue;
+                //}
 
 
                 //var rc = le.components.Renderable;

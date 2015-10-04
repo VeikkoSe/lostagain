@@ -9,6 +9,10 @@ function entity_constructor(id, name) {
     var components = [];
     var componentCount = 0;
 
+    var getName = function() {
+        return name;
+    }
+
     var hasComponent = function (name) {
 
         for (var i = 0; i < 5; i++) {
@@ -29,11 +33,12 @@ function entity_constructor(id, name) {
     };
 
 
+
     return { // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
         addComponent,
         hasComponent,
         id,
-        name,
+        getName,
         components
 
     };
