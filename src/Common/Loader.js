@@ -406,7 +406,7 @@ function loader_costructor() {
         rc.setYPos(0);
         e.addComponent(rc);
 
-        e.addComponent(HealthComponent(5000, am.getSprite('hp')));
+        e.addComponent(HealthComponent(50, am.getSprite('hp')));
         e.addComponent(ShieldComponent(2, am.getSprite('shield')));
         e.addComponent(ControllableComponent());
         e.addComponent(CameraTargetComponent());
@@ -442,26 +442,6 @@ function loader_costructor() {
         e.addComponent(mec);
 
 
-        /*
-
-
-         //e.addComponent(new Drivable());
-         //can be only one. Camera follows this entity
-
-
-
-
-         //var sc = sprite_component(sb);
-
-         //var shield = sc.loadSprite("shield", -0.9, -0.74);
-         e.addComponent(HealthComponent(10, am.getSprite('hp')));
-
-
-
-
-
-
-         */
 
         return e;
     };
@@ -472,7 +452,7 @@ function loader_costructor() {
         var e = em.addNew('baremothership');
         var m = am.getMesh('mothership');
         e.addComponent(MeshComponent(m));
-//0, 0.5, 0, 0.05
+
         e.addComponent(RenderableComponent());
 
         e.addComponent(MovableComponent());

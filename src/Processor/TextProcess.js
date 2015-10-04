@@ -1,10 +1,10 @@
 function text_process_constructor(sb) {
     "use strict";
     var gl = sb.getGL();
-    //constructor() {
+
 
     var camera = sb.getCamera();
-    //var fontProgram = sm.init('font');
+
 
     var shadermanager = sb.getShaderManager();
     var program = shadermanager.useShader("font");
@@ -15,7 +15,8 @@ function text_process_constructor(sb) {
     var squareBuffer = gl.createBuffer();
     var sprite = null;
     var size = null;
-    //var rotation = null;
+    var text = sb.getText();
+
 
 
 
@@ -24,20 +25,24 @@ function text_process_constructor(sb) {
 
 
 
-    var init= function() {
+    var init = function() {
         //var t = texture_constructor(sb);
 
-        var text = text_constructor();
-        text.init();
+        //var text = text_constructor(sb);
+        //text.init();
 
         var str = 'The quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog\nThe quick brown fox jumps over the lazy dog';
 
         var characterArray = text.textToC(str);
 
-        var textBuffer = text.buildData(characterArray);
+        var textBuffer = text.buildData(characterArray,true);
+
 
         //var texture = t.loadedTexture;
-        sprite = am.getSprite('hp');
+        sprite = am.getSprite('font');
+
+        console.log(sprite);
+
 
         gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
         size = textBuffer.length / 5;
@@ -74,7 +79,7 @@ function text_process_constructor(sb) {
 
                 mat4.scale(mvMatrix, [0.2, 0.2, 0.2]);
 
-                //mat4.rotate(camera.mvMatrix, helpers.degToRad(this.rotation), [1, 1,1]);
+
                 gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
                 gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
                 gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
@@ -87,7 +92,7 @@ function text_process_constructor(sb) {
                 gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
 
 
-                gl.drawArrays(gl.TRIANGLES, 0, squareBuffer.size);
+                gl.drawArrays(gl.TRIANGLES, 0, size);
                 camera.mvPopMatrix();
             }
 

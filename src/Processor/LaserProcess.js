@@ -53,9 +53,13 @@ function laserprocess_constructor(sb) {
 
                 for (var i = 0; i < targets.length; i++) {
                     var target = targets[i].components.RenderableComponent;
+                    var hc = targets[i].components.HealthComponent;
                     if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, target.getXPos(), target.getZPos())) {
+                        hc.setAmount(hc.getAmount()-1);
                         sb.publish("explosion", target);
+
                         break; //shoot only one target at a time
+
 
                     }
                 }

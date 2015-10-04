@@ -1,38 +1,48 @@
 function text_process_2d_constructor(sb) {
     "use strict";
 
-    //constructor() {
+
 
     var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader("per-fragment-lighting");
+    var program = shadermanager.useShader("font2d");
 
     var text = sb.getText();
 
     var gl = sb.getGL();
-    var t = texture_constructor(sb);
 
-    var texture = t.loadedTexture;
+    var am = sb.getAssetManager();
+    //var t = texture_constructor(sb);
+
+    //var texture = t.loadedTexture;
 
     var camera = sb.getCamera();
-    var textBuffer = null;
-    var rotation = null;
+    var textBuffer,rotation;
     var currentString = '';
+    var sprite;
 
     var vertexPositionBuffer = gl.createBuffer();
 
     var em = sb.getEntityManager();
 
+    var characterArray,textBuffer;
 
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
     //this.squareBuffer.size = textBuffer.length / 5;
 
 
     var str = '';
-    var characterArray = text.textToC(str);
-    var textBuffer = text.buildData(characterArray, true);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
-    //}
+
+
+    var init = function() {
+        characterArray = text.textToC(str);
+        textBuffer = text.buildData(characterArray, true);
+
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
+
+        sprite = am.getSprite('font');
+
+    }
 
     var update = function (deltatime, timeSinceStart) {
 
@@ -78,6 +88,7 @@ function text_process_2d_constructor(sb) {
                 shadermanager.setProgram(program);
                 camera.mvPushMatrix();
 
+                console.log('a');
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
                 gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
@@ -86,7 +97,7 @@ function text_process_2d_constructor(sb) {
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, texture);
+                gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
                 gl.uniform1i(program.samplerUniform, 0);
 
                 //gl.uniformMatrix4fv(program.uPMatrix, false, camera.pMatrix);
@@ -104,7 +115,6 @@ function text_process_2d_constructor(sb) {
     };
 
     return {
-        draw, update, init: function () {
-        }
+        draw, update,init
     }
 }

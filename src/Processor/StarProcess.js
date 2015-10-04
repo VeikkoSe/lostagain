@@ -13,7 +13,7 @@ function starprocess_constructor(sb) {
     var program = shadermanager.useShader("star");
 
 
-    var numParticles = 10000;
+    var numParticles = 1000;
 
     var init = function () {
 

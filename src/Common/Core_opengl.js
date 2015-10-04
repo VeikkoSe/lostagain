@@ -100,8 +100,9 @@ Core.prototype.initModules = function () {
     this.entityManager = this.modules[1];
     this.actionMapper = this.modules[0];
     this.camera = this.modules[4];
-    this.text = text_constructor();
-    this.text.init();
+    this.text = this.modules[7];
+    //this.text = text_constructor();
+    //this.text.init();
 
     this.sm = this.modules[5];
     this.stateEngine = this.modules[8];

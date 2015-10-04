@@ -1,8 +1,13 @@
 function text_constructor() {
     "use strict";
 
+    var sb;
+
     var fontJson = false;
 
+    var init = function(sb) {
+        sb = sb;
+    }
 
     var textToC = function (text) {
         var ret = [];
@@ -68,14 +73,14 @@ function text_constructor() {
                     //  1,0, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
 
 
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth()), (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    scale * (xOffsetandAdvance / sb.getResolutionWidth()), (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
+                    scale * (xOffsetandAdvance / sb.getResolutionWidth()), (1 - (scale * (32 / sb.getResolutionHeight()))), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth), (1 - (scale * (32 / resolutionHeight))), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
+                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth()), (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    scale * (xOffsetandAdvance / sb.getResolutionWidth()), (1 - (scale * (32 / sb.getResolutionHeight()))), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth()), (1 - (scale * (32 / sb.getResolutionHeight()))), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
                 );
 
             }
