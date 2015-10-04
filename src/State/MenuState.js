@@ -66,7 +66,6 @@ function menustate_constructor(sb) {
 
         wall = mm.getOrAdd('menu');
 
-        //console.log('init');
 
         //actionMapper = new MapStateActionMapper();
         /*

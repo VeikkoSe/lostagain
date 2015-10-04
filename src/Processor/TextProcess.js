@@ -13,8 +13,8 @@ function text_process_constructor(sb) {
 
 
     var squareBuffer = gl.createBuffer();
-    var sprite = null;
-    var size = null;
+    var sprite;
+    var size;
     var text = sb.getText();
 
 
@@ -26,6 +26,7 @@ function text_process_constructor(sb) {
 
 
     var init = function() {
+
         //var t = texture_constructor(sb);
 
         //var text = text_constructor(sb);
@@ -41,7 +42,6 @@ function text_process_constructor(sb) {
         //var texture = t.loadedTexture;
         sprite = am.getSprite('font');
 
-        console.log(sprite);
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);

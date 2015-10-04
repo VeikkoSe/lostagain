@@ -25,6 +25,9 @@ function textimer_constructor(level) {
     var getLevelText = function (level) {
         return events;
     };
-    return {getLevelText, init}
+    return {
+        getLevelText,
+        init
+    }
 
 }

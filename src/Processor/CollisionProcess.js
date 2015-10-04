@@ -119,10 +119,6 @@ function collisionprocess_constructor(sb) {
                 c.setXWidth(r.getXWidth());
                 c.setYWidth(r.getYWidth());
                 c.setZWidth(r.getZWidth());
-
-
-                //console.log(le);
-
                 c.setEntity(le);
 
 

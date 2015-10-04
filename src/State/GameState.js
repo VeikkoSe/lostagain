@@ -136,7 +136,7 @@ function gamestate_constructor(sb) {
 
             processList[i].draw();
         }
-        //console.log(camera.drawCalls);
+
         //camera.drawCalls = 0;
 
 

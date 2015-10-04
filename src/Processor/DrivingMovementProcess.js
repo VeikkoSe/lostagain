@@ -59,7 +59,6 @@
  re.xPos += mm.velocityX * (deltatime / 1000);
  re.zPos -= mm.velocityZ * (deltatime / 1000);
 
- //console.log(re.xPos);
  }
  }
  }

@@ -4,7 +4,7 @@ function text_process_2d_constructor(sb) {
 
 
     var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader("font2d");
+    var program = shadermanager.useShader("gui");
 
     var text = sb.getText();
 
@@ -16,7 +16,7 @@ function text_process_2d_constructor(sb) {
     //var texture = t.loadedTexture;
 
     var camera = sb.getCamera();
-    var textBuffer,rotation;
+    var textBuffer,rotation,characterArray;
     var currentString = '';
     var sprite;
 
@@ -24,7 +24,6 @@ function text_process_2d_constructor(sb) {
 
     var em = sb.getEntityManager();
 
-    var characterArray,textBuffer;
 
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
     //this.squareBuffer.size = textBuffer.length / 5;
@@ -36,27 +35,31 @@ function text_process_2d_constructor(sb) {
 
     var init = function() {
         characterArray = text.textToC(str);
+        console.log(characterArray);
         textBuffer = text.buildData(characterArray, true);
 
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
-        sprite = am.getSprite('font');
+        sprite = am.getSprite('font',true);
 
     }
 
     var update = function (deltatime, timeSinceStart) {
 
-        currentString = '';
+
+
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
             if (le.components.TextComponent) {
-                var tc = le.components.TextComponent;
 
-                for (var key in tc.texts) {
-                    if (tc.texts.hasOwnProperty(key)) {
+                var tc = le.components.TextComponent;
+                var texts = tc.getTexts();
+
+                for (var key in texts) {
+                    if (texts.hasOwnProperty(key)) {
 
                         if (parseInt(key, 10) < timeSinceStart) {
-                            currentString = tc.texts[key];
+                            currentString = texts[key];
                         }
 
                     }
@@ -64,8 +67,10 @@ function text_process_2d_constructor(sb) {
 
             }
         }
+
         if (currentString != '') {
             var str = currentString;
+
             var characterArray = text.textToC(str);
             textBuffer = text.buildData(characterArray, true);
             //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
@@ -85,10 +90,12 @@ function text_process_2d_constructor(sb) {
             var le = em.entities[e];
 
             if (le.components.TextComponent) {
-                shadermanager.setProgram(program);
-                camera.mvPushMatrix();
 
-                console.log('a');
+
+
+                shadermanager.setProgram(program);
+
+
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
                 gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
@@ -100,13 +107,11 @@ function text_process_2d_constructor(sb) {
                 gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
                 gl.uniform1i(program.samplerUniform, 0);
 
-                //gl.uniformMatrix4fv(program.uPMatrix, false, camera.pMatrix);
-                //gl.uniformMatrix4fv(program.uMVMatrix, false, camera.mvMatrix);
 
 
                 gl.drawArrays(gl.TRIANGLES, 0, textBuffer.length / 5);
 
-                camera.mvPopMatrix();
+                //camera.mvPopMatrix();
             }
 
         }

@@ -104,7 +104,7 @@ function loader_costructor() {
 
 
                 for (var i = 0; i < 10; i++) {
-                    createEnemy();
+                  //  createEnemy();
                 }
 
 

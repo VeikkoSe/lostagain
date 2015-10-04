@@ -32,8 +32,6 @@ function explosionprocess_constructor(sb) {
 
         //texture = t.getLoadedTexture();
         sb.subscribe("explosion", function (name, entity) {
-            //console.log(entity);
-
 
             createNewExplosion(entity.getXPos(), entity.getZPos());
 
@@ -99,7 +97,6 @@ function explosionprocess_constructor(sb) {
         for (var i = 0; i < explosions.length; i++) {
             camera.mvPushMatrix();
 
-            //console.log(explosions[i]);
             gl.bindBuffer(gl.ARRAY_BUFFER, explosions[i].getPointLifetimeBuffer());
             gl.vertexAttribPointer(particleProgram.pointLifetimeAttribute, explosions[i].getPointLifetimeBuffer().itemSize, gl.FLOAT, false, 0, 0);
 

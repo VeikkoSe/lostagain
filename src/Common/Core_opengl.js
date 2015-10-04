@@ -140,7 +140,6 @@ Core.prototype.getAssetManager = function () {
 };
 
 Core.prototype.getEntityManager = function () {
-    //console.log('a',entityManager);
     return this.entityManager;
 };
 

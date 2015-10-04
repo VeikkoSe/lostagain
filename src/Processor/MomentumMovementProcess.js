@@ -107,7 +107,7 @@ function momemtummovementprocess_constructor(sb) {
                  }
 
                  */
-                //console.log(re.angleY);
+
 
                 if (mm.getCurrentlyAccelerating() === 1) {
 
@@ -130,8 +130,6 @@ function momemtummovementprocess_constructor(sb) {
                         mm.setVelocityX(tx);
                         mm.setVelocityZ(tz);
                     }
-
-                    //console.log(mm.acceleration);
                 }
                 if (mm.getRotatingRight() === 1) {
 

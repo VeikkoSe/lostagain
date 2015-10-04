@@ -91,10 +91,6 @@ function gunprocess_constructor(sb) {
 
                 }
             }
-
-
-            //console.log(collisions);
-
         }
 
 

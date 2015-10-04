@@ -32,10 +32,6 @@ function linearmovementprocess_construcotr(sb) {
                 var re = le.components.RenderableComponent;
                 var me = le.components.Movable;
 
-                //var re = em.searchComponentForEntity(foundMoveEntities[e], "Renderable");
-
-                //var me = em.searchComponentForEntity(foundMoveEntities[e], "Movable");
-                //console.log(se.selected);
                 if (me && se.selected && camera.clickPosition) {
 
 

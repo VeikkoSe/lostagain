@@ -117,8 +117,7 @@ Plane.prototype.createHeightMap = function (size) {
     //    c++;
 
     //}
-    //console.log(fakeTexture);
-    //console.log(normals);
+
 
 
     //this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.texturePositionBuffer);

@@ -86,7 +86,6 @@ function stateengine_constructor() {
 
         // store and init the new state
         states.push(state);
-        //console.log(stateStr);
         currentState = state;
 
         states[states.length - 1].init();

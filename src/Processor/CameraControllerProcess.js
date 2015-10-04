@@ -65,13 +65,8 @@ function cameracontrollerprocess_constructor(sb) {
                 camera.setYPos(y);
                 camera.setZPos(z);
 
-                //console.log(camera.getYPos());
-
-                // }
-
                 mat4.lookAt([camera.getXPos(), camera.getYPos(), camera.getZPos()], [re.getXPos(), 0, re.getZPos()], [0, 1, 0], mvMatrix);
 
-                //camera.lookAt([re.getXPos(),0,re.getZPos()],[0,1,0]);
 
             }
 

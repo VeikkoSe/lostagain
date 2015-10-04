@@ -217,7 +217,6 @@ function postprocess_constructor(sb) {
 
         gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
         gl.vertexAttribPointer(blurVertical.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-        //console.log(this.wall.texture);
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.uniform1i(blurVertical.samplerUniform, 0);

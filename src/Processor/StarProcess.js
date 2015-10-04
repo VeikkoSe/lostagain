@@ -60,9 +60,6 @@ function starprocess_constructor(sb) {
 
     var draw = function () {
 
-
-
-        //console.log(em);
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 

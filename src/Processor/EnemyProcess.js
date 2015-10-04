@@ -77,7 +77,7 @@ function enemyprocess_constructor(sb) {
                     re.setZPos(re.getZPos() + dirX * le.components.EnemyComponent.getSpeed() * (deltatime / 1000));
                     re.setXPos(re.getXPos() + dirZ * le.components.EnemyComponent.getSpeed() * (deltatime / 1000));
                     //re.yPos = 0;
-                    //console.log(deg);
+
                     re.setAngleY(deg);
 
                 }

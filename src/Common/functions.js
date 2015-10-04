@@ -304,7 +304,7 @@ function buildPlane(width, squares) {
 
         }
     }
-    //console.log(hd);
+
     c = 0;
     var iloop = [];
     var il = 0;

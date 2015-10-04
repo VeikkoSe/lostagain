@@ -23,7 +23,7 @@ function asset_manager_constructor() {
 
 
             loadingAmount--;
-            //console.log(loadingAmount);
+
             if (loadingAmount === 0) {
 
                 sb.publish("allassetsloaded", true);
@@ -40,7 +40,7 @@ function asset_manager_constructor() {
         loadingAmount++;
         loadingMax++;
 
-        //console.log(loadingAmount);
+
         //var params = {name,game};
         var m = mesh_constructor(sb);
         m.loadMesh(name);
@@ -50,17 +50,17 @@ function asset_manager_constructor() {
         return meshes[name];
     };
 
-    var getSprite = function (name) {
+    var getSprite = function (name,noflip,repeat) {
         if (sprites[name])
             return sprites[name];
 
         //loadingAmount++;
         //loadingMax++;
 
-        //console.log(loadingAmount);
+
         //var params = {name,game};
         var s = sprite_constructor(sb);
-        s.load(name);
+        s.load(name,noflip,repeat);
 
         sprites[name] = s;
 

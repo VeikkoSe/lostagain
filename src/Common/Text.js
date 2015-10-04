@@ -3,11 +3,9 @@ function text_constructor() {
 
     var sb;
 
-    var fontJson = false;
+    var fontJson;
 
-    var init = function(sb) {
-        sb = sb;
-    }
+
 
     var textToC = function (text) {
         var ret = [];
@@ -34,7 +32,7 @@ function text_constructor() {
 
     var buildData = function (letters, twoD) {
 
-        var scalingFactor = 2;
+        //var scalingFactor = 2;
         //32 reads in the fnt file created by the program
         var fontHeight = 32;
 
@@ -43,7 +41,7 @@ function text_constructor() {
 
         var xAdvance = 0;
         var yAdvance = 0;
-        // console.log(letters);
+
         for (var i = 0; i < letters.length; i++) {
 
 
@@ -58,9 +56,8 @@ function text_constructor() {
             var xOffsetandAdvance = xOffset + xAdvance;
             var scale = 0.5;
             if (twoD) {
-                //zero,zero is bottom left
 
-                //alert(xOffsetandAdvance + pInt(letters[i].width));
+                //zero,zero is bottom left
                 ret.push(
                     //first triangle and two texture coordinates
                     //  1, 1,             0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
@@ -110,10 +107,10 @@ function text_constructor() {
     };
 
 
-    var init = function () {
+    var init = function (sbin) {
 
 
-
+        sb = sbin;
 
         //created with fontxmltojson.php
         fontJson = {

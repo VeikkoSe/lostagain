@@ -67,8 +67,6 @@ function asteroidrenderprocess_constructor(sb) {
 
         }
 
-
-        //console.log(this.combinedMeshes);
         gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(combinedMeshes.vertices), gl.STATIC_DRAW);
     };

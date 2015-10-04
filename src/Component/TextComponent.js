@@ -4,12 +4,16 @@ function TextComponent(level) {
     //constructor(level) {
     var name = "TextComponent";
 
-    // var t = texttimer_constructor();
-    //var texts = t.getLevelText(level);
-    //}
+     var t = textimer_constructor();
+    t.init();
+    var texts = t.getLevelText(level);
+
     return {
         getName: function () {
             return name;
+        },
+        getTexts: function() {
+            return texts;
         }
     }
 

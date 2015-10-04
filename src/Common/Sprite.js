@@ -11,10 +11,10 @@ function sprite_constructor(sandbox) {
     var pointStartPositionsBuffer = null;
 
 
-    var load = function (name) {
+    var load = function (name,noflip,repeat) {
 
 
-        t.load(name, false, false);
+        t.load(name, noflip, repeat);
 
         texture = t.getLoadedTexture();
         //var texture =;

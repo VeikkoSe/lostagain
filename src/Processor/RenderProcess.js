@@ -55,7 +55,6 @@ function renderprocess_constructor(sb) {
 
                 camera.mvPushMatrix();
                 var mvMatrix = camera.getMVMatrix();
-                //console.log(le);
 
                 //we do not render objects wich health is zero
                 if (le.components.HealthComponent && le.components.HealthComponent.getAmount() < 1)
@@ -100,15 +99,8 @@ function renderprocess_constructor(sb) {
                 }
 
                 mat4.translate(mvMatrix, [rc.getXPos(), rc.getYPos(), rc.getZPos()]);
-
-                //console.log(rc.angleY);
-
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleY()), [0, 1, 0]);
-
-
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleZ()), [0, 0, 1]);
-
-
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleX()), [1, 0, 0]);
 
 
