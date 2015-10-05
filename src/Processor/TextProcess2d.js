@@ -1,10 +1,8 @@
 function text_process_2d_constructor(sb) {
-    "use strict";
-
-
+    'use strict';
 
     var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader("gui");
+    var program = shadermanager.useShader('gui');
 
     var text = sb.getText();
 
@@ -16,7 +14,7 @@ function text_process_2d_constructor(sb) {
     //var texture = t.loadedTexture;
 
     var camera = sb.getCamera();
-    var textBuffer,rotation,characterArray;
+    var textBuffer, rotation, characterArray;
     var currentString = '';
     var sprite;
 
@@ -24,14 +22,10 @@ function text_process_2d_constructor(sb) {
 
     var em = sb.getEntityManager();
 
-
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
     //this.squareBuffer.size = textBuffer.length / 5;
 
-
     var str = '';
-
-
 
     var init = function() {
         characterArray = text.textToC(str);
@@ -40,13 +34,11 @@ function text_process_2d_constructor(sb) {
 
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
-        sprite = am.getSprite('font',true);
+        sprite = am.getSprite('font', true);
 
-    }
+    };
 
-    var update = function (deltatime, timeSinceStart) {
-
-
+    var update = function(deltatime, timeSinceStart) {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -76,11 +68,9 @@ function text_process_2d_constructor(sb) {
             //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
         }
 
-
     };
 
-
-    var draw = function () {
+    var draw = function() {
 
         if (textBuffer == null && currentString != '') {
             return true;
@@ -91,11 +81,7 @@ function text_process_2d_constructor(sb) {
 
             if (le.components.TextComponent) {
 
-
-
                 shadermanager.setProgram(program);
-
-
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
                 gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
@@ -107,8 +93,6 @@ function text_process_2d_constructor(sb) {
                 gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
                 gl.uniform1i(program.samplerUniform, 0);
 
-
-
                 gl.drawArrays(gl.TRIANGLES, 0, textBuffer.length / 5);
 
                 //camera.mvPopMatrix();
@@ -116,10 +100,9 @@ function text_process_2d_constructor(sb) {
 
         }
 
-
     };
 
     return {
-        draw, update,init
+        draw, update, init
     }
 }

@@ -1,58 +1,54 @@
 function collisionprocess_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //constructor() {
     var collisions = [];
     var em = sb.getEntityManager();
     var sb = sb;
 
-
     //var that = this;
-    var init = function () {
+    var init = function() {
 
-        sb.subscribe("bulletcollision", function (name, collisionComponent) {
+        sb.subscribe('bulletcollision', function(name, collisionComponent) {
 
             var enemy = collisionComponent;
 
             var enemyEntity = enemy.getEntity();
             var hc = enemyEntity.components.HealthComponent;
 
-
             hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
 
-                sb.publish("explosion", enemyEntity.components.RenderableComponent);
+                sb.publish('explosion', enemyEntity.components.RenderableComponent);
             }
             else {
 
                 hc.setAmount(0);
 
-                sb.publish("bigexplosion", enemyEntity.components.RenderableComponent);
+                sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
             }
         });
 
-        sb.subscribe("enemylasercollision", function (name, target) {
+        sb.subscribe('enemylasercollision', function(name, target) {
 
             //var enemy = collisionComponent;
 
             //var enemyEntity = enemy.getEntity();
             var hc = target.components.HealthComponent;
 
-
             hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
                 //console.log('b');
-                sb.publish("smallexplosion", target.components.RenderableComponent);
+                sb.publish('smallexplosion', target.components.RenderableComponent);
             }
             else {
 
                 em.removeEntityByName(target.getName());
-                sb.publish("bigexplosion", target.components.RenderableComponent);
+                sb.publish('bigexplosion', target.components.RenderableComponent);
             }
         });
 
-        sb.subscribe("collision", function (name, collisionComponents) {
-
+        sb.subscribe('collision', function(name, collisionComponents) {
 
             var enemy = null;
 
@@ -65,16 +61,15 @@ function collisionprocess_constructor(sb) {
             var enemyEntity = enemy.getEntity();
             var hc = enemyEntity.components.HealthComponent;
 
-
             hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
 
-                sb.publish("explosion", enemyEntity.components.RenderableComponent);
+                sb.publish('explosion', enemyEntity.components.RenderableComponent);
             }
             else {
                 hc.setAmount(0);
 
-                sb.publish("bigexplosion", enemyEntity.components.RenderableComponent);
+                sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
 
             }
             var player = null;
@@ -82,7 +77,7 @@ function collisionprocess_constructor(sb) {
             if (collisionComponents[0].getGroup() == 'player') {
                 player = collisionComponents[0];
             }
-            else /*if (collisionComponents[1].group == 'player') */{
+            else {
                 player = collisionComponents[1];
             }
             var playerEntity = player.getEntity();
@@ -91,7 +86,6 @@ function collisionprocess_constructor(sb) {
             //renderable contains xyz of object so we know where to explode
             var pc = playerEntity.components.RenderableComponent;
 
-
             if (sc.getAmount() > 0)
                 sc.setAmount(sc.getAmount() - 1);
             else
@@ -99,20 +93,17 @@ function collisionprocess_constructor(sb) {
 
             if (hc.getAmount() > 0) {
 
-                sb.publish("explosion", pc);
+                sb.publish('explosion', pc);
             }
             else {
 
-
                 if (playerEntity.name == 'mothership') {
 
-
-                    sb.publish("gameover", true);
+                    sb.publish('gameover', true);
                 }
                 hc.setAmount(0);
-                sb.publish("bigexplosion", pc);
+                sb.publish('bigexplosion', pc);
             }
-
 
         });
 
@@ -120,8 +111,7 @@ function collisionprocess_constructor(sb) {
 
     //}
 
-    var update = function () {
-
+    var update = function() {
 
         collisions.length = 0;
         for (var e = 0; e < em.entities.length; e++) {
@@ -143,12 +133,10 @@ function collisionprocess_constructor(sb) {
                 c.setZWidth(r.getZWidth());
                 c.setEntity(le);
 
-
                 collisions.push(c);
 
             }
         }
-
 
         for (var i = 0; i < collisions.length; i++) {
             for (var j = 0; j < collisions.length; j++) {
@@ -159,19 +147,16 @@ function collisionprocess_constructor(sb) {
                     collisions[i].getZPos() - collisions[i].getZWidth() < collisions[j].getZPos() + collisions[j].getZWidth()
                     && collisions[i].getGroup() != collisions[j].getGroup()) {
 
-
                     sb.publish("collision", [collisions[i], collisions[j]]);
 
                 }
             }
 
-
         }
     };
 
-
     return {
-        update, draw: function () {
+        update, draw: function() {
         }, init
-    }
+    };
 }

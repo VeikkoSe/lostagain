@@ -1,17 +1,13 @@
 function momemtummovementprocess_constructor(sb) {
-    "use strict";
-
+    'use strict';
 
     var sb = sb;
     var em = sb.getEntityManager();
 
-
-    var update = function (deltatime) {
-
+    var update = function(deltatime) {
 
         var ms = em.getEntityByName('mothership');
         if (ms) {
-
 
             ms.components.MomentumComponent.setRotatingLeft(0);
             ms.components.MomentumComponent.setRotatingRight(0);
@@ -32,9 +28,8 @@ function momemtummovementprocess_constructor(sb) {
             }
         }
 
-
         var ship = em.getEntityByName('ship');
-        if (ship ) {
+        if (ship) {
             ship.components.MomentumComponent.setRotatingLeft(0);
             ship.components.MomentumComponent.setRotatingRight(0);
             ship.components.MomentumComponent.setCurrentlyAccelerating(0);
@@ -57,16 +52,10 @@ function momemtummovementprocess_constructor(sb) {
             }
         }
 
-
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
-
-
-
             if (le.components.MomentumComponent && le.components.RenderableComponent) {
-
-
 
                 var mm = le.components.MomentumComponent;
 
@@ -109,9 +98,7 @@ function momemtummovementprocess_constructor(sb) {
 
                  */
 
-
                 if (mm.getCurrentlyAccelerating() === 1) {
-
 
                     var dirVectorX = Math.cos(degToRad(re.getAngleY()));
                     //result works but re.zPos is minus instead of addition in the end
@@ -133,7 +120,6 @@ function momemtummovementprocess_constructor(sb) {
                     }
                 }
                 if (mm.getRotatingRight() === 1) {
-
 
                     if (re.getAngleY() >= 360)
                         re.setAngleY(0);
@@ -160,15 +146,13 @@ function momemtummovementprocess_constructor(sb) {
         }
     };
 
-    var init = function () {
-
+    var init = function() {
 
     };
 
-
     return {
-        update, draw: function () {
+        update, draw: function() {
         }, init
-    }
+    };
 
 }

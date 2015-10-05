@@ -12,25 +12,23 @@ function layout_constructor() {
 
     //}
 
-
     return {
-        getChildren: function () {
+        getChildren: function() {
             return children;
         },
 
-        addChildren: function (layout) {
+        addChildren: function(layout) {
             children.push(layout);
         },
-        init: function () {
+        init: function() {
 
         },
-        start: function () {
+        start: function() {
 
         },
-        subscribe: function () {
+        subscribe: function() {
 
         }
     }
-
 
 }

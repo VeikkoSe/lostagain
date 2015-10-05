@@ -1,20 +1,17 @@
 function entity_manager_constructor() {
-    "use strict";
+    'use strict';
 
     var entities = [];
     var maxId = 0;
 
-    var addNew = function (name) {
-
+    var addNew = function(name) {
 
         maxId++;
 
         var ent = entity_constructor(maxId, name);
 
-
         entities.push(ent);
         return ent;
-
 
     };
     var removeEntityByName = function(name) {
@@ -26,22 +23,20 @@ function entity_manager_constructor() {
 
     };
 
-
-    var getEntityByName = function (name) {
+    var getEntityByName = function(name) {
         for (var e = 0; e < entities.length; e++) {
             if (entities[e].getName() == name)
                 return entities[e];
         }
     };
 
-
-    var clearAll = function () {
+    var clearAll = function() {
 
         entities.length = 0;
         maxId = 0;
     };
 
-    var subscribe = function () {
+    var subscribe = function() {
 
     };
 
@@ -51,9 +46,9 @@ function entity_manager_constructor() {
         getEntityByName,
         addNew,
         entities,
-        init: function () {
+        init: function() {
         },
-        start: function () {
+        start: function() {
         },
         subscribe
     });

@@ -1,19 +1,17 @@
 function CurrencyComponent(sprite) {
-    "use strict";
+    'use strict';
 
     var name = "CurrencyComponent";
     var sprite = sprite;
 
-
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getSprite: function () {
+        getSprite: function() {
             return sprite;
         }
     }
-
 
 }

@@ -1,15 +1,13 @@
 function ControllableComponent() {
-    "use strict";
+    'use strict';
 
     var name = "ControllableComponent";
 
-
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
     }
-
 
 }

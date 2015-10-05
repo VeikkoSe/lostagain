@@ -1,28 +1,26 @@
 function ShieldComponent(amount, sprite) {
-    "use strict";
+    'use strict';
 
     //constructor(amount, sprite = null) {
-    var name = "ShieldComponent";
+    var name = 'ShieldComponent';
     var amount = amount;
     var sprite = sprite;
-
 
     //}
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getAmount: function () {
+        getAmount: function() {
             return amount;
         },
-        setAmount: function (v) {
+        setAmount: function(v) {
             amount = v;
         },
-        getSprite: function (v) {
+        getSprite: function(v) {
             return sprite;
         },
     }
-
 
 }

@@ -1,6 +1,5 @@
 function RenderableComponent() {
-    "use strict";
-
+    'use strict';
 
     var name = "RenderableComponent";
     var angleX = 0;
@@ -14,76 +13,74 @@ function RenderableComponent() {
     var yWidth = 5;
     var zWidth = 5;
 
-
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getXPos: function () {
+        getXPos: function() {
             return xPos;
         },
-        setXPos: function (v) {
+        setXPos: function(v) {
             xPos = v;
         },
-        getYPos: function () {
+        getYPos: function() {
             return yPos;
         },
-        setYPos: function (v) {
+        setYPos: function(v) {
             yPos = v;
         },
-        getZPos: function () {
+        getZPos: function() {
             return zPos;
         },
-        setZPos: function (v) {
+        setZPos: function(v) {
             zPos = v;
         },
 
-        getScale: function () {
+        getScale: function() {
             return scale;
         },
-        setScale: function (v) {
+        setScale: function(v) {
             scale = v;
         },
 
-        getAngleX: function () {
+        getAngleX: function() {
             return angleX;
         },
-        setAngleX: function (v) {
+        setAngleX: function(v) {
             angleX = v;
         },
-        getAngleY: function () {
+        getAngleY: function() {
             return angleY;
         },
-        setAngleY: function (v) {
+        setAngleY: function(v) {
             angleY = v;
         },
-        getAngleZ: function () {
+        getAngleZ: function() {
             return angleZ;
         },
-        setAngleZ: function (v) {
+        setAngleZ: function(v) {
             angleZ = v
         },
-        getXWidth: function () {
+        getXWidth: function() {
             return xWidth;
         },
-        setXWidth: function (v) {
+        setXWidth: function(v) {
             xWidth = v;
         },
 
-        getYWidth: function () {
+        getYWidth: function() {
             return yWidth;
         },
-        setYWidth: function (v) {
+        setYWidth: function(v) {
             yWidth = v;
         },
-        getZWidth: function () {
+        getZWidth: function() {
             return zWidth;
         },
-        setZWidth: function (v) {
+        setZWidth: function(v) {
             zWidth = v;
         }
     };
-
 
 }
 

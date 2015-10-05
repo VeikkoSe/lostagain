@@ -1,25 +1,21 @@
 function MultiTrailComponent() {
-    "use strict";
+    'use strict';
 
-    //constructor() {
-    var name = "MultiTrailComponent";
+    var name = 'MultiTrailComponent';
     var trailComponents = [];
 
-
-    //}
-
-    var addTrail = function (trailComponent) {
+    var addTrail = function(trailComponent) {
         trailComponents.push(trailComponent);
     };
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
         getTrailComponents: function() {
             return trailComponents;
         },
         addTrail
-    }
+    };
 
 }

@@ -8,7 +8,6 @@ class Cube {
 
     }
 
-
     vertices() {
         return [
             -3.0, -3.0, -3.0, // triangle 1 : begin
@@ -49,10 +48,8 @@ class Cube {
             3.0, -3.0, 3.0
         ];
 
-
     }
 }
-
 
 /**
  * Created by Vge on 13.2.2015.
@@ -88,7 +85,6 @@ class Diamond {
             -1.0, 0.0, -1.0,
             -1.0, 0.0, 1.0,
 
-
             0.0, -1, 0.0,
             -1, 0, 1,
             1, 0, -1,
@@ -105,9 +101,7 @@ class Diamond {
             -1, 0, -1,
             -1, 0, 1
 
-
         ];
-
 
     }
 }

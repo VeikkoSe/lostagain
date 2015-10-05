@@ -1,21 +1,21 @@
 function TextComponent(level) {
-    "use strict";
+    'use strict';
 
     //constructor(level) {
-    var name = "TextComponent";
+    var name = 'TextComponent';
 
-     var t = textimer_constructor();
+    var t = textimer_constructor();
     t.init();
     var texts = t.getLevelText(level);
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
         getTexts: function() {
             return texts;
         }
-    }
+    };
 
 }
 

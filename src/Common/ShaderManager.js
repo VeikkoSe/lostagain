@@ -1,27 +1,24 @@
 function shader_manager_constuctor() {
-    "use strict";
+    'use strict';
 
     var sb, allShaders, currentProgram, gl;
     var currentBuffer = null;
 
-    var init = function (sandbox) {
+    var init = function(sandbox) {
         sb = sandbox;
         allShaders = [];
         currentProgram = null;
 
-
     };
-    var start = function () {
+    var start = function() {
         gl = sb.getGL();
     };
 
-    var setProgram = function (program) {
-
+    var setProgram = function(program) {
 
         if (currentProgram != program.name) {
             gl.useProgram(program);
             currentProgram = program.name;
-
 
         }
         else {
@@ -44,12 +41,11 @@ function shader_manager_constuctor() {
 
      }
      */
-    var subscribe = function () {
+    var subscribe = function() {
 
     };
 
-
-    var useShader = function (name) {
+    var useShader = function(name) {
         if (allShaders[name]) {
             return allShaders[name];
         }
@@ -91,8 +87,8 @@ function shader_manager_constuctor() {
             case "particle3d":
                 allShaders[name] = initParticleShaders3d(name);
                 break;
-            case "exhaust":
-                allShaders[name] = initExhaustShaders(name);
+            case "trail":
+                allShaders[name] = initTrailShaders(name);
                 break;
             case "gui":
                 allShaders[name] = initGuiShader(name);
@@ -106,13 +102,12 @@ function shader_manager_constuctor() {
 
     };
 
-    var createP = function (id) {
+    var createP = function(id) {
         var program = gl.createProgram();
         gl.createProgram();
         //makes ajax call, needs to be linked on loading, now it's just "fast enough"
         getShader(id, program);
         gl.linkProgram(program);
-
 
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
             alert("Could not initialise shaders");
@@ -124,23 +119,20 @@ function shader_manager_constuctor() {
 
     };
 
-    var initTestShaders = function (id) {
+    var initTestShaders = function(id) {
 
         var program = createP(id);
 
-
         program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
         gl.enableVertexAttribArray(program.aVertexPosition);
-
 
         return program;
 
     };
 
-    var initExhaustShaders = function (id) {
+    var initTrailShaders = function(id) {
 
         var program = createP(id);
-
 
         program.aVertexPosition = gl.getAttribLocation(program, "aVertexPosition");
         gl.enableVertexAttribArray(program.aVertexPosition);
@@ -157,7 +149,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initMapShaders = function (id) {
+    var initMapShaders = function(id) {
 
         var program = createP(id);
 
@@ -173,12 +165,11 @@ function shader_manager_constuctor() {
         program.samplerUniform = gl.getUniformLocation(program, "uSampler");
         //program.uColor = gl.getUniformLocation(program, "uColor");
 
-
         return program;
 
     };
 
-    var initSimplestShaders = function (id) {
+    var initSimplestShaders = function(id) {
 
         var program = createP(id);
 
@@ -193,7 +184,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initVerticalBlurShaders = function (id) {
+    var initVerticalBlurShaders = function(id) {
 
         var program = createP(id);
 
@@ -203,9 +194,7 @@ function shader_manager_constuctor() {
         program.textureCoordAttribute = gl.getAttribLocation(program, "aTextureCoord");
         gl.enableVertexAttribArray(program.textureCoordAttribute);
 
-
         program.uResolution = gl.getUniformLocation(program, "uResolution");
-
 
         program.samplerUniform = gl.getUniformLocation(program, "uSampler");
 
@@ -213,7 +202,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initBlurShaders = function (id) {
+    var initBlurShaders = function(id) {
 
         var program = createP(id);
 
@@ -234,7 +223,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initAmbientShaders = function (id) {
+    var initAmbientShaders = function(id) {
 
         var program = createP(id);
 
@@ -256,7 +245,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initParticleShaders = function (id) {
+    var initParticleShaders = function(id) {
 
         var program = createP(id);
 
@@ -272,7 +261,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initParticleShaders3d = function (id) {
+    var initParticleShaders3d = function(id) {
 
         var program = createP(id);
 
@@ -285,12 +274,11 @@ function shader_manager_constuctor() {
         program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
         program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
 
-
         return program;
 
     };
 
-    var initGuiShader = function (id) {
+    var initGuiShader = function(id) {
 
         var program = createP(id);
 
@@ -306,7 +294,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initStarShaders = function (id) {
+    var initStarShaders = function(id) {
 
         var program = createP(id);
 
@@ -323,7 +311,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initShaders = function (id) {
+    var initShaders = function(id) {
 
         var program = createP(id);
 
@@ -335,7 +323,6 @@ function shader_manager_constuctor() {
 
         program.aVertexNormal = gl.getAttribLocation(program, "aVertexNormal");
         gl.enableVertexAttribArray(program.aVertexNormal);
-
 
         program.uPMatrix = gl.getUniformLocation(program, "uPMatrix");
         program.uMVMatrix = gl.getUniformLocation(program, "uMVMatrix");
@@ -361,7 +348,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initParticleShaders = function (id) {
+    var initParticleShaders = function(id) {
 
         var program = createP(id);
 
@@ -377,7 +364,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initLifeTimeParticleShaders = function (id) {
+    var initLifeTimeParticleShaders = function(id) {
 
         var program = createP(id);
 
@@ -398,12 +385,11 @@ function shader_manager_constuctor() {
         program.colorUniform = gl.getUniformLocation(program, "uColor");
         program.timeUniform = gl.getUniformLocation(program, "uTime");
 
-
         return program;
 
     };
 
-    var initFontShaders = function (id) {
+    var initFontShaders = function(id) {
 
         var program = createP(id);
 
@@ -421,7 +407,7 @@ function shader_manager_constuctor() {
 
     };
 
-    var initFontShaders2d = function (id) {
+    var initFontShaders2d = function(id) {
 
         var program = createP(id);
 
@@ -439,11 +425,11 @@ function shader_manager_constuctor() {
 
     };
 
-    var getShader = function (id, program) {
+    var getShader = function(id, program) {
 
         var vs_source = null, fs_source = null;
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
+        xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 vs_source = xhttp.responseText;
 
@@ -454,12 +440,11 @@ function shader_manager_constuctor() {
         xhttp.send();
 
         var xhttpF = new XMLHttpRequest();
-        xhttpF.onreadystatechange = function () {
+        xhttpF.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 fs_source = xhttpF.responseText;
             }
         };
-
 
         xhttpF.open("GET", './shaders/' + id + '-fs.shader?' + Math.random(), false);
         xhttpF.send();

@@ -3,7 +3,6 @@
  */
 function BlockManager() {
 
-
     this.parts = [];
     this.currentBlock = 0;
 
@@ -12,7 +11,6 @@ function BlockManager() {
     this.part = this.mapSize / this.blockSize;
 
     var d = 0;
-
 
     var cnt = this.part * this.part;
     for (var s = 0; s < cnt; s++) {
@@ -43,21 +41,19 @@ function BlockManager() {
             this.parts[s].push(s + this.part + 1);
         }
 
-
     }
-
 
 }
 
-BlockManager.prototype.setCurrentBlock = function (block) {
+BlockManager.prototype.setCurrentBlock = function(block) {
     this.currentBlock = block;
 }
 
-BlockManager.prototype.getCurrentBlock = function () {
+BlockManager.prototype.getCurrentBlock = function() {
     return this.currentBlock;
 }
 
-BlockManager.prototype.inRange = function (block) {
+BlockManager.prototype.inRange = function(block) {
 
 
     //tmp
@@ -72,7 +68,7 @@ BlockManager.prototype.inRange = function (block) {
     return false;
 }
 
-BlockManager.prototype.getBlockFromXY = function (x, y) {
+BlockManager.prototype.getBlockFromXY = function(x, y) {
 
     var block = 0;
     var chosenblock = -1;

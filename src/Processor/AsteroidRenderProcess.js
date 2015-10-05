@@ -1,6 +1,5 @@
 function asteroidrenderprocess_constructor(sb) {
-    "use strict";
-
+    'use strict';
 
     var normalMatrix = mat3.create();
 
@@ -19,22 +18,17 @@ function asteroidrenderprocess_constructor(sb) {
 
     var elapsedTotal = 0;
 
-
     var lastTime = 0;
-
 
     var combinedMeshes = {};
 
-
     var verts = cube.vertices();
 
-    var init = function () {
-
+    var init = function() {
 
         vertexPositionBuffer.nums = 0;
         combinedMeshes.vertices = [];
         vertexPositionBuffer.nums = 0;
-
 
         for (var g = 0; g < 5000; g++) {
             var x = getRandomInt(-100, 100);
@@ -61,9 +55,7 @@ function asteroidrenderprocess_constructor(sb) {
                 combinedMeshes.vertices.push.apply(combinedMeshes.vertices, newVerts);
             }
 
-
             vertexPositionBuffer.nums += verts.length / 3;
-
 
         }
 
@@ -71,8 +63,7 @@ function asteroidrenderprocess_constructor(sb) {
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(combinedMeshes.vertices), gl.STATIC_DRAW);
     };
 
-
-    var textureFromPixelArray = function (dataArray, type, width, height) {
+    var textureFromPixelArray = function(dataArray, type, width, height) {
         var dataTypedArray = new Uint8Array(dataArray); // Don't need to do this if the data is already in a typed array
         var texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -93,7 +84,7 @@ function asteroidrenderprocess_constructor(sb) {
      }
 
      */
-    var createTexture = function (elapsed) {
+    var createTexture = function(elapsed) {
 
         megaElapsedTotal += elapsed;
         if (megaElapsedTotal > 100 || monstermap == null) {
@@ -120,7 +111,6 @@ function asteroidrenderprocess_constructor(sb) {
                 }
             }
 
-
             var texture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, texture);
             //gl.texParameteri ( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR ) ;
@@ -135,14 +125,11 @@ function asteroidrenderprocess_constructor(sb) {
 
         }
 
-
     };
 
-
-    var update = function (deltatime, timeSinceBeginning) {
+    var update = function(deltatime, timeSinceBeginning) {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
-
 
             if (le.components.AsteroidComponent) {
 
@@ -151,11 +138,10 @@ function asteroidrenderprocess_constructor(sb) {
         }
     };
 
-    var draw = function () {
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
-
 
             if (le.components.AsteroidComponent) {
 
@@ -170,32 +156,28 @@ function asteroidrenderprocess_constructor(sb) {
 
                 if (lastTime != 0) {
 
-                    var elapsed = timeNow - lastTime;
-                    elapsedTotal += elapsed;
-                    gl.uniform1f(ambientProgram.uElapsed, elapsedTotal.toFixed(1));
 
+                    elapsedTotal += timeNow - lastTime;
+                    gl.uniform1f(ambientProgram.uElapsed, elapsedTotal.toFixed(1));
 
                 }
 
                 gl.uniform1f(ambientProgram.uElapsed, 0);
                 lastTime = timeNow;
 
-
                 gl.activeTexture(gl.TEXTURE0);
                 gl.bindTexture(gl.TEXTURE_2D, monstermap);
                 gl.uniform1i(ambientProgram.uVisibility, 0);
-
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
                 gl.vertexAttribPointer(ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);
                 gl.vertexAttribPointer(ambientProgram.aWorldCoordinates, 3, gl.FLOAT, false, 36, 12);
                 gl.vertexAttribPointer(ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
 
-
                 gl.drawArrays(gl.TRIANGLES, 0, vertexPositionBuffer.nums);
                 camera.drawCalls++;
             }
         }
     };
-    return {update, draw, init}
+    return {update, draw, init};
 }

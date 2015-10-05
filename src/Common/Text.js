@@ -1,13 +1,11 @@
 function text_constructor() {
-    "use strict";
+    'use strict';
 
     var sb;
 
     var fontJson;
 
-
-
-    var textToC = function (text) {
+    var textToC = function(text) {
         var ret = [];
         for (var i = 0; i < text.length; i++) {
             if (text[i] == '\n') {
@@ -22,20 +20,18 @@ function text_constructor() {
         return ret;
     };
 
-    var formatPixel = function (pixel) {
+    var formatPixel = function(pixel) {
         var imageSize = 256;
         var ret = (2 * pixel + 1) / (2 * imageSize);
 
         return ret;
     };
 
-
-    var buildData = function (letters, twoD) {
+    var buildData = function(letters, twoD) {
 
         //var scalingFactor = 2;
         //32 reads in the fnt file created by the program
         var fontHeight = 32;
-
 
         var ret = [];
 
@@ -43,7 +39,6 @@ function text_constructor() {
         var yAdvance = 0;
 
         for (var i = 0; i < letters.length; i++) {
-
 
             if (letters[i] === 'newline') {
                 yAdvance -= fontHeight;
@@ -68,7 +63,6 @@ function text_constructor() {
                     //  1,1, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
                     //  0,0, 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
                     //  1,0, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
-
 
                     scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth()), (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
                     scale * (xOffsetandAdvance / sb.getResolutionWidth()), (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
@@ -97,18 +91,13 @@ function text_constructor() {
 
             xAdvance += pInt(letters[i].xadvance);
 
-
         }
-
 
         return ret;
 
-
     };
 
-
-    var init = function (sbin) {
-
+    var init = function(sbin) {
 
         sb = sbin;
 
@@ -2312,14 +2301,13 @@ function text_constructor() {
             }
         }
 
-
     };
 
     return {
-        textToC, init, buildData, subscribe: function () {
+        textToC, init, buildData, subscribe: function() {
 
         },
-        start: function () {
+        start: function() {
 
         }
     }

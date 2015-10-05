@@ -1,5 +1,5 @@
 function starprocess_constructor(sb) {
-    "use strict";
+    'use strict';
 
     var gl = sb.getGL();
 
@@ -10,30 +10,27 @@ function starprocess_constructor(sb) {
     var camera = sb.getCamera();
 
     var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader("star");
-
+    var program = shadermanager.useShader('star');
 
     var numParticles = 1000;
 
-    var init = function () {
-
+    var init = function() {
 
         gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
 
         var color = [1, 1, 1, 1];
         colors.push(color);
 
-        var color = [1, 1, 1, 2];
-        colors.push(color);
+        var color2 = [1, 1, 1, 2];
+        colors.push(color2);
 
-        var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
-        colors.push(color);
+        var color3 = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
+        colors.push(color3);
 
-        var color = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
-        colors.push(color);
+        var color4 = [Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, Math.random() / 2 + 0.5, 1];
+        colors.push(color4);
 
         for (var i = 0; i < numParticles; i++) {
-
 
             startPositions.push(randomBetween(-4000, 4000));
             startPositions.push(randomBetween(-600, -500));
@@ -42,14 +39,11 @@ function starprocess_constructor(sb) {
             startPositions.push(randomBetween(1, 1));
         }
 
-
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
-
 
     };
 
-
-    var randomBetween = function (min, max) {
+    var randomBetween = function(min, max) {
         if (min < 0) {
             return min + Math.random() * (Math.abs(min) + max);
         } else {
@@ -57,8 +51,7 @@ function starprocess_constructor(sb) {
         }
     };
 
-
-    var draw = function () {
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -73,13 +66,11 @@ function starprocess_constructor(sb) {
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
 
-
                 gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
                 gl.vertexAttribPointer(program.aPointSize, 1, gl.FLOAT, false, 16, 12);
 
                 gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
                 gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
-
 
                 gl.drawArrays(gl.POINTS, 0, numParticles);
                 //camera.drawCalls++;
@@ -90,7 +81,7 @@ function starprocess_constructor(sb) {
     };
 
     return {
-        draw, update: function () {
+        draw, update: function() {
         }, init
-    }
+    };
 }

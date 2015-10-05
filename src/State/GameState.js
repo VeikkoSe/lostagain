@@ -1,6 +1,5 @@
 function gamestate_constructor(sb) {
-    "use strict";
-
+    'use strict';
 
     var elapsedTotal = 0;
     var gl = sb.getGL();
@@ -14,19 +13,15 @@ function gamestate_constructor(sb) {
 
     var fb = null;
 
-
-    var subscribe = function () {
+    var subscribe = function() {
     };
 
-
-    var init = function () {
-
+    var init = function() {
 
         processList = [];
         fb = gl.createFramebuffer();
 
-
-        sb.subscribe("movetoloadstate", function (name, wantedstate) {
+        sb.subscribe('movetoloadstate', function(name, wantedstate) {
 
             moveToLoadedStage(wantedstate);
         });
@@ -51,25 +46,19 @@ function gamestate_constructor(sb) {
 
         //processList.push(postprocess_constructor(sb));
 
-
         for (var i = 0; i < processList.length; i++) {
             processList[i].init();
         }
 
-
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-
 
         camera.setPerspective();
 
-
         startTime = new Date().getTime();
-
 
     };
 
-
-    var update = function () {
+    var update = function() {
 
         var timeNow = new Date().getTime();
 
@@ -78,7 +67,6 @@ function gamestate_constructor(sb) {
         frameCount++;
 
         if (lastTime != 0) {
-
 
             var totalElapsed = timeNow - startTime;
 
@@ -89,29 +77,22 @@ function gamestate_constructor(sb) {
                 processList[i].update(elapsed, totalElapsed);
             }
 
-
             if (elapsedTotal >= 1000) {
-                /*
-                 var fps = frameCount;
-                 */
+
+                var fps = frameCount;
+
                 frameCount = 0;
                 elapsedTotal -= 1000;
-                /*
-                 if (fps < 59)
-                 $('#fps').css('color', 'red');
-                 else
-                 $('#fps').css('color', 'green');
-                 $('#fps').html(fps);
-                 */
+
+                document.getElementById('fps').innerHTML = fps;
+
             }
         }
         lastTime = timeNow;
 
-
     };
 
-    var draw = function () {
-
+    var draw = function() {
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
@@ -120,7 +101,6 @@ function gamestate_constructor(sb) {
 
         //gl.clearColor(1, 1, 0, 1); // red
         //gl.clear(gl.COLOR_BUFFER_BIT);
-
 
         //gl.enable(gl.BLEND);
         //gl.disable(gl.DEPTH_TEST);
@@ -132,14 +112,12 @@ function gamestate_constructor(sb) {
 
         //  gl.disable(gl.BLEND);
 
-
         for (var i = 0; i < processList.length; i++) {
 
             processList[i].draw();
         }
 
         //camera.drawCalls = 0;
-
 
         //gl.enable(gl.BLEND);
         //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
@@ -189,10 +167,9 @@ function gamestate_constructor(sb) {
         //    this.drawAll();
         //}
 
-
     };
 
-    var cleanup = function () {
+    var cleanup = function() {
         /*
          document.onkeydown = null;
          document.onkeyup = null;
@@ -211,6 +188,5 @@ function gamestate_constructor(sb) {
         update,
         cleanup
     };
-
 
 }

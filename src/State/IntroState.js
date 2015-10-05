@@ -1,5 +1,5 @@
 function introstate_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //var {game} = params;
 
@@ -13,9 +13,7 @@ function introstate_constructor(sb) {
     var camera = sb.getCamera();
     var gl = sb.getGL();
 
-
-    var draw = function () {
-
+    var draw = function() {
 
         for (var i = 0; i < processList.length; i++) {
             processList[i].draw(sb);
@@ -72,13 +70,11 @@ function introstate_constructor(sb) {
 
     };
 
-    var subscribe = function () {
+    var subscribe = function() {
 
     };
 
-
-    var init = function () {
-
+    var init = function() {
 
         processList.push(renderprocess_constructor(sb));
 
@@ -99,10 +95,9 @@ function introstate_constructor(sb) {
         mat4.identity(camera.getMVMatrix());
         mat4.translate(camera.getMVMatrix(), [0, 0, -50]);
 
-
     };
 
-    var cleanup = function () {
+    var cleanup = function() {
         /*
          document.onkeydown = null;
          document.onkeyup = null;
@@ -113,8 +108,7 @@ function introstate_constructor(sb) {
          */
     };
 
-
-    var update = function () {
+    var update = function() {
         // actionMapper.handleKeys();
     };
 

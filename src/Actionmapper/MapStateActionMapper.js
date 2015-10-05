@@ -1,20 +1,17 @@
 function map_action_mapper(sb) {
-    "use strict";
+    'use strict';
 
-    var handleKeyDown = function (event) {
+    var handleKeyDown = function(event) {
 
         currentlyPressedKeys[event.keyCode] = true;
     };
 
-
-    var handleKeyUp = function (event) {
+    var handleKeyUp = function(event) {
 
         currentlyPressedKeys[event.keyCode] = false;
     };
 
-
-    var handleKeys = function () {
-
+    var handleKeys = function() {
 
         if (currentlyPressedKeys[49]) {
 
@@ -38,10 +35,8 @@ function map_action_mapper(sb) {
             //game.stateEngine.changeState("mapstate");
         }
 
-
         var map = em.getEntityByName('map');
         if (map) {
-
 
             map.components.MapComponent.movingUp = 0;
             map.components.MapComponent.movingLeft = 0;
@@ -69,7 +64,6 @@ function map_action_mapper(sb) {
                 map.components.MapComponent.movingDown = 1;
             }
 
-
             //spacebar
             if (currentlyPressedKeys[32]) {
                 map.components.MapComponent.selecting = true;
@@ -82,7 +76,6 @@ function map_action_mapper(sb) {
 
         }
 
-
         //console.log(currentlyPressedKeys);
 
         if (currentlyPressedKeys[77]) {
@@ -92,12 +85,11 @@ function map_action_mapper(sb) {
         }
     };
 
-    var handleMouseDown = function (event) {
+    var handleMouseDown = function(event) {
 
         //game.stateEngine.changeState("gamestate");
         sb.publish("loadstate", 'gamestate');
     }
-
 
 }
 

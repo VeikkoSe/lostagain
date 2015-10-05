@@ -1,17 +1,15 @@
 function GuiComponent(sprites) {
-    "use strict";
+    'use strict';
 
     var name = "GuiComponent";
 
     var sprites = sprites;
 
-
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
     }
-
 
 }

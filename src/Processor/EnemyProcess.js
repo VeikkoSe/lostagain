@@ -1,5 +1,5 @@
 function enemyprocess_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //constructor() {
     var routeDone = false;
@@ -7,16 +7,14 @@ function enemyprocess_constructor(sb) {
     var camera = sb.getCamera();
     var em = sb.getEntityManager();
 
-
     //}
 
-    var update = function (deltatime, timeFromStart) {
+    var update = function(deltatime, timeFromStart) {
 
         //we don't instantly harass the player
         // if (timeFromStart < 30000) {
         //return false;
         // }
-
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -30,7 +28,6 @@ function enemyprocess_constructor(sb) {
                 }
                 var re = le.components.RenderableComponent;
                 var enemyHp = le.components.HealthComponent;
-
 
                 if (enemyHp.getAmount() > 0) {
 
@@ -48,10 +45,8 @@ function enemyprocess_constructor(sb) {
                         else
                             ship.components.ShieldComponent.setAmount(ship.components.ShieldComponent.getAmount() - 1);
 
-
                     }
                 }
-
 
                 //newX and newZ are false by default so we don't move anywhere if newpos is not set
                 if (!routeDone) {
@@ -65,13 +60,11 @@ function enemyprocess_constructor(sb) {
                     //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
                     var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
-
                     var angR = Math.atan2(dirX, dirZ);
                     var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
 
                     dirX /= hyp;
                     dirZ /= hyp;
-
 
                     //Add that vector to the enemy's position, multiplied by the speed you want the enemy to move:
                     re.setZPos(re.getZPos() + dirX * le.components.EnemyComponent.getSpeed() * (deltatime / 1000));
@@ -85,9 +78,9 @@ function enemyprocess_constructor(sb) {
         }
     };
     return {
-        update, draw: function () {
-        }, init: function () {
+        update, draw: function() {
+        }, init: function() {
         }
-    }
+    };
 
 }

@@ -1,5 +1,5 @@
 function JumpAreaComponent(buffer, pts, x, y, z, color) {
-    "use strict";
+    'use strict';
 
     //constructor(x, y, z, color) {
     var name = "JumpAreaComponent";
@@ -14,42 +14,41 @@ function JumpAreaComponent(buffer, pts, x, y, z, color) {
     var vertexPositionBuffer = buffer;
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getRadius: function () {
+        getRadius: function() {
             return radius;
         },
-        getPointAmount: function () {
+        getPointAmount: function() {
             return pointAmount;
         },
-        getXPos: function () {
+        getXPos: function() {
             return xPos;
         },
-        getYPos: function () {
+        getYPos: function() {
             return yPos;
         },
-        getZPos: function () {
+        getZPos: function() {
             return zPos;
         },
-        getPoints: function () {
+        getPoints: function() {
             return points;
         },
-        setPoints: function (v) {
+        setPoints: function(v) {
             points = v;
         },
 
-        getColor: function () {
+        getColor: function() {
             return color;
         },
-        getVisible: function () {
+        getVisible: function() {
             return visible;
         },
-        getVertexPositionBuffer: function () {
+        getVertexPositionBuffer: function() {
             return vertexPositionBuffer;
         }
 
     }
-
 
 }

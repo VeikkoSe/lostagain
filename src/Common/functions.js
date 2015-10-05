@@ -1,6 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
-    "use strict";
-
+document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     CORE.start_modules();
     CORE.start_game();
 });
-
 
 function randomRangedInt() {
 
@@ -32,21 +30,19 @@ function randomCloseInt() {
 };
 
 function printMessage(msg) {
-    "use strict";
+    'use strict';
     //$('#debugarea').html(msg);
 }
 
-
 function pInt(nro) {
-    "use strict";
+    'use strict';
     return parseInt(nro, 10);
 }
 
 function randomIntFromInterval(min, max) {
-    "use strict";
+    'use strict';
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
 
 function updateMatrices(camera) {
     /*
@@ -87,11 +83,10 @@ function updateMatrices(camera) {
 
      */
 
-
 }
 
 function getMousePos(canvas, evt) {
-    "use strict";
+    'use strict';
     var rect = canvas.getBoundingClientRect();
     return {
         x: evt.clientX - rect.left,
@@ -100,12 +95,12 @@ function getMousePos(canvas, evt) {
 }
 
 function isInCircle(centerX, centerY, radius, x, y) {
-    "use strict";
+    'use strict';
     return ((centerX - x) * (centerX - x)) + ((centerY - y) * (centerY - y)) < (radius * radius);
 }
 
 function circleXY(x, y, z, radius, amount) {
-    "use strict";
+    'use strict';
     var points = [];
     var stepSize = ((2 * Math.PI) / amount);
     var y = 0;
@@ -116,9 +111,8 @@ function circleXY(x, y, z, radius, amount) {
     return points;
 }
 
-
 function viewport() {
-    "use strict";
+    'use strict';
     var e = window;
     var a = 'inner';
     if (!('innerWidth' in window)) {
@@ -128,9 +122,8 @@ function viewport() {
     return {width: e[a + 'Width'], height: e[a + 'Height']}
 }
 
-
 function updateLightPosition() {
-    "use strict";
+    'use strict';
     var x = $('#slider-x').slider("value");
     var y = $('#slider-y').slider("value");
     var z = $('#slider-z').slider("value");
@@ -139,9 +132,8 @@ function updateLightPosition() {
     $('#slider-z-value').html(z);
 }
 
-
 function updateCameraPosition() {
-    "use strict";
+    'use strict';
     var x = $('#cslider-x').slider("value");
     var y = $('#cslider-y').slider("value");
     var z = $('#cslider-z').slider("value");
@@ -152,12 +144,11 @@ function updateCameraPosition() {
 }
 
 function updateRotation() {
-    "use strict";
+    'use strict';
     var x = $('#rslider-x').slider("value");
     $('#rotslider-x-value').html(x);
 
 }
-
 
 function intersectionpoint(A, B) {
 
@@ -169,12 +160,10 @@ function intersectionpoint(A, B) {
 
     return [x, 0, z];
 
-
 }
 
-
 function objectLabelGenerator() {
-    "use strict";
+    'use strict';
     var color = [Math.random(), Math.random(), Math.random(), 1.0];
     var key = color[0] + ':' + color[1] + ':' + color[2];
     if (key in colorset) {
@@ -187,13 +176,12 @@ function objectLabelGenerator() {
 }
 
 function degToRad(degrees) {
-    "use strict";
+    'use strict';
     return degrees * Math.PI / 180;
 }
 
-
 function isClose(currentCoord, newCoord) {
-    "use strict";
+    'use strict';
     if (currentCoord <= newCoord + 0.1 && currentCoord >= newCoord - 0.1) {
         return true;
     }
@@ -202,7 +190,7 @@ function isClose(currentCoord, newCoord) {
 }
 
 function mouseX(e) {
-    "use strict";
+    'use strict';
     if (e.pageX) return e.pageX;
     else if (e.clientX)
         return e.clientX + (document.documentElement.scrollLeft ?
@@ -212,12 +200,12 @@ function mouseX(e) {
 }
 
 function isNumeric(n) {
-    "use strict";
+    'use strict';
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 function mouseY(e) {
-    "use strict";
+    'use strict';
     if (e.pageY) return e.pageY;
     else if (e.clientY)
         return e.clientY + (document.documentElement.scrollTop ?
@@ -227,12 +215,12 @@ function mouseY(e) {
 }
 
 function simpleWorldToViewX(x) {
-    "use strict";
+    'use strict';
     return x / resolutionWidth;
 }
 
 function simpleWorldToViewY(y) {
-    "use strict";
+    'use strict';
 
     return y / resolutionHeight;
 }
@@ -251,12 +239,12 @@ function simpleWorldToViewY(y) {
  }
  */
 function getRandomInt(min, max) {
-    "use strict";
+    'use strict';
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function buildPlane(width, squares) {
-    "use strict";
+    'use strict';
 
     var xLength = squares;
     var yLength = squares;
@@ -291,7 +279,6 @@ function buildPlane(width, squares) {
 
             var xPosition6 = part * x;
             var yPosition6 = part * y + part;
-
 
             // Position
             hd[c++] = [xPosition1, yPosition1];

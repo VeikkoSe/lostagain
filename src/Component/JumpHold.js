@@ -1,6 +1,6 @@
 function JumpHoldComponent() {
 
-    "use strict";
+    'use strict';
 
     //constructor() {
     var name = "JumpHoldComponent";
@@ -8,11 +8,10 @@ function JumpHoldComponent() {
     // this.holdTime = 5000;
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
     }
-
 
 }
 

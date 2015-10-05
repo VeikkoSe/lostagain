@@ -1,8 +1,7 @@
 function loadstate_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //var {game,wantedState} = params;
-
 
     var sb = sb;
     var gl = sb.getGL();
@@ -16,27 +15,22 @@ function loadstate_constructor(sb) {
     var camera = sb.getCamera();
 
     var shadermanager = sb.getShaderManager();
-    var shaderprogram = shadermanager.useShader("simplest");
+    var shaderprogram = shadermanager.useShader('simplest');
     //var wantedstate = '';
-
 
     var points = [];
 
     var vertexPositionBuffer = gl.createBuffer();
     //var am = asset_manager_constructor(sb);
 
-
     //var loadmanager = loadmanager_costructor(sb);
-
 
     //var loadmanager = game.loadmanager();
 
     var currentLevel = 0;
     var wantedstate = '';
 
-    var init = function (ws) {
-
-
+    var init = function(ws) {
 
         wantedstate = ws;
         points.push(-0.2, 0, 0);
@@ -54,7 +48,6 @@ function loadstate_constructor(sb) {
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
-
         //camera.setPerspective();
 
         //gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
@@ -63,22 +56,17 @@ function loadstate_constructor(sb) {
         //mat4.identity(mvMatrix);
         //mat4.translate(mvMatrix, [0, 0, -10]);
 
-
-        sb.publish("loadassets", wantedstate);
+        sb.publish('loadassets', wantedstate);
 
         //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
+    };
+
+    var subscribe = function() {
 
     };
 
-
-    var subscribe = function () {
-
-    };
-
-
-    var draw = function () {
-
+    var draw = function() {
 
         shadermanager.setProgram(shaderprogram);
 
@@ -88,7 +76,6 @@ function loadstate_constructor(sb) {
         //gl.clearColor(0, 0, 0, 1.0);
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-
         //points.push(-0.5, 0, 0);
         //points.push(0.5, 0, 0);
 
@@ -96,9 +83,7 @@ function loadstate_constructor(sb) {
 
         camera.mvPushMatrix();
 
-
         mat4.rotate(mvMatrix, degToRad(rotationAngle), [0, 0, 1]);
-
 
         gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());
         gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, mvMatrix);
@@ -110,22 +95,18 @@ function loadstate_constructor(sb) {
         gl.enableVertexAttribArray(shaderprogram.aVertexPosition);
         gl.vertexAttribPointer(shaderprogram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-
         gl.drawArrays(gl.LINES, 0, 2);
 
         camera.mvPopMatrix();
 
+    };
+    var cleanup = function() {
 
     };
-    var cleanup = function () {
 
-    };
-
-    var update = function () {
-
+    var update = function() {
 
         var timeNow = new Date().getTime();
-
 
         if (lastTime != 0) {
 
@@ -154,9 +135,7 @@ function loadstate_constructor(sb) {
         }
         lastTime = timeNow;
 
-
     };
-
 
     return {
         init,
@@ -165,6 +144,5 @@ function loadstate_constructor(sb) {
         cleanup,
         subscribe
     };
-
 
 }

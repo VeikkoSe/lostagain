@@ -1,14 +1,14 @@
 function StarComponent() {
-    "use strict";
+    'use strict';
 
     //constructor() {
-    var name = "StarComponent";
+    var name = 'StarComponent';
     //}
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
-    }
+    };
 
 }

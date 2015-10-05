@@ -1,5 +1,5 @@
 function RadarComponent(sprite) {
-    "use strict";
+    'use strict';
 
     //constructor(sprite) {
     var name = "RadarComponent";
@@ -7,11 +7,10 @@ function RadarComponent(sprite) {
     var sprite = sprite;
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
         , sprite
     }
-
 
 }

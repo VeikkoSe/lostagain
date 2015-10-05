@@ -1,26 +1,25 @@
 function GunComponent() {
-    "use strict";
+    'use strict';
 
     var name = "GunComponent";
     var shooting = false;
     var activeWeapon = 1;
 
-
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        setShooting: function (v) {
+        setShooting: function(v) {
             shooting = v;
         },
-        getShooting: function () {
+        getShooting: function() {
             return shooting;
         },
-        setActiveWeapon: function (v) {
+        setActiveWeapon: function(v) {
             activeWeapon = v;
         },
-        getActiveWeapon: function () {
+        getActiveWeapon: function() {
             return activeWeapon;
         }
     }

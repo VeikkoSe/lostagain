@@ -1,5 +1,5 @@
 function HealthComponent(amount, sprite) {
-    "use strict";
+    'use strict';
 
     //constructor(amount, sprite = null) {
 
@@ -8,22 +8,20 @@ function HealthComponent(amount, sprite) {
 
     var sprite = sprite;
 
-
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getSprite: function () {
+        getSprite: function() {
             return sprite;
         },
-        getAmount: function () {
+        getAmount: function() {
             return amount;
         },
-        setAmount: function (v) {
+        setAmount: function(v) {
             amount = v;
         }
     }
-
 
 }

@@ -12,8 +12,7 @@ function Plane(sb, size) {
     this.plane = this.createHeightMap(size);
 }
 
-
-Plane.prototype.createHeightMap = function (size) {
+Plane.prototype.createHeightMap = function(size) {
 
 
 
@@ -56,7 +55,6 @@ Plane.prototype.createHeightMap = function (size) {
             var xPosition6 = x;
             var yPosition6 = y + 1;
 
-
             // Position
             hd[c++] = [xPosition1, yPosition1];
             hd[c++] = [xPosition2, yPosition2];
@@ -77,7 +75,6 @@ Plane.prototype.createHeightMap = function (size) {
     //if we have already used a vertice don't add it again
     //just link the original with index
     var added = {};
-
 
     //we create indexbuffer
     for (var i = 0; i < hd.length; i++) {
@@ -107,7 +104,6 @@ Plane.prototype.createHeightMap = function (size) {
 
     var normals = this.createNormals(heightMapVertexData, iloop);
 
-
     // var fakeTexture = [];
     //  var c = 0;
     // for (var i = 0; i < normals.length; i++) {
@@ -118,11 +114,8 @@ Plane.prototype.createHeightMap = function (size) {
 
     //}
 
-
-
     //this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.texturePositionBuffer);
     //this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(fakeTexture), this.gl.STATIC_DRAW);
-
 
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexPositionBuffer);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(heightMapVertexData), this.gl.STATIC_DRAW);
@@ -137,8 +130,7 @@ Plane.prototype.createHeightMap = function (size) {
     return;
 }
 
-
-Plane.prototype.createNormals = function (vs, ind) {
+Plane.prototype.createNormals = function(vs, ind) {
     var x = 0;
     var y = 1;
     var z = 2;

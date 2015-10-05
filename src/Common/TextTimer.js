@@ -1,14 +1,13 @@
 function textimer_constructor(level) {
-    "use strict";
+    'use strict';
     //constructor(level) {
 
     var events = {};
     //this.events['0'] = 'A';
 
-
     //}
 
-    var init = function () {
+    var init = function() {
         events['2000'] = 'What happened?';
         events['5000'] = 'We were crushed!';
         events['7000'] = 'That seems to be the case';
@@ -22,7 +21,7 @@ function textimer_constructor(level) {
         events['25000'] = ' ';
     };
 
-    var getLevelText = function (level) {
+    var getLevelText = function(level) {
         return events;
     };
     return {

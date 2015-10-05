@@ -1,5 +1,5 @@
 function Core(width, height) {
-    "use strict";
+    'use strict';
 
     this.modules = [];
     this.gl = null;
@@ -10,15 +10,12 @@ function Core(width, height) {
 
     this.topics = {};
 
-
     // An topic identifier
     this.subUid = -1;
-
 
     this.assetManager = null;
     this.entityManager = null;
     this.actionMapper = null;
-
 
     this.create_module(action_mapper());
     this.create_module(entity_manager_constructor());
@@ -30,14 +27,12 @@ function Core(width, height) {
     this.create_module(text_constructor());
     this.create_module(stateengine_constructor());
 
-
     this.width = width;
     this.height = height;
 
     var canvas = this.find('canvas');
     canvas.width = width;
     canvas.height = height;
-
 
     try {
 
@@ -54,18 +49,16 @@ function Core(width, height) {
 
     //sm = shader_manager_constuctor(gl);
 
-
 }
 
-Core.prototype.create_module = function (func) {
-    "use strict";
+Core.prototype.create_module = function(func) {
+    'use strict';
 
     this.modules.push(func);
 };
 
-
-Core.prototype.start_modules = function () {
-    "use strict";
+Core.prototype.start_modules = function() {
+    'use strict';
 
     /*
      for (var i = 0; i < modules.length; i++) {
@@ -80,11 +73,10 @@ Core.prototype.start_modules = function () {
 
     this.startSandbox();
 
-
 };
 
-Core.prototype.startSandbox = function () {
-    "use strict";
+Core.prototype.startSandbox = function() {
+    'use strict';
     for (var i = 0; i < this.modules.length; i++) {
 
         this.modules[i].start();
@@ -92,9 +84,7 @@ Core.prototype.startSandbox = function () {
 
 };
 
-
-Core.prototype.initModules = function () {
-
+Core.prototype.initModules = function() {
 
     this.assetManager = this.modules[2];
     this.entityManager = this.modules[1];
@@ -109,66 +99,62 @@ Core.prototype.initModules = function () {
 
 };
 
-
-Core.prototype.find = function (elem) {
+Core.prototype.find = function(elem) {
     return document.getElementById(elem);
 };
 
-Core.prototype.getModule = function (index) {
+Core.prototype.getModule = function(index) {
     return this.modules[index];
 };
 
-Core.prototype.start_game = function () {
+Core.prototype.start_game = function() {
     this.stateEngine.startState();
 };
 
-
-Core.prototype.getShaderManager = function () {
+Core.prototype.getShaderManager = function() {
     return this.sm;
 };
 
-Core.prototype.getCamera = function () {
+Core.prototype.getCamera = function() {
     return this.camera;
 };
 
-Core.prototype.getCurrentlyPressedKeys = function () {
+Core.prototype.getCurrentlyPressedKeys = function() {
     return this.camera;
 };
 
-Core.prototype.getAssetManager = function () {
+Core.prototype.getAssetManager = function() {
     return this.assetManager;
 };
 
-Core.prototype.getEntityManager = function () {
+Core.prototype.getEntityManager = function() {
     return this.entityManager;
 };
 
-
-Core.prototype.getActionMapper = function () {
+Core.prototype.getActionMapper = function() {
     return this.actionMapper;
 };
 
-Core.prototype.getGL = function () {
+Core.prototype.getGL = function() {
     return this.gl;
 };
 
-Core.prototype.getText = function () {
+Core.prototype.getText = function() {
     return this.text;
 };
 
-Core.prototype.getResolutionWidth = function () {
+Core.prototype.getResolutionWidth = function() {
     return this.width;
 };
 
-Core.prototype.getResolutionHeight = function () {
+Core.prototype.getResolutionHeight = function() {
     return this.height;
 };
-
 
 // Publish or broadcast events of interest
 // with a specific topic name and arguments
 // such as the data to pass along
-Core.prototype.publish = function (topic, args) {
+Core.prototype.publish = function(topic, args) {
 
     if (!this.topics[topic]) {
         return false;
@@ -188,8 +174,7 @@ Core.prototype.publish = function (topic, args) {
 // with a specific topic name and a
 // callback function, to be executed
 // when the topic/event is observed
-Core.prototype.subscribe = function (topic, func) {
-
+Core.prototype.subscribe = function(topic, func) {
 
     if (!this.topics[topic]) {
         this.topics[topic] = [];
@@ -206,7 +191,7 @@ Core.prototype.subscribe = function (topic, func) {
 // Unsubscribe from a specific
 // topic, based on a tokenized reference
 // to the subscription
-Core.prototype.unsubscribe = function (token) {
+Core.prototype.unsubscribe = function(token) {
 
     for (var m in topics) {
         if (topics[m]) {

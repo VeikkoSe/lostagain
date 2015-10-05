@@ -1,6 +1,5 @@
 function MomentumComponent() {
-    "use strict";
-
+    'use strict';
 
     var name = "MomentumComponent";
     var lt = 0;
@@ -18,84 +17,83 @@ function MomentumComponent() {
     var routeEndZpos = 0;
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getTurnSpeed: function () {
+        getTurnSpeed: function() {
             return turnSpeed;
         },
-        setTurnSpeed: function (v) {
+        setTurnSpeed: function(v) {
             turnSpeed = v;
         },
-        getSpeed: function () {
+        getSpeed: function() {
             return speed;
         },
-        setSpeed: function (v) {
+        setSpeed: function(v) {
             speed = v
         },
-        getAccelerationAmount: function () {
+        getAccelerationAmount: function() {
             return acceleration;
         },
-        setAccelerationAmount: function (v) {
+        setAccelerationAmount: function(v) {
             acceleration = v
         },
-        setCurrentlyAccelerating: function (v) {
+        setCurrentlyAccelerating: function(v) {
             accelerationOn = v
         },
-        getCurrentlyAccelerating: function () {
+        getCurrentlyAccelerating: function() {
             return accelerationOn;
         },
-        getRotatingLeft: function () {
+        getRotatingLeft: function() {
             return rotateLeft;
         },
-        setRotatingLeft: function (v) {
+        setRotatingLeft: function(v) {
             rotateLeft = v;
         },
-        getRotatingRight: function () {
+        getRotatingRight: function() {
             return rotateRight;
         },
-        setRotatingRight: function (v) {
+        setRotatingRight: function(v) {
             rotateRight = v;
         },
-        getVelocityX: function () {
+        getVelocityX: function() {
             return velocityX;
         },
-        setVelocityX: function (v) {
+        setVelocityX: function(v) {
             velocityX = v;
         },
-        getVelocityZ: function () {
+        getVelocityZ: function() {
             return velocityZ;
         },
-        setVelocityZ: function (v) {
+        setVelocityZ: function(v) {
             velocityZ = v;
         },
-        getVelocityY: function () {
+        getVelocityY: function() {
             return velocityY;
         },
-        setVelocityY: function (v) {
+        setVelocityY: function(v) {
             velocityY = v;
         },
-        setRouteEndXpos: function (v) {
+        setRouteEndXpos: function(v) {
             routeEndXpos = v;
         },
-        getRouteEndXpos: function () {
+        getRouteEndXpos: function() {
             return routeEndXpos
         },
-        setRouteEndYpos: function (v) {
+        setRouteEndYpos: function(v) {
             routeEndYpos = v;
         },
-        getRouteEndYpos: function () {
+        getRouteEndYpos: function() {
             return routeEndYpos;
         },
-        setRouteEndZpos: function (v) {
+        setRouteEndZpos: function(v) {
             routeEndZpos = v;
         },
-        getRouteEndZpos: function () {
+        getRouteEndZpos: function() {
             return routeEndZpos;
         }
 
     };
-
 
 }
 

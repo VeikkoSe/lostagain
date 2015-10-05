@@ -1,8 +1,8 @@
 function TrailComponent(sprite, length, width, offSetFromCenter, offSetSideFromCenter) {
-    "use strict";
+    'use strict';
 
     //constructor(sprite, length = 30, width = 2, offSetFromCenter = 0, offSetSideFromCenter = 0) {
-    var name = "ExhaustComponent";
+    var name = 'ExhaustComponent';
     var sprite = sprite;
     //points that are calculated from flow points
     var points = [];
@@ -14,35 +14,52 @@ function TrailComponent(sprite, length, width, offSetFromCenter, offSetSideFromC
     var square = [];
     var offSetSideFromCenter = offSetSideFromCenter;
 
-
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getFlow: function () {
+        getOffSetFromCenter: function() {
+            return offSetFromCenter;
+        },
+        getOffSetSideFromCenter: function() {
+            return offSetSideFromCenter;
+        },
+        getLength: function() {
+            return length;
+        },
+        getWidth: function() {
+            return width;
+        },
+        getFlow: function() {
             return flow;
         },
-        getSquare: function () {
+
+        getSquare: function() {
             return square;
         },
-        getTexturecoordinates: function () {
+        getTexturecoordinates: function() {
             return texturecoordinates;
         },
-        setFlow: function (v) {
+        setFlow: function(v) {
             flow = v;
         },
+        setTexturecoordinates: function(v) {
+            texturecoordinates = v;
+        },
 
-        getSprite: function () {
+        getSprite: function() {
             return sprite;
         },
-        getPoints: function () {
+        getPoints: function() {
             return points;
         },
-        setPoints: function (v) {
+        setPoints: function(v) {
             points = v;
+        },
+        setSquare: function(v) {
+            square = v;
         }
-    }
-
+    };
 
 }

@@ -1,29 +1,26 @@
 //http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript
 function sandbox_constructor(CORE) {
-    "use strict";
+    'use strict';
 
     var core = CORE;
     // Storage for topics that can be broadcast
     // or listened to
 
-
-    var publish = function (topic, args) {
+    var publish = function(topic, args) {
         core.publish(topic, args);
     };
 
-    var subscribe = function (topic, func) {
+    var subscribe = function(topic, func) {
         core.subscribe(topic, func);
     };
 
-    var unsubscribe = function (token) {
+    var unsubscribe = function(token) {
         core.unsubscribe(token);
     };
 
-
-    var find = function (element) {
+    var find = function(element) {
         return core.find(element);
     };
-
 
     return {
         unsubscribe,
@@ -31,44 +28,42 @@ function sandbox_constructor(CORE) {
         publish,
         find,
 
-        getGL: function () {
+        getGL: function() {
             return core.getGL();
         },
-        getCamera: function () {
+        getCamera: function() {
             return core.getCamera();
         },
-        getEntityManager: function () {
+        getEntityManager: function() {
             var cm = core.getEntityManager();
 
             return cm;
         },
-        getAssetManager: function () {
+        getAssetManager: function() {
             return core.getAssetManager();
         },
-        getShaderManager: function () {
+        getShaderManager: function() {
 
             return core.getShaderManager();
         },
-        getText: function () {
+        getText: function() {
             return core.getText();
         },
 
-        getResolutionWidth: function () {
+        getResolutionWidth: function() {
             return core.getResolutionWidth();
         },
-        getResolutionHeight: function () {
+        getResolutionHeight: function() {
             return core.getResolutionHeight();
         },
 
-        getActionMapper: function () {
+        getActionMapper: function() {
             return core.getActionMapper();
         },
 
-
-        getCurrentlyPressedKeys: function () {
+        getCurrentlyPressedKeys: function() {
             return core.getCurrentlyPressedKeys();
         }
-
 
     };
 }

@@ -1,6 +1,5 @@
 function stateengine_constructor() {
-    "use strict";
-
+    'use strict';
 
     var introState;
     var gameState;
@@ -14,7 +13,6 @@ function stateengine_constructor() {
     //this.endState = null;
     //this.menuState = null;
 
-
     //this.mapState = null;
 
     //var running = true;
@@ -22,17 +20,15 @@ function stateengine_constructor() {
     var allStates = [];
     var currentState = null;
 
-
-    var cleanup = function () {
+    var cleanup = function() {
 
         document.onkeydown = null;
         document.onkeyup = null;
     };
 
-
     //var introstate =
 
-    var getState = function (sn) {
+    var getState = function(sn) {
 
 
         //if (allStates[sn]) {
@@ -64,16 +60,13 @@ function stateengine_constructor() {
                 return mapState;
                 break;
 
-
         }
         //currentState = allStates[sn];
         //return allStates[sn];
 
-
     };
 
-
-    var moveToLoadedStage = function (stateStr) {
+    var moveToLoadedStage = function(stateStr) {
 
         var state = getState(stateStr);
 
@@ -92,8 +85,7 @@ function stateengine_constructor() {
 
     };
 
-
-    var loadState = function (wantedState) {
+    var loadState = function(wantedState) {
 
         if (states.length > 0) {
 
@@ -109,14 +101,13 @@ function stateengine_constructor() {
         states[states.length - 1].init(wantedState);
 
     };
-    var getCurrentState = function () {
+    var getCurrentState = function() {
         return currentState;
     };
 
+    var tick = function() {
 
-    var tick = function () {
-
-        requestAnimFrame(function () {
+        requestAnimFrame(function() {
             tick();
         });
         var cs = getCurrentState();
@@ -126,12 +117,11 @@ function stateengine_constructor() {
 
     };
 
-    var subscribe = function () {
-
+    var subscribe = function() {
 
     };
 
-    var start = function () {
+    var start = function() {
         introState = introstate_constructor(sb);
         gameState = gamestate_constructor(sb);
 
@@ -141,34 +131,29 @@ function stateengine_constructor() {
         endState = endstate_constructor(sb);
         actionMapper = sb.getActionMapper();
 
-
         loadState('gamestate');
 
         tick();
 
     };
 
-    var init = function (sandbox) {
-
+    var init = function(sandbox) {
 
         sb = sandbox;
 
-
     };
 
-    var startState = function () {
+    var startState = function() {
 
-        sb.subscribe("movetoloadstate", function (name, wantedstate) {
+        sb.subscribe("movetoloadstate", function(name, wantedstate) {
 
             moveToLoadedStage(wantedstate);
         });
 
-
-        sb.subscribe("loadstate", function (name, wantedstate) {
+        sb.subscribe("loadstate", function(name, wantedstate) {
             loadState(wantedstate);
         });
     };
-
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
@@ -178,9 +163,7 @@ function stateengine_constructor() {
         start,
         startState
 
-
     });
-
 
 }
 

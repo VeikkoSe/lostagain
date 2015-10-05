@@ -1,5 +1,5 @@
 function mesh_constructor(sandbox) {
-    "use strict";
+    'use strict';
     // var {name,game} = params;
     var sb = sandbox;
     var vertices = [];
@@ -13,12 +13,10 @@ function mesh_constructor(sandbox) {
 
     //
 
-
     var ambient = null;
     var diffuse = null;
     var specular = null;
     var texture = null;
-
 
     //var rotation = 0;
 
@@ -27,7 +25,6 @@ function mesh_constructor(sandbox) {
     var indexPositionBuffer = gl.createBuffer();
     var normalPositionBuffer = gl.createBuffer();
 
-
     //loadMesh();
 
     //var t = new Texture(this.name);
@@ -35,12 +32,11 @@ function mesh_constructor(sandbox) {
     //this.texture = t.loadedTexture;
     //this.textureLoaded = t.loaded;
 
-
-    var getTexture = function () {
+    var getTexture = function() {
         return texture;
     };
 
-    var loadMesh = function (name) {
+    var loadMesh = function(name) {
 
         //loadManager.loadTotal++;
         var tc = texture_constructor(sb);
@@ -51,14 +47,12 @@ function mesh_constructor(sandbox) {
 
         //texture = tc.loadedTexture;
 
-
         var request = new XMLHttpRequest();
         request.open("GET", "resources/models/" + name + ".js?" + Math.random(), true);
         request.send();
         //var that = this;
 
-        request.onreadystatechange = function () {
-
+        request.onreadystatechange = function() {
 
             if (request.readyState == 4 && request.status == 200) {
 
@@ -69,12 +63,9 @@ function mesh_constructor(sandbox) {
             }
         }
 
-
     };
 
-
-    var inputData = function (data) {
-
+    var inputData = function(data) {
 
         var d = JSON.parse(data);
 
@@ -94,14 +85,13 @@ function mesh_constructor(sandbox) {
         zPos = d.z;
         //this.batch = d.batch;
 
-
         ambient = d.ambient;
         diffuse = d.diffuse;
         specular = d.specular;
 
     };
 
-    var createNormals = function (vs, ind) {
+    var createNormals = function(vs, ind) {
         var x = 0;
         var y = 1;
         var z = 2;
@@ -168,20 +158,17 @@ function mesh_constructor(sandbox) {
         return ns;
     };
 
-
-    var buildBuffers = function () {
+    var buildBuffers = function() {
 
         gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         vertexPositionBuffer.itemSize = 3;
         vertexPositionBuffer.numItems = vertices.length / 3;
 
-
         gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texturecoordinates), gl.STATIC_DRAW);
         texturePositionBuffer.itemSize = 2;
         texturePositionBuffer.numItems = texturecoordinates.length / 2;
-
 
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexPositionBuffer);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
@@ -196,24 +183,22 @@ function mesh_constructor(sandbox) {
         }
     };
 
-
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
         loadMesh,
         getTexture,
-        getVertexPositionBuffer: function () {
+        getVertexPositionBuffer: function() {
             return vertexPositionBuffer;
         },
-        getTexturePositionBuffer: function () {
+        getTexturePositionBuffer: function() {
             return texturePositionBuffer;
         },
-        getIndexPositionBuffer: function () {
+        getIndexPositionBuffer: function() {
             return indexPositionBuffer;
         },
-        getNormalPositionBuffer: function () {
+        getNormalPositionBuffer: function() {
             return normalPositionBuffer;
         }
-
 
     });
 }

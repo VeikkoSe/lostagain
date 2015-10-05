@@ -1,5 +1,5 @@
 function DrivableComponent() {
-    "use strict";
+    'use strict';
 
     var name = "Drivable";
     var accelerationOn = 0;
@@ -10,13 +10,11 @@ function DrivableComponent() {
     var rotateRight = false;
     var rotateLeft = false;
 
-
     //}
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
     }
-
 
 }

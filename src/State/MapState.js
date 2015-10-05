@@ -1,6 +1,5 @@
 function mapstate_constructor(sb) {
-    "use strict";
-
+    'use strict';
 
     //constructor(canvas) {
 
@@ -8,7 +7,6 @@ function mapstate_constructor(sb) {
 
     //this.starProcess = new StarProcess();
     //this.wall = mm.getOrAddMesh('maps');
-
 
     var processList = [];
     var frameCount = 0;
@@ -19,11 +17,9 @@ function mapstate_constructor(sb) {
     //var actionMapper = map_action_mapper(sb);
     //var ef = sb.getEn
 
-
     //}
 
-    var draw = function () {
-
+    var draw = function() {
 
         gl.clearColor(0, 0, 0, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -35,11 +31,9 @@ function mapstate_constructor(sb) {
         }
         camera.drawCalls = 0;
 
-
     };
 
-
-    var init = function () {
+    var init = function() {
 
         /*
          actionMapper = map_action_mapper(sb);
@@ -67,17 +61,14 @@ function mapstate_constructor(sb) {
 
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
-
         camera.setPerspective();
 
         mat4.identity(camera.getMVMatrix());
         //mat4.translate(camera.mvMatrix, [-50, 0, -10]);
 
-
     };
 
-
-    var update = function () {
+    var update = function() {
 
         var timeNow = new Date().getTime();
         actionMapper.handleKeys();
@@ -93,17 +84,16 @@ function mapstate_constructor(sb) {
                 processList[i].update(elapsed, false);
             }
 
-
         }
         lastTime = timeNow;
 
     };
 
-    var subscribe = function () {
+    var subscribe = function() {
 
     };
 
-    var cleanup = function () {
+    var cleanup = function() {
         /*
          document.onkeydown = null;
          document.onkeyup = null;
@@ -122,6 +112,5 @@ function mapstate_constructor(sb) {
         update,
         cleanup
     };
-
 
 }

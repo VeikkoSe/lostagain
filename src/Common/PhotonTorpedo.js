@@ -1,5 +1,5 @@
 function photontorpedo_constructor() {
-    "use strict";
+    'use strict';
     //constructor() {
     var birthTime = 0;
     var angle = 0;
@@ -14,58 +14,56 @@ function photontorpedo_constructor() {
 
     return {
 
-        getBirthTime: function () {
+        getBirthTime: function() {
             return birthTime
         },
-        getAngle: function () {
+        getAngle: function() {
             return angle
         },
-        getXPos: function () {
+        getXPos: function() {
             return xPos
         },
-        getYPos: function () {
+        getYPos: function() {
             return yPos
         },
-        getZPos: function () {
+        getZPos: function() {
             return zPos
         },
-        getVisible: function () {
+        getVisible: function() {
             return visible
         },
-        getSpeed: function () {
+        getSpeed: function() {
             return speed
         },
-        getDeathtime: function () {
+        getDeathtime: function() {
             return deathtime
         },
 
-
-        setBirthTime: function (v) {
+        setBirthTime: function(v) {
             birthTime = v;
         },
-        setAngle: function (v) {
+        setAngle: function(v) {
             angle = v;
         },
-        setXPos: function (v) {
+        setXPos: function(v) {
             xPos = v;
         },
-        setYPos: function (v) {
+        setYPos: function(v) {
             yPos = v;
         },
-        setZPos: function (v) {
+        setZPos: function(v) {
             zPos = v;
         },
-        setVisible: function (v) {
+        setVisible: function(v) {
             visible = v;
         },
-        setSpeed: function (v) {
+        setSpeed: function(v) {
             speed = v;
         },
-        setDeathtime: function (v) {
+        setDeathtime: function(v) {
             deathtime = v;
         }
 
     }
-
 
 }

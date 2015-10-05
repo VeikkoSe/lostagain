@@ -1,5 +1,5 @@
 function MapComponent() {
-    "use strict";
+    'use strict';
 
     //constructor() {
     var name = "MapComponent";
@@ -24,12 +24,11 @@ function MapComponent() {
     var selectMap = false;
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
     };
 
     //}
-
 
 }

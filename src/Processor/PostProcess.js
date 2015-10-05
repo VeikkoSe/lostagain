@@ -1,5 +1,5 @@
 function postprocess_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //constructor() {
     var gl = sb.getGL();
@@ -14,7 +14,6 @@ function postprocess_constructor(sb) {
     var blurVertical = shadermanager.useShader("simplest");
     var blurHorizontal = shadermanager.useShader("blurhorizontal");
 
-
     var texture = null;
     var texture2 = null;
     var texture3 = null;
@@ -26,14 +25,11 @@ function postprocess_constructor(sb) {
     var texCoordBuffer = gl.createBuffer();
     var vertBuffer = gl.createBuffer();
 
-
     var points = [];
-
 
     var vertexPositionBuffer = gl.createBuffer();
 
-
-    var init = function () {
+    var init = function() {
 
         // gl.bindFramebuffer(gl.FRAMEBUFFER, basebuffer);
         // gl.enable(gl.DEPTH_TEST);
@@ -62,20 +58,16 @@ function postprocess_constructor(sb) {
 
          */
 
-
     };
-
 
     // gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexPositionBuffer);
     //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
 
-
-    var setRectangle = function (x, y, width, height) {
+    var setRectangle = function(x, y, width, height) {
         var x1 = x;
         var x2 = x + width;
         var y1 = y;
         var y2 = y + height;
-
 
         // x1, y2,
         //    x2, y1,
@@ -98,13 +90,12 @@ function postprocess_constructor(sb) {
             x1, y1,
             x1, y2,
 
-
             x2, y1,
             x1, y2,
             x2, y2];
     };
 
-    var initTextureFramebuffer = function (fb) {
+    var initTextureFramebuffer = function(fb) {
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
         //rttFramebuffer.width = 512;
@@ -119,7 +110,6 @@ function postprocess_constructor(sb) {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-
 
         //gl.generateMipmap(gl.TEXTURE_2D);
 
@@ -140,16 +130,13 @@ function postprocess_constructor(sb) {
 
     };
 
-
-    var draw = function () {
+    var draw = function() {
 
 
         //firstPass();
         // secondPass();
 
-
         var verts = setRectangle(0, 0, 500, 500);
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
@@ -184,36 +171,29 @@ function postprocess_constructor(sb) {
         //gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
+    };
+
+    var update = function() {
 
     };
 
-    var update = function () {
-
-    };
-
-
-    var firstPass = function () {
+    var firstPass = function() {
 
         gl.bindTexture(gl.TEXTURE_2D, texture);
         //gl.generateMipmap(gl.TEXTURE_2D);
         gl.bindTexture(gl.TEXTURE_2D, null);
 
-
         gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer2);
         //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         shadermanager.setProgram(blurVertical);
 
-
         //gl.clearColor(0, 0, 0, 1); // red
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
         //this.setRectangle(0, 0, gl.viewportWidth,  gl.viewportHeight);
 
-
         gl.vertexAttribPointer(blurVertical.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
         gl.vertexAttribPointer(blurVertical.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
@@ -221,12 +201,9 @@ function postprocess_constructor(sb) {
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.uniform1i(blurVertical.samplerUniform, 0);
 
-
         gl.uniform2f(blurVertical.uResolution, sb.getResolutionWidth(), sb.getResolutionHeight());
 
-
         gl.drawArrays(gl.TRIANGLES, 0, 6);
-
 
         gl.bindTexture(gl.TEXTURE_2D, texture2);
         //gl.generateMipmap(gl.TEXTURE_2D);
@@ -234,7 +211,7 @@ function postprocess_constructor(sb) {
 
     };
 
-    var secondPass = function () {
+    var secondPass = function() {
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         //sm.setProgram(blurHorizontalProgram);
         shadermanager.setProgram(blurHorizontal);
@@ -242,13 +219,10 @@ function postprocess_constructor(sb) {
         gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
         //this.setRectangle(0, 0, gl.viewportWidth,  gl.viewportHeight);
 
-
         gl.vertexAttribPointer(blurHorizontal.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
         gl.vertexAttribPointer(blurHorizontal.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-
 
         gl.uniform1i(blurHorizontal.samplerUniform, 0);
         gl.uniform1i(blurHorizontal.samplerUniform2, 1);
@@ -259,16 +233,13 @@ function postprocess_constructor(sb) {
         gl.activeTexture(gl.TEXTURE1);
         gl.bindTexture(gl.TEXTURE_2D, texture3);
 
-
         gl.uniform2f(blurHorizontal.uResolution, sb.getResolutionWidth(), sb.getResolutionHeight());
-
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         //camera.drawCalls++;
 
     };
 
-    return {update, draw, init}
-
+    return {update, draw, init};
 
 }

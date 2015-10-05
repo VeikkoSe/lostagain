@@ -1,5 +1,5 @@
 function CollisionComponent(group) {
-    "use strict";
+    'use strict';
 
     var name = "CollisionComponent";
     var group = group;
@@ -11,64 +11,62 @@ function CollisionComponent(group) {
     var zWidth = 10;
     var entity = null;
 
-
     return Object.freeze({
-        getName: function () {
+        getName: function() {
             return name;
         },
-        setGroup: function (v) {
+        setGroup: function(v) {
             group = v;
         },
 
-        setXPos: function (v) {
+        setXPos: function(v) {
             xPos = v
         },
-        setYPos: function (v) {
+        setYPos: function(v) {
             yPos = v
         },
-        setZPos: function (v) {
+        setZPos: function(v) {
             zPos = v
         },
 
-        setXWidth: function (v) {
+        setXWidth: function(v) {
             xWidth = v
         },
-        setYWidth: function (v) {
+        setYWidth: function(v) {
             yWidth = v
         },
-        setZWidth: function (v) {
+        setZWidth: function(v) {
             zWidth = v
         },
-        setEntity: function (v) {
+        setEntity: function(v) {
             entity = v
         },
 
-        getGroup: function (v) {
+        getGroup: function(v) {
             return group;
         },
-        getXPos: function () {
+        getXPos: function() {
             return xPos;
         },
-        getZPos: function () {
+        getZPos: function() {
             return zPos;
         },
-        getYPos: function () {
+        getYPos: function() {
             return yPos;
         },
-        getXWidth: function () {
+        getXWidth: function() {
             return xWidth;
         },
-        getYWidth: function () {
+        getYWidth: function() {
             return yWidth;
         },
-        getZWidth: function () {
+        getZWidth: function() {
             return zWidth;
         },
-        getEntity: function () {
+        getEntity: function() {
             return entity;
         }
     });
-
 
 }
 

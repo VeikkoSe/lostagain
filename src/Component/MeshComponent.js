@@ -1,32 +1,30 @@
 function MeshComponent() {
-    "use strict";
-
+    'use strict';
 
     var name = "MeshComponent";
     var mesh = null;
     var width = 5;
 
     return Object.freeze({
-        getName: function () {
+        getName: function() {
             return name;
         },
-        setName: function (n) {
+        setName: function(n) {
             name = n;
         },
-        getWidth: function () {
+        getWidth: function() {
             return width;
         },
-        setWidth: function (w) {
+        setWidth: function(w) {
             width = w;
         },
-        getMesh: function () {
+        getMesh: function() {
             return mesh
         },
-        setMesh: function (m) {
+        setMesh: function(m) {
             mesh = m;
         }
     });
-
 
 }
 

@@ -1,5 +1,5 @@
 function laser_constructor() {
-    "use strict";
+    'use strict';
     //constructor() {
     var birthTime = 0;
 
@@ -18,67 +18,65 @@ function laser_constructor() {
 
     return {
 
-        getBirthTime: function () {
+        getBirthTime: function() {
             return birthTime
         },
 
-        getXStartPos: function () {
+        getXStartPos: function() {
             return xStartPos
         },
-        getYStartPos: function () {
+        getYStartPos: function() {
             return yStartPos
         },
-        getZStartPos: function () {
+        getZStartPos: function() {
             return zStartPos
         },
-        getXEndPos: function () {
+        getXEndPos: function() {
             return xEndPos
         },
-        getYEndPos: function () {
+        getYEndPos: function() {
             return yEndPos
         },
-        getZEndPos: function () {
+        getZEndPos: function() {
             return zEndPos
         },
 
-        getVisible: function () {
+        getVisible: function() {
             return visible
         },
-        getDeathtime: function () {
+        getDeathtime: function() {
             return deathtime
         },
 
-
-        setBirthTime: function (v) {
+        setBirthTime: function(v) {
             birthTime = v;
         },
 
-        setXStartPos: function (v) {
+        setXStartPos: function(v) {
             xStartPos = v;
         },
-        setYStartPos: function (v) {
+        setYStartPos: function(v) {
             yStartPos = v;
         },
-        setZStartPos: function (v) {
+        setZStartPos: function(v) {
             zStartPos = v;
         },
-        setXEndPos: function (v) {
+        setXEndPos: function(v) {
             xEndPos = v;
         },
-        setYEndPos: function (v) {
+        setYEndPos: function(v) {
             yEndPos = v;
         },
-        setZEndPos: function (v) {
+        setZEndPos: function(v) {
             zEndPos = v;
         },
-        setVisible: function (v) {
+        setVisible: function(v) {
             visible = v;
         },
-        setDeathtime: function (v) {
+        setDeathtime: function(v) {
             deathtime = v;
         }
 
     }
-
 
 }

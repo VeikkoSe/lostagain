@@ -1,17 +1,16 @@
 function PhotonTorpedoComponent(sprite) {
-    "use strict";
+    'use strict';
 
     //constructor() {
     var name = 'PhotonTorpedoComponent';
 
     var sprite = sprite;
 
-
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getSprite: function () {
+        getSprite: function() {
             return sprite;
         }
     }

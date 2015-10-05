@@ -1,19 +1,15 @@
 function GasComponent(amount) {
-    "use strict";
-
+    'use strict';
 
     var name = "GasComponent";
 
-
     var amount = amount;
-
 
     //   }
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
     }
-
 
 }

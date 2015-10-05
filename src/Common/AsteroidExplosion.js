@@ -2,7 +2,7 @@
  * Handles creating the point sprites that represent explosion
  */
 function asteroidexplosion_constructor(sb, x, y, z, sizeString) {
-    "use strict";
+    'use strict';
     //constructor(x, y, z) {
 
     var sb = sb;
@@ -20,8 +20,7 @@ function asteroidexplosion_constructor(sb, x, y, z, sizeString) {
     var pointLifetimeBuffer = gl.createBuffer();
     var pointStartPositionsBuffer = gl.createBuffer();
 
-    var init = function () {
-
+    var init = function() {
 
         var lifetimes = [];
         var startPositions = [];
@@ -50,56 +49,51 @@ function asteroidexplosion_constructor(sb, x, y, z, sizeString) {
             }
         }
 
-
         gl.bindBuffer(gl.ARRAY_BUFFER, pointLifetimeBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lifetimes), gl.STATIC_DRAW);
         pointLifetimeBuffer.itemSize = 1;
         pointLifetimeBuffer.numItems = numParticles;
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
         pointStartPositionsBuffer.itemSize = 3;
         pointStartPositionsBuffer.numItems = numParticles;
 
-
         gl.bindBuffer(gl.ARRAY_BUFFER, pointEndPositionsBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(endPositions), gl.STATIC_DRAW);
         pointEndPositionsBuffer.itemSize = 3;
         pointEndPositionsBuffer.numItems = numParticles;
 
-
     };
 
     return {
         init,
-        getTime: function () {
+        getTime: function() {
             return time;
         },
-        setTime: function (v) {
+        setTime: function(v) {
             time = v;
         },
-        getPointStartPositionsBuffer: function () {
+        getPointStartPositionsBuffer: function() {
             return pointStartPositionsBuffer;
         },
-        getPointLifetimeBuffer: function () {
+        getPointLifetimeBuffer: function() {
             return pointLifetimeBuffer;
         },
-        getPointEndPositionsBuffer: function () {
+        getPointEndPositionsBuffer: function() {
             return pointEndPositionsBuffer;
         },
-        getXPos: function () {
+        getXPos: function() {
             return xPos;
         },
-        getYPos: function () {
+        getYPos: function() {
             return yPos;
         },
-        getZPos: function () {
+        getZPos: function() {
             return zPos;
         }
 
     }
-
 
 }
 

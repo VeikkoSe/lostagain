@@ -1,8 +1,7 @@
 function sprite_constructor(sandbox) {
-    "use strict";
+    'use strict';
     var gl = sandbox.getGL();
     var t = texture_constructor(sandbox);
-
 
     var loadReturn = {};
     var texture = null;
@@ -10,9 +9,7 @@ function sprite_constructor(sandbox) {
     var numParticles = 1;
     var pointStartPositionsBuffer = null;
 
-
-    var load = function (name,noflip,repeat) {
-
+    var load = function(name, noflip, repeat) {
 
         t.load(name, noflip, repeat);
 
@@ -20,7 +17,6 @@ function sprite_constructor(sandbox) {
         //var texture =;
 
         var pointStartPositionsBuffer = gl.createBuffer();
-
 
         //build buffers
         var startPositions = [];
@@ -32,22 +28,20 @@ function sprite_constructor(sandbox) {
         gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
 
-
     };
-
 
     return {
         load,
-        getTexture: function () {
+        getTexture: function() {
             return texture;
         },
-        getItemSize: function () {
+        getItemSize: function() {
             return itemSize;
         },
-        getNumParticles: function () {
+        getNumParticles: function() {
             return numParticles;
         },
-        getBuffer: function () {
+        getBuffer: function() {
             return pointStartPositionsBuffer;
         }
     }

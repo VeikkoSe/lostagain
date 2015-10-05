@@ -1,19 +1,18 @@
 function primitiveprocess_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //constructor() {
     var gl = sb.getGL();
     var vertexPositionBuffer = gl.createBuffer();
     var em = sb.getEntityManager();
     var shadermanager = sb.getShaderManager();
-    var simplestProgram = shadermanager.useShader("simplest");
+    var simplestProgram = shadermanager.useShader('simplest');
 
     var camera = sb.getCamera();
 
     //}
 
-
-    var draw = function () {
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -25,7 +24,6 @@ function primitiveprocess_constructor(sb) {
                 //var p = {x: re.xPos, y: re.yPos, z: re.zPos};
 
                 //this.points = this.circleXY(p, ;
-
 
                 camera.mvPushMatrix();
                 gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
@@ -39,7 +37,6 @@ function primitiveprocess_constructor(sb) {
                 gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
                 gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-
                 gl.drawArrays(gl.LINES, 0, le.components.PrimitiveComponent.points.length / 3);
                 camera.drawCalls++;
 
@@ -50,10 +47,9 @@ function primitiveprocess_constructor(sb) {
     };
 
     return {
-        update: function () {
-        }, draw, init: function () {
+        update: function() {
+        }, draw, init: function() {
         }
-    }
-
+    };
 
 }

@@ -1,6 +1,5 @@
 function laserprocess_constructor(sb) {
-    "use strict";
-
+    'use strict';
 
     var lastTime = 0;
     var elapsedTotal = 0;
@@ -13,7 +12,7 @@ function laserprocess_constructor(sb) {
 
     var em = sb.getEntityManager();
     var shadermanager = sb.getShaderManager();
-    var simplestProgram = shadermanager.useShader("simplest");
+    var simplestProgram = shadermanager.useShader('simplest');
 
     //this.texture = null;
     // this.framebuffer = gl.createFramebuffer();
@@ -23,7 +22,7 @@ function laserprocess_constructor(sb) {
 
     var vertexPositionBuffer = gl.createBuffer();
 
-    var init = function () {
+    var init = function() {
 
         targets.push('mothership');
         targets.push('ship');
@@ -34,8 +33,7 @@ function laserprocess_constructor(sb) {
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
     };
 
-
-    var railXY = function (startX, startY, startZ, endX, endY, endZ) {
+    var railXY = function(startX, startY, startZ, endX, endY, endZ) {
         points = [];
 
         points.push(startX, startY, startZ);
@@ -43,10 +41,9 @@ function laserprocess_constructor(sb) {
         return points;
     };
 
-    var update = function () {
+    var update = function() {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
-
 
             if (le.components.LaserComponent) {
                 var shooter = le.components.RenderableComponent;
@@ -54,32 +51,27 @@ function laserprocess_constructor(sb) {
                 for (var i = 0; i < targets.length; i++) {
 
                     var target = em.getEntityByName(targets[i]);
-                    if(!target)
-                      continue;
+                    if (!target)
+                        continue;
 
                     var rc = target.components.RenderableComponent;
-
-
 
                     //var hc = targets[i].components.HealthComponent;
                     if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
 
-                        sb.publish("enemylasercollision", target);
+                        sb.publish('enemylasercollision', target);
                         //sb.publish("smallexplosion", target);
 
                         break; //shoot only one target at a time
-
 
                     }
                 }
             }
         }
 
-
     };
 
-    var draw = function () {
-
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -92,30 +84,27 @@ function laserprocess_constructor(sb) {
                 for (var i = 0; i < targets.length; i++) {
 
                     var target = em.getEntityByName(targets[i]);
-                    if(!target)
+                    if (!target)
                         continue;
 
                     var rc = target.components.RenderableComponent;
 
-                    //if (targets[i].components.HealthComponent.getAmount() < 1)
-                     //   continue;
+
 
                     if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
 
-
                         points = railXY(shooter.getXPos(), shooter.getYPos(), shooter.getZPos(), rc.getXPos(), rc.getYPos(), rc.getZPos());
+
+                        gl.uniform4f(simplestProgram.uColor, 1, 0, 0, 1.0);
 
                         //sm.setProgram(simplestProgram);
                         shadermanager.setProgram(simplestProgram);
                         var mvMatrix = camera.getMVMatrix();
                         camera.mvPushMatrix();
 
-
                         gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
 
-
                         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
-
 
                         gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
@@ -131,8 +120,7 @@ function laserprocess_constructor(sb) {
 
             }
 
-
         }
     };
-    return {update, draw, init}
+    return {update, draw, init};
 }

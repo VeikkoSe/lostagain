@@ -1,22 +1,28 @@
-function ExhaustComponent(sprite) {
-    "use strict";
+function ExhaustComponent(msh, offSetFromCenter, offSetSideFromCenter) {
+    'use strict';
 
+    var offSetSideFromCenter = offSetSideFromCenter;
+    var offSetFromCenter = offSetFromCenter;
 
-    var name = "ExhaustComponent";
+    var name = 'ExhaustComponent';
 
-
-    var sprite = sprite;
-
+    var mesh = msh;
 
     //   }
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getSprite: function () {
-            return sprite;
+        getMesh: function() {
+            return mesh;
+        },
+        getOffSetSideFromCenter: function() {
+            return offSetSideFromCenter;
+        },
+        getOffSetFromCenter: function() {
+            return offSetFromCenter;
         }
-    }
 
+    };
 
 }

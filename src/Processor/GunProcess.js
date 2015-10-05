@@ -1,11 +1,11 @@
 function gunprocess_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //constructor() {
     var sb = sb;
     var gl = sb.getGL();
     var shadermanager = sb.getShaderManager();
-    var particleProgram3d = shadermanager.useShader("particle3d");
+    var particleProgram3d = shadermanager.useShader('particle3d');
 
     var bulletsAmount = 80;
     var bulletReloadSpeed = 250;
@@ -17,9 +17,8 @@ function gunprocess_constructor(sb) {
     var em = sb.getEntityManager();
     var collisions = [];
 
-
     //    var bullet;
-    var init = function () {
+    var init = function() {
         for (var i = 0; i < bulletsAmount; i++) {
             var bulVar = photontorpedo_constructor();
             bullets.push(bulVar);
@@ -28,8 +27,7 @@ function gunprocess_constructor(sb) {
 
     //}
 
-    var shootBullet = function (renderable) {
-
+    var shootBullet = function(renderable) {
 
         var timeNow = new Date().getTime();
 
@@ -51,9 +49,7 @@ function gunprocess_constructor(sb) {
         }
     };
 
-
-    var update = function (deltatime) {
-
+    var update = function(deltatime) {
 
         collisions = [];
         for (var e = 0; e < em.entities.length; e++) {
@@ -70,12 +66,10 @@ function gunprocess_constructor(sb) {
 
                 c.setEntity(le);
 
-
                 collisions.push(c);
 
             }
         }
-
 
         for (var i = 0; i < bullets.length; i++) {
             for (var j = 0; j < collisions.length; j++) {
@@ -86,13 +80,11 @@ function gunprocess_constructor(sb) {
                     bullets[i].getZPos() < collisions[j].getZPos() + collisions[j].getZWidth()
                     && collisions[j].getGroup() == 'enemy' && bullets[i].getVisible() == 1) {
 
-
-                    sb.publish("bulletcollision", collisions[j]);
+                    sb.publish('bulletcollision', collisions[j]);
 
                 }
             }
         }
-
 
         var timeNow = new Date().getTime();
 
@@ -121,14 +113,11 @@ function gunprocess_constructor(sb) {
                 bullets[i].setZPos(bullets[i].getZPos() - posZ);
             }
 
-
         }
 
     };
 
-
-    var draw = function () {
-
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -140,14 +129,12 @@ function gunprocess_constructor(sb) {
                 //gl.enable(gl.BLEND);
                 //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
-
                 var mvMatrix = camera.getMVMatrix();
                 for (var i = 0; i < bulletsAmount; i++) {
 
                     if (bullets[i].getVisible() != 1) {
                         continue;
                     }
-
 
                     var bc = le.components.PhotonTorpedoComponent;
 
@@ -160,7 +147,6 @@ function gunprocess_constructor(sb) {
                     //build buffers
                     var position = [];
 
-
                     //cant create buffer on every loop. Need to create one buffer for every bullet.
                     position.push(bullets[i].getXPos());
                     position.push(bullets[i].getYPos());
@@ -169,9 +155,7 @@ function gunprocess_constructor(sb) {
                     gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
                     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(position), gl.STATIC_DRAW);
 
-
                     gl.vertexAttribPointer(particleProgram3d.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-
 
                     gl.activeTexture(gl.TEXTURE0);
                     gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
@@ -179,10 +163,8 @@ function gunprocess_constructor(sb) {
 
                     gl.uniform4f(particleProgram3d.colorUniform, 1, 1, 1, 1);
 
-
                     gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.getPMatrix());
                     gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, mvMatrix);
-
 
                     gl.drawArrays(gl.POINTS, 0, 1);
                     //camera.drawCalls++;
@@ -196,6 +178,5 @@ function gunprocess_constructor(sb) {
 
     };
 
-
-    return {update, draw, init}
+    return {update, draw, init};
 }

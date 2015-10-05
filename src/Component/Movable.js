@@ -1,5 +1,5 @@
 function MovableComponent(speed) {
-    "use strict";
+    'use strict';
 
     //constructor(speed = 0.1) {
 
@@ -17,11 +17,10 @@ function MovableComponent(speed) {
     //every jump in the map takes one unit of gas
     //var gas = 1;
 
-
 //    }
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }, newXpos, newYpos, newZpos, path, angle, lt, speed, acceleration
     }

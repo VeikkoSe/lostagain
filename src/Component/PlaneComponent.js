@@ -3,14 +3,12 @@ function PlaneComponent(plane) {
     var name = "PlaneComponent";
     var plane = plane;
 
-
     return {
-        getName: function () {
+        getName: function() {
             return name
-        }, getPlane: function () {
+        }, getPlane: function() {
             return plane
         }
     }
-
 
 }

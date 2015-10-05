@@ -1,16 +1,16 @@
 function trailprocess_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //constructor() {
     //this.exhaustAmount = 200;
     //this.exhaustInterval = 50;
     //this.exhaustTrail = [];
     var shadermanager = sb.getShaderManager();
-    var trailProgram = shadermanager.useShader("trail");
+    var program = shadermanager.useShader('trail');
     var em = sb.getEntityManager();
-    var lastTime = 0;
+    //var lastTime = 0;
     //var exhaustProgram = sm.init('exhaust');
-    var elapsedTotal = 0;
+    //var elapsedTotal = 0;
     var gl = sb.getGL();
 
     var vertexPositionBuffer = gl.createBuffer();
@@ -19,35 +19,25 @@ function trailprocess_constructor(sb) {
 
     var camera = sb.getCamera();
 
-    var init = function () {
+    var init = function() {
+
         gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
         gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
     };
 
-
-    //}
-
-
-    var pushArray = function (arr, arr2) {
-        arr.push.apply(arr, arr2);
-    };
-
-
-    var updateTrail = function (trailComponent, renderableComponent) {
-
+    var updateTrail = function(trailComponent, renderableComponent) {
 
         var re = renderableComponent;
         var ec = trailComponent;
 
+        var posX = re.getXPos();
+        var posZ = re.getZPos();
 
-        var posX = re.xPos;
-        var posZ = re.zPos;
+        var unitX = Math.cos(degToRad(re.getAngleY()));
+        var unitZ = Math.sin(degToRad(re.getAngleY()));
 
-        var unitX = Math.cos(degToRad(re.angleY));
-        var unitZ = Math.sin(degToRad(re.angleY));
-
-        var rendX = (posX - (unitX * ec.offSetSideFromCenter)) - ((-1 * unitZ) * ec.offSetFromCenter);
-        var rendZ = (posZ + (unitZ * ec.offSetSideFromCenter)) + (unitX * ec.offSetFromCenter);
+        var rendX = (posX - (unitX * ec.getOffSetSideFromCenter())) - ((-1 * unitZ) * ec.getOffSetFromCenter());
+        var rendZ = (posZ + (unitZ * ec.getOffSetSideFromCenter())) + (unitX * ec.getOffSetFromCenter());
 
         var flow = ec.getFlow();
         var square = ec.getSquare();
@@ -55,15 +45,15 @@ function trailprocess_constructor(sb) {
         var textureCoordinates = ec.getTexturecoordinates();
 
         //drop from the end of array
-        if ((flow.length / 3) >= ec.length) {
+        if ((flow.length / 3) >= ec.getLength()) {
             flow.shift();
             flow.shift();
             flow.shift();
             for (var i = 0; i < 18; i++)
-                ec.getPoints().shift();
+                points.shift();
 
             for (var i = 0; i < 12; i++)
-                ec.texturecoordinates.shift();
+                textureCoordinates.shift();
 
         }
 
@@ -81,15 +71,12 @@ function trailprocess_constructor(sb) {
         var zdh = zd / 2;
         var distance = Math.sqrt(xd * xd + zd * zd);
 
-
         //when to create new
-        if (distance > ec.width) {
-
+        if (distance > ec.getWidth()) {
 
             if (flow.length > 3) {
 
                 //quarter of a turn. That means if blue = (x, y), red = (-y, x)
-
 
                 var i = 0;
                 //first triangle
@@ -104,7 +91,6 @@ function trailprocess_constructor(sb) {
                 square[i++] = points[points.length - 3];
                 square[i++] = 0;
                 square[i++] = points[points.length - 1];
-
 
                 //second triangle
                 square[i++] = points[points.length - 6];
@@ -122,7 +108,6 @@ function trailprocess_constructor(sb) {
                 for (var i = 0; i < 18; i++) {
                     points.push(square[i]);
                 }
-
 
                 flow.push(rendX);
                 flow.push(0);
@@ -156,11 +141,9 @@ function trailprocess_constructor(sb) {
                 points.push(0);
                 points.push(-1 * xdh + rendZ);
 
-
                 flow.push(rendX);
                 flow.push(0);
                 flow.push(rendZ);
-
 
             }
 
@@ -173,7 +156,6 @@ function trailprocess_constructor(sb) {
             textureCoordinates.push(0);
             textureCoordinates.push(0);
 
-
             textureCoordinates.push(1);
             textureCoordinates.push(0);
 
@@ -182,50 +164,50 @@ function trailprocess_constructor(sb) {
 
             textureCoordinates.push(0);
             textureCoordinates.push(1);
-
 
         }
 
+        ec.setFlow(flow);
+        ec.setTexturecoordinates(textureCoordinates);
+        ec.setPoints(points);
+        ec.setSquare(square);
 
     };
 
-    var update = function (deltatime) {
+    var update = function(elapsed, totalElapsed) {
 
 
-        var timeNow = new Date().getTime();
+        //var timeNow = new Date().getTime();
 
-
-        var elapsed = timeNow - lastTime;
-        elapsedTotal += elapsed;
+        // var elapsed = timeNow - lastTime;
+        //elapsedTotal += elapsed;
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
-
             if (le.components.TrailComponent) {
-
                 updateTrail(le.components.TrailComponent, le.components.RenderableComponent);
 
             }
 
             if (le.components.MultiTrailComponent) {
-                for (var i = 0; i < le.components.MultiTrailComponent.getTrailComponents.length; i++) {
+                for (var i = 0; i < le.components.MultiTrailComponent.getTrailComponents().length; i++) {
                     updateTrail(le.components.MultiTrailComponent.getTrailComponents()[i], le.components.RenderableComponent);
                 }
             }
 
         }
 
-
     };
 
+    var drawTrail = function(trailComponent) {
 
-    var drawTrail = function (trailComponent) {
         var ec = trailComponent;
         //for (var i = 0; i < this.exhaustAmount; i++) {
 
         if (ec.getPoints().length > 8) {
-            sm.setProgram(trailProgram);
+
+            shadermanager.setProgram(program);
 
             //gl.enable(gl.BLEND);
             //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
@@ -233,28 +215,29 @@ function trailprocess_constructor(sb) {
 
             gl.activeTexture(gl.TEXTURE0);
 
-            gl.bindTexture(gl.TEXTURE_2D, ec.sprite);
+            gl.bindTexture(gl.TEXTURE_2D, ec.getSprite().getTexture());
 
-            gl.uniform1i(trailProgram.samplerUniform, 0);
+            gl.uniform1i(program.samplerUniform, 0);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
-            gl.vertexAttribPointer(trailProgram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ec.texturecoordinates), gl.STATIC_DRAW);
+            gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ec.getTexturecoordinates()), gl.STATIC_DRAW);
 
-
+            //console.log(ec.getPoints());
             camera.mvPushMatrix();
+            var mvmatrix = camera.getMVMatrix();
 
             gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
 
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ec.points), gl.STATIC_DRAW);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ec.getPoints()), gl.STATIC_DRAW);
 
-            gl.vertexAttribPointer(trailProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-            gl.uniformMatrix4fv(trailProgram.uPMatrix, false, camera.getPMatrix());
-            gl.uniformMatrix4fv(trailProgram.uMVMatrix, false, camera.getMVMatrix());
+            gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
+            gl.uniformMatrix4fv(program.uMVMatrix, false, mvmatrix);
             //gl.drawArrays(gl.LINE_STRIP, 0, ec.points.length/3);
-            gl.drawArrays(gl.TRIANGLES, 0, ec.points.length / 3);
-            camera.drawCalls++;
+            gl.drawArrays(gl.TRIANGLES, 0, ec.getPoints().length / 3);
+            //camera.drawCalls++;
 
             camera.mvPopMatrix();
 
@@ -264,14 +247,12 @@ function trailprocess_constructor(sb) {
         }
     };
 
-    var draw = function () {
-
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if ((le.components.TrailComponent || le.components.MultiTrailComponent) && le.components.HealthComponent.getAmount() > 0) {
-
 
                 if (le.components.TrailComponent) {
                     drawTrail(le.components.TrailComponent);
@@ -283,21 +264,16 @@ function trailprocess_constructor(sb) {
 
                 }
 
-
             }
-
 
         }
 
     };
 
     return {
-        update, draw, init: function () {
-        }
+        update, draw, init
     };
 
-
     //}
-
 
 }

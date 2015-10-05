@@ -1,5 +1,5 @@
 function mapprocess_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //constructor() {
 
@@ -8,19 +8,16 @@ function mapprocess_constructor(sb) {
 
     var mapProgram = sm.init('maps');
 
-
     var hexagon = game.map;
     var camera = sb.getCamera();
 
-
     //}
 
-    var randomIntFromInterval = function (min, max) {
+    var randomIntFromInterval = function(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     };
 
-
-    var update = function () {
+    var update = function() {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
@@ -39,11 +36,10 @@ function mapprocess_constructor(sb) {
 
             }
 
-
         }
     };
 
-    var draw = function () {
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -53,11 +49,9 @@ function mapprocess_constructor(sb) {
 
                 sm.setProgram(mapProgram);
 
-
                 camera.mvPushMatrix();
                 gl.uniformMatrix4fv(mapProgram.uPMatrix, false, camera.getPMatrix());
                 gl.uniformMatrix4fv(mapProgram.uMVMatrix, false, camera.getMVMatrix());
-
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hexagon.area), gl.STATIC_DRAW);
@@ -68,11 +62,9 @@ function mapprocess_constructor(sb) {
 
                 gl.vertexAttribPointer(mapProgram.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
 
-
                 gl.activeTexture(gl.TEXTURE0);
                 gl.bindTexture(gl.TEXTURE_2D, hexagon.texture);
                 gl.uniform1i(mapProgram.samplerUniform, 0);
-
 
                 gl.drawArrays(gl.TRIANGLES, 0, (hexagon.hexsizeX * (hexagon.hexsizeY)) * 12);
                 //gl.drawArrays(gl.TRIANGLES, 0,12);
@@ -84,8 +76,8 @@ function mapprocess_constructor(sb) {
         }
     };
     return {
-        update, draw, init: function () {
+        update, draw, init: function() {
         }
-    }
+    };
 
 }

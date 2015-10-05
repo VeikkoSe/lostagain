@@ -1,17 +1,16 @@
 function EnemyComponent() {
-    "use strict";
+    'use strict';
 
     var name = "EnemyComponent";
     var speed = 30;
 
-
     //}
 
     return {
-        getName: function () {
+        getName: function() {
             return name;
         },
-        getSpeed: function () {
+        getSpeed: function() {
             return speed;
         }
     }

@@ -1,11 +1,10 @@
 function camera_constructor() {
-    "use strict";
+    'use strict';
 
     var gl, mvMatrix, pMatrix, cMatrix, pvMatrix, pvMatrixInverse, mvMatrixStack, drawCalls, eye, distance, x, y, z;
     var rotationX, rotationY, slideLeft, slideRight, slideUp, slideDown, centerPosition, home, sb, pitch, mindistance, maxdistance;
 
-
-    var init = function (sandbox) {
+    var init = function(sandbox) {
 
         sb = sandbox;
 
@@ -26,9 +25,7 @@ function camera_constructor() {
         z = 70;
         y = Math.tan(pitch * (Math.PI / 180)) * z;
 
-
         home = [x, y, z];
-
 
         //mat4.translate(mvMatrix, home);
 
@@ -44,9 +41,7 @@ function camera_constructor() {
         //eye = vec3.create([0, 0, 0]);  // negation of actual eye position
         //var clickPosition = null;
 
-
         //initial pos
-
 
         //rotationX = degToRad(60);
         rotationY = 0;
@@ -59,18 +54,15 @@ function camera_constructor() {
         //this.rotation = 0;
         centerPosition = false;
 
-
         //mat4.lookAt([x,y,z],[0,0,0],[0,1,0],mvMatrix);
-
 
     };
 
-    var start = function () {
+    var start = function() {
         gl = sb.getGL();
     };
 
-
-    var setDistance = function (d) {
+    var setDistance = function(d) {
         if (d.charAt(0) === '-') {
             if (distance <= mindistance) {
                 distance = mindistance;
@@ -86,27 +78,25 @@ function camera_constructor() {
             distance += parseInt(d, 10);
         }
 
-
     };
 
-    var setXRotation = function (rot) {
+    var setXRotation = function(rot) {
 
         rotationX = rot;
     };
 
-
-    var setYRotation = function (rot) {
+    var setYRotation = function(rot) {
 
         if (rot.charAt(0) === '-') {
             rotationY -= degToRad(parseInt(rot.substring(1), 10));
         }
         else rotationY += degToRad(parseInt(rot, 10));
     };
-    var getYRotation = function () {
+    var getYRotation = function() {
         return rotationY;
     }
 
-    var setPos = function (xp, yp, zp) {
+    var setPos = function(xp, yp, zp) {
         if (xp) {
             if (xp.charAt(0) === '-') {
                 x = parseInt(xp.substring(1), 10);
@@ -135,16 +125,14 @@ function camera_constructor() {
         //distance = z;
     };
 
-
-    var setPerspective = function () {
+    var setPerspective = function() {
         mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 20000.0, pMatrix);
     };
 
-
-    var lookAt = function (epos, direction) {
+    var lookAt = function(epos, direction) {
         mat4.lookAt([x, y, z], epos, direction, mvMatrix);
     }
-    var move = function () {
+    var move = function() {
 
         // mat4.identity(mvMatrix);
         //orbit camera rotate before translate
@@ -157,22 +145,20 @@ function camera_constructor() {
 
     };
 
-
-    var mvPushMatrix = function () {
+    var mvPushMatrix = function() {
         var copy = mat4.create();
         mat4.set(mvMatrix, copy);
         mvMatrixStack.push(copy);
     };
 
-
-    var mvPopMatrix = function () {
+    var mvPopMatrix = function() {
         if (mvMatrixStack.length == 0) {
             throw "Invalid popMatrix!";
         }
         mvMatrix = mvMatrixStack.pop();
     };
 
-    var subscribe = function () {
+    var subscribe = function() {
 
     };
 
@@ -186,47 +172,46 @@ function camera_constructor() {
         setXRotation,
         setYRotation,
         getYRotation,
-        getMVMatrix: function () {
+        getMVMatrix: function() {
             return mvMatrix;
         },
-        getPMatrix: function () {
+        getPMatrix: function() {
             return pMatrix;
         },
         move,
-        getXPos: function () {
+        getXPos: function() {
             return x;
         },
-        getYPos: function () {
+        getYPos: function() {
             return y;
         },
-        getZPos: function () {
+        getZPos: function() {
             return z;
         },
-        getMinDistance: function () {
+        getMinDistance: function() {
             return mindistance;
         },
 
-        setXPos: function (v) {
+        setXPos: function(v) {
             x = v;
         },
-        setYPos: function (v) {
+        setYPos: function(v) {
             y = v;
         },
-        setZPos: function (v) {
+        setZPos: function(v) {
             z = v;
         },
-        getPitch: function () {
+        getPitch: function() {
             return pitch;
         },
 
         setPos,
         subscribe,
         start,
-        getDistance: function () {
+        getDistance: function() {
             return distance;
         },
         setDistance
-
 
     });
 

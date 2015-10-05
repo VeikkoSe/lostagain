@@ -1,29 +1,20 @@
 function text_process_constructor(sb) {
-    "use strict";
+    'use strict';
     var gl = sb.getGL();
-
 
     var camera = sb.getCamera();
 
-
     var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader("font");
+    var program = shadermanager.useShader('font');
 
     var am = sb.getAssetManager();
-
 
     var squareBuffer = gl.createBuffer();
     var sprite;
     var size;
     var text = sb.getText();
 
-
-
-
-
     var em = sb.getEntityManager();
-
-
 
     var init = function() {
 
@@ -36,13 +27,10 @@ function text_process_constructor(sb) {
 
         var characterArray = text.textToC(str);
 
-        var textBuffer = text.buildData(characterArray,true);
-
+        var textBuffer = text.buildData(characterArray, true);
 
         //var texture = t.loadedTexture;
         sprite = am.getSprite('font');
-
-
 
         gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
         size = textBuffer.length / 5;
@@ -50,22 +38,13 @@ function text_process_constructor(sb) {
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
     }
 
-
-
-
-
-
-
     //}
 
-    var update = function (deltatime) {
-
+    var update = function(deltatime) {
 
     };
 
-
-    var draw = function (text) {
-
+    var draw = function(text) {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -76,9 +55,7 @@ function text_process_constructor(sb) {
                 var mvMatrix = camera.getMVMatrix();
                 shadermanager.setProgram(program);
 
-
                 mat4.scale(mvMatrix, [0.2, 0.2, 0.2]);
-
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
                 gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
@@ -91,13 +68,11 @@ function text_process_constructor(sb) {
                 gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
                 gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
 
-
                 gl.drawArrays(gl.TRIANGLES, 0, size);
                 camera.mvPopMatrix();
             }
 
         }
-
 
     };
     return {

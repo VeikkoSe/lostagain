@@ -1,12 +1,12 @@
 function teleport_process_constructor(sb) {
-    "use strict";
+    'use strict';
 
     //class TeleportProcess extends Processor {
     //}
     //constructor() {
 
     var shadermanager = sb.getShaderManager();
-    var simplestProgram = shadermanager.useShader("simplest");
+    var simplestProgram = shadermanager.useShader('simplest');
 
     var em = sb.getEntityManager();
     var gl = sb.getGL();
@@ -14,9 +14,7 @@ function teleport_process_constructor(sb) {
 
     //}
 
-
-    var update = function (deltatime, totalElapsed) {
-
+    var update = function(deltatime, totalElapsed) {
 
         var ms = em.getEntityByName('mothership');
         var ship = em.getEntityByName('ship');
@@ -28,7 +26,6 @@ function teleport_process_constructor(sb) {
 
             //if (totalElapsed > 2000)
             //ms.components.JumpAreaComponent.visible = true;
-
 
             //TODO: change to vectors
             ms.components.JumpAreaComponent.setPoints(
@@ -58,10 +55,8 @@ function teleport_process_constructor(sb) {
                 dirX = (ms.components.JumpAreaComponent.getRadius() - 1) * dirXnormal;
                 dirZ = (ms.components.JumpAreaComponent.getRadius() - 1) * dirZnormal;
 
-
                 var posx = dirX + ms.components.RenderableComponent.getXPos();
                 var posZ = dirZ + ms.components.RenderableComponent.getZPos();
-
 
                 ship.components.RenderableComponent.setXPos(posx);
                 ship.components.RenderableComponent.setZPos(posZ);
@@ -78,9 +73,7 @@ function teleport_process_constructor(sb) {
 
     };
 
-
-    var draw = function () {
-
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -88,7 +81,6 @@ function teleport_process_constructor(sb) {
             if (le.components.JumpAreaComponent && le.components.JumpAreaComponent.getVisible() === true) {
 
                 shadermanager.setProgram(simplestProgram);
-
 
                 var mvMatrix = camera.getMVMatrix();
 
@@ -104,7 +96,6 @@ function teleport_process_constructor(sb) {
                 gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
                 gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-
                 gl.drawArrays(gl.LINES, 0, le.components.JumpAreaComponent.getPoints().length / 3);
 
             }
@@ -112,13 +103,12 @@ function teleport_process_constructor(sb) {
         }
     };
 
-
-    var isInRectangle = function (centerX, centerY, radius, x, y) {
+    var isInRectangle = function(centerX, centerY, radius, x, y) {
         return x >= centerX - radius && x <= centerX + radius &&
             y >= centerY - radius && y <= centerY + radius;
     };
 
-    var getOppositeAngle = function (angle) {
+    var getOppositeAngle = function(angle) {
         //angle = angle * Math.PI/180;
         var ret = false;
         if (angle > 180)
@@ -126,14 +116,13 @@ function teleport_process_constructor(sb) {
         else if (angle < 180)
             ret = angle + 180;
 
-
         return ret;
 
     };
     return {
-        draw, update, init: function () {
+        draw, update, init: function() {
         }
-    }
+    };
 
 }
 

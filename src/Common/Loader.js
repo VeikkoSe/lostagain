@@ -1,18 +1,16 @@
 function loader_costructor() {
-    "use strict";
+    'use strict';
     var sb, em, am, loadingLevelName, t, sprite_loader, loading, loadTotal, maxLoad, camera;
 
-
-    var getLoadingLevelName = function () {
+    var getLoadingLevelName = function() {
         return loadingLevelName;
     };
 
-    var subscribe = function () {
-
+    var subscribe = function() {
 
     };
 
-    var init = function (sandbox) {
+    var init = function(sandbox) {
         sb = sandbox;
 
         loadingLevelName = '';
@@ -22,19 +20,17 @@ function loader_costructor() {
 
     };
 
-    var start = function () {
-
+    var start = function() {
 
         camera = sb.getCamera();
 
-        sb.subscribe("loadassets", function (name, wantedState) {
+        sb.subscribe("loadassets", function(name, wantedState) {
 
             loadAllAssets(wantedState);
 
         });
 
-
-        sb.subscribe("allassetsloaded", function (name, dummy) {
+        sb.subscribe("allassetsloaded", function(name, dummy) {
 
             var level = getLoadingLevelName();
             sb.publish("movetoloadstate", level);
@@ -44,15 +40,13 @@ function loader_costructor() {
         t = texture_constructor(sb);
         sprite_loader = sprite_constructor(sb);
 
-
         em = sb.getEntityManager();
         am = sb.getAssetManager();
 
     };
 //
 
-
-    var createPlane = function () {
+    var createPlane = function() {
 
         var e = em.addNew();
 
@@ -68,8 +62,7 @@ function loader_costructor() {
 
     };
 
-
-    var loadAllAssets = function (name) {
+    var loadAllAssets = function(name) {
 
         //nextState = false;
 
@@ -78,21 +71,17 @@ function loader_costructor() {
 
         loading = true;
 
-
         switch (name) {
             case ('introstate'):
-
 
                 createIntro();
 
                 break;
             case ('gamestate'):
 
-
                 createDestroyer();
 
                 createText();
-
 
                 createFuel(false);
 
@@ -102,17 +91,14 @@ function loader_costructor() {
                 var ship = createShip();
                 //createSatellite(mothership);
 
-
                 for (var i = 0; i < 10; i++) {
-                  //  createEnemy();
+                    //  createEnemy();
                 }
-
 
                 var radar = createRadar();
                 var currency = createCurrency();
 
                 createLayout(mothership, ship);
-
 
                 break;
             case ('second'):
@@ -134,44 +120,17 @@ function loader_costructor() {
 
                 break;
 
-
         }
 
         //maxLoad = loadTotal;
         //loading = false;
     };
 
-/*
-    var createSatellite = function (mothership) {
+    var createShip = function() {
 
-        var e = em.addNew();
-        var mesh = am.getMesh('satellite');
-
-       // var rc = RenderableComponent();
-
-        rc.setXPos(0);
-        rc.setZPos(0);
-
-
-        e.addComponent(rc);
-
-
-        var mc = MeshComponent();
-        mc.setMesh(mesh);
-
-        e.addComponent(mc);
-    };
-*/
-
-    var createShip = function () {
-
-
-        //em.clearAll();
         var e = em.addNew('ship');
 
         var mesh = am.getMesh('ship');
-        // e.addComponent(entity_constructor({visibility:false}));
-        // e.addComponent(MeshComp({mesh:mesh,width:1}));
 
         var rc = RenderableComponent();
 
@@ -180,78 +139,52 @@ function loader_costructor() {
 
         //rc, yPos: 0, zPos: 20}
 
-
         e.addComponent(rc);
 
         var mc = MeshComponent();
         mc.setMesh(mesh);
         e.addComponent(mc);
 
-        // e.addComponent(RotationComponent());
-
-        //var {speed,turnSpeed,routeEndXpos,routeEndYpos,routeEndZpos} = params;
-        //var mm = MomentumMovable({});
-
         var mc = MomentumComponent();
         mc.setTurnSpeed(250);
         mc.setSpeed(50);
         e.addComponent(mc);
-        /*
-         e.addComponent(new Renderable(1,//x
-         0,//y
-         20,//z
-         1,//scape
-         0,//angleX
-         -90,//angleY
-         0,//angleZ
-         10,//xWidth
-         10,//yWidth
-         10)); //zWidth
-         */
-
-
-        //t.load('hp');
-
-        //var texture = t.getLoadedTexture();
 
         e.addComponent(ControllableComponent());
-
 
         e.addComponent(PhotonTorpedoComponent(am.getSprite('bigbullet')));
         e.addComponent(ShieldComponent(10, am.getSprite('shield')));
 
-
         e.addComponent(ShieldComponent(10, am.getSprite('shield')));
-
 
         e.addComponent(CollisionComponent('player'));
 
         var sp = am.getSprite('hp');
 
-
         e.addComponent(GunComponent());
 
         e.addComponent(HealthComponent(5, sp));
 
-        //var texture = t.loadTexture('exhausttrail', false, true);
+        //var exMesh = am.getSprite('exhausttrail');
+        var exMesh = am.getMesh('exhaustcone');
 
-        //var tc = texture_constructor(sb);
-        //t.loadTexture({name});
+        var mec = MultiExhaustComponent();
+        mec.addExhaust(ExhaustComponent(exMesh, 3, 1.5));
+        mec.addExhaust(ExhaustComponent(exMesh, -3, 1.5));
+        e.addComponent(mec);
 
-        //texture = tc.getLoadedTexture();
-
+        var sprite = am.getSprite('exhausttrail');
 
         var mec = MultiTrailComponent();
-        mec.addTrail(TrailComponent(am.getSprite('exhausttrail'), 30, 1, 3.5));
-        mec.addTrail(TrailComponent(am.getSprite('exhausttrail'), 30, 1, -3.5));
+        mec.addTrail(TrailComponent(sprite, 30, 1, 3.5, 1));
+        mec.addTrail(TrailComponent(sprite, 30, 1, -3.5, 1));
         e.addComponent(mec);
 
         return e;
 
     };
 
-
-    var createDestroyer = function () {
+    var createDestroyer = function() {
 
 
         //em.clearAll();
@@ -263,7 +196,6 @@ function loader_costructor() {
         e.addComponent(mc);
         e.addComponent(LaserComponent());
 
-
         var rc = RenderableComponent();
 
         rc.setXPos(100);
@@ -271,23 +203,23 @@ function loader_costructor() {
 
         e.addComponent(rc);
 
+        e.addComponent(HealthComponent(1));
 
         return e;
 
     };
 
-    var createIntro = function () {
+    var createIntro = function() {
 
         var e = em.addNew();
         var m = am.getMesh('start');
-
 
         e.addComponent(RenderableComponent());
         e.addComponent(MeshComponent({mesh: m}));
 
         return e;
     };
-    var createStars = function () {
+    var createStars = function() {
 
         var e = em.addNew('stars');
 
@@ -296,8 +228,7 @@ function loader_costructor() {
         return e;
     };
 
-
-    var createLayout = function (mothership, ship, radar, currency) {
+    var createLayout = function(mothership, ship, radar, currency) {
         var e = em.addNew('enemymirror');
         var lm = [];
         var gt = layout_constructor(0, 0.1);
@@ -323,8 +254,7 @@ function loader_costructor() {
         e.addComponent(LayoutComponent(lm));
     };
 
-    var createEnemy = function () {
-
+    var createEnemy = function() {
 
         var e = em.addNew('enemymirror');
         var mesh = am.getMesh('enemy');
@@ -336,7 +266,6 @@ function loader_costructor() {
         //e.addComponent(HealthComponent(2));
 
         //e.addComponent(new MomentumMovable(30, 15, 0, 0));
-
 
         var rc = RenderableComponent();
         rc.setXPos(randomRangedInt());
@@ -361,7 +290,7 @@ function loader_costructor() {
         return e;
 
     };
-    var createCurrency = function () {
+    var createCurrency = function() {
 
         var e = em.addNew();
 
@@ -370,7 +299,7 @@ function loader_costructor() {
         e.addComponent(CurrencyComponent(am.getSprite('currency')));
         return e;
     };
-    var createRadar = function () {
+    var createRadar = function() {
 
         var e = em.addNew();
         //var sc = sprite_constructor(sb);
@@ -379,23 +308,17 @@ function loader_costructor() {
         return e;
     };
 
-    var createMotherShip = function () {
-
+    var createMotherShip = function() {
 
         var e = em.addNew('mothership');
 
-
-
         e.addComponent(SatelliteComponent(am.getMesh('satellite')));
-
-
 
         var mesh = am.getMesh('mothership');
 
         var m = MeshComponent();
         m.setMesh(mesh);
         e.addComponent(m);
-
 
         var mc = MomentumComponent();
 
@@ -418,11 +341,9 @@ function loader_costructor() {
 
         e.addComponent(VisibilityComponent());
 
-
         var points = circleXY(0, 0, 0, 300, 200);
         var buffer = sb.getGL().createBuffer();
         //var bd = sb.getGL().bufferData(gl.ARRAY_BUFFER, new Float32Array(points), sb.getGL().STATIC_DRAW);
-
 
         sb.getGL().bindBuffer(sb.getGL().ARRAY_BUFFER, buffer);
         sb.getGL().bufferData(sb.getGL().ARRAY_BUFFER, new Float32Array(points), sb.getGL().STATIC_DRAW);
@@ -433,25 +354,29 @@ function loader_costructor() {
 
         e.addComponent(CollisionComponent('player'));
 
-
         //var tc = texture_constructor(sb);
         // t.load({name: 'exhaust'});
 
         //var texture = t.getLoadedTexture();
 
-        var sprite = am.getSprite('exhaust');
+        var exMesh = am.getMesh('exhaustcone');
 
-        var mec = MultiTrailComponent();
-        mec.addTrail(TrailComponent(sprite, 5, 4, 12, 18));
-        mec.addTrail(TrailComponent(sprite, 5, 4, -12, 18));
+        var mec = MultiExhaustComponent();
+        mec.addExhaust(ExhaustComponent(exMesh, 2, 9));
+        mec.addExhaust(ExhaustComponent(exMesh, -2, 9));
         e.addComponent(mec);
 
+        var sprite = am.getSprite('exhausttrail');
 
+        var mec = MultiTrailComponent();
+        mec.addTrail(TrailComponent(sprite, 15, 1, 5, 8));
+        mec.addTrail(TrailComponent(sprite, 15, 1, -5, 8));
+        e.addComponent(mec);
 
         return e;
     };
     //for map
-    var createBareMotherShip = function () {
+    var createBareMotherShip = function() {
         // createBareMotherShip() {
 
         var e = em.addNew('baremothership');
@@ -464,10 +389,9 @@ function loader_costructor() {
         e.addComponent(HexItemComponent('player'));
         e.addComponent(GasComponent());
 
-
         return e;
     };
-    var createAsteroidField = function () {
+    var createAsteroidField = function() {
         //   createAsteroidField() {
 
         var e = em.addNew();
@@ -475,7 +399,7 @@ function loader_costructor() {
         return e;
 
     };
-    var createBackground = function () {
+    var createBackground = function() {
         // createBackground() {
 
         var e = em.addNew();
@@ -490,8 +414,7 @@ function loader_costructor() {
         return e;
 
     };
-    var createFuel = function (rand) {
-
+    var createFuel = function(rand) {
 
         var e = em.addNew();
         var m = am.getMesh('fuel');
@@ -512,7 +435,7 @@ function loader_costructor() {
         return e;
 
     };
-    var createPlane = function () {
+    var createPlane = function() {
 
         var e = em.addNew();
 
@@ -526,7 +449,7 @@ function loader_costructor() {
         return e;
 
     };
-    var createMap = function () {
+    var createMap = function() {
         // createMap() {
         var e = em.addNew('map');
         //var t = new Texture('maptiles');
@@ -539,16 +462,14 @@ function loader_costructor() {
             0//z
         )); //zWidth
 
-
         return e;
 
     };
-    var createText = function () {
+    var createText = function() {
         //createText(level) {
         var e = em.addNew();
         e.addComponent(TextComponent('first'));
     };
-
 
     return Object.freeze({
 
@@ -557,8 +478,6 @@ function loader_costructor() {
         subscribe,
         start
 
-
     });
-
 
 }

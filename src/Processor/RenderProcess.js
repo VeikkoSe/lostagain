@@ -1,6 +1,5 @@
 function renderprocess_constructor(sb) {
-    "use strict";
-
+    'use strict';
 
     //var {camera} = params;
     var gl = sb.getGL();
@@ -15,16 +14,12 @@ function renderprocess_constructor(sb) {
 
     //var shaderProgram = sm.init("per-fragment-lighting");
 
-
     //var shadermanager = shader_manager_constuctor();
     //var shaderprogram = shadermanager.init("per-fragment-lighting");
 
-
     //}
 
-
-    var update = function (deltatime, timeFromStart) {
-
+    var update = function(deltatime, timeFromStart) {
 
         if (timeFromStart > 2000) {
             for (var e = 0; e < em.entities.length; e++) {
@@ -33,7 +28,6 @@ function renderprocess_constructor(sb) {
                     le.components.Visibility.visibility = true;
 
                 }
-
 
             }
         }
@@ -44,9 +38,7 @@ function renderprocess_constructor(sb) {
 
     };
 
-
-    var draw = function () {
-
+    var draw = function() {
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -63,14 +55,12 @@ function renderprocess_constructor(sb) {
                 //    continue;
                 //}
 
-
                 //var rc = le.components.Renderable;
                 var mc = le.components.MeshComponent;
                 var rc = le.components.RenderableComponent;
 
                 //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
                 shadermanager.setProgram(shaderprogram);
-
 
                 gl.uniform1f(shaderprogram.alphaUniform, 1);
                 gl.uniform1i(shaderprogram.uDrawColors, 0);
@@ -87,9 +77,7 @@ function renderprocess_constructor(sb) {
 
                 //var pMatrix = camera.getPMatrix();
 
-
                 //gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
-
 
                 if (le.components.SelectableComponent) {
                     gl.uniform3fv(shaderprogram.uDrawColor, le.components.SelectableComponent.getColor());
@@ -103,11 +91,9 @@ function renderprocess_constructor(sb) {
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleZ()), [0, 0, 1]);
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleX()), [1, 0, 0]);
 
-
                 if (rc.getScale() !== 1) {
                     mat4.scale(mvMatrix, [rc.getScale(), rc.getScale(), rc.getScale()]);
                 }
-
 
                 var xRot = 0;
                 var yRot = 0;
@@ -128,14 +114,11 @@ function renderprocess_constructor(sb) {
                     mat4.rotate(camera.getMVMatrix(), degToRad(rotation), [xRot, yRot, zRot]);
                 }
 
-
                 gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getVertexPositionBuffer());
                 gl.vertexAttribPointer(shaderprogram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-
                 gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getNormalPositionBuffer());
                 gl.vertexAttribPointer(shaderprogram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
-
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getTexturePositionBuffer());
                 gl.vertexAttribPointer(shaderprogram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
@@ -153,23 +136,19 @@ function renderprocess_constructor(sb) {
                 mat3.transpose(normalMatrix);
                 gl.uniformMatrix3fv(shaderprogram.uNMatrix, false, normalMatrix);
 
-
                 gl.drawElements(gl.TRIANGLES, mc.getMesh().getIndexPositionBuffer().numItems, gl.UNSIGNED_SHORT, 0);
                 //camera.drawCalls++;
                 camera.mvPopMatrix();
-
 
             }
         }
     };
 
-
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
         update,
         draw,
-        init: function () {
+        init: function() {
         }
-
 
     });
 

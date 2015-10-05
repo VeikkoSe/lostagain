@@ -1,5 +1,5 @@
 function entity_constructor(id, name) {
-    "use strict";
+    'use strict';
 
     //var {id, name} = params;
     // this.id = id;
@@ -13,7 +13,7 @@ function entity_constructor(id, name) {
         return name;
     }
 
-    var hasComponent = function (name) {
+    var hasComponent = function(name) {
 
         for (var i = 0; i < 5; i++) {
 
@@ -27,12 +27,10 @@ function entity_constructor(id, name) {
         return false;
     }
 
-    var addComponent = function (component) {
+    var addComponent = function(component) {
         componentCount++;
         components[component.getName()] = component;
     };
-
-
 
     return { // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
         addComponent,

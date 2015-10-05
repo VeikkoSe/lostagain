@@ -1,6 +1,5 @@
 function endstate_constructor(sb) {
-    "use strict";
-
+    'use strict';
 
     var gl = sb.getGL();
     /*
@@ -10,7 +9,7 @@ function endstate_constructor(sb) {
 
      }
      */
-    var draw = function () {
+    var draw = function() {
 
         //sm.setProgram(this.shaderProgram);
 
@@ -66,8 +65,7 @@ function endstate_constructor(sb) {
 
     };
 
-
-    var init = function () {
+    var init = function() {
         /*
 
          //global
@@ -104,7 +102,7 @@ function endstate_constructor(sb) {
 
     };
 
-    var cleanup = function () {
+    var cleanup = function() {
         /*
 
          document.onkeydown = null;
@@ -116,8 +114,7 @@ function endstate_constructor(sb) {
          */
     };
 
-
-    var update = function () {
+    var update = function() {
         //actionMapper.handleKeys();
     };
     return {
@@ -125,7 +122,6 @@ function endstate_constructor(sb) {
         init,
         draw,
         cleanup
-    }
-
+    };
 
 }

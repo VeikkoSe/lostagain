@@ -1,14 +1,13 @@
 function LaserComponent() {
-    "use strict";
+    'use strict';
 
     //constructor() {
     var name = 'LaserComponent';
 
     //var sprite = sprite;
 
-
     return {
-        getName: function () {
+        getName: function() {
             return name;
         }
     }

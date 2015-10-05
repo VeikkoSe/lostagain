@@ -2,11 +2,11 @@
  * Loads assets
  */
 function asset_manager_constructor() {
-    "use strict";
+    'use strict';
     //  var sb = params;
     var meshes, sprites, textures, loadingAmount, loadingMax, sb;
 
-    var init = function (sandbox) {
+    var init = function(sandbox) {
 
         sb = sandbox;
 
@@ -18,9 +18,8 @@ function asset_manager_constructor() {
 
     };
 
-    var start = function () {
-        sb.subscribe("assetload", function (name, assetname) {
-
+    var start = function() {
+        sb.subscribe("assetload", function(name, assetname) {
 
             loadingAmount--;
 
@@ -29,17 +28,15 @@ function asset_manager_constructor() {
                 sb.publish("allassetsloaded", true);
             }
 
-
         });
     };
 
-    var getMesh = function (name) {
+    var getMesh = function(name) {
         if (meshes[name])
             return meshes[name];
 
         loadingAmount++;
         loadingMax++;
-
 
         //var params = {name,game};
         var m = mesh_constructor(sb);
@@ -50,28 +47,25 @@ function asset_manager_constructor() {
         return meshes[name];
     };
 
-    var getSprite = function (name,noflip,repeat) {
+    var getSprite = function(name, noflip, repeat) {
         if (sprites[name])
             return sprites[name];
 
         //loadingAmount++;
         //loadingMax++;
 
-
         //var params = {name,game};
         var s = sprite_constructor(sb);
-        s.load(name,noflip,repeat);
+        s.load(name, noflip, repeat);
 
         sprites[name] = s;
 
         return sprites[name];
     };
 
-
-    var subscribe = function () {
+    var subscribe = function() {
 
     };
-
 
     return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
         getMesh,
@@ -79,12 +73,10 @@ function asset_manager_constructor() {
         init,
         subscribe,
         start,
-        getLoadingAmount: function () {
+        getLoadingAmount: function() {
             return loadingAmount;
         }
 
-
     });
-
 
 }
