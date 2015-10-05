@@ -20,7 +20,7 @@ function ShieldComponent(amount, sprite) {
         },
         getSprite: function(v) {
             return sprite;
-        },
+        }
     }
 
 }

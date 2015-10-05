@@ -5,22 +5,27 @@ function layoutprocess_constructor(sb) {
     // var program = sb.getProgram('gui');
 
     var gl = sb.getGL();
-    var resolutionWidth = sb.getResolutionWidth();
-    var resolutionHeight = sb.getResolutionHeight();
+
 
     var shadermanager = sb.getShaderManager();
     var program = shadermanager.useShader('gui');
 
-    var points = [];
-    var vertexPositionBuffer = gl.createBuffer();
-    var texCoordBuffer = gl.createBuffer();
 
-    var vertBuffer = gl.createBuffer();
+    var points = [];
+    var vertexPositionBuffer;
+    var texCoordBuffer;
+    var vertBuffer;
+   // var camera = sb.getCamera();
+
     var em = sb.getEntityManager();
 
-    var camera = sb.getCamera();
+    //var camera = sb.getCamera();
 
     var init = function() {
+
+        vertexPositionBuffer = gl.createBuffer();
+        texCoordBuffer = gl.createBuffer();
+        vertBuffer = gl.createBuffer();
 
         points.push(-50, 0, 0);
         points.push(20, 0, 0);
@@ -45,29 +50,31 @@ function layoutprocess_constructor(sb) {
     };
 
     var simpleWorldToViewX = function(x) {
-        return x / resolutionWidth;
+        return x / sb.getResolutionWidth();
     };
 
     var simpleWorldToViewY = function(y) {
-        return y / resolutionHeight;
+        return y / sb.getResolutionHeight();
     };
 
     var calculatePd = function(x, y, xminus, yminus, layout) {
 
-        var rh = resolutionHeight / 256;
 
-        var y2 = y + (simpleWorldToViewY(1) * layout.size * rh);
-        var x2 = x + (simpleWorldToViewX(1) * layout.size * rh);
+
+        var rh = sb.getResolutionHeight() / 256;
+
+        var y2 = y + (simpleWorldToViewY(1) * layout.getSize() * rh);
+        var x2 = x + (simpleWorldToViewX(1) * layout.getSize() * rh);
 
         if (yminus) {
 
-            var y2 = y - (simpleWorldToViewY(1) * layout.size * rh);
+            var y2 = y - (simpleWorldToViewY(1) * layout.getSize() * rh);
             var tmp = y;
             y = y2;
             y2 = tmp;
         }
         if (xminus) {
-            var x2 = x - (simpleWorldToViewX(1) * layout.size * rh);
+            var x2 = x - (simpleWorldToViewX(1) * layout.getSize() * rh);
             var tmp = x;
             x = x2;
             x2 = tmp;
@@ -76,28 +83,30 @@ function layoutprocess_constructor(sb) {
     };
 
     var recursiveLayout = function(lloop, parent) {
+        'use strict';
+
         for (var i = 0; i < lloop.length; i++) {
 
-            if (lloop[i].component) {
-                var rh = resolutionHeight / 256;
+            if (lloop[i].getComponent()) {
+                var rh = sb.getResolutionHeight() / 256;
 
                 //right side of the screen, we minus so we get correct coordinates regardless of window size
-                var x = (parent.xPos) + ((simpleWorldToViewX(1) * lloop[i].xPos) * rh);
-                var y = (parent.yPos) + ((simpleWorldToViewY(1) * lloop[i].yPos) * rh);
+                var x = (parent.getXPos()) + ((simpleWorldToViewX(1) * lloop[i].getXPos()) * rh);
+                var y = (parent.getYPos()) + ((simpleWorldToViewY(1) * lloop[i].getYPos()) * rh);
                 var xminus = false;
                 var yminus = false;
-                if (parent.xPos == 1) {
-                    var x = (parent.xPos) - ((simpleWorldToViewX(1) * lloop[i].xPos) * rh);
+                if (parent.getXPos() == 1) {
+                    x = parent.getXPos() - ((simpleWorldToViewX(1) * lloop[i].getXPos()) * rh);
                     xminus = true;
                 }
-                if (parent.yPos == 1) {
-                    var y = (parent.yPos) - ((simpleWorldToViewY(1) * lloop[i].yPos) * rh);
+                if (parent.getYPos() == 1) {
+                    y = parent.getYPos() - ((simpleWorldToViewY(1) * lloop[i].getYPos()) * rh);
                     yminus = true;
                 }
 
                 var loop = 1;
-                if (lloop[i].component.amount && lloop[i].component.amount > 0) {
-                    loop = lloop[i].component.amount;
+                if (lloop[i].getComponent().getAmount() && lloop[i].getComponent().getAmount() > 0) {
+                    loop = lloop[i].getComponent().getAmount();
                 }
                 else {
                     loop = 0;
@@ -105,7 +114,7 @@ function layoutprocess_constructor(sb) {
 
                 if (loop > 0) {
                     for (var h = 0; h < loop; h++) {
-                        var add = h * (simpleWorldToViewY(1) * lloop[i].size * rh);
+                        var add = h * (simpleWorldToViewY(1) * lloop[i].getSize() * rh);
 
                         var pd = calculatePd(x + add, y, xminus, yminus, lloop[i]);
                         render(lloop[i], pd);
@@ -141,10 +150,11 @@ function layoutprocess_constructor(sb) {
 
     var render = function(layout, pd) {
 
-        camera.mvPushMatrix();
+        //camera.mvPushMatrix();
 
         vertBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
+
 
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
 
@@ -153,34 +163,37 @@ function layoutprocess_constructor(sb) {
         gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
         gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
+        var texture = layout.getComponent().getSprite().getTexture();
+
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, layout.component.sprite.texture);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.uniform1i(program.samplerUniform, 0);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
-        camera.drawCalls++;
 
-        camera.mvPopMatrix();
 
     };
 
     var draw = function() {
 
+
+
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
             if (le.components.LayoutComponent) {
+
                 shadermanager.setProgram(program);
 
-                recursiveLayout(le.components.LayoutComponent.layout, false);
+                recursiveLayout(le.components.LayoutComponent.getLayout(), false);
             }
         }
 
     };
     return {
         update: function() {
-        }, draw, init: function() {
-        }
+        },
+        draw, init
     };
 
 }

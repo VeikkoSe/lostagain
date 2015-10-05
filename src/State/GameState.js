@@ -35,7 +35,7 @@ function gamestate_constructor(sb) {
         processList.push(exhaustprocess_constructor(sb));
         processList.push(trailprocess_constructor(sb));
         processList.push(explosionprocess_constructor(sb));
-        processList.push(layoutprocess_constructor(sb));
+
         processList.push(collisionprocess_constructor(sb));
         processList.push(renderprocess_constructor(sb));
         processList.push(starprocess_constructor(sb));
@@ -43,6 +43,7 @@ function gamestate_constructor(sb) {
         processList.push(laserprocess_constructor(sb));
         processList.push(text_process_2d_constructor(sb));
         processList.push(text_process_constructor(sb));
+        processList.push(layoutprocess_constructor(sb));
 
         //processList.push(postprocess_constructor(sb));
 

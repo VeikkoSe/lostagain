@@ -1,4 +1,4 @@
-function layout_constructor() {
+function layout_constructor(xPos, yPos, component, size) {
     // constructor(xPos, yPos, component = null, size = 64) {
 
     var xPos = xPos;
@@ -7,14 +7,31 @@ function layout_constructor() {
     var yPos = yPos;
     var component = component;
     var children = [];
-    var rootX = null;
-    var rootY = null;
+    //var rootX = null;
+    //var rootY = null;
 
     //}
 
     return {
         getChildren: function() {
             return children;
+        },
+        getXPos: function() {
+            return xPos;
+        },
+        getYPos: function() {
+            return yPos;
+        },
+
+        getSize: function() {
+            return size;
+        },
+        setSize: function(v) {
+            size =v;
+        },
+
+        getComponent: function() {
+            return component;
         },
 
         addChildren: function(layout) {
@@ -29,6 +46,6 @@ function layout_constructor() {
         subscribe: function() {
 
         }
-    }
+    };
 
 }

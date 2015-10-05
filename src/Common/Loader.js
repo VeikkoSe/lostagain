@@ -98,7 +98,7 @@ function loader_costructor() {
                 var radar = createRadar();
                 var currency = createCurrency();
 
-                createLayout(mothership, ship);
+                createLayout(mothership, ship, radar, currency);
 
                 break;
             case ('second'):
@@ -229,17 +229,20 @@ function loader_costructor() {
     };
 
     var createLayout = function(mothership, ship, radar, currency) {
-        var e = em.addNew('enemymirror');
+        var e = em.addNew();
         var lm = [];
         var gt = layout_constructor(0, 0.1);
+
         gt.addChildren(layout_constructor(5, 0, mothership.components.HealthComponent, 8));
         gt.addChildren(layout_constructor(5, 10, mothership.components.ShieldComponent, 8));
         lm.push(gt);
 
         var rt = layout_constructor(0, 0);
+
         rt.addChildren(layout_constructor(5, 5, ship.components.HealthComponent, 8));
         rt.addChildren(layout_constructor(5, 15, ship.components.ShieldComponent, 8));
         lm.push(rt);
+        /*
         if (radar) {
 
             var lb = layout_constructor(1, 1);
@@ -251,7 +254,10 @@ function loader_costructor() {
             lh.addChildren(layout_constructor(5, 5, currency.components.CurrencyComponent, 8));
             lm.push(lh);
         }
+        */
         e.addComponent(LayoutComponent(lm));
+
+
     };
 
     var createEnemy = function() {
@@ -334,7 +340,7 @@ function loader_costructor() {
         rc.setYPos(0);
         e.addComponent(rc);
 
-        e.addComponent(HealthComponent(50, am.getSprite('hp')));
+        e.addComponent(HealthComponent(4, am.getSprite('hp')));
         e.addComponent(ShieldComponent(2, am.getSprite('shield')));
         e.addComponent(ControllableComponent());
         e.addComponent(CameraTargetComponent());

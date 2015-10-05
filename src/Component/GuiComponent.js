@@ -5,10 +5,12 @@ function GuiComponent(sprites) {
 
     var sprites = sprites;
 
-    //}
     return {
         getName: function() {
             return name;
+        },
+        getSprites: function() {
+            return sprites;
         }
     }
 
