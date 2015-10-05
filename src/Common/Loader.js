@@ -100,7 +100,7 @@ function loader_costructor() {
 
                 var mothership = createMotherShip();
                 var ship = createShip();
-                createSatellite(mothership);
+                //createSatellite(mothership);
 
 
                 for (var i = 0; i < 10; i++) {
@@ -141,13 +141,13 @@ function loader_costructor() {
         //loading = false;
     };
 
-
+/*
     var createSatellite = function (mothership) {
 
         var e = em.addNew();
         var mesh = am.getMesh('satellite');
 
-        var rc = RenderableComponent();
+       // var rc = RenderableComponent();
 
         rc.setXPos(0);
         rc.setZPos(0);
@@ -161,7 +161,7 @@ function loader_costructor() {
 
         e.addComponent(mc);
     };
-
+*/
 
     var createShip = function () {
 
@@ -241,9 +241,9 @@ function loader_costructor() {
         //texture = tc.getLoadedTexture();
 
 
-        var mec = MultiExhaustComponent();
-        mec.addExhaust(ExhaustComponent(am.getSprite('exhausttrail'), 30, 1, 3.5));
-        mec.addExhaust(ExhaustComponent(am.getSprite('exhausttrail'), 30, 1, -3.5));
+        var mec = MultiTrailComponent();
+        mec.addTrail(TrailComponent(am.getSprite('exhausttrail'), 30, 1, 3.5));
+        mec.addTrail(TrailComponent(am.getSprite('exhausttrail'), 30, 1, -3.5));
         e.addComponent(mec);
 
         return e;
@@ -385,6 +385,11 @@ function loader_costructor() {
         var e = em.addNew('mothership');
 
 
+
+        e.addComponent(SatelliteComponent(am.getMesh('satellite')));
+
+
+
         var mesh = am.getMesh('mothership');
 
         var m = MeshComponent();
@@ -436,9 +441,9 @@ function loader_costructor() {
 
         var sprite = am.getSprite('exhaust');
 
-        var mec = MultiExhaustComponent();
-        mec.addExhaust(ExhaustComponent(sprite, 5, 4, 12, 18));
-        mec.addExhaust(ExhaustComponent(sprite, 5, 4, -12, 18));
+        var mec = MultiTrailComponent();
+        mec.addTrail(TrailComponent(sprite, 5, 4, 12, 18));
+        mec.addTrail(TrailComponent(sprite, 5, 4, -12, 18));
         e.addComponent(mec);
 
 

@@ -38,6 +38,7 @@ function gamestate_constructor(sb) {
         processList.push(gunprocess_constructor(sb));
         processList.push(momemtummovementprocess_constructor(sb));
         processList.push(exhaustprocess_constructor(sb));
+        processList.push(trailprocess_constructor(sb));
         processList.push(explosionprocess_constructor(sb));
         processList.push(layoutprocess_constructor(sb));
         processList.push(collisionprocess_constructor(sb));
