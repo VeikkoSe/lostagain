@@ -5,7 +5,7 @@ function momemtummovementprocess_constructor(sb) {
     var em = sb.getEntityManager();
 
     var update = function(deltatime) {
-
+/*
         var ms = em.getEntityByName('mothership');
         if (ms) {
 
@@ -27,7 +27,7 @@ function momemtummovementprocess_constructor(sb) {
                 ms.components.MomentumComponent.setRotatingRight(1);
             }
         }
-
+*/
         var ship = em.getEntityByName('ship');
         if (ship) {
             ship.components.MomentumComponent.setRotatingLeft(0);
@@ -60,43 +60,10 @@ function momemtummovementprocess_constructor(sb) {
                 var mm = le.components.MomentumComponent;
 
                 var re = le.components.RenderableComponent;
-                /*
-                 if ((helpers.isNumeric(mm.routeEndXpos) && helpers.isNumeric(mm.routeEndZpos)) &&
-                 (helpers.isClose(re.xPos, mm.routeEndXpos) && helpers.isClose(re.zPos, mm.routeEndZpos))) {
-
-                 mm.routeDone = true;
-                 }
-
-                 //newX and newZ are false by default so we don't move anywhere if newpos is not set
-                 if (!mm.routeDone) {
 
 
-                 //Create a vector in the direction
-
-                 var dirX = mm.routeEndXpos - re.xPos;
-                 var dirZ = mm.routeEndZpos - re.zPos;
-
-                 //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
-                 var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
 
-                 var angR = Math.atan2(dirX, dirZ);
-                 var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
-
-                 dirX /= hyp;
-                 dirZ /= hyp;
-
-
-                 //Add that vector to the enemy's position, multiplied by the speed you want the enemy to move:
-                 re.xPos += dirX * mm.speed * (deltatime / 1000);
-                 re.zPos += dirZ * mm.speed * (deltatime / 1000);
-                 re.yPos = 1;
-
-                 re.angleY = deg;
-
-                 }
-
-                 */
 
                 if (mm.getCurrentlyAccelerating() === 1) {
 

@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function randomRangedInt() {
 
     var rnd = getRandomInt(500, -500);
-    if (rnd > 100 ||
-        rnd < -100) {
+    if (rnd > 300 ||
+        rnd < -300) {
         return rnd;
     }
     else
@@ -188,6 +188,16 @@ function isClose(currentCoord, newCoord) {
 
     return false;
 }
+
+function isCloseOrbit(currentCoord, newCoord) {
+    'use strict';
+    if (currentCoord <= newCoord + 100 && currentCoord >= newCoord - 100) {
+        return true;
+    }
+
+    return false;
+}
+
 
 function mouseX(e) {
     'use strict';

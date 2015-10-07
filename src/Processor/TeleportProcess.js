@@ -65,8 +65,11 @@ function teleport_process_constructor(sb) {
                 //   ship.components.MultiExhaustComponent.exhaustComponents[i].points = [];
                 //  ship.components.MultiExhaustComponent.exhaustComponents[i].flow = [];
                 //}
-                //ship.components.ExhaustComponent.points = [];
-                //ship.components.ExhaustComponent.flow = [];
+                var trailComponents = ship.components.MultiTrailComponent.getTrailComponents();
+                for (var i=0;i<trailComponents.length;i++) {
+                    trailComponents[i].setPoints([]);
+                    trailComponents[i].setFlow([]);
+                }
 
             }
         }

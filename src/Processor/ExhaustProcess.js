@@ -44,7 +44,7 @@ function exhaustprocess_constructor(sb) {
 
                     var ec = ecl[i];
 
-                    if (mc.getCurrentlyAccelerating() === 1) {
+                    if (!mc || mc.getCurrentlyAccelerating() === 1 ) {
 
 
 

@@ -44,6 +44,9 @@ function gamestate_constructor(sb) {
         processList.push(text_process_2d_constructor(sb));
         processList.push(text_process_constructor(sb));
         processList.push(layoutprocess_constructor(sb));
+        processList.push(railsmovementprocess_constructor(sb));
+        processList.push(entityprocess_constructor(sb));
+
 
         //processList.push(postprocess_constructor(sb));
 

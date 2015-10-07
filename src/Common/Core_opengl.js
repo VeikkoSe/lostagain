@@ -17,15 +17,18 @@ function Core(width, height) {
     this.entityManager = null;
     this.actionMapper = null;
 
-    this.create_module(action_mapper());
-    this.create_module(entity_manager_constructor());
-    this.create_module(asset_manager_constructor());
-    this.create_module(loader_costructor());
-    this.create_module(camera_constructor());
-    this.create_module(shader_manager_constuctor());
-    this.create_module(layout_constructor());
-    this.create_module(text_constructor());
-    this.create_module(stateengine_constructor());
+    this.create_module(action_mapper()); //0
+    this.create_module(entity_manager_constructor());//1
+    this.create_module(asset_manager_constructor());//2
+    this.create_module(loader_costructor());//3
+    this.create_module(camera_constructor());//4
+    this.create_module(shader_manager_constuctor());//5
+    this.create_module(layout_constructor());//6
+    this.create_module(text_constructor());//7
+    this.create_module(entity_creator_constructor());//9
+
+    this.create_module(stateengine_constructor());//8
+
 
     this.width = width;
     this.height = height;
@@ -44,7 +47,7 @@ function Core(width, height) {
 
     }
     if (!this.gl) {
-        alert("Could not initialise WebGL, sorry :-(");
+        alert('Could not initialise WebGL');
     }
 
     //sm = shader_manager_constuctor(gl);
@@ -66,6 +69,7 @@ Core.prototype.start_modules = function() {
      }
      */
     for (var i = 0; i < this.modules.length; i++) {
+        console.log('d'+i);
         this.modules[i].init(sandbox_constructor(this));
     }
 
@@ -78,7 +82,7 @@ Core.prototype.start_modules = function() {
 Core.prototype.startSandbox = function() {
     'use strict';
     for (var i = 0; i < this.modules.length; i++) {
-
+        console.log(i);
         this.modules[i].start();
     }
 
@@ -86,16 +90,20 @@ Core.prototype.startSandbox = function() {
 
 Core.prototype.initModules = function() {
 
-    this.assetManager = this.modules[2];
-    this.entityManager = this.modules[1];
-    this.actionMapper = this.modules[0];
-    this.camera = this.modules[4];
-    this.text = this.modules[7];
-    //this.text = text_constructor();
-    //this.text.init();
 
+
+    this.actionMapper = this.modules[0];
+    this.entityManager = this.modules[1];
+    this.assetManager = this.modules[2];
+    this.camera = this.modules[4];
     this.sm = this.modules[5];
-    this.stateEngine = this.modules[8];
+    this.text = this.modules[7];
+    this.stateEngine = this.modules[9];
+    this.entityCreator = this.modules[8];
+
+
+
+
 
 };
 
@@ -114,6 +122,11 @@ Core.prototype.start_game = function() {
 Core.prototype.getShaderManager = function() {
     return this.sm;
 };
+
+Core.prototype.getEntityCreator = function() {
+    return this.entityCreator;
+}
+
 
 Core.prototype.getCamera = function() {
     return this.camera;
