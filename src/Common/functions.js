@@ -3,12 +3,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-    var w = 500;
-    var h = 500;
+    var w = 1024;
+    var h = 768;
     var CORE = new Core(w, h);
     CORE.start_modules();
     CORE.start_game();
 });
+
+function createHit(hc,sc) {
+    if (sc && sc.getAmount() > 0) {
+        sc.setAmount(sc.getAmount() - 1);
+    }
+    else {
+        hc.setAmount(hc.getAmount() - 1);
+    }
+
+    if(hc.getAmount()<0) {
+        hc.setAmount(0);
+    }
+
+}
 
 function randomRangedInt() {
 
@@ -23,9 +37,7 @@ function randomRangedInt() {
 
 function randomCloseInt() {
 
-    var rnd = getRandomInt(30, -30);
-
-    return rnd;
+    return getRandomInt(30, -30);
 
 };
 
@@ -105,8 +117,7 @@ function circleXY(x, y, z, radius, amount) {
     var stepSize = ((2 * Math.PI) / amount);
     var y = 0;
     for (var d = 0; d <= (2 * Math.PI) - stepSize; d += stepSize) {
-        points.push(((Math.sin(d) * radius) + x)
-            , y, (Math.cos(d) * radius) + z);
+        points.push(((Math.sin(d) * radius) + x), y, (Math.cos(d) * radius) + z);
     }
     return points;
 }
@@ -119,14 +130,14 @@ function viewport() {
         a = 'client';
         e = document.documentElement || document.body;
     }
-    return {width: e[a + 'Width'], height: e[a + 'Height']}
+    return {width: e[a + 'Width'], height: e[a + 'Height']};
 }
 
 function updateLightPosition() {
     'use strict';
-    var x = $('#slider-x').slider("value");
-    var y = $('#slider-y').slider("value");
-    var z = $('#slider-z').slider("value");
+    var x = $('#slider-x').slider('value');
+    var y = $('#slider-y').slider('value');
+    var z = $('#slider-z').slider('value');
     $('#slider-x-value').html(x);
     $('#slider-y-value').html(y);
     $('#slider-z-value').html(z);
@@ -134,9 +145,9 @@ function updateLightPosition() {
 
 function updateCameraPosition() {
     'use strict';
-    var x = $('#cslider-x').slider("value");
-    var y = $('#cslider-y').slider("value");
-    var z = $('#cslider-z').slider("value");
+    var x = $('#cslider-x').slider('value');
+    var y = $('#cslider-y').slider('value');
+    var z = $('#cslider-z').slider('value');
 
     $('#cslider-x-value').html(x);
     $('#cslider-y-value').html(y);
@@ -145,7 +156,7 @@ function updateCameraPosition() {
 
 function updateRotation() {
     'use strict';
-    var x = $('#rslider-x').slider("value");
+    var x = $('#rslider-x').slider('value');
     $('#rotslider-x-value').html(x);
 
 }
@@ -197,7 +208,6 @@ function isCloseOrbit(currentCoord, newCoord) {
 
     return false;
 }
-
 
 function mouseX(e) {
     'use strict';

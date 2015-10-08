@@ -47,7 +47,6 @@ function gamestate_constructor(sb) {
         processList.push(railsmovementprocess_constructor(sb));
         processList.push(entityprocess_constructor(sb));
 
-
         //processList.push(postprocess_constructor(sb));
 
         for (var i = 0; i < processList.length; i++) {
@@ -69,6 +68,7 @@ function gamestate_constructor(sb) {
         //camera.move();
 
         frameCount++;
+        console.log(lastTime);
 
         if (lastTime != 0) {
 
@@ -76,9 +76,11 @@ function gamestate_constructor(sb) {
 
             var elapsed = timeNow - lastTime;
             elapsedTotal += elapsed;
-
-            for (var i = 0; i < processList.length; i++) {
-                processList[i].update(elapsed, totalElapsed);
+            //skip lost frames
+            if(elapsed<300) {
+                for (var i = 0; i < processList.length; i++) {
+                    processList[i].update(elapsed, totalElapsed);
+                }
             }
 
             if (elapsedTotal >= 1000) {

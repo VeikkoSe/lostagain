@@ -88,7 +88,6 @@ function renderprocess_constructor(sb) {
 
                 mat4.translate(mvMatrix, [rc.getXPos(), rc.getYPos(), rc.getZPos()]);
 
-
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleY()), [0, 1, 0]);
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleZ()), [0, 0, 1]);
                 mat4.rotate(mvMatrix, degToRad(rc.getAngleX()), [1, 0, 0]);

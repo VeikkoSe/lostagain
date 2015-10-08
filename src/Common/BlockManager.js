@@ -62,10 +62,7 @@ BlockManager.prototype.inRange = function(block) {
             return true;
     }
 
-    if (block == this.currentBlock || block == -1) {
-        return true;
-    }
-    return false;
+    return (block == this.currentBlock || block == -1);
 }
 
 BlockManager.prototype.getBlockFromXY = function(x, y) {

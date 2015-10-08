@@ -66,7 +66,7 @@ function teleport_process_constructor(sb) {
                 //  ship.components.MultiExhaustComponent.exhaustComponents[i].flow = [];
                 //}
                 var trailComponents = ship.components.MultiTrailComponent.getTrailComponents();
-                for (var i=0;i<trailComponents.length;i++) {
+                for (var i = 0; i < trailComponents.length; i++) {
                     trailComponents[i].setPoints([]);
                     trailComponents[i].setFlow([]);
                 }

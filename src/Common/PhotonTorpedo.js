@@ -7,7 +7,7 @@ function photontorpedo_constructor() {
     var yPos = 0;
     var zPos = 0;
     var visible = 0;
-    var speed = 100;
+    var speed = 150;
     var deathtime = 1500;
 
     //}

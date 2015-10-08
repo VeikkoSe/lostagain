@@ -6,16 +6,14 @@ function layoutprocess_constructor(sb) {
 
     var gl = sb.getGL();
 
-
     var shadermanager = sb.getShaderManager();
     var program = shadermanager.useShader('gui');
-
 
     var points = [];
     var vertexPositionBuffer;
     var texCoordBuffer;
     var vertBuffer;
-   // var camera = sb.getCamera();
+    // var camera = sb.getCamera();
 
     var em = sb.getEntityManager();
 
@@ -58,8 +56,6 @@ function layoutprocess_constructor(sb) {
     };
 
     var calculatePd = function(x, y, xminus, yminus, layout) {
-
-
 
         var rh = sb.getResolutionHeight() / 256;
 
@@ -155,7 +151,6 @@ function layoutprocess_constructor(sb) {
         vertBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
 
-
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pd), gl.STATIC_DRAW);
 
         gl.vertexAttribPointer(program.aVertexPosition, 2, gl.FLOAT, false, 0, 0);
@@ -171,12 +166,9 @@ function layoutprocess_constructor(sb) {
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-
     };
 
     var draw = function() {
-
-
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];

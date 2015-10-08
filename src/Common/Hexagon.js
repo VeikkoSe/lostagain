@@ -193,7 +193,7 @@ function hexagon_constructor(size) {
                     playerPos = [x, y];
                     gc.amount--;
 
-                    game.stateEngine.changeState("gamestate");
+                    game.stateEngine.changeState('gamestate');
                     if (randomIntFromInterval(0, 1) == 1) {
                         // loadManager.loadLevel('third');
                         // game.currentLevel = 'third';
@@ -362,7 +362,7 @@ function hexagon_constructor(size) {
     };
 
     var oneHexagon = function() {
-        var oneHexagon = [
+        return [
 
             //center square
             1, 0, 2,
@@ -384,7 +384,7 @@ function hexagon_constructor(size) {
             -1, 0, -2
 
         ];
-        return oneHexagon;
+
     };
 
     var randomIntFromInterval = function(min, max) {
@@ -434,7 +434,7 @@ function hexagon_constructor(size) {
 
                     allHexagons.push(oneHexagon[h] + (x * 7) + addition);
                     allHexagons.push(0);
-                    allHexagons.push(oneHexagon[h + 2] + (y * 2.5 ));
+                    allHexagons.push(oneHexagon[h + 2] + (y * 2.5));
 
                 }
             }

@@ -19,13 +19,13 @@ function asset_manager_constructor() {
     };
 
     var start = function() {
-        sb.subscribe("assetload", function(name, assetname) {
+        sb.subscribe('assetload', function(name, assetname) {
 
             loadingAmount--;
 
             if (loadingAmount === 0) {
 
-                sb.publish("allassetsloaded", true);
+                sb.publish('allassetsloaded', true);
             }
 
         });

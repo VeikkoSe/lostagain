@@ -42,7 +42,6 @@ function RailsMovementComponent() {
             return angle;
         }
 
-
     };
 
 }

@@ -65,8 +65,8 @@ function sandbox_constructor(CORE) {
             return core.getCurrentlyPressedKeys();
         },
         getEntityCreator: function() {
-        return core.getEntityCreator();
-    }
+            return core.getEntityCreator();
+        }
 
     };
 }

@@ -1,6 +1,6 @@
 function loader_costructor() {
     'use strict';
-    var sb, em, am, loadingLevelName, t, sprite_loader, loading, loadTotal, maxLoad, camera,ec;
+    var sb, em, am, loadingLevelName, t, sprite_loader, loading, loadTotal, maxLoad, camera, ec;
 
     var getLoadingLevelName = function() {
         return loadingLevelName;
@@ -30,7 +30,6 @@ function loader_costructor() {
         //t = texture_constructor(sb);
         //sprite_loader = sprite_constructor(sb);
 
-
         sb.subscribe("loadassets", function(name, wantedState) {
 
             loadAllAssets(wantedState);
@@ -44,13 +43,8 @@ function loader_costructor() {
             //sb.publish("movetoloadstate", assetname);
         });
 
-
-
-
     };
 //
-
-
 
     var loadAllAssets = function(name) {
 
@@ -82,7 +76,7 @@ function loader_costructor() {
                 //createSatellite(mothership);
 
                 for (var i = 0; i < 10; i++) {
-                    //  createEnemy();
+                      ec.createEnemy();
                 }
 
                 var radar = ec.createRadar();
@@ -103,9 +97,9 @@ function loader_costructor() {
             case ('third'):
 
                 // camera.setDistance(200);
-               // createAsteroidField();
-               // createStars();
-               // createMotherShip();
+                // createAsteroidField();
+                // createStars();
+                // createMotherShip();
                 //createShip();
 
                 break;
@@ -115,7 +109,6 @@ function loader_costructor() {
         //maxLoad = loadTotal;
         //loading = false;
     };
-
 
     return Object.freeze({
 

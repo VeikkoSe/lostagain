@@ -156,7 +156,6 @@ function asteroidrenderprocess_constructor(sb) {
 
                 if (lastTime != 0) {
 
-
                     elapsedTotal += timeNow - lastTime;
                     gl.uniform1f(ambientProgram.uElapsed, elapsedTotal.toFixed(1));
 

@@ -19,31 +19,41 @@ function enemyprocess_constructor(sb) {
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
-            if (le.components.RenderableComponent && le.components.MeshComponent && le.components.EnemyComponent) {
+            if (le.components.RenderableComponent &&
+                le.components.MeshComponent &&
+                le.components.EnemyComponent) {
 
                 var ship = em.getEntityByName('ship');
                 //if normal ship is dead we target the mothership
-                if (ship.components.HealthComponent.amount < 1) {
+                if (!ship || ship.components.HealthComponent.amount < 1) {
                     ship = em.getEntityByName('mothership');
                 }
                 var re = le.components.RenderableComponent;
                 var enemyHp = le.components.HealthComponent;
+                var shiprc = ship.components.RenderableComponent;
+                var hc = ship.components.HealthComponent;
+                var sc = ship.components.ShieldComponent;
 
                 if (enemyHp.getAmount() > 0) {
 
-                    if (
-                        (isClose(re.xPos, ship.components.RenderableComponent.getXPos()) && isClose(re.getZPos(), ship.components.RenderableComponent.getZPos()))) {
+                    if (isClose(re.getXPos(), shiprc.getXPos()) &&
+                        isClose(re.getZPos(), shiprc.getZPos())) {
+
 
                         //this.routeDone = true;
+                        sb.publish("collision", [ship.components.CollisionComponent, le.componets.CollisionComponent]);
+                        //sb.publish('enemycollision' , {ship, le});
 
-                        if (ship.components.HealthComponent.getAmount() < 1 && ship.components.ShieldComponent.getAmount() < 1) {
+                        /*
+                        if (hc.getAmount() < 1 && sc.getAmount() < 1) {
                             //game.stateEngine.changeState("gamestate");
                         }
 
-                        if (ship.components.ShieldComponent.amount < 1)
-                            ship.components.HealthComponent.setAmount(ship.components.HealthComponent.getAmount() - 1);
+                        if (sc.getAmount() < 1)
+                            hc.setAmount(hc.getAmount() - 1);
                         else
-                            ship.components.ShieldComponent.setAmount(ship.components.ShieldComponent.getAmount() - 1);
+                            sc.setAmount(sc.getAmount() - 1);
+                            */
 
                     }
                 }
@@ -61,7 +71,7 @@ function enemyprocess_constructor(sb) {
                     var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
 
                     var angR = Math.atan2(dirX, dirZ);
-                    var deg = (angR / Math.PI * 180) + (angR > 0 ? 0 : 360);
+                    var deg = (angR / Math.PI * 180) - 90 + (angR > 0 ? 0 : 360);
 
                     dirX /= hyp;
                     dirZ /= hyp;

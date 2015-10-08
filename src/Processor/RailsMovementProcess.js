@@ -42,8 +42,7 @@ function railsmovementprocess_constructor(sb) {
 
                     var angR = Math.atan2(dirX, dirZ);
 
-
-                    var deg = (angR / Math.PI * 180)-90 + (angR > 0 ? 0 : 360);
+                    var deg = (angR / Math.PI * 180) - 90 + (angR > 0 ? 0 : 360);
 
                     //console.log(deg);
 
@@ -54,7 +53,6 @@ function railsmovementprocess_constructor(sb) {
                     // multiplied by the speed you want the enemy to move:
                     re.setXPos(re.getXPos() + dirX * rc.getSpeed() * (deltatime / 1000));
                     re.setZPos(re.getZPos() + dirZ * rc.getSpeed() * (deltatime / 1000));
-
 
                     re.setAngleY(deg);
 

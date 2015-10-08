@@ -89,8 +89,6 @@ function laserprocess_constructor(sb) {
 
                     var rc = target.components.RenderableComponent;
 
-
-
                     if (isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
 
                         points = railXY(shooter.getXPos(), shooter.getYPos(), shooter.getZPos(), rc.getXPos(), rc.getYPos(), rc.getZPos());

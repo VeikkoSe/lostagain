@@ -1,7 +1,6 @@
 function LayoutComponent(laS) {
     'use strict';
 
-
     var name = "LayoutComponent";
     var layout = laS;
 

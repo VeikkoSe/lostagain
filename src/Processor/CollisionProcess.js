@@ -15,19 +15,57 @@ function collisionprocess_constructor(sb) {
 
             var enemyEntity = enemy.getEntity();
             var hc = enemyEntity.components.HealthComponent;
+            var sc = enemyEntity.components.ShieldComponent;
 
-            hc.setAmount(hc.getAmount() - 1);
+            createHit(hc, sc);
+
+
+            //hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
 
                 sb.publish('explosion', enemyEntity.components.RenderableComponent);
             }
             else {
 
-                hc.setAmount(0);
+                //hc.setAmount(0);
 
                 sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
             }
         });
+/*
+        sb.subscribe('enemycollision', function(name, collders) {
+
+            var collider = collisionComponent[0];
+            var enemy = collisionComponent[1];
+
+            //var enemyEntity = enemy.getEntity();
+            var hc = collider.components.HealthComponent;
+            var sc = collider.components.ShieldComponent;
+
+            var enemyHc = enemy.components.HealthComponent;
+            var enemySc = enemy.components.ShieldComponent;
+
+            createHit(hc, sc);
+            createHit(enemyHc, enemySc);
+
+
+            //hc.setAmount(hc.getAmount() - 1);
+            if (hc.getAmount() > 0) {
+                sb.publish('smallexplosion', collider.components.RenderableComponent);
+            }
+            else {
+                sb.publish('bigexplosion', collider.components.RenderableComponent);
+            }
+
+            if (enemyHc.getAmount() > 0) {
+                sb.publish('smallexplosion', enemy.components.RenderableComponent);
+            }
+            else {
+                sb.publish('bigexplosion', enemy.components.RenderableComponent);
+            }
+        });
+
+*/
 
         sb.subscribe('enemylasercollision', function(name, target) {
 
@@ -35,8 +73,11 @@ function collisionprocess_constructor(sb) {
 
             //var enemyEntity = enemy.getEntity();
             var hc = target.components.HealthComponent;
+            var sc = target.components.ShieldComponent;
 
-            hc.setAmount(hc.getAmount() - 1);
+            createHit(hc,sc);
+
+            //hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
                 //console.log('b');
                 sb.publish('smallexplosion', target.components.RenderableComponent);
@@ -86,19 +127,13 @@ function collisionprocess_constructor(sb) {
             //renderable contains xyz of object so we know where to explode
             var pc = playerEntity.components.RenderableComponent;
 
-            if (sc.getAmount() > 0)
-                sc.setAmount(sc.getAmount() - 1);
-            else
-                hc.setAmount(hc.getAmount() - 1);
+            createHit(hc,sc)
 
             if (hc.getAmount() > 0) {
-
                 sb.publish('explosion', pc);
             }
             else {
-
                 if (playerEntity.name == 'mothership') {
-
                     sb.publish('gameover', true);
                 }
                 hc.setAmount(0);

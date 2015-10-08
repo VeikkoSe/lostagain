@@ -1,8 +1,12 @@
 function camera_constructor() {
     'use strict';
 
-    var gl, mvMatrix, pMatrix, cMatrix, pvMatrix, pvMatrixInverse, mvMatrixStack, drawCalls, eye, distance, x, y, z;
-    var rotationX, rotationY, slideLeft, slideRight, slideUp, slideDown, centerPosition, home, sb, pitch, mindistance, maxdistance;
+    var gl, mvMatrix, pMatrix, cMatrix, pvMatrix,
+        pvMatrixInverse, mvMatrixStack, drawCalls, eye,
+        distance, x, y, z, rotationX, rotationY,
+        slideLeft, slideRight,
+        slideUp, slideDown, centerPosition,
+        home, sb, pitch, mindistance, maxdistance;
 
     var init = function(sandbox) {
 
@@ -94,7 +98,7 @@ function camera_constructor() {
     };
     var getYRotation = function() {
         return rotationY;
-    }
+    };
 
     var setPos = function(xp, yp, zp) {
         if (xp) {
@@ -131,7 +135,7 @@ function camera_constructor() {
 
     var lookAt = function(epos, direction) {
         mat4.lookAt([x, y, z], epos, direction, mvMatrix);
-    }
+    };
     var move = function() {
 
         // mat4.identity(mvMatrix);
@@ -153,7 +157,7 @@ function camera_constructor() {
 
     var mvPopMatrix = function() {
         if (mvMatrixStack.length == 0) {
-            throw "Invalid popMatrix!";
+            throw 'Invalid popMatrix!';
         }
         mvMatrix = mvMatrixStack.pop();
     };
@@ -162,7 +166,7 @@ function camera_constructor() {
 
     };
 
-    return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+    return Object.freeze({
         mvPopMatrix,
         mvPushMatrix,
         setPerspective,
@@ -204,7 +208,6 @@ function camera_constructor() {
         getPitch: function() {
             return pitch;
         },
-
         setPos,
         subscribe,
         start,

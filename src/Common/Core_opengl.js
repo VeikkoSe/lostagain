@@ -29,7 +29,6 @@ function Core(width, height) {
 
     this.create_module(stateengine_constructor());//8
 
-
     this.width = width;
     this.height = height;
 
@@ -69,7 +68,6 @@ Core.prototype.start_modules = function() {
      }
      */
     for (var i = 0; i < this.modules.length; i++) {
-        console.log('d'+i);
         this.modules[i].init(sandbox_constructor(this));
     }
 
@@ -90,8 +88,6 @@ Core.prototype.startSandbox = function() {
 
 Core.prototype.initModules = function() {
 
-
-
     this.actionMapper = this.modules[0];
     this.entityManager = this.modules[1];
     this.assetManager = this.modules[2];
@@ -100,10 +96,6 @@ Core.prototype.initModules = function() {
     this.text = this.modules[7];
     this.stateEngine = this.modules[9];
     this.entityCreator = this.modules[8];
-
-
-
-
 
 };
 
@@ -126,7 +118,6 @@ Core.prototype.getShaderManager = function() {
 Core.prototype.getEntityCreator = function() {
     return this.entityCreator;
 }
-
 
 Core.prototype.getCamera = function() {
     return this.camera;

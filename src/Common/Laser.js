@@ -19,33 +19,33 @@ function laser_constructor() {
     return {
 
         getBirthTime: function() {
-            return birthTime
+            return birthTime;
         },
 
         getXStartPos: function() {
-            return xStartPos
+            return xStartPos;
         },
         getYStartPos: function() {
-            return yStartPos
+            return yStartPos;
         },
         getZStartPos: function() {
-            return zStartPos
+            return zStartPos;
         },
         getXEndPos: function() {
-            return xEndPos
+            return xEndPos;
         },
         getYEndPos: function() {
-            return yEndPos
+            return yEndPos;
         },
         getZEndPos: function() {
-            return zEndPos
+            return zEndPos;
         },
 
         getVisible: function() {
-            return visible
+            return visible;
         },
         getDeathtime: function() {
-            return deathtime
+            return deathtime;
         },
 
         setBirthTime: function(v) {
@@ -77,6 +77,6 @@ function laser_constructor() {
             deathtime = v;
         }
 
-    }
+    };
 
 }

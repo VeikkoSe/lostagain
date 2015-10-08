@@ -5,29 +5,29 @@ function momemtummovementprocess_constructor(sb) {
     var em = sb.getEntityManager();
 
     var update = function(deltatime) {
-/*
-        var ms = em.getEntityByName('mothership');
-        if (ms) {
+        /*
+         var ms = em.getEntityByName('mothership');
+         if (ms) {
 
-            ms.components.MomentumComponent.setRotatingLeft(0);
-            ms.components.MomentumComponent.setRotatingRight(0);
-            ms.components.MomentumComponent.setCurrentlyAccelerating(0);
+         ms.components.MomentumComponent.setRotatingLeft(0);
+         ms.components.MomentumComponent.setRotatingRight(0);
+         ms.components.MomentumComponent.setCurrentlyAccelerating(0);
 
-            //w
-            if (sb.getActionMapper().getCurrentlyPressedKeys()[87]) {
+         //w
+         if (sb.getActionMapper().getCurrentlyPressedKeys()[87]) {
 
-                ms.components.MomentumComponent.setCurrentlyAccelerating(1);
-            }
-            //a
-            if (sb.getActionMapper().getCurrentlyPressedKeys()[65]) {
-                ms.components.MomentumComponent.setRotatingLeft(1);
-            }
-            //d
-            if (sb.getActionMapper().getCurrentlyPressedKeys()[68]) {
-                ms.components.MomentumComponent.setRotatingRight(1);
-            }
-        }
-*/
+         ms.components.MomentumComponent.setCurrentlyAccelerating(1);
+         }
+         //a
+         if (sb.getActionMapper().getCurrentlyPressedKeys()[65]) {
+         ms.components.MomentumComponent.setRotatingLeft(1);
+         }
+         //d
+         if (sb.getActionMapper().getCurrentlyPressedKeys()[68]) {
+         ms.components.MomentumComponent.setRotatingRight(1);
+         }
+         }
+         */
         var ship = em.getEntityByName('ship');
         if (ship) {
             ship.components.MomentumComponent.setRotatingLeft(0);
@@ -60,10 +60,6 @@ function momemtummovementprocess_constructor(sb) {
                 var mm = le.components.MomentumComponent;
 
                 var re = le.components.RenderableComponent;
-
-
-
-
 
                 if (mm.getCurrentlyAccelerating() === 1) {
 

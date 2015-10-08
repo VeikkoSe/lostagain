@@ -27,7 +27,7 @@ function layout_constructor(xPos, yPos, component, size) {
             return size;
         },
         setSize: function(v) {
-            size =v;
+            size = v;
         },
 
         getComponent: function() {
