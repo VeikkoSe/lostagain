@@ -80,7 +80,6 @@ Core.prototype.start_modules = function() {
 Core.prototype.startSandbox = function() {
     'use strict';
     for (var i = 0; i < this.modules.length; i++) {
-        console.log(i);
         this.modules[i].start();
     }
 

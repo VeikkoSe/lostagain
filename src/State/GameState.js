@@ -10,6 +10,7 @@ function gamestate_constructor(sb) {
 
     var processList = [];
     var startTime = null;
+    var em = sb.getEntityManager();
 
     var fb = null;
 
@@ -68,7 +69,6 @@ function gamestate_constructor(sb) {
         //camera.move();
 
         frameCount++;
-        console.log(lastTime);
 
         if (lastTime != 0) {
 
@@ -77,7 +77,7 @@ function gamestate_constructor(sb) {
             var elapsed = timeNow - lastTime;
             elapsedTotal += elapsed;
             //skip lost frames
-            if(elapsed<300) {
+            if (elapsed < 300) {
                 for (var i = 0; i < processList.length; i++) {
                     processList[i].update(elapsed, totalElapsed);
                 }
@@ -105,6 +105,8 @@ function gamestate_constructor(sb) {
         gl.disable(gl.BLEND);
         gl.enable(gl.DEPTH_TEST);
 
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+
         //gl.clearColor(1, 1, 0, 1); // red
         //gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -119,8 +121,10 @@ function gamestate_constructor(sb) {
         //  gl.disable(gl.BLEND);
 
         for (var i = 0; i < processList.length; i++) {
-
-            processList[i].draw();
+            for (var e = 0; e < em.entities.length; e++) {
+                var le = em.entities[e];
+                processList[i].draw(le);
+            }
         }
 
         //camera.drawCalls = 0;

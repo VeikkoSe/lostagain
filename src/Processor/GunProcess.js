@@ -117,64 +117,67 @@ function gunprocess_constructor(sb) {
 
     };
 
-    var draw = function() {
+    var draw = function(le) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        //for (var e = 0; e < em.entities.length; e++) {
+        //   var le = em.entities[e];
 
-            if (le.components.PhotonTorpedoComponent) {
-                //gl.disable(gl.DEPTH_TEST);
+        if (le.components.PhotonTorpedoComponent) {
+            gl.disable(gl.DEPTH_TEST);
+            gl.enable(gl.BLEND);
 
-                shadermanager.setProgram(particleProgram3d);
-                //gl.enable(gl.BLEND);
-                //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+            shadermanager.setProgram(particleProgram3d);
 
-                var mvMatrix = camera.getMVMatrix();
-                for (var i = 0; i < bulletsAmount; i++) {
+            var mvMatrix = camera.getMVMatrix();
+            for (var i = 0; i < bulletsAmount; i++) {
 
-                    if (bullets[i].getVisible() != 1) {
-                        continue;
-                    }
-
-                    var bc = le.components.PhotonTorpedoComponent;
-
-                    gl.uniform1f(particleProgram3d.pointSize, 64.0);
-                    camera.mvPushMatrix();
-                    var sprite = bc.getSprite();
-
-                    var pointStartPositionsBuffer = gl.createBuffer();
-
-                    //build buffers
-                    var position = [];
-
-                    //cant create buffer on every loop. Need to create one buffer for every bullet.
-                    position.push(bullets[i].getXPos());
-                    position.push(bullets[i].getYPos());
-                    position.push(bullets[i].getZPos());
-
-                    gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
-                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(position), gl.STATIC_DRAW);
-
-                    gl.vertexAttribPointer(particleProgram3d.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-
-                    gl.activeTexture(gl.TEXTURE0);
-                    gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
-                    gl.uniform1i(particleProgram3d.samplerUniform, 0);
-
-                    gl.uniform4f(particleProgram3d.colorUniform, 1, 1, 1, 1);
-
-                    gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.getPMatrix());
-                    gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, mvMatrix);
-
-                    gl.drawArrays(gl.POINTS, 0, 1);
-                    //camera.drawCalls++;
-
-                    camera.mvPopMatrix();
+                if (bullets[i].getVisible() != 1) {
+                    continue;
                 }
-                //gl.enable(gl.DEPTH_TEST);
-                //gl.disable(gl.BLEND);
+
+                var bc = le.components.PhotonTorpedoComponent;
+
+                gl.uniform1f(particleProgram3d.pointSize, 64.0);
+                camera.mvPushMatrix();
+                var sprite = bc.getSprite();
+
+                var pointStartPositionsBuffer = gl.createBuffer();
+
+                //build buffers
+                var position = [];
+
+                //cant create buffer on every loop. Need to create one buffer for every bullet.
+                position.push(bullets[i].getXPos());
+                position.push(bullets[i].getYPos());
+                position.push(bullets[i].getZPos());
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(position), gl.STATIC_DRAW);
+
+                gl.vertexAttribPointer(particleProgram3d.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
+                gl.uniform1i(particleProgram3d.samplerUniform, 0);
+
+                gl.uniform4f(particleProgram3d.colorUniform, 1, 1, 1, 1);
+
+                gl.uniformMatrix4fv(particleProgram3d.uPMatrix, false, camera.getPMatrix());
+                gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, mvMatrix);
+
+                gl.drawArrays(gl.POINTS, 0, 1);
+                //camera.drawCalls++;
+
+                camera.mvPopMatrix();
             }
+            gl.enable(gl.DEPTH_TEST);
+            gl.disable(gl.BLEND);
+
+            // gl.enable(gl.BLEND);
+            //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
         }
+
+        //}
 
     };
 

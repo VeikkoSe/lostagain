@@ -19,7 +19,6 @@ function collisionprocess_constructor(sb) {
 
             createHit(hc, sc);
 
-
             //hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
 
@@ -32,42 +31,42 @@ function collisionprocess_constructor(sb) {
                 sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
             }
         });
-/*
-        sb.subscribe('enemycollision', function(name, collders) {
+        /*
+         sb.subscribe('enemycollision', function(name, collders) {
 
-            var collider = collisionComponent[0];
-            var enemy = collisionComponent[1];
+         var collider = collisionComponent[0];
+         var enemy = collisionComponent[1];
 
-            //var enemyEntity = enemy.getEntity();
-            var hc = collider.components.HealthComponent;
-            var sc = collider.components.ShieldComponent;
+         //var enemyEntity = enemy.getEntity();
+         var hc = collider.components.HealthComponent;
+         var sc = collider.components.ShieldComponent;
 
-            var enemyHc = enemy.components.HealthComponent;
-            var enemySc = enemy.components.ShieldComponent;
+         var enemyHc = enemy.components.HealthComponent;
+         var enemySc = enemy.components.ShieldComponent;
 
-            createHit(hc, sc);
-            createHit(enemyHc, enemySc);
+         createHit(hc, sc);
+         createHit(enemyHc, enemySc);
 
 
-            //hc.setAmount(hc.getAmount() - 1);
-            if (hc.getAmount() > 0) {
-                sb.publish('smallexplosion', collider.components.RenderableComponent);
-            }
-            else {
-                sb.publish('bigexplosion', collider.components.RenderableComponent);
-            }
+         //hc.setAmount(hc.getAmount() - 1);
+         if (hc.getAmount() > 0) {
+         sb.publish('smallexplosion', collider.components.RenderableComponent);
+         }
+         else {
+         sb.publish('bigexplosion', collider.components.RenderableComponent);
+         }
 
-            if (enemyHc.getAmount() > 0) {
-                sb.publish('smallexplosion', enemy.components.RenderableComponent);
-            }
-            else {
-                sb.publish('bigexplosion', enemy.components.RenderableComponent);
-            }
-        });
+         if (enemyHc.getAmount() > 0) {
+         sb.publish('smallexplosion', enemy.components.RenderableComponent);
+         }
+         else {
+         sb.publish('bigexplosion', enemy.components.RenderableComponent);
+         }
+         });
 
-*/
+         */
 
-        sb.subscribe('enemylasercollision', function(name, target) {
+        sb.subscribe('enemyhit', function(name, target) {
 
             //var enemy = collisionComponent;
 
@@ -75,7 +74,7 @@ function collisionprocess_constructor(sb) {
             var hc = target.components.HealthComponent;
             var sc = target.components.ShieldComponent;
 
-            createHit(hc,sc);
+            createHit(hc, sc);
 
             //hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
@@ -84,8 +83,17 @@ function collisionprocess_constructor(sb) {
             }
             else {
 
-                em.removeEntityByName(target.getName());
+                hc.setAmount(0);
                 sb.publish('bigexplosion', target.components.RenderableComponent);
+                if (target.getName() == 'mothership') {
+                    //em.removeEntityByName(target.getName());
+                    sb.publish('gameover', true);
+                }
+                if (target.getName() == 'ship') {
+                    sb.publish('respawn', true);
+                }
+
+                //sb.publish('bigexplosion', target.components.RenderableComponent);
             }
         });
 
@@ -101,17 +109,17 @@ function collisionprocess_constructor(sb) {
             }
             var enemyEntity = enemy.getEntity();
             var hc = enemyEntity.components.HealthComponent;
+            var sc = enemyEntity.components.ShieldComponent;
 
-            hc.setAmount(hc.getAmount() - 1);
+            createHit(hc, sc);
+            //hc.setAmount(hc.getAmount() - 1);
+
             if (hc.getAmount() > 0) {
-
                 sb.publish('explosion', enemyEntity.components.RenderableComponent);
             }
             else {
                 hc.setAmount(0);
-
                 sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
-
             }
             var player = null;
 
@@ -127,14 +135,19 @@ function collisionprocess_constructor(sb) {
             //renderable contains xyz of object so we know where to explode
             var pc = playerEntity.components.RenderableComponent;
 
-            createHit(hc,sc)
+            createHit(hc, sc);
 
             if (hc.getAmount() > 0) {
                 sb.publish('explosion', pc);
             }
             else {
+
                 if (playerEntity.name == 'mothership') {
+                    em.removeEntityByName(playerEntity.name);
                     sb.publish('gameover', true);
+                }
+                if (target.getName() == 'ship') {
+                    sb.publish('respawn', true);
                 }
                 hc.setAmount(0);
                 sb.publish('bigexplosion', pc);
@@ -153,7 +166,7 @@ function collisionprocess_constructor(sb) {
             var le = em.entities[e];
             if (le.components.CollisionComponent) {
                 //object is dead. no need to check for collisions
-                if (le.components.HealthComponent && le.components.HealthComponent.amount < 1) {
+                if (le.components.HealthComponent && le.components.HealthComponent.getAmount() < 1) {
                     continue;
                 }
 

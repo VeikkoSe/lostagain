@@ -130,7 +130,7 @@ function postprocess_constructor(sb) {
 
     };
 
-    var draw = function() {
+    var draw = function(le) {
 
 
         //firstPass();

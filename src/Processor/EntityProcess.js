@@ -32,6 +32,30 @@ function entityprocess_constructor(sb) {
 
         });
 
+        sb.subscribe('gameover', function(name, b) {
+            console.log('game over. Refresh');
+        });
+        sb.subscribe('respawn', function(name, b) {
+            var ms = em.getEntityByName('mothership');
+
+            if (ms.components.HealthComponent.getAmount() > 0) { //if mothership is destroyed we don't respawn
+
+                var ship = em.getEntityByName('ship');
+
+                ship.components.RenderableComponent.setXPos(ms.components.RenderableComponent.getXPos() + 20);
+                ship.components.RenderableComponent.setZPos(ms.components.RenderableComponent.getZPos() + 20);
+
+                var trailComponents = ship.components.MultiTrailComponent.getTrailComponents();
+                for (var i = 0; i < trailComponents.length; i++) {
+                    trailComponents[i].resetTrail();
+                }
+
+                ship.components.ShieldComponent.setAmount(10);
+                ship.components.HealthComponent.setAmount(10);
+            }
+
+        });
+
     };
 
     return {

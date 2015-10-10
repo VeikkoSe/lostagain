@@ -44,35 +44,35 @@ function text_process_constructor(sb) {
 
     };
 
-    var draw = function(text) {
+    var draw = function(le) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        //for (var e = 0; e < em.entities.length; e++) {
+        //  var le = em.entities[e];
 
-            if (le.components.TextComponent) {
+        if (le.components.TextComponent) {
 
-                camera.mvPushMatrix();
-                var mvMatrix = camera.getMVMatrix();
-                shadermanager.setProgram(program);
+            camera.mvPushMatrix();
+            var mvMatrix = camera.getMVMatrix();
+            shadermanager.setProgram(program);
 
-                mat4.scale(mvMatrix, [0.2, 0.2, 0.2]);
+            mat4.scale(mvMatrix, [0.2, 0.2, 0.2]);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
-                gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
-                gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
+            gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
+            gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
+            gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
 
-                gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
-                gl.uniform1i(program.samplerUniform, 0);
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
+            gl.uniform1i(program.samplerUniform, 0);
 
-                gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
-                gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
+            gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
+            gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
 
-                gl.drawArrays(gl.TRIANGLES, 0, size);
-                camera.mvPopMatrix();
-            }
-
+            gl.drawArrays(gl.TRIANGLES, 0, size);
+            camera.mvPopMatrix();
         }
+
+        // }
 
     };
     return {

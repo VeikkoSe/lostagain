@@ -12,6 +12,11 @@ function railsmovementprocess_constructor(sb) {
             if (le.components.RailsMovementComponent &&
                 le.components.RenderableComponent) {
 
+                if (le.components.HealthComponent.getAmount() < 1) {
+
+                    continue;
+                }
+
                 var rc = le.components.RailsMovementComponent;
 
                 var re = le.components.RenderableComponent;

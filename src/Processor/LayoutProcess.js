@@ -168,17 +168,13 @@ function layoutprocess_constructor(sb) {
 
     };
 
-    var draw = function() {
+    var draw = function(le) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        if (le.components.LayoutComponent) {
 
-            if (le.components.LayoutComponent) {
+            shadermanager.setProgram(program);
 
-                shadermanager.setProgram(program);
-
-                recursiveLayout(le.components.LayoutComponent.getLayout(), false);
-            }
+            recursiveLayout(le.components.LayoutComponent.getLayout(), false);
         }
 
     };

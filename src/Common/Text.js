@@ -49,7 +49,7 @@ function text_constructor() {
             var yOffsetandAdvance = yAdvance - pInt(letters[i].yoffset);
             var xOffset = pInt(letters[i].xoffset);
             var xOffsetandAdvance = xOffset + xAdvance;
-            var scale = 0.5;
+            var scale = 1;
             if (twoD) {
 
                 //zero,zero is bottom left

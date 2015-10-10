@@ -59,6 +59,12 @@ function TrailComponent(sprite, length, width, offSetFromCenter, offSetSideFromC
         },
         setSquare: function(v) {
             square = v;
+        },
+        resetTrail: function(v) {
+            points = [];
+            square = [];
+            flow = [];
+            texturecoordinates = [];
         }
     };
 

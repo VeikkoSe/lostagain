@@ -83,7 +83,7 @@ function entity_creator_constructor() {
         //em.clearAll();
         var e = em.addNew();
 
-
+        e.addComponent(ChaseComponent(10));
 
         var mesh = am.getMesh('destroyer');
         var mc = MeshComponent();
@@ -94,8 +94,8 @@ function entity_creator_constructor() {
         e.addComponent(CollisionComponent('enemy'));
         var rc = RenderableComponent();
 
-        rc.setXPos(100);
-        rc.setZPos(-150);
+        rc.setXPos(randomRangedInt());
+        rc.setZPos(randomRangedInt());
 
         e.addComponent(rc);
 
@@ -156,14 +156,55 @@ function entity_creator_constructor() {
 
     };
 
-    var createEnemy = function() {
+    var createMine = function() {
 
-        var e = em.addNew('enemymirror');
-        var mesh = am.getMesh('enemy');
+        var e = em.addNew('mine');
+        var mesh = am.getMesh('mine');
         var m = MeshComponent();
         m.setMesh(mesh);
         e.addComponent(m);
-        e.addComponent(EnemyComponent());
+        e.addComponent(ChaseComponent(40));
+        e.addComponent(RotationComponent(10, 10, 10));
+
+        //e.addComponent(HealthComponent(2));
+
+        //e.addComponent(new MomentumMovable(30, 15, 0, 0));
+
+        var rc = RenderableComponent();
+        rc.setScale(5);
+        rc.setXPos(randomRangedInt());
+        rc.setZPos(randomRangedInt());
+        e.addComponent(rc);
+
+        /*xp, //x
+         0, //y
+         zp, //z
+         1,//scope
+         1,//angleX
+         0,//angleY
+         0,//angleZ
+         10,//xWidth
+         10,//yWidth
+         10//zWidth5
+         )*/
+
+        e.addComponent(CollisionComponent('enemy'));
+        e.addComponent(HealthComponent(1));
+
+        return e;
+
+    };
+
+    var createMirrorEnemy = function() {
+
+        var e = em.addNew('enemymirror');
+        var mesh = am.getMesh('enemy');
+
+        e.addComponent(ChaseComponent(20));
+        var m = MeshComponent();
+        m.setMesh(mesh);
+        e.addComponent(m);
+        //e.addComponent(EnemyComponent());
 
         //e.addComponent(HealthComponent(2));
 
@@ -370,7 +411,7 @@ function entity_creator_constructor() {
         start, init,
         createText, createMap, createFuel, createBackground,
         createAsteroidField, createBareMotherShip,
-        createMotherShip, createRadar, createEnemy, createLayout,
+        createMotherShip, createRadar, createMirrorEnemy, createMine, createLayout,
         createCurrency, createStars, createIntro, createDestroyer,
         createShip, createPlane
 

@@ -67,8 +67,9 @@ function teleport_process_constructor(sb) {
                 //}
                 var trailComponents = ship.components.MultiTrailComponent.getTrailComponents();
                 for (var i = 0; i < trailComponents.length; i++) {
-                    trailComponents[i].setPoints([]);
-                    trailComponents[i].setFlow([]);
+                    trailComponents[i].resetTrail();
+                    //trailComponents[i].setPoints([]);
+                    //trailComponents[i].setFlow([]);
                 }
 
             }
@@ -76,34 +77,30 @@ function teleport_process_constructor(sb) {
 
     };
 
-    var draw = function() {
+    var draw = function(le) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        if (le.components.JumpAreaComponent && le.components.JumpAreaComponent.getVisible() === true) {
 
-            if (le.components.JumpAreaComponent && le.components.JumpAreaComponent.getVisible() === true) {
+            shadermanager.setProgram(simplestProgram);
 
-                shadermanager.setProgram(simplestProgram);
+            var mvMatrix = camera.getMVMatrix();
 
-                var mvMatrix = camera.getMVMatrix();
+            gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
+            gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, mvMatrix);
 
-                gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
-                gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, mvMatrix);
+            var c = le.components.JumpAreaComponent.getColor();
+            gl.uniform4f(simplestProgram.uColor, c[0], c[1], c[2], 1.0);
 
-                var c = le.components.JumpAreaComponent.getColor();
-                gl.uniform4f(simplestProgram.uColor, c[0], c[1], c[2], 1.0);
+            gl.bindBuffer(gl.ARRAY_BUFFER, le.components.JumpAreaComponent.getVertexPositionBuffer());
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, le.components.JumpAreaComponent.getVertexPositionBuffer());
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(le.components.JumpAreaComponent.getPoints()), gl.STATIC_DRAW);
+            gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
+            gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(le.components.JumpAreaComponent.getPoints()), gl.STATIC_DRAW);
-                gl.enableVertexAttribArray(simplestProgram.aVertexPosition);
-                gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-
-                gl.drawArrays(gl.LINES, 0, le.components.JumpAreaComponent.getPoints().length / 3);
-
-            }
+            gl.drawArrays(gl.LINES, 0, le.components.JumpAreaComponent.getPoints().length / 3);
 
         }
+
     };
 
     var isInRectangle = function(centerX, centerY, radius, x, y) {

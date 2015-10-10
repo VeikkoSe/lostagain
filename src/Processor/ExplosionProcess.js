@@ -107,7 +107,7 @@ function explosionprocess_constructor(sb) {
 
     };
 
-    var draw = function() {
+    var draw = function(le) {
 
         //gl.disable(gl.DEPTH_TEST);
 

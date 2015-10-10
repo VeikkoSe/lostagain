@@ -51,31 +51,27 @@ function starprocess_constructor(sb) {
         }
     };
 
-    var draw = function() {
+    var draw = function(le) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        if (le.components.StarComponent) {
 
-            if (le.components.StarComponent) {
+            var mvMatrix = camera.getMVMatrix();
+            // sm.setProgram(starProgram);
+            shadermanager.setProgram(program);
+            camera.mvPushMatrix();
+            //gl.uniform3fv(program.uCameraPos, [camera.getXPos(), camera.getYPos(), camera.getZPos()]);
 
-                var mvMatrix = camera.getMVMatrix();
-                // sm.setProgram(starProgram);
-                shadermanager.setProgram(program);
-                camera.mvPushMatrix();
-                //gl.uniform3fv(program.uCameraPos, [camera.getXPos(), camera.getYPos(), camera.getZPos()]);
+            gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
+            gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
+            gl.vertexAttribPointer(program.aPointSize, 1, gl.FLOAT, false, 16, 12);
 
-                gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 16, 0);
-                gl.vertexAttribPointer(program.aPointSize, 1, gl.FLOAT, false, 16, 12);
+            gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
+            gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
 
-                gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
-                gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
+            gl.drawArrays(gl.POINTS, 0, numParticles);
 
-                gl.drawArrays(gl.POINTS, 0, numParticles);
-                //camera.drawCalls++;
-                camera.mvPopMatrix();
-            }
+            camera.mvPopMatrix();
         }
 
     };

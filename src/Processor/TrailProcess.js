@@ -247,23 +247,18 @@ function trailprocess_constructor(sb) {
         }
     };
 
-    var draw = function() {
+    var draw = function(le) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        if ((le.components.TrailComponent || le.components.MultiTrailComponent) && le.components.HealthComponent.getAmount() > 0) {
 
-            if ((le.components.TrailComponent || le.components.MultiTrailComponent) && le.components.HealthComponent.getAmount() > 0) {
+            if (le.components.TrailComponent) {
+                drawTrail(le.components.TrailComponent);
+            }
+            if (le.components.MultiTrailComponent) {
 
-                if (le.components.TrailComponent) {
-                    drawTrail(le.components.TrailComponent);
+                for (var i = 0; i < le.components.MultiTrailComponent.getTrailComponents().length; i++) {
+                    drawTrail(le.components.MultiTrailComponent.getTrailComponents()[i]);
                 }
-                if (le.components.MultiTrailComponent) {
-
-                    for (var i = 0; i < le.components.MultiTrailComponent.getTrailComponents().length; i++)
-                        drawTrail(le.components.MultiTrailComponent.getTrailComponents()[i]);
-
-                }
-
             }
 
         }

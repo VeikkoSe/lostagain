@@ -39,41 +39,41 @@ function mapprocess_constructor(sb) {
         }
     };
 
-    var draw = function() {
+    var draw = function(le) {
 
-        for (var e = 0; e < em.entities.length; e++) {
-            var le = em.entities[e];
+        // for (var e = 0; e < em.entities.length; e++) {
+        //     var le = em.entities[e];
 
-            if (le.components.MapComponent) {
-                var mc = le.components.MapComponent;
+        if (le.components.MapComponent) {
+            var mc = le.components.MapComponent;
 
-                sm.setProgram(mapProgram);
+            sm.setProgram(mapProgram);
 
-                camera.mvPushMatrix();
-                gl.uniformMatrix4fv(mapProgram.uPMatrix, false, camera.getPMatrix());
-                gl.uniformMatrix4fv(mapProgram.uMVMatrix, false, camera.getMVMatrix());
+            camera.mvPushMatrix();
+            gl.uniformMatrix4fv(mapProgram.uPMatrix, false, camera.getPMatrix());
+            gl.uniformMatrix4fv(mapProgram.uMVMatrix, false, camera.getMVMatrix());
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hexagon.area), gl.STATIC_DRAW);
-                gl.vertexAttribPointer(mapProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+            gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hexagon.area), gl.STATIC_DRAW);
+            gl.vertexAttribPointer(mapProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-                gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hexagon.textureCoordinates), gl.STATIC_DRAW);
+            gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hexagon.textureCoordinates), gl.STATIC_DRAW);
 
-                gl.vertexAttribPointer(mapProgram.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribPointer(mapProgram.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
 
-                gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, hexagon.texture);
-                gl.uniform1i(mapProgram.samplerUniform, 0);
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, hexagon.texture);
+            gl.uniform1i(mapProgram.samplerUniform, 0);
 
-                gl.drawArrays(gl.TRIANGLES, 0, (hexagon.hexsizeX * (hexagon.hexsizeY)) * 12);
-                //gl.drawArrays(gl.TRIANGLES, 0,12);
-                camera.drawCalls++;
+            gl.drawArrays(gl.TRIANGLES, 0, (hexagon.hexsizeX * (hexagon.hexsizeY)) * 12);
+            //gl.drawArrays(gl.TRIANGLES, 0,12);
+            camera.drawCalls++;
 
-                camera.mvPopMatrix();
-            }
-
+            camera.mvPopMatrix();
         }
+
+        // }
     };
     return {
         update, draw, init: function() {

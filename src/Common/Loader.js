@@ -76,7 +76,7 @@ function loader_costructor() {
                 //createSatellite(mothership);
 
                 for (var i = 0; i < 10; i++) {
-                      ec.createEnemy();
+                    ec.createMine();
                 }
 
                 var radar = ec.createRadar();

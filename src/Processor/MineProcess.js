@@ -1,4 +1,4 @@
-function enemyprocess_constructor(sb) {
+function mineprocess_constructor(sb) {
     'use strict';
 
     //constructor() {
@@ -45,15 +45,15 @@ function enemyprocess_constructor(sb) {
                         //sb.publish('enemycollision' , {ship, le});
 
                         /*
-                        if (hc.getAmount() < 1 && sc.getAmount() < 1) {
-                            //game.stateEngine.changeState("gamestate");
-                        }
+                         if (hc.getAmount() < 1 && sc.getAmount() < 1) {
+                         //game.stateEngine.changeState("gamestate");
+                         }
 
-                        if (sc.getAmount() < 1)
-                            hc.setAmount(hc.getAmount() - 1);
-                        else
-                            sc.setAmount(sc.getAmount() - 1);
-                            */
+                         if (sc.getAmount() < 1)
+                         hc.setAmount(hc.getAmount() - 1);
+                         else
+                         sc.setAmount(sc.getAmount() - 1);
+                         */
 
                     }
                 }
