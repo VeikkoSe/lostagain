@@ -71,9 +71,7 @@ function renderprocess_constructor(sb) {
             gl.uniform3f(shaderprogram.uLightSpecular, 0.8, 0.8, 0.8);
             gl.uniform1f(shaderprogram.uMaterialShininess, 200.0);
 
-            //camera.mvPushMatrix();
 
-            //var pMatrix = camera.getPMatrix();
 
             //gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
 
@@ -136,7 +134,7 @@ function renderprocess_constructor(sb) {
             gl.uniformMatrix3fv(shaderprogram.uNMatrix, false, normalMatrix);
 
             gl.drawElements(gl.TRIANGLES, mc.getMesh().getIndexPositionBuffer().numItems, gl.UNSIGNED_SHORT, 0);
-            //camera.drawCalls++;
+            camera.addDrawCall();
             camera.mvPopMatrix();
 
         }

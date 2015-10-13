@@ -145,6 +145,7 @@ function explosionprocess_constructor(sb) {
             gl.uniform1f(particleProgram.timeUniform, explosions[i].getTime());
 
             gl.drawArrays(gl.POINTS, 0, explosions[i].getPointLifetimeBuffer().numItems);
+            camera.addDrawCall();
             camera.mvPopMatrix();
         }
 

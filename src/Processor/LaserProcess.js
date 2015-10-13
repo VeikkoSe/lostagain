@@ -110,7 +110,7 @@ function laserprocess_constructor(sb) {
                     gl.uniformMatrix4fv(simplestProgram.uPMatrix, false, camera.getPMatrix());
                     gl.uniformMatrix4fv(simplestProgram.uMVMatrix, false, mvMatrix);
                     gl.drawArrays(gl.LINES, 0, 2);
-                    //camera.drawCalls++;
+                    camera.addDrawCall();
 
                     camera.mvPopMatrix();
                     break;

@@ -107,7 +107,7 @@ function exhaustprocess_constructor(sb) {
                     gl.uniformMatrix3fv(program.uNMatrix, false, normalMatrix);
 
                     gl.drawElements(gl.TRIANGLES, ec.getMesh().getIndexPositionBuffer().numItems, gl.UNSIGNED_SHORT, 0);
-                    //camera.drawCalls++;
+                    camera.addDrawCall();
                     camera.mvPopMatrix();
 
                 }

@@ -69,6 +69,7 @@ function text_process_constructor(sb) {
             gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
 
             gl.drawArrays(gl.TRIANGLES, 0, size);
+            camera.addDrawCall();
             camera.mvPopMatrix();
         }
 

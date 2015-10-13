@@ -37,7 +37,6 @@ function cameracontrollerprocess_constructor(sb) {
             if (e === -1)
                 sb.getCamera().setDistance('10');
             else
-
                 sb.getCamera().setDistance('-10');
         });
     };

@@ -174,7 +174,7 @@ function asteroidrenderprocess_constructor(sb) {
                 gl.vertexAttribPointer(ambientProgram.aCubeNumber, 3, gl.FLOAT, false, 36, 24);
 
                 gl.drawArrays(gl.TRIANGLES, 0, vertexPositionBuffer.nums);
-                camera.drawCalls++;
+                camera.addDrawCall();
             }
         }
     };

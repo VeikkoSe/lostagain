@@ -176,7 +176,10 @@ function trailprocess_constructor(sb) {
 
     var update = function(elapsed, totalElapsed) {
 
-
+        //TODO: Currently fixes the trail stain at start of the game
+        if(totalElapsed<1000) {
+            return;
+        }
         //var timeNow = new Date().getTime();
 
         // var elapsed = timeNow - lastTime;
@@ -237,8 +240,8 @@ function trailprocess_constructor(sb) {
             gl.uniformMatrix4fv(program.uMVMatrix, false, mvmatrix);
             //gl.drawArrays(gl.LINE_STRIP, 0, ec.points.length/3);
             gl.drawArrays(gl.TRIANGLES, 0, ec.getPoints().length / 3);
-            //camera.drawCalls++;
 
+            camera.addDrawCall();
             camera.mvPopMatrix();
 
             //gl.enable(gl.DEPTH_TEST);

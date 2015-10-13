@@ -5,6 +5,7 @@ function text_process_2d_constructor(sb) {
     var program = shadermanager.useShader('gui');
 
     var text = sb.getText();
+    var camera = sb.getCamera();
 
     var gl = sb.getGL();
 
@@ -76,9 +77,6 @@ function text_process_2d_constructor(sb) {
             return true;
         }
 
-        //for (var e = 0; e < em.entities.length; e++) {
-        //   var le = em.entities[e];
-
         if (le.components.TextComponent) {
 
             shadermanager.setProgram(program);
@@ -94,8 +92,8 @@ function text_process_2d_constructor(sb) {
             gl.uniform1i(program.samplerUniform, 0);
 
             gl.drawArrays(gl.TRIANGLES, 0, textBuffer.length / 5);
+            camera.addDrawCall();
 
-            //camera.mvPopMatrix();
         }
 
         //}

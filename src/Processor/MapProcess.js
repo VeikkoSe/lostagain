@@ -67,9 +67,8 @@ function mapprocess_constructor(sb) {
             gl.uniform1i(mapProgram.samplerUniform, 0);
 
             gl.drawArrays(gl.TRIANGLES, 0, (hexagon.hexsizeX * (hexagon.hexsizeY)) * 12);
-            //gl.drawArrays(gl.TRIANGLES, 0,12);
-            camera.drawCalls++;
 
+            camera.addDrawCall();
             camera.mvPopMatrix();
         }
 

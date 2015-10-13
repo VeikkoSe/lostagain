@@ -30,9 +30,10 @@ function gamestate_constructor(sb) {
         //order matters
         processList.push(cameracontrollerprocess_constructor(sb));
         processList.push(primitiveprocess_constructor(sb));
-        processList.push(enemyprocess_constructor(sb));
+        processList.push(chaseprocess_constructor(sb));
+        processList.push(faceprocess_constructor(sb));
         processList.push(gunprocess_constructor(sb));
-        processList.push(momemtummovementprocess_constructor(sb));
+        processList.push(movementprocess_constructor(sb));
         processList.push(exhaustprocess_constructor(sb));
         processList.push(trailprocess_constructor(sb));
         processList.push(explosionprocess_constructor(sb));
@@ -45,7 +46,7 @@ function gamestate_constructor(sb) {
         processList.push(text_process_2d_constructor(sb));
         processList.push(text_process_constructor(sb));
         processList.push(layoutprocess_constructor(sb));
-        processList.push(railsmovementprocess_constructor(sb));
+
         processList.push(entityprocess_constructor(sb));
 
         //processList.push(postprocess_constructor(sb));
@@ -100,9 +101,9 @@ function gamestate_constructor(sb) {
 
     var draw = function() {
 
-        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
-        gl.disable(gl.BLEND);
+        //gl.disable(gl.BLEND);
         gl.enable(gl.DEPTH_TEST);
 
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
@@ -120,12 +121,14 @@ function gamestate_constructor(sb) {
 
         //  gl.disable(gl.BLEND);
 
+        camera.resetDrawCalls();
         for (var i = 0; i < processList.length; i++) {
             for (var e = 0; e < em.entities.length; e++) {
                 var le = em.entities[e];
                 processList[i].draw(le);
             }
         }
+        console.log(camera.getDrawCalls());
 
         //camera.drawCalls = 0;
 

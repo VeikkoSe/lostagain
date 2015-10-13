@@ -98,7 +98,7 @@ function teleport_process_constructor(sb) {
             gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
             gl.drawArrays(gl.LINES, 0, le.components.JumpAreaComponent.getPoints().length / 3);
-
+            camera.addDrawCall();
         }
 
     };

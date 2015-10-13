@@ -166,6 +166,10 @@ function camera_constructor() {
 
     };
 
+    var addDrawCall = function() {
+        drawCalls++;
+    }
+
     return Object.freeze({
         mvPopMatrix,
         mvPushMatrix,
@@ -214,7 +218,16 @@ function camera_constructor() {
         getDistance: function() {
             return distance;
         },
-        setDistance
+        setDistance,
+        addDrawCall,
+        getDrawCalls: function() {
+            return drawCalls;
+
+        },
+        resetDrawCalls: function() {
+            drawCalls = 0;
+
+        }
 
     });
 

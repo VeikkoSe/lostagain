@@ -38,7 +38,7 @@ function primitiveprocess_constructor(sb) {
             gl.vertexAttribPointer(simplestProgram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
             gl.drawArrays(gl.LINES, 0, le.components.PrimitiveComponent.points.length / 3);
-            camera.drawCalls++;
+            camera.addDrawCall();
 
             camera.mvPopMatrix();
         }

@@ -73,7 +73,7 @@ function loader_costructor() {
 
                 var mothership = ec.createMotherShip(target);
                 var ship = ec.createShip();
-                //createSatellite(mothership);
+                //ec.createSatellite(mothership);
 
                 for (var i = 0; i < 10; i++) {
                     ec.createMine();

@@ -94,7 +94,7 @@ function text_process_2d_constructor(sb) {
             gl.uniform1i(program.samplerUniform, 0);
 
             gl.drawArrays(gl.TRIANGLES, 0, textBuffer.length / 5);
-
+            camera.addDrawCall();
             //camera.mvPopMatrix();
         }
 

@@ -33,7 +33,7 @@ function entityprocess_constructor(sb) {
         });
 
         sb.subscribe('gameover', function(name, b) {
-            console.log('game over. Refresh');
+            alert('game over. Refresh');
         });
         sb.subscribe('respawn', function(name, b) {
             var ms = em.getEntityByName('mothership');

@@ -1,4 +1,4 @@
-function chaseprocess_constructor(sb) {
+function faceprocess_constructor(sb) {
     'use strict';
 
     //constructor() {
@@ -11,10 +11,6 @@ function chaseprocess_constructor(sb) {
 
     var update = function(deltatime, timeFromStart) {
 
-        //we don't instantly harass the player
-        // if (timeFromStart < 30000) {
-        //return false;
-        // }
 
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
@@ -30,26 +26,17 @@ function chaseprocess_constructor(sb) {
                 }
                 var re = le.components.RenderableComponent;
 
-                var ch = le.components.ChaseComponent;
                 var shiprc = ship.components.RenderableComponent;
 
-                var dirX = shiprc.getXPos() - re.getXPos();
                 var dirZ = shiprc.getZPos() - re.getZPos();
+                var dirX = shiprc.getXPos() - re.getXPos();
 
 
-                //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
-                var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
+                var angR = Math.atan2(dirX, dirZ);
+                var deg = (angR / Math.PI * 180) - 90 + (angR > 0 ? 0 : 360);
 
 
-
-                dirX /= hyp;
-                dirZ /= hyp;
-
-                //Add that vector to the enemy's position, multiplied by the speed you want the enemy to move:
-                re.setXPos(re.getXPos() + (dirX * ch.getSpeed() * (deltatime / 1000)));
-                re.setZPos(re.getZPos() + (dirZ * ch.getSpeed() * (deltatime / 1000)));
-
-
+                re.setAngleY(deg);
 
             }
         }

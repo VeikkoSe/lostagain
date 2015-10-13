@@ -9,6 +9,7 @@ function layoutprocess_constructor(sb) {
     var shadermanager = sb.getShaderManager();
     var program = shadermanager.useShader('gui');
 
+    var camera = sb.getCamera();
     var points = [];
     var vertexPositionBuffer;
     var texCoordBuffer;
@@ -165,6 +166,7 @@ function layoutprocess_constructor(sb) {
         gl.uniform1i(program.samplerUniform, 0);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
+        camera.addDrawCall();
 
     };
 

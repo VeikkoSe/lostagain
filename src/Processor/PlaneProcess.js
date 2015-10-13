@@ -50,7 +50,7 @@ function planeprocess_constructor(sb) {
             //helpers.setMatrixUniforms();
 
             gl.drawElements(gl.LINES, ftc.getPlane().indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-
+            camera.addDrawCall();
             //gl.drawElements(gl.TRIANGLES, foundTerrain.terrain.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
             // gl.disable(gl.BLEND);
             camera.mvPopMatrix();

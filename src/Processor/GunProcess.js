@@ -166,7 +166,7 @@ function gunprocess_constructor(sb) {
                 gl.uniformMatrix4fv(particleProgram3d.uMVMatrix, false, mvMatrix);
 
                 gl.drawArrays(gl.POINTS, 0, 1);
-                //camera.drawCalls++;
+                camera.addDrawCall();
 
                 camera.mvPopMatrix();
             }

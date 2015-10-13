@@ -70,7 +70,7 @@ function starprocess_constructor(sb) {
             gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);
 
             gl.drawArrays(gl.POINTS, 0, numParticles);
-
+            camera.addDrawCall();
             camera.mvPopMatrix();
         }
 

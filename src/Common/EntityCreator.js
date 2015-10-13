@@ -84,6 +84,9 @@ function entity_creator_constructor() {
         var e = em.addNew();
 
         e.addComponent(ChaseComponent(10));
+        var fc = FaceComponent();
+        fc.setTarget('player'); //dummy, we take ship or mothership depending who is closest
+        e.addComponent(fc);
 
         var mesh = am.getMesh('destroyer');
         var mc = MeshComponent();
@@ -175,6 +178,8 @@ function entity_creator_constructor() {
         rc.setXPos(randomRangedInt());
         rc.setZPos(randomRangedInt());
         e.addComponent(rc);
+
+        e.addComponent(RespawnComponent());
 
         /*xp, //x
          0, //y

@@ -56,46 +56,6 @@ function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function updateMatrices(camera) {
-    /*
-     $('mv').innerHTML='';
-     var mv = camera.getMVMatrix();
-
-     var tr;
-     var g=0;
-     for (var i = 0; i < 4; i++) {
-     tr = $('<tr/>');
-     for (var j = 0; j < 4; j++) {
-     tr.append("<td>" + mv[g++].toFixed(1) + "</td>");
-
-
-     }
-     $('#mv').append(tr);
-
-
-     }
-     $('#projection').empty();
-     var projection = camera.getPMatrix();
-
-     var tr;
-     var g=0;
-     for (var i = 0; i < 4; i++) {
-     tr = $('<tr/>');
-     for (var j = 0; j < 4; j++) {
-     tr.append("<td>" + projection[g++].toFixed(1) + "</td>");
-
-
-     }
-     $('#projection').append(tr);
-
-
-     }
-
-
-
-     */
-
-}
 
 function getMousePos(canvas, evt) {
     'use strict';
