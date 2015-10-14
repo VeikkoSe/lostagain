@@ -1,4 +1,4 @@
-function exhaustprocess_constructor(sb) {
+function ExhaustProcess(sb) {
     'use strict';
     var em = sb.getEntityManager();
     var am = sb.getAssetManager();

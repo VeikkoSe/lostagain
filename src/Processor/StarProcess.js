@@ -1,4 +1,4 @@
-function starprocess_constructor(sb) {
+function StarProcess(sb) {
     'use strict';
 
     var gl = sb.getGL();

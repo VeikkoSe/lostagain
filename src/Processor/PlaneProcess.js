@@ -1,4 +1,4 @@
-function planeprocess_constructor(sb) {
+function PlaneProcess(sb) {
 
     var gl = sb.getGL();
     var camera = sb.getCamera();

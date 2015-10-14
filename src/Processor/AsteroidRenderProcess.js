@@ -1,4 +1,4 @@
-function asteroidrenderprocess_constructor(sb) {
+function AsteroidRenderProcess(sb) {
     'use strict';
 
     var normalMatrix = mat3.create();

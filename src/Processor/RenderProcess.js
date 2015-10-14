@@ -1,4 +1,4 @@
-function renderprocess_constructor(sb) {
+function RenderProcess(sb) {
     'use strict';
 
     //var {camera} = params;
@@ -11,6 +11,7 @@ function renderprocess_constructor(sb) {
 
     var deltatime = null;
     var rotation = 0;
+    var oldTexture = null;
 
     //var shaderProgram = sm.init("per-fragment-lighting");
 
@@ -119,10 +120,13 @@ function renderprocess_constructor(sb) {
 
             gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getTexturePositionBuffer());
             gl.vertexAttribPointer(shaderprogram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, mc.getMesh().getTexture());
-            gl.uniform1i(shaderprogram.samplerUniform, 0);
-
+            //if texture don't change we don't rebind it
+            if(mc.getMesh().getTexture()!==oldTexture) {
+                gl.activeTexture(gl.TEXTURE0);
+                gl.bindTexture(gl.TEXTURE_2D, mc.getMesh().getTexture());
+                gl.uniform1i(shaderprogram.samplerUniform, 0);
+                oldTexture = mc.getMesh().getTexture();
+            }
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.getMesh().getIndexPositionBuffer());
 
             gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());

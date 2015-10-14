@@ -1,4 +1,4 @@
-function linearmovementprocess_construcotr(sb) {
+function LinearMovementProcess(sb) {
     'use strict';
 
     var em = sb.getEntityManager();

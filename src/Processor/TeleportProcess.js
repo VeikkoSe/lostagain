@@ -1,4 +1,4 @@
-function teleport_process_constructor(sb) {
+function TeleportProcess(sb) {
     'use strict';
 
     //class TeleportProcess extends Processor {

@@ -1,4 +1,4 @@
-function gunprocess_constructor(sb) {
+function GunProcess(sb) {
     'use strict';
 
     //constructor() {

@@ -1,4 +1,4 @@
-function text_process_constructor(sb) {
+function TextProcess(sb) {
     'use strict';
     var gl = sb.getGL();
 

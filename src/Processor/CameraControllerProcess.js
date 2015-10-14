@@ -1,4 +1,4 @@
-function cameracontrollerprocess_constructor(sb) {
+function CameraControllerProcess(sb) {
     'use strict';
 
     var camera = sb.getCamera();

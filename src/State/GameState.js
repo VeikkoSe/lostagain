@@ -28,26 +28,26 @@ function gamestate_constructor(sb) {
         });
 
         //order matters
-        processList.push(cameracontrollerprocess_constructor(sb));
-        processList.push(primitiveprocess_constructor(sb));
-        processList.push(chaseprocess_constructor(sb));
-        processList.push(faceprocess_constructor(sb));
-        processList.push(gunprocess_constructor(sb));
-        processList.push(movementprocess_constructor(sb));
-        processList.push(exhaustprocess_constructor(sb));
-        processList.push(trailprocess_constructor(sb));
-        processList.push(explosionprocess_constructor(sb));
+        processList.push(CameraControllerProcess(sb));
+        processList.push(PrimitiveProcess(sb));
+        processList.push(ChaseProcess(sb));
+        processList.push(FaceProcess(sb));
+        processList.push(GunProcess(sb));
+        processList.push(MovementProcess(sb));
+        processList.push(ExhaustProcess(sb));
+        processList.push(TrailProcess(sb));
+        processList.push(ExplosionProcess(sb));
 
-        processList.push(collisionprocess_constructor(sb));
-        processList.push(renderprocess_constructor(sb));
-        processList.push(starprocess_constructor(sb));
-        processList.push(teleport_process_constructor(sb));
-        processList.push(laserprocess_constructor(sb));
-        processList.push(text_process_2d_constructor(sb));
-        processList.push(text_process_constructor(sb));
-        processList.push(layoutprocess_constructor(sb));
+        processList.push(CollisionProcess(sb));
+        processList.push(RenderProcess(sb));
+        processList.push(StarProcess(sb));
+        processList.push(TeleportProcess(sb));
+        processList.push(LaserProcess(sb));
+        processList.push(Text2dProcess(sb));
+        processList.push(TextProcess(sb));
+        processList.push(LayoutProcess(sb));
 
-        processList.push(entityprocess_constructor(sb));
+        processList.push(EntityProcess(sb));
 
         //processList.push(postprocess_constructor(sb));
 
@@ -67,7 +67,6 @@ function gamestate_constructor(sb) {
 
         var timeNow = new Date().getTime();
 
-        //camera.move();
 
         frameCount++;
 
@@ -128,57 +127,8 @@ function gamestate_constructor(sb) {
                 processList[i].draw(le);
             }
         }
-        console.log(camera.getDrawCalls());
+        //console.log(camera.getDrawCalls());
 
-        //camera.drawCalls = 0;
-
-        //gl.enable(gl.BLEND);
-        //gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-        //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
-
-        /*
-         gl.bindFramebuffer(gl.FRAMEBUFFER, this.postProcess.basebuffer);
-         gl.clearColor(0,0, 0, 1.0);
-         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-
-         //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-
-         this.drawAll();
-
-
-
-
-         gl.bindTexture(gl.TEXTURE_2D, this.postProcess.texture3);
-         gl.generateMipmap(gl.TEXTURE_2D);
-         gl.bindTexture(gl.TEXTURE_2D, null);
-
-
-
-
-
-         gl.bindFramebuffer(gl.FRAMEBUFFER, this.postProcess.framebuffer);
-         gl.clearColor(0,0, 0, 1.0);
-         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-         gl.useProgram(simplestProgram);
-
-
-
-         //camera.move();
-         this.laserProcess.draw();
-
-         this.postProcess.draw();
-
-
-         //gl.clearColor(0,0, 0, 1.0);
-         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-         */
-        //}
-        //else {
-        //    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        //    this.drawAll();
-        //}
 
     };
 

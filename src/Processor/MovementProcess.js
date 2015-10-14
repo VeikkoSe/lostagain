@@ -1,4 +1,4 @@
-function movementprocess_constructor(sb) {
+function MovementProcess(sb) {
     'use strict';
 
     var sb = sb;

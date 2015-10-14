@@ -1,4 +1,4 @@
-function MultiRenderable(renderables) {
+function MultiRenderableComponent(renderables) {
     'use strict';
 
     //constructor(renderables) {

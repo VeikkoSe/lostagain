@@ -1,4 +1,4 @@
-function primitiveprocess_constructor(sb) {
+function PrimitiveProcess(sb) {
     'use strict';
 
     //constructor() {

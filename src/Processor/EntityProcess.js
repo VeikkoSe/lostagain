@@ -3,7 +3,7 @@
  * @param {object} sb sandbox
  * @return {object} Closure
  */
-function entityprocess_constructor(sb) {
+function EntityProcess(sb) {
 
     // var gl = sb.getGL();
     //var camera = sb.getCamera();
@@ -35,6 +35,18 @@ function entityprocess_constructor(sb) {
         sb.subscribe('gameover', function(name, b) {
             alert('game over. Refresh');
         });
+
+
+
+        sb.subscribe('enemyDeath', function(name,b) {
+            if(b.getName()==='mine' && b.components.RespawnComponent) {
+                em.removeEntityById(b.getId());
+                ec.createMine();
+            }
+
+
+        });
+
         sb.subscribe('respawn', function(name, b) {
             var ms = em.getEntityByName('mothership');
 

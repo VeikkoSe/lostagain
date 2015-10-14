@@ -4,7 +4,7 @@ function entity_constructor(id, name) {
     //var {id, name} = params;
     // this.id = id;
     //  this.name = name;
-    //var id = id;
+    var id = id;
     //var name = name;
     var components = [];
     var componentCount = 0;
@@ -13,15 +13,18 @@ function entity_constructor(id, name) {
         return name;
     };
 
+    var getId = function() {
+        return id;
+    };
+
     var hasComponent = function(name) {
 
-        for (var i = 0; i < 5; i++) {
 
-            if (components[name] !== undefined) {
-                return true;
-            }
-
+        if (components[name] !== undefined) {
+            return true;
         }
+
+
         return false;
     };
 
@@ -35,7 +38,8 @@ function entity_constructor(id, name) {
         hasComponent,
         id,
         getName,
-        components
+        components,
+            getId
 
     };
 }

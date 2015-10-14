@@ -1,4 +1,4 @@
-function trailprocess_constructor(sb) {
+function TrailProcess(sb) {
     'use strict';
 
     //constructor() {

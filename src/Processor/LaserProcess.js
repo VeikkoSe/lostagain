@@ -1,4 +1,4 @@
-function laserprocess_constructor(sb) {
+function LaserProcess(sb) {
     'use strict';
 
     var lastTime = 0;

@@ -1,4 +1,4 @@
-function text_process_2d_constructor(sb) {
+function ScoreProcess(sb) {
     'use strict';
 
     var shadermanager = sb.getShaderManager();

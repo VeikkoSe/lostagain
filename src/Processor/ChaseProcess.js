@@ -1,4 +1,4 @@
-function chaseprocess_constructor(sb) {
+function ChaseProcess(sb) {
     'use strict';
 
     //constructor() {

@@ -1,4 +1,4 @@
-function mapprocess_constructor(sb) {
+function MapProcess(sb) {
     'use strict';
 
     //constructor() {

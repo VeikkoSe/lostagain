@@ -1,4 +1,4 @@
-function explosionprocess_constructor(sb) {
+function ExplosionProcess(sb) {
     'use strict';
 
     // constructor() {

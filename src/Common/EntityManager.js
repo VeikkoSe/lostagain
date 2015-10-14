@@ -23,6 +23,16 @@ function entity_manager_constructor() {
 
     };
 
+    var removeEntityById = function(id) {
+        for (var e = 0; e < entities.length; e++) {
+            if (entities[e].getId() == id)
+                entities.splice(e, 1);
+
+        }
+
+    };
+
+
     var getEntityByName = function(name) {
         for (var e = 0; e < entities.length; e++) {
             if (entities[e].getName() == name)
@@ -43,6 +53,7 @@ function entity_manager_constructor() {
     return Object.freeze({
         clearAll,
         removeEntityByName,
+        removeEntityById,
         getEntityByName,
         addNew,
         entities,

@@ -1,4 +1,4 @@
-function layoutprocess_constructor(sb) {
+function LayoutProcess(sb) {
     'use strict';
 
     //constructor() {

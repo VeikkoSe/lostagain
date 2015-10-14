@@ -1,4 +1,4 @@
-function faceprocess_constructor(sb) {
+function FaceProcess(sb) {
     'use strict';
 
     //constructor() {

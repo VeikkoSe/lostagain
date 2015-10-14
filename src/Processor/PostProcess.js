@@ -1,4 +1,4 @@
-function postprocess_constructor(sb) {
+function PostProcess(sb) {
     'use strict';
 
     //constructor() {

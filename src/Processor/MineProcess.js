@@ -1,4 +1,4 @@
-function mineprocess_constructor(sb) {
+function MineProcess(sb) {
     'use strict';
 
     //constructor() {

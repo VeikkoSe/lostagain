@@ -1,4 +1,4 @@
-function collisionprocess_constructor(sb) {
+function CollisionProcess(sb) {
     'use strict';
 
     //constructor() {
@@ -27,7 +27,7 @@ function collisionprocess_constructor(sb) {
             else {
 
                 //hc.setAmount(0);
-
+                sb.publish('enemyDeath', enemyEntity);
                 sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
             }
         });
@@ -119,6 +119,7 @@ function collisionprocess_constructor(sb) {
             }
             else {
                 hc.setAmount(0);
+                sb.publish('enemyDeath', enemyEntity);
                 sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
             }
             var player = null;
@@ -146,7 +147,7 @@ function collisionprocess_constructor(sb) {
                     em.removeEntityByName(playerEntity.name);
                     sb.publish('gameover', true);
                 }
-                if (target.getName() == 'ship') {
+                if (playerEntity.name == 'ship') {
                     sb.publish('respawn', true);
                 }
                 hc.setAmount(0);
