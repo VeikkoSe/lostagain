@@ -36,14 +36,11 @@ function EntityProcess(sb) {
             alert('game over. Refresh');
         });
 
-
-
-        sb.subscribe('enemyDeath', function(name,b) {
-            if(b.getName()==='mine' && b.components.RespawnComponent) {
+        sb.subscribe('enemyDeath', function(name, b) {
+            if (b.getName() === 'mine' && b.components.RespawnComponent) {
                 em.removeEntityById(b.getId());
                 ec.createMine();
             }
-
 
         });
 
@@ -62,8 +59,8 @@ function EntityProcess(sb) {
                     trailComponents[i].resetTrail();
                 }
 
-                ship.components.ShieldComponent.setAmount(10);
-                ship.components.HealthComponent.setAmount(10);
+                ship.components.ShieldComponent.setAmount(3);
+                ship.components.HealthComponent.setAmount(3);
             }
 
         });

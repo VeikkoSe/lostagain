@@ -6,11 +6,8 @@ function MovementProcess(sb) {
 
     var update = function(deltatime) {
 
-
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
-
-
 
             //Rails movement
             if (le.components.RailsMovementComponent &&
@@ -68,7 +65,7 @@ function MovementProcess(sb) {
                 }
             }
 
-        //Momentum movement
+            //Momentum movement
             if (le.components.MomentumComponent) {
                 le.components.MomentumComponent.setRotatingLeft(0);
                 le.components.MomentumComponent.setRotatingRight(0);
@@ -92,7 +89,6 @@ function MovementProcess(sb) {
                 }
             }
         }
-
 
         //Momentum movement
         for (var e = 0; e < em.entities.length; e++) {

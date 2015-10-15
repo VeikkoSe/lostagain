@@ -129,7 +129,7 @@ foreach ($imageArray as $size => $images) {
             //else {
             
                 $height+=$size;
-                //$width = $maxWidth;
+                $width = $maxWidth;
             //}
          
             

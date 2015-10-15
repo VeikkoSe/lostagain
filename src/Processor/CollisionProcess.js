@@ -97,16 +97,10 @@ function CollisionProcess(sb) {
             }
         });
 
-        sb.subscribe('collision', function(name, collisionComponents) {
+        sb.subscribe('collision', function(name, cComponents) {
 
-            var enemy = null;
+            var enemy = (cComponents[0].getGroup() === 'enemy') ? cComponents[0] : cComponents[1];
 
-            if (collisionComponents[0].getGroup() === 'enemy') {
-                enemy = collisionComponents[0];
-            }
-            else {
-                enemy = collisionComponents[1];
-            }
             var enemyEntity = enemy.getEntity();
             var hc = enemyEntity.components.HealthComponent;
             var sc = enemyEntity.components.ShieldComponent;
@@ -122,35 +116,31 @@ function CollisionProcess(sb) {
                 sb.publish('enemyDeath', enemyEntity);
                 sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
             }
-            var player = null;
 
-            if (collisionComponents[0].getGroup() == 'player') {
-                player = collisionComponents[0];
-            }
-            else {
-                player = collisionComponents[1];
-            }
+            var player = (cComponents[0].getGroup() == 'player') ? cComponents[0] : cComponents[1];
+
             var playerEntity = player.getEntity();
-            var hc = playerEntity.components.HealthComponent;
-            var sc = playerEntity.components.ShieldComponent;
+            var hcp = playerEntity.components.HealthComponent;
+            var scp = playerEntity.components.ShieldComponent;
             //renderable contains xyz of object so we know where to explode
             var pc = playerEntity.components.RenderableComponent;
 
-            createHit(hc, sc);
+            createHit(hcp, scp);
 
-            if (hc.getAmount() > 0) {
+            if (hcp.getAmount() > 0) {
                 sb.publish('explosion', pc);
             }
             else {
-
-                if (playerEntity.name == 'mothership') {
+                hcp.setAmount(0);
+                if (playerEntity.getName() == 'mothership') {
                     em.removeEntityByName(playerEntity.name);
                     sb.publish('gameover', true);
                 }
-                if (playerEntity.name == 'ship') {
+                if (playerEntity.getName() == 'ship') {
+
                     sb.publish('respawn', true);
                 }
-                hc.setAmount(0);
+
                 sb.publish('bigexplosion', pc);
             }
 

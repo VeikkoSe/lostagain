@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     CORE.start_game();
 });
 
-function createHit(hc,sc) {
+function createHit(hc, sc) {
     if (sc && sc.getAmount() > 0) {
         sc.setAmount(sc.getAmount() - 1);
     }
@@ -18,7 +18,7 @@ function createHit(hc,sc) {
         hc.setAmount(hc.getAmount() - 1);
     }
 
-    if(hc.getAmount()<0) {
+    if (hc.getAmount() < 0) {
         hc.setAmount(0);
     }
 
@@ -55,7 +55,6 @@ function randomIntFromInterval(min, max) {
     'use strict';
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
 
 function getMousePos(canvas, evt) {
     'use strict';

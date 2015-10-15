@@ -47,12 +47,9 @@ function RenderProcess(sb) {
             var mvMatrix = camera.getMVMatrix();
 
             //we do not render objects wich health is zero
-            if (le.components.HealthComponent && le.components.HealthComponent.getAmount() < 1)
+            if (le.components.HealthComponent && le.components.HealthComponent.getAmount() < 1) {
                 return;
-
-            //if (le.components.Visibility && le.components.Visibility.visibility == false) {
-            //    continue;
-            //}
+            }
 
             //var rc = le.components.Renderable;
             var mc = le.components.MeshComponent;
@@ -71,8 +68,6 @@ function RenderProcess(sb) {
             gl.uniform3f(shaderprogram.uLightDiffuse, 0.8, 0.8, 0.8);
             gl.uniform3f(shaderprogram.uLightSpecular, 0.8, 0.8, 0.8);
             gl.uniform1f(shaderprogram.uMaterialShininess, 200.0);
-
-
 
             //gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
 
@@ -121,7 +116,7 @@ function RenderProcess(sb) {
             gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getTexturePositionBuffer());
             gl.vertexAttribPointer(shaderprogram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
             //if texture don't change we don't rebind it
-            if(mc.getMesh().getTexture()!==oldTexture) {
+            if (mc.getMesh().getTexture() !== oldTexture) {
                 gl.activeTexture(gl.TEXTURE0);
                 gl.bindTexture(gl.TEXTURE_2D, mc.getMesh().getTexture());
                 gl.uniform1i(shaderprogram.samplerUniform, 0);

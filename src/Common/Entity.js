@@ -19,11 +19,9 @@ function entity_constructor(id, name) {
 
     var hasComponent = function(name) {
 
-
         if (components[name] !== undefined) {
             return true;
         }
-
 
         return false;
     };
@@ -39,7 +37,7 @@ function entity_constructor(id, name) {
         id,
         getName,
         components,
-            getId
+        getId
 
     };
 }

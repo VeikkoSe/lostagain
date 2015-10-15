@@ -67,7 +67,6 @@ function gamestate_constructor(sb) {
 
         var timeNow = new Date().getTime();
 
-
         frameCount++;
 
         if (lastTime != 0) {
@@ -128,7 +127,6 @@ function gamestate_constructor(sb) {
             }
         }
         //console.log(camera.getDrawCalls());
-
 
     };
 

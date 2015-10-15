@@ -177,7 +177,7 @@ function TrailProcess(sb) {
     var update = function(elapsed, totalElapsed) {
 
         //TODO: Currently fixes the trail stain at start of the game
-        if(totalElapsed<1000) {
+        if (totalElapsed < 1000) {
             return;
         }
         //var timeNow = new Date().getTime();
