@@ -5,6 +5,8 @@ function text_constructor() {
 
     var fontJson;
 
+    var position;
+
     var textToC = function(text) {
         var ret = [];
         for (var i = 0; i < text.length; i++) {
@@ -50,9 +52,15 @@ function text_constructor() {
             var xOffset = pInt(letters[i].xoffset);
             var xOffsetandAdvance = xOffset + xAdvance;
             var scale = 1;
+
+
+
             if (twoD) {
 
                 //zero,zero is bottom left
+
+                var xPosition = 0.5;
+                var yPosition = 0.1;
                 ret.push(
                     //first triangle and two texture coordinates
                     //  1, 1,             0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
@@ -64,14 +72,39 @@ function text_constructor() {
                     //  0,0, 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
                     //  1,0, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
 
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth()), (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / sb.getResolutionWidth()), (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / sb.getResolutionWidth()), (1 - (scale * (32 / sb.getResolutionHeight()))), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+
+                    //first point
+                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
+                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight()))-yPosition,
+                    //texture coordinates
+                    0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    //second point
+                    xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
+                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight()))-yPosition,
+                    //texture coordinates
+                    0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
+                    //third point
+                    xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
+                    (1 - (scale * (32 / sb.getResolutionHeight())))-yPosition,
+                    //texture coordinates
+                    0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth()), (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
-                    scale * (xOffsetandAdvance / sb.getResolutionWidth()), (1 - (scale * (32 / sb.getResolutionHeight()))), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
-                    scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth()), (1 - (scale * (32 / sb.getResolutionHeight()))), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
+                    //first point
+                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
+                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight()))-yPosition,
+                    //texture coordinates
+                    0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    //second point
+                    xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
+                    (1 - (scale * (32 / sb.getResolutionHeight())))-yPosition,
+                    //texture coordinates
+                    0.0,formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    //third point
+                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
+                    (1 - (scale * (32 / sb.getResolutionHeight())))-yPosition,
+                    //texture coordinates
+                    0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
                 );
 
             }
@@ -2309,7 +2342,14 @@ function text_constructor() {
         },
         start: function() {
 
+        },
+        setPosition(v) {
+            position = v;
+        },
+        getPosition() {
+            return position;
         }
+
     }
 
 }

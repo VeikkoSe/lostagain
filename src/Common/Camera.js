@@ -20,7 +20,7 @@ function camera_constructor() {
         pvMatrixInverse = mat4.create();
         mindistance = 40;
         maxdistance = 200;
-        distance = 50;
+        distance = 120;
         pitch = 70;
 
         //mat4.identity(mvMatrix);

@@ -48,15 +48,16 @@ function entity_creator_constructor() {
         e.addComponent(PhotonTorpedoComponent(am.getSprite('bigbullet')));
         e.addComponent(ShieldComponent(10, am.getSprite('shield')));
 
-        e.addComponent(ShieldComponent(10, am.getSprite('shield')));
+
 
         e.addComponent(CollisionComponent('player'));
 
-        var sp = am.getSprite('hp');
+
 
         e.addComponent(GunComponent());
+        e.addComponent(ShieldComponent(3, am.getSprite('shield')));
 
-        e.addComponent(HealthComponent(5, sp));
+        e.addComponent(HealthComponent(3,am.getSprite('hp')));
 
         //var exMesh = am.getSprite('exhausttrail');
         var exMesh = am.getMesh('exhaustcone');

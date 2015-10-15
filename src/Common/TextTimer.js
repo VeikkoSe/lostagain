@@ -8,17 +8,12 @@ function textimer_constructor(level) {
     //}
 
     var init = function() {
-        events['2000'] = 'What happened?';
-        events['5000'] = 'We were crushed!';
-        events['7000'] = 'That seems to be the case';
-        events['10000'] = 'We need to heal our wounds and rebuild your ship.';
-        events['12000'] = 'True. And we still have the tracker on their flag ship. We should see it on your overview map.';
-        events['15000'] = 'When the time is right we will strike back!';
-        events['17000'] = 'My sensor will show the nearest asteroid that we need to mine so we can get minerals for fuel';
-        events['20000'] = 'Oh yes. These old ships still can\'t jump without fuel';
-        events['23000'] = 'Asteroid should not be far';
+        events['2000'] = 'Lights!';
+        events['4000'] = 'Camera!';
+        events['6000'] = 'Action!';
 
-        events['25000'] = ' ';
+
+        events['8000'] = ' ';
     };
 
     var getLevelText = function(level) {
