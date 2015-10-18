@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
     var w = 1024;
     var h = 768;
     var CORE = new Core(w, h);
@@ -11,7 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function createHit(hc, sc) {
+    var timeNow = new Date().getTime();
+
+    if (sc && sc.getLastHit() === 0) {
+
+        sc.setLastHit(timeNow);
+    }
+
     if (sc && sc.getAmount() > 0) {
+        //we count from the first hit untill the shield has reset
+
         sc.setAmount(sc.getAmount() - 1);
     }
     else {
@@ -33,6 +40,17 @@ function randomRangedInt() {
     }
     else
         return randomRangedInt();
+};
+
+function randomRangedIntFromPos(pos) {
+
+    var rnd = getRandomInt(800 + pos, -800 + pos);
+    if (rnd > 600 + pos ||
+        rnd < -600 + pos) {
+        return rnd;
+    }
+    else
+        return randomRangedIntFromPos(pos);
 };
 
 function randomCloseInt() {

@@ -37,25 +37,24 @@ function gamestate_constructor(sb) {
         processList.push(ExhaustProcess(sb));
         processList.push(TrailProcess(sb));
         processList.push(ExplosionProcess(sb));
-
         processList.push(CollisionProcess(sb));
         processList.push(RenderProcess(sb));
         processList.push(StarProcess(sb));
         processList.push(TeleportProcess(sb));
         processList.push(LaserProcess(sb));
+        processList.push(TimedTextProcess(sb));
+        processList.push(ScoreProcess(sb));
         processList.push(Text2dProcess(sb));
         processList.push(TextProcess(sb));
         processList.push(LayoutProcess(sb));
-
         processList.push(EntityProcess(sb));
-
-        //processList.push(postprocess_constructor(sb));
+        processList.push(ShieldProcess(sb));
 
         for (var i = 0; i < processList.length; i++) {
             processList[i].init();
         }
 
-        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+        gl.viewport(0, 0, sb.getResolutionWidth(), sb.getResolutionHeight());
 
         camera.setPerspective();
 

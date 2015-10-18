@@ -20,7 +20,7 @@ function GunProcess(sb) {
     //    var bullet;
     var init = function() {
         for (var i = 0; i < bulletsAmount; i++) {
-            var bulVar = photontorpedo_constructor();
+            var bulVar = PhotonTorpedo();
             bullets.push(bulVar);
         }
     };
@@ -74,10 +74,10 @@ function GunProcess(sb) {
         for (var i = 0; i < bullets.length; i++) {
             for (var j = 0; j < collisions.length; j++) {
                 if (j != i &&
-                    bullets[i].getXPos() > collisions[j].getXPos() - collisions[j].getXWidth() &&
-                    bullets[i].getXPos() < collisions[j].getXPos() + collisions[j].getXWidth() &&
-                    bullets[i].getZPos() > collisions[j].getZPos() - collisions[j].getZWidth() &&
-                    bullets[i].getZPos() < collisions[j].getZPos() + collisions[j].getZWidth()
+                    bullets[i].getXPos() >= collisions[j].getXPos() - collisions[j].getXWidth() &&
+                    bullets[i].getXPos() <= collisions[j].getXPos() + collisions[j].getXWidth() &&
+                    bullets[i].getZPos() >= collisions[j].getZPos() - collisions[j].getZWidth() &&
+                    bullets[i].getZPos() <= collisions[j].getZPos() + collisions[j].getZWidth()
                     && collisions[j].getGroup() == 'enemy' && bullets[i].getVisible() == 1) {
 
                     sb.publish('bulletcollision', collisions[j]);

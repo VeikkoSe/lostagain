@@ -1,10 +1,12 @@
-function ShieldComponent(amount, sprite) {
+function ShieldComponent(amt, sprite) {
     'use strict';
 
     //constructor(amount, sprite = null) {
     var name = 'ShieldComponent';
-    var amount = amount;
+    var amount = amt;
+    var max = amt;
     var sprite = sprite;
+    var lastHit = 0;
 
     //}
 
@@ -20,6 +22,15 @@ function ShieldComponent(amount, sprite) {
         },
         getSprite: function(v) {
             return sprite;
+        },
+        setLastHit: function(v) {
+            lastHit = v;
+        },
+        getLastHit: function() {
+            return lastHit;
+        },
+        getMax: function() {
+            return max;
         }
     }
 

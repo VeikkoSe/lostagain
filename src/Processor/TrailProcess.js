@@ -226,7 +226,6 @@ function TrailProcess(sb) {
             gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ec.getTexturecoordinates()), gl.STATIC_DRAW);
 
-            //console.log(ec.getPoints());
             camera.mvPushMatrix();
             var mvmatrix = camera.getMVMatrix();
 

@@ -78,7 +78,6 @@ function CollisionProcess(sb) {
 
             //hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
-                //console.log('b');
                 sb.publish('smallexplosion', target.components.RenderableComponent);
             }
             else {
@@ -180,10 +179,11 @@ function CollisionProcess(sb) {
         for (var i = 0; i < collisions.length; i++) {
             for (var j = 0; j < collisions.length; j++) {
                 if (j != i &&
-                    collisions[i].getXPos() - collisions[i].getXWidth() > collisions[j].getXPos() - collisions[j].getXWidth() &&
-                    collisions[i].getXPos() - collisions[i].getXWidth() < collisions[j].getXPos() + collisions[j].getXWidth() &&
-                    collisions[i].getZPos() - collisions[i].getZWidth() > collisions[j].getZPos() - collisions[j].getZWidth() &&
-                    collisions[i].getZPos() - collisions[i].getZWidth() < collisions[j].getZPos() + collisions[j].getZWidth()
+                    collisions[i].getXPos() - collisions[i].getXWidth() >= collisions[j].getXPos() - collisions[j].getXWidth() &&
+                    collisions[i].getXPos() - collisions[i].getXWidth() <= collisions[j].getXPos() + collisions[j].getXWidth() &&
+
+                    collisions[i].getZPos() - collisions[i].getZWidth() >= collisions[j].getZPos() - collisions[j].getZWidth() &&
+                    collisions[i].getZPos() - collisions[i].getZWidth() <= collisions[j].getZPos() + collisions[j].getZWidth()
                     && collisions[i].getGroup() != collisions[j].getGroup()) {
 
                     sb.publish("collision", [collisions[i], collisions[j]]);

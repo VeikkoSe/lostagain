@@ -1,4 +1,4 @@
-function camera_constructor() {
+function Camera() {
     'use strict';
 
     var gl, mvMatrix, pMatrix, cMatrix, pvMatrix,
@@ -130,7 +130,7 @@ function camera_constructor() {
     };
 
     var setPerspective = function() {
-        mat4.perspective(60, gl.viewportWidth / gl.viewportHeight, 0.1, 20000.0, pMatrix);
+        mat4.perspective(60, sb.getResolutionWidth() / sb.getResolutionHeight(), 0.1, 20000.0, pMatrix);
     };
 
     var lookAt = function(epos, direction) {

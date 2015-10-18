@@ -1,4 +1,4 @@
-function stateengine_constructor() {
+function StateEngine() {
     'use strict';
 
     var introState;

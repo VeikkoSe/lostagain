@@ -1,4 +1,4 @@
-function entity_creator_constructor() {
+function EntityCreator() {
 
     var t, sprite_loader, em, am, sb;
 
@@ -10,8 +10,8 @@ function entity_creator_constructor() {
     var start = function() {
 
         em = sb.getEntityManager();
-        t = texture_constructor(sb);
-        sprite_loader = sprite_constructor(sb);
+        t = Texture(sb);
+        sprite_loader = Sprite(sb);
 
         am = sb.getAssetManager();
 
@@ -48,16 +48,12 @@ function entity_creator_constructor() {
         e.addComponent(PhotonTorpedoComponent(am.getSprite('bigbullet')));
         e.addComponent(ShieldComponent(10, am.getSprite('shield')));
 
-
-
         e.addComponent(CollisionComponent('player'));
-
-
 
         e.addComponent(GunComponent());
         e.addComponent(ShieldComponent(3, am.getSprite('shield')));
 
-        e.addComponent(HealthComponent(3,am.getSprite('hp')));
+        e.addComponent(HealthComponent(3, am.getSprite('hp')));
 
         //var exMesh = am.getSprite('exhausttrail');
         var exMesh = am.getMesh('exhaustcone');
@@ -78,7 +74,7 @@ function entity_creator_constructor() {
 
     };
 
-    var createDestroyer = function() {
+    var createDestroyer = function(spawnRelated) {
 
 
         //em.clearAll();
@@ -98,13 +94,17 @@ function entity_creator_constructor() {
         e.addComponent(CollisionComponent('enemy'));
         var rc = RenderableComponent();
 
-        rc.setXPos(randomRangedInt());
-        rc.setZPos(randomRangedInt());
+        rc.setXPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
+        rc.setZPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
+        //rc.setXPos(randomRangedInt());
+        //rc.setZPos(randomRangedInt());
 
         e.addComponent(rc);
 
         e.addComponent(ShieldComponent(0, am.getSprite('shield')));
         e.addComponent(HealthComponent(1));
+
+        e.addComponent(RespawnComponent());
 
         return e;
 
@@ -132,16 +132,22 @@ function entity_creator_constructor() {
     var createLayout = function(mothership, ship, radar, currency) {
         var e = em.addNew();
         var lm = [];
-        var gt = layout_constructor(0, 0.1);
 
-        gt.addChildren(layout_constructor(5, 0, mothership.components.HealthComponent, 8));
-        gt.addChildren(layout_constructor(5, 10, mothership.components.ShieldComponent, 8));
+        var lt = Layout(0, 0.95);
+
+        lt.addChildren(Layout(0, 0, mothership.components.ScoreComponent, 8));
+
+        lm.push(lt);
+
+        var gt = Layout(0, 0.1);
+        gt.addChildren(Layout(5, 0, mothership.components.HealthComponent, 8));
+        gt.addChildren(Layout(5, 10, mothership.components.ShieldComponent, 8));
         lm.push(gt);
 
-        var rt = layout_constructor(0, 0);
+        var rt = Layout(0, 0);
 
-        rt.addChildren(layout_constructor(5, 5, ship.components.HealthComponent, 8));
-        rt.addChildren(layout_constructor(5, 15, ship.components.ShieldComponent, 8));
+        rt.addChildren(Layout(5, 5, ship.components.HealthComponent, 8));
+        rt.addChildren(Layout(5, 15, ship.components.ShieldComponent, 8));
         lm.push(rt);
         /*
          if (radar) {
@@ -160,39 +166,24 @@ function entity_creator_constructor() {
 
     };
 
-    var createMine = function() {
+    var createMine = function(spawnRelated) {
 
         var e = em.addNew('mine');
         var mesh = am.getMesh('mine');
         var m = MeshComponent();
         m.setMesh(mesh);
         e.addComponent(m);
-        e.addComponent(ChaseComponent(40));
+        e.addComponent(ChaseComponent(50));
         e.addComponent(RotationComponent(10, 10, 10));
-
-        //e.addComponent(HealthComponent(2));
-
-        //e.addComponent(new MomentumMovable(30, 15, 0, 0));
 
         var rc = RenderableComponent();
         rc.setScale(5);
-        rc.setXPos(randomRangedInt());
-        rc.setZPos(randomRangedInt());
+
+        rc.setXPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
+        rc.setZPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
         e.addComponent(rc);
 
         e.addComponent(RespawnComponent());
-
-        /*xp, //x
-         0, //y
-         zp, //z
-         1,//scope
-         1,//angleX
-         0,//angleY
-         0,//angleZ
-         10,//xWidth
-         10,//yWidth
-         10//zWidth5
-         )*/
 
         e.addComponent(CollisionComponent('enemy'));
         e.addComponent(HealthComponent(1));
@@ -280,6 +271,12 @@ function entity_creator_constructor() {
         rc.setZPos(0);
         rc.setYPos(0);
         e.addComponent(rc);
+
+        e.addComponent(ScoreComponent(4, am.getSprite('currency')));
+        var tc = TextComponent();
+        tc.setPosition(0.03, 0.01);
+        tc.setTextBuffer(sb.getGL().createBuffer());
+        e.addComponent(tc);
 
         e.addComponent(HealthComponent(4, am.getSprite('hp')));
         e.addComponent(ShieldComponent(2, am.getSprite('shield')));
@@ -395,7 +392,11 @@ function entity_creator_constructor() {
     var createText = function() {
         //createText(level) {
         var e = em.addNew();
-        e.addComponent(TextComponent('first'));
+        var t = TextComponent();
+        t.setTexts('first');
+        t.setPosition(0.5, 0.1);
+        t.setTextBuffer(sb.getGL().createBuffer());
+        e.addComponent(t);
     };
     var createPlane = function() {
 

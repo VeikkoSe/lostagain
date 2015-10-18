@@ -1,7 +1,7 @@
 /*
  * Loads assets
  */
-function asset_manager_constructor() {
+function AssetManager() {
     'use strict';
     //  var sb = params;
     var meshes, sprites, textures, loadingAmount, loadingMax, sb;
@@ -39,7 +39,7 @@ function asset_manager_constructor() {
         loadingMax++;
 
         //var params = {name,game};
-        var m = mesh_constructor(sb);
+        var m = Mesh(sb);
         m.loadMesh(name);
 
         meshes[name] = m;
@@ -55,7 +55,7 @@ function asset_manager_constructor() {
         //loadingMax++;
 
         //var params = {name,game};
-        var s = sprite_constructor(sb);
+        var s = Sprite(sb);
         s.load(name, noflip, repeat);
 
         sprites[name] = s;

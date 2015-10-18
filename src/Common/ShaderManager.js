@@ -1,4 +1,4 @@
-function shader_manager_constuctor() {
+function ShaderManager() {
     'use strict';
 
     var sb, allShaders, currentProgram, gl;

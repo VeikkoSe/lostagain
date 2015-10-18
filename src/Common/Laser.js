@@ -1,4 +1,4 @@
-function laser_constructor() {
+function Laser() {
     'use strict';
     //constructor() {
     var birthTime = 0;

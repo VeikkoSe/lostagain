@@ -37,9 +37,20 @@ function EntityProcess(sb) {
         });
 
         sb.subscribe('enemyDeath', function(name, b) {
-            if (b.getName() === 'mine' && b.components.RespawnComponent) {
+
+            var ms = em.getEntityByName('mothership');
+            var sc = ms.components.ScoreComponent;
+            sc.setValue(sc.getValue() + 1);
+
+            if (b.components.RespawnComponent) {
+                if (b.getName() === 'mine') {
+                    ec.createMine(ms);
+                }
+                if (b.getName() === 'destroyer') {
+                    ec.createDestroyer(ms);
+                }
                 em.removeEntityById(b.getId());
-                ec.createMine();
+
             }
 
         });

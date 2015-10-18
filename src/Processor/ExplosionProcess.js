@@ -80,7 +80,7 @@ function ExplosionProcess(sb) {
     var createNewSmallExplosion = function(x, z) {
         //slow
 
-        var particle = asteroidexplosion_constructor(sb, x, 0, z, 'small');
+        var particle = AsteroidExplosion(sb, x, 0, z, 'small');
         particle.init();
 
         explosions.push(particle);
@@ -90,7 +90,7 @@ function ExplosionProcess(sb) {
     var createNewMediumExplosion = function(x, z) {
         //slow
 
-        var particle = asteroidexplosion_constructor(sb, x, 0, z, 'medium');
+        var particle = AsteroidExplosion(sb, x, 0, z, 'medium');
         particle.init();
 
         explosions.push(particle);
@@ -100,7 +100,7 @@ function ExplosionProcess(sb) {
     var createNewBigExplosion = function(x, z) {
         //slow
 
-        var particle = asteroidexplosion_constructor(sb, x, 0, z, 'large');
+        var particle = AsteroidExplosion(sb, x, 0, z, 'large');
         particle.init();
 
         explosions.push(particle);
@@ -118,7 +118,6 @@ function ExplosionProcess(sb) {
         var mvMatrix = camera.getMVMatrix();
 
         //TODO stays too long up to 5 seconds
-        //console.log(explosions.length);
 
         for (var i = 0; i < explosions.length; i++) {
             camera.mvPushMatrix();

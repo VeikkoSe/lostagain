@@ -1,4 +1,4 @@
-function entity_constructor(id, name) {
+function Entity(id, name) {
     'use strict';
 
     //var {id, name} = params;

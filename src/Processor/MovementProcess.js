@@ -50,8 +50,6 @@ function MovementProcess(sb) {
 
                     var deg = (angR / Math.PI * 180) - 90 + (angR > 0 ? 0 : 360);
 
-                    //console.log(deg);
-
                     dirX /= hyp;
                     dirZ /= hyp;
 

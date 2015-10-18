@@ -1,4 +1,4 @@
-function text_constructor() {
+function Text() {
     'use strict';
 
     var sb;
@@ -29,7 +29,7 @@ function text_constructor() {
         return ret;
     };
 
-    var buildData = function(letters, twoD) {
+    var buildData = function(letters, twoD, xPos, yPos) {
 
         //var scalingFactor = 2;
         //32 reads in the fnt file created by the program
@@ -53,14 +53,12 @@ function text_constructor() {
             var xOffsetandAdvance = xOffset + xAdvance;
             var scale = 1;
 
-
-
             if (twoD) {
 
                 //zero,zero is bottom left
 
-                var xPosition = 0.5;
-                var yPosition = 0.1;
+                var xPosition = xPos;
+                var yPosition = yPos;
                 ret.push(
                     //first triangle and two texture coordinates
                     //  1, 1,             0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
@@ -72,37 +70,36 @@ function text_constructor() {
                     //  0,0, 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
                     //  1,0, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
 
-
                     //first point
                     xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
-                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight()))-yPosition,
+                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
                     //second point
                     xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
-                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight()))-yPosition,
+                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
                     //third point
                     xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
-                    (1 - (scale * (32 / sb.getResolutionHeight())))-yPosition,
+                    (1 - (scale * (32 / sb.getResolutionHeight()))) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
                     //first point
                     xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
-                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight()))-yPosition,
+                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
                     //second point
                     xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
-                    (1 - (scale * (32 / sb.getResolutionHeight())))-yPosition,
+                    (1 - (scale * (32 / sb.getResolutionHeight()))) - yPosition,
                     //texture coordinates
-                    0.0,formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
                     //third point
                     xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
-                    (1 - (scale * (32 / sb.getResolutionHeight())))-yPosition,
+                    (1 - (scale * (32 / sb.getResolutionHeight()))) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
                 );

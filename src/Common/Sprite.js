@@ -1,7 +1,7 @@
-function sprite_constructor(sandbox) {
+function Sprite(sandbox) {
     'use strict';
     var gl = sandbox.getGL();
-    var t = texture_constructor(sandbox);
+    var t = Texture(sandbox);
 
     var loadReturn = {};
     var texture = null;

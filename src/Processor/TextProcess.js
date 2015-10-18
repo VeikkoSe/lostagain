@@ -14,7 +14,7 @@ function TextProcess(sb) {
     var size;
     var text = sb.getText();
 
-    var em = sb.getEntityManager();
+    //var em = sb.getEntityManager();
 
     var init = function() {
 

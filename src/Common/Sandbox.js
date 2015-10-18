@@ -1,5 +1,5 @@
 //http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript
-function sandbox_constructor(CORE) {
+function Sandbox(CORE) {
     'use strict';
 
     var core = CORE;

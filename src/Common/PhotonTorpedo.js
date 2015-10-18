@@ -1,4 +1,4 @@
-function photontorpedo_constructor() {
+function PhotonTorpedo() {
     'use strict';
     //constructor() {
     var birthTime = 0;

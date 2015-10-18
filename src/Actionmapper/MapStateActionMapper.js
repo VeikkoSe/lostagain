@@ -76,8 +76,6 @@ function map_action_mapper(sb) {
 
         }
 
-        //console.log(currentlyPressedKeys);
-
         if (currentlyPressedKeys[77]) {
 
             //game.stateEngine.changeState("gamestate");

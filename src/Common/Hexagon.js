@@ -1,4 +1,4 @@
-function hexagon_constructor(size) {
+function Hexagon(size) {
     'use strict';
 
     var hexsizeX = size;

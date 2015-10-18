@@ -1,7 +1,7 @@
 /**
  * Created by Vge on 3.3.2014.
  */
-function texture_constructor(sandbox) {
+function Texture(sandbox) {
     'use strict';
 
     //var {name,noflip} = params;

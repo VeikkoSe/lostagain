@@ -65,13 +65,13 @@ function LayoutProcess(sb) {
 
         if (yminus) {
 
-            var y2 = y - (simpleWorldToViewY(1) * layout.getSize() * rh);
+            y2 = y - (simpleWorldToViewY(1) * layout.getSize() * rh);
             var tmp = y;
             y = y2;
             y2 = tmp;
         }
         if (xminus) {
-            var x2 = x - (simpleWorldToViewX(1) * layout.getSize() * rh);
+            x2 = x - (simpleWorldToViewX(1) * layout.getSize() * rh);
             var tmp = x;
             x = x2;
             x2 = tmp;
@@ -101,6 +101,7 @@ function LayoutProcess(sb) {
                     yminus = true;
                 }
 
+                //healt and shield icons are looped
                 var loop = 1;
                 if (lloop[i].getComponent().getAmount() && lloop[i].getComponent().getAmount() > 0) {
                     loop = lloop[i].getComponent().getAmount();

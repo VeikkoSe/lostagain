@@ -36,11 +36,8 @@ function ChaseProcess(sb) {
                 var dirX = shiprc.getXPos() - re.getXPos();
                 var dirZ = shiprc.getZPos() - re.getZPos();
 
-
                 //Normalize this vector. That means divide the terms by the magnitude (the hypotenuse) of the vector.
                 var hyp = Math.sqrt(dirX * dirX + dirZ * dirZ);
-
-
 
                 dirX /= hyp;
                 dirZ /= hyp;
@@ -48,8 +45,6 @@ function ChaseProcess(sb) {
                 //Add that vector to the enemy's position, multiplied by the speed you want the enemy to move:
                 re.setXPos(re.getXPos() + (dirX * ch.getSpeed() * (deltatime / 1000)));
                 re.setZPos(re.getZPos() + (dirZ * ch.getSpeed() * (deltatime / 1000)));
-
-
 
             }
         }

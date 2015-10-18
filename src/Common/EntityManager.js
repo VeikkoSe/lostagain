@@ -1,4 +1,4 @@
-function entity_manager_constructor() {
+function EntityManager() {
     'use strict';
 
     var entities = [];
@@ -8,7 +8,7 @@ function entity_manager_constructor() {
 
         maxId++;
 
-        var ent = entity_constructor(maxId, name);
+        var ent = Entity(maxId, name);
 
         entities.push(ent);
         return ent;
@@ -31,7 +31,6 @@ function entity_manager_constructor() {
         }
 
     };
-
 
     var getEntityByName = function(name) {
         for (var e = 0; e < entities.length; e++) {

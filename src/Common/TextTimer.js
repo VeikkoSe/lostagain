@@ -1,4 +1,4 @@
-function textimer_constructor(level) {
+function TextTimer(level) {
     'use strict';
     //constructor(level) {
 
@@ -11,7 +11,6 @@ function textimer_constructor(level) {
         events['2000'] = 'Lights!';
         events['4000'] = 'Camera!';
         events['6000'] = 'Action!';
-
 
         events['8000'] = ' ';
     };

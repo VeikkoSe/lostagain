@@ -17,17 +17,16 @@ function Core(width, height) {
     this.entityManager = null;
     this.actionMapper = null;
 
-    this.create_module(action_mapper()); //0
-    this.create_module(entity_manager_constructor());//1
-    this.create_module(asset_manager_constructor());//2
-    this.create_module(loader_costructor());//3
-    this.create_module(camera_constructor());//4
-    this.create_module(shader_manager_constuctor());//5
-    this.create_module(layout_constructor());//6
-    this.create_module(text_constructor());//7
-    this.create_module(entity_creator_constructor());//9
-
-    this.create_module(stateengine_constructor());//8
+    this.create_module(ActionMapper());
+    this.create_module(EntityManager());
+    this.create_module(AssetManager());
+    this.create_module(Loader());
+    this.create_module(Camera());
+    this.create_module(ShaderManager());
+    this.create_module(Layout());
+    this.create_module(Text());
+    this.create_module(EntityCreator());
+    this.create_module(StateEngine());
 
     this.width = width;
     this.height = height;
@@ -38,10 +37,9 @@ function Core(width, height) {
 
     try {
 
-        this.gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
+        //this.gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
+        this.gl = WebGLUtils.setupWebGL(canvas);
 
-        this.gl.viewportWidth = canvas.width;
-        this.gl.viewportHeight = canvas.height;
     } catch (e) {
 
     }
@@ -68,7 +66,7 @@ Core.prototype.start_modules = function() {
      }
      */
     for (var i = 0; i < this.modules.length; i++) {
-        this.modules[i].init(sandbox_constructor(this));
+        this.modules[i].init(Sandbox(this));
     }
 
     this.initModules();

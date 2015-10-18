@@ -1,4 +1,4 @@
-function mesh_constructor(sandbox) {
+function Mesh(sandbox) {
     'use strict';
     // var {name,game} = params;
     var sb = sandbox;
@@ -39,7 +39,7 @@ function mesh_constructor(sandbox) {
     var loadMesh = function(name) {
 
         //loadManager.loadTotal++;
-        var tc = texture_constructor(sb);
+        var tc = Texture(sb);
 
         tc.load(name, false, false);
 

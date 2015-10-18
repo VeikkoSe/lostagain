@@ -46,7 +46,7 @@ function loadstate_constructor(sb) {
         // rotationSpeed = 50;
         rotationAngle = 0;
 
-        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+        gl.viewport(0, 0, sb.getResolutionWidth(), sb.getResolutionHeight());
 
         //camera.setPerspective();
 

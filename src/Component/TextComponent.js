@@ -1,12 +1,13 @@
-function TextComponent(level) {
+function TextComponent() {
     'use strict';
 
     //constructor(level) {
     var name = 'TextComponent';
-
-    var t = textimer_constructor();
-    t.init();
-    var texts = t.getLevelText(level);
+    var textBuffer;
+    var texts;
+    var currentString = '';
+    var positionX;
+    var positionY;
 
     return {
         getName: function() {
@@ -14,6 +15,35 @@ function TextComponent(level) {
         },
         getTexts: function() {
             return texts;
+        },
+        setTexts: function(level) {
+            var t = TextTimer();
+            t.init();
+            texts = t.getLevelText(level);
+        },
+        setTextBuffer: function(v) {
+            textBuffer = v;
+        },
+        getTextBuffer: function() {
+            return textBuffer;
+        },
+        getCurrentString: function() {
+            return currentString;
+        },
+        setCurrentString: function(v) {
+            currentString = v;
+        },
+        setPosition: function(x, y) {
+            positionX = x;
+            positionY = y;
+        },
+        getXPos: function() {
+            return positionX;
+
+        },
+        getYPos: function() {
+            return positionY;
+
         }
     };
 

@@ -2,7 +2,7 @@
  *
  * Handles key press and publishes event so those that want them can use them
  */
-function action_mapper() {
+function ActionMapper() {
     'use strict';
 
     var currentlyPressedKeys = {};

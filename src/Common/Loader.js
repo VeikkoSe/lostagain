@@ -1,4 +1,4 @@
-function loader_costructor() {
+function Loader() {
     'use strict';
     var sb, em, am, loadingLevelName, t, sprite_loader, loading, loadTotal, maxLoad, camera, ec;
 
@@ -63,8 +63,6 @@ function loader_costructor() {
                 break;
             case ('gamestate'):
 
-                ec.createDestroyer();
-
                 ec.createText();
 
                 var target = ec.createFuel(true);
@@ -73,10 +71,13 @@ function loader_costructor() {
 
                 var mothership = ec.createMotherShip(target);
                 var ship = ec.createShip();
+
+                ec.createDestroyer(mothership);
+
                 //ec.createSatellite(mothership);
 
                 for (var i = 0; i < 10; i++) {
-                    ec.createMine();
+                    ec.createMine(mothership);
                 }
 
                 var radar = ec.createRadar();

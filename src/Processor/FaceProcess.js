@@ -11,7 +11,6 @@ function FaceProcess(sb) {
 
     var update = function(deltatime, timeFromStart) {
 
-
         for (var e = 0; e < em.entities.length; e++) {
             var le = em.entities[e];
 
@@ -31,10 +30,8 @@ function FaceProcess(sb) {
                 var dirZ = shiprc.getZPos() - re.getZPos();
                 var dirX = shiprc.getXPos() - re.getXPos();
 
-
                 var angR = Math.atan2(dirX, dirZ);
                 var deg = (angR / Math.PI * 180) - 90 + (angR > 0 ? 0 : 360);
-
 
                 re.setAngleY(deg);
 

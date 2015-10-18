@@ -1,7 +1,7 @@
 /*
  * Handles creating the point sprites that represent explosion
  */
-function asteroidexplosion_constructor(sb, x, y, z, sizeString) {
+function AsteroidExplosion(sb, x, y, z, sizeString) {
     'use strict';
     //constructor(x, y, z) {
 

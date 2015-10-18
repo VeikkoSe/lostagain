@@ -39,30 +39,13 @@ function MineProcess(sb) {
                     if (isClose(re.getXPos(), shiprc.getXPos()) &&
                         isClose(re.getZPos(), shiprc.getZPos())) {
 
-
-                        //this.routeDone = true;
                         sb.publish("collision", [ship.components.CollisionComponent, le.componets.CollisionComponent]);
-                        //sb.publish('enemycollision' , {ship, le});
-
-                        /*
-                         if (hc.getAmount() < 1 && sc.getAmount() < 1) {
-                         //game.stateEngine.changeState("gamestate");
-                         }
-
-                         if (sc.getAmount() < 1)
-                         hc.setAmount(hc.getAmount() - 1);
-                         else
-                         sc.setAmount(sc.getAmount() - 1);
-                         */
 
                     }
                 }
 
                 //newX and newZ are false by default so we don't move anywhere if newpos is not set
                 if (!routeDone) {
-
-
-                    //Create a vector in the direction
 
                     var dirZ = ship.components.RenderableComponent.getZPos() - re.getXPos();
                     var dirX = ship.components.RenderableComponent.getXPos() - re.getZPos();
