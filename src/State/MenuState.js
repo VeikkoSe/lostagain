@@ -1,7 +1,5 @@
-function menustate_constructor(sb) {
+function MenuState(sb) {
     'use strict';
-
-    //constructor(canvas) {
 
     var wall = null;
     var gl = sb.getGL();
@@ -10,7 +8,7 @@ function menustate_constructor(sb) {
     var shaderprogram = shadermanager.useShader("simplest");
     var camera = sb.getCamera();
 
-    //}
+
 
     var draw = function() {
 
@@ -104,13 +102,13 @@ function menustate_constructor(sb) {
          currentlyPressedKeys = {};
          */
     };
-    return {
+    return Object.freeze({
         init,
         subscribe,
         draw,
         update,
         cleanup
 
-    };
+    });
 
 }

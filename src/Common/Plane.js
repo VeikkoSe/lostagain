@@ -127,7 +127,6 @@ Plane.prototype.createHeightMap = function(size) {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.normalPositionBuffer);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(normals), this.gl.STATIC_DRAW);
 
-    return;
 }
 
 Plane.prototype.createNormals = function(vs, ind) {

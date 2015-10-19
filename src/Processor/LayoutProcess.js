@@ -181,10 +181,10 @@ function LayoutProcess(sb) {
         }
 
     };
-    return {
+    return Object.freeze({
         update: function() {
         },
         draw, init
-    };
+    });
 
 }

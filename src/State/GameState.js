@@ -1,4 +1,4 @@
-function gamestate_constructor(sb) {
+function GameState(sb) {
     'use strict';
 
     var elapsedTotal = 0;
@@ -13,22 +13,40 @@ function gamestate_constructor(sb) {
     var em = sb.getEntityManager();
 
     var fb = null;
+    var running = true;
+    var pause = false;
+    var pauseProcess;
+    var cameraControllerProcess;
 
     var subscribe = function() {
+
     };
 
+
     var init = function() {
+
+        sb.subscribe('movetoloadstate', function(name, wantedstate) {
+            moveToLoadedStage(wantedstate);
+        });
+
+        sb.subscribe('gameover', function() {
+            running = false;
+        });
+
+        sb.subscribe('pause', function() {
+            if (pause == false)
+                pause = true;
+            else {
+                pause = false;
+            }
+        });
 
         processList = [];
         fb = gl.createFramebuffer();
 
-        sb.subscribe('movetoloadstate', function(name, wantedstate) {
-
-            moveToLoadedStage(wantedstate);
-        });
-
         //order matters
-        processList.push(CameraControllerProcess(sb));
+        processList.push(GameLogicProcess(sb));
+
         processList.push(PrimitiveProcess(sb));
         processList.push(ChaseProcess(sb));
         processList.push(FaceProcess(sb));
@@ -47,8 +65,13 @@ function gamestate_constructor(sb) {
         processList.push(Text2dProcess(sb));
         processList.push(TextProcess(sb));
         processList.push(LayoutProcess(sb));
-        processList.push(EntityProcess(sb));
+
         processList.push(ShieldProcess(sb));
+
+        cameraControllerProcess = CameraControllerProcess(sb);
+        pauseProcess = PauseProcess(sb);
+        pauseProcess.init();
+        cameraControllerProcess.init();
 
         for (var i = 0; i < processList.length; i++) {
             processList[i].init();
@@ -71,6 +94,12 @@ function gamestate_constructor(sb) {
         if (lastTime != 0) {
 
             var totalElapsed = timeNow - startTime;
+
+            pauseProcess.update();
+            cameraControllerProcess.update();
+
+            if (!running || pause)
+                return false;
 
             var elapsed = timeNow - lastTime;
             elapsedTotal += elapsed;
@@ -97,6 +126,8 @@ function gamestate_constructor(sb) {
     };
 
     var draw = function() {
+
+
 
         //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
@@ -141,12 +172,12 @@ function gamestate_constructor(sb) {
          */
     };
 
-    return {
+    return Object.freeze({
         init,
         subscribe,
         draw,
         update,
         cleanup
-    };
+    });
 
 }

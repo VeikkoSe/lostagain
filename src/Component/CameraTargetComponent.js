@@ -1,7 +1,7 @@
 function CameraTargetComponent() {
     'use strict';
 
-    var name = "CameraTargetComponent";
+    var name = 'CameraTargetComponent';
 
     return Object.freeze({
         getName: function() {
@@ -10,4 +10,3 @@ function CameraTargetComponent() {
     });
 
 }
-

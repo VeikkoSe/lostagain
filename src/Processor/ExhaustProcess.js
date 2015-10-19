@@ -117,8 +117,8 @@ function ExhaustProcess(sb) {
         }
 
     };
-    return {
+    return Object.freeze({
         update, draw, init
-    };
+    });
 
 }

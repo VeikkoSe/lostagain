@@ -7,10 +7,10 @@ function SelectableComponent() {
     //var color = picker.createColor();
 
     //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }, selected
-    }
+    });
 
 }

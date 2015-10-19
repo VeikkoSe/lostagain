@@ -97,8 +97,8 @@ function Text2dProcess(sb) {
 
     };
 
-    return {
+    return Object.freeze({
         draw, update: function() {
         }, init
-    }
+    });
 }

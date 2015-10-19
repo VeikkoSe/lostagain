@@ -6,10 +6,10 @@ function LaserComponent() {
 
     //var sprite = sprite;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
-    }
+    });
 
 }

@@ -1,13 +1,12 @@
 function ControllableComponent() {
     'use strict';
 
-    var name = "ControllableComponent";
+    var name = 'ControllableComponent';
 
-    //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
-    }
+    });
 
 }

@@ -64,11 +64,11 @@ function LinearMovementProcess(sb) {
         }
     };
 
-    return {
+    return Object.freeze({
         update,
         draw: function() {
         },
         init: function() {
         }
-    };
+    });
 }

@@ -10,7 +10,7 @@ function ShieldComponent(amt, sprite) {
 
     //}
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -32,6 +32,6 @@ function ShieldComponent(amt, sprite) {
         getMax: function() {
             return max;
         }
-    }
+    });
 
 }

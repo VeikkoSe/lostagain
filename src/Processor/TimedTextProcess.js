@@ -40,9 +40,9 @@ function TimedTextProcess(sb) {
 
     };
 
-    return {
+    return Object.freeze({
         draw: function() {
         }, update, init: function() {
         }
-    }
+    });
 }

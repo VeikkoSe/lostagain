@@ -24,8 +24,18 @@ function ActionMapper() {
         document.onmousemove = handleMouseMove;
         document.onmousedown = handleMouseDown;
         document.onmouseup = handleMouseUp;
-
-        var event = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
+        var event;
+        if ('onwheel' in document) {
+            event = 'wheel';
+        }
+        else {
+            if ('onmousewheel' in document) {
+                event = 'mousewheel';
+            }
+            else {
+                event = 'DOMMouseScroll';
+            }
+        }
         window.addEventListener(event, handleMouseWheel);
 
     };
@@ -34,7 +44,13 @@ function ActionMapper() {
         //http://jsfiddle.net/BXhzD/
         var normalized;
         if (event.wheelDelta) {
-            normalized = (event.wheelDelta % 120) == -0 ? event.wheelDelta / 120 : event.wheelDelta / 12;
+            if (event.wheelDelta % 120 == -0) {
+                normalized = event.wheelDelta / 120;
+            }
+            else {
+                normalized = event.wheelDelta / 12;
+            }
+
         } else {
             var rawAmmount = event.deltaY ? event.deltaY : event.detail;
             normalized = -(rawAmmount % 3 ? rawAmmount * 10 : rawAmmount / 3);
@@ -63,9 +79,8 @@ function ActionMapper() {
     var start = function() {
 
     };
-
-    return { // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
-
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
+    return {
         init, subscribe: function() {
         }, start, getCurrentlyPressedKeys: function() {
             return currentlyPressedKeys;

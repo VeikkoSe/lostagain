@@ -2,17 +2,12 @@ function JumpHoldComponent() {
 
     'use strict';
 
-    //constructor() {
-    var name = "JumpHoldComponent";
+    var name = 'JumpHoldComponent';
 
-    // this.holdTime = 5000;
-    //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
-    }
+    });
 
 }
-
-

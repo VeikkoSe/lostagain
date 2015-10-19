@@ -1,17 +1,15 @@
 function CurrencyComponent(sprite) {
     'use strict';
 
-    var name = "CurrencyComponent";
-    var sprite = sprite;
+    var name = 'CurrencyComponent';
 
-    //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
         getSprite: function() {
             return sprite;
         }
-    }
+    });
 
 }

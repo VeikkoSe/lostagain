@@ -60,10 +60,10 @@ function PlaneProcess(sb) {
         }
         //}
     };
-    return {
+    return Object.freeze({
         update: function() {
         }, draw, init: function() {
         }
-    };
+    });
 
 }

@@ -1,18 +1,18 @@
 function ChaseComponent(spd) {
     'use strict';
 
-    var name = "ChaseComponent";
+    var name = 'ChaseComponent';
     var speed = spd;
 
     //}
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
         getSpeed: function() {
             return speed;
         }
-    }
+    });
 
 }

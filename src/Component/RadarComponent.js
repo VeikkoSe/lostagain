@@ -2,15 +2,13 @@ function RadarComponent(sprite) {
     'use strict';
 
     //constructor(sprite) {
-    var name = "RadarComponent";
+    var name = 'RadarComponent';
 
-    var sprite = sprite;
-
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
         , sprite
-    }
+    });
 
 }

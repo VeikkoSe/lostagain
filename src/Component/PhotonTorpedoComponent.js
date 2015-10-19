@@ -4,16 +4,14 @@ function PhotonTorpedoComponent(sprite) {
     //constructor() {
     var name = 'PhotonTorpedoComponent';
 
-    var sprite = sprite;
-
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
         getSprite: function() {
             return sprite;
-        },
+        }
 
-    }
+    });
 
 }

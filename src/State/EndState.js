@@ -1,4 +1,4 @@
-function endstate_constructor(sb) {
+function EndState(sb) {
     'use strict';
 
     var gl = sb.getGL();
@@ -117,11 +117,11 @@ function endstate_constructor(sb) {
     var update = function() {
         //actionMapper.handleKeys();
     };
-    return {
+    return Object.freeze({
         update,
         init,
         draw,
         cleanup
-    };
+    });
 
 }

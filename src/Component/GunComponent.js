@@ -1,12 +1,11 @@
 function GunComponent() {
     'use strict';
 
-    var name = "GunComponent";
+    var name = 'GunComponent';
     var shooting = false;
     var activeWeapon = 1;
 
-    //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -22,6 +21,6 @@ function GunComponent() {
         getActiveWeapon: function() {
             return activeWeapon;
         }
-    }
+    });
 
 }

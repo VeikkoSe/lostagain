@@ -1,17 +1,14 @@
 function PrimitiveComponent(points, color) { // = [0.0, 1.0, 0.0]
     'use strict';
 
-    //constructor(points, color = [0.0, 1.0, 0.0]) {
-    var name = "PrimitiveComponent";
-    var points = points;
-    var color = color;
+    var name = 'PrimitiveComponent';
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
         , points, color
-    }
+    });
 
 }
 

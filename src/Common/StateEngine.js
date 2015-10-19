@@ -10,12 +10,6 @@ function StateEngine() {
     var actionMapper;
     var sb;
 
-    //this.endState = null;
-    //this.menuState = null;
-
-    //this.mapState = null;
-
-    //var running = true;
     var states = [];
     var allStates = [];
     var currentState = null;
@@ -26,15 +20,7 @@ function StateEngine() {
         document.onkeyup = null;
     };
 
-    //var introstate =
-
     var getState = function(sn) {
-
-
-        //if (allStates[sn]) {
-        //    return allStates[sn];
-        //}
-        //alert(sn);
 
         switch (sn) {
             case 'introstate':
@@ -122,13 +108,14 @@ function StateEngine() {
     };
 
     var start = function() {
-        introState = introstate_constructor(sb);
-        gameState = gamestate_constructor(sb);
 
-        lState = loadstate_constructor(sb);
-        mapState = mapstate_constructor(sb);
-        menuState = menustate_constructor(sb);
-        endState = endstate_constructor(sb);
+        introState = IntroState(sb);
+        gameState = GameState(sb);
+
+        lState = LoadState(sb);
+        mapState = MapState(sb);
+        menuState = MenuState(sb);
+        endState = EndState(sb);
         actionMapper = sb.getActionMapper();
 
         loadState('gamestate');
@@ -145,17 +132,17 @@ function StateEngine() {
 
     var startState = function() {
 
-        sb.subscribe("movetoloadstate", function(name, wantedstate) {
+        sb.subscribe('movetoloadstate', function(name, wantedstate) {
 
             moveToLoadedStage(wantedstate);
         });
 
-        sb.subscribe("loadstate", function(name, wantedstate) {
+        sb.subscribe('loadstate', function(name, wantedstate) {
             loadState(wantedstate);
         });
     };
-
-    return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
+    return Object.freeze({
 
         tick,
         init,
@@ -166,4 +153,3 @@ function StateEngine() {
     });
 
 }
-

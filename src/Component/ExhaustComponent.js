@@ -1,15 +1,10 @@
 function ExhaustComponent(msh, offSetFromCenter, offSetSideFromCenter) {
     'use strict';
 
-    var offSetSideFromCenter = offSetSideFromCenter;
-    var offSetFromCenter = offSetFromCenter;
-
     var name = 'ExhaustComponent';
-
     var mesh = msh;
 
-    //   }
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -23,6 +18,6 @@ function ExhaustComponent(msh, offSetFromCenter, offSetSideFromCenter) {
             return offSetFromCenter;
         }
 
-    };
+    });
 
 }

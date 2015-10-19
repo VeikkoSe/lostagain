@@ -1,7 +1,7 @@
 function DrivableComponent() {
     'use strict';
 
-    var name = "Drivable";
+    var name = 'DrivableComponent';
     var accelerationOn = 0;
     var acceleration = 20;
 
@@ -10,11 +10,10 @@ function DrivableComponent() {
     var rotateRight = false;
     var rotateLeft = false;
 
-    //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
-    }
+    });
 
 }

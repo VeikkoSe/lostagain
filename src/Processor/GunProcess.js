@@ -181,5 +181,5 @@ function GunProcess(sb) {
 
     };
 
-    return {update, draw, init};
+    return Object.freeze({update, draw, init});
 }

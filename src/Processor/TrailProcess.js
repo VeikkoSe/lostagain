@@ -267,9 +267,9 @@ function TrailProcess(sb) {
 
     };
 
-    return {
+    return Object.freeze({
         update, draw, init
-    };
+    });
 
     //}
 

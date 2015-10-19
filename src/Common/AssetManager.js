@@ -19,7 +19,7 @@ function AssetManager() {
     };
 
     var start = function() {
-        sb.subscribe('assetload', function(name, assetname) {
+        sb.subscribe('assetload', function() {
 
             loadingAmount--;
 
@@ -66,8 +66,8 @@ function AssetManager() {
     var subscribe = function() {
 
     };
-
-    return Object.freeze({ // immutable (see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+    return Object.freeze({
         getMesh,
         getSprite,
         init,

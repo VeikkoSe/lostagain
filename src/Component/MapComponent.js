@@ -2,7 +2,7 @@ function MapComponent() {
     'use strict';
 
     //constructor() {
-    var name = "MapComponent";
+    var name = 'MapComponent';
     //this.map = map;
     var xGridWorldPos = 0;
     var yGridWorldPos = 0;
@@ -23,11 +23,11 @@ function MapComponent() {
     var selecting = false;
     var selectMap = false;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
-    };
+    });
 
     //}
 

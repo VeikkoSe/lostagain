@@ -1,12 +1,10 @@
 function FaceComponent() {
     'use strict';
 
-    var name = "FaceComponent";
+    var name = 'FaceComponent';
     var target;
 
-    //}
-
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -16,6 +14,6 @@ function FaceComponent() {
         setTarget: function(v) {
             target = v;
         }
-    }
+    });
 
 }

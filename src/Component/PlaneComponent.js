@@ -1,14 +1,13 @@
 function PlaneComponent(plane) {
     //constructor(plane) {
-    var name = "PlaneComponent";
-    var plane = plane;
+    var name = 'PlaneComponent';
 
-    return {
+    return Object.freeze({
         getName: function() {
-            return name
+            return name;
         }, getPlane: function() {
-            return plane
+            return plane;
         }
-    }
+    });
 
 }

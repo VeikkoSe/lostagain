@@ -3,12 +3,11 @@ function MultiRenderableComponent(renderables) {
 
     //constructor(renderables) {
     var name = 'MultiRenderable';
-    var renderables = renderables;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }, renderables
-    }
+    });
 
 }

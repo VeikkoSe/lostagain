@@ -66,6 +66,9 @@ function Sandbox(CORE) {
         },
         getEntityCreator: function() {
             return core.getEntityCreator();
+        },
+        getTopics: function() {
+            return core.getTopics();
         }
 
     };

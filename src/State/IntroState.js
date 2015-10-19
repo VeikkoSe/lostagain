@@ -1,4 +1,4 @@
-function introstate_constructor(sb) {
+function IntroState(sb) {
     'use strict';
 
     //var {game} = params;

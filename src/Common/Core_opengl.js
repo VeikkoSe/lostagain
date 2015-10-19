@@ -50,7 +50,9 @@ function Core(width, height) {
     //sm = shader_manager_constuctor(gl);
 
 }
+/**
 
+ */
 Core.prototype.create_module = function(func) {
     'use strict';
 
@@ -150,6 +152,9 @@ Core.prototype.getResolutionWidth = function() {
 
 Core.prototype.getResolutionHeight = function() {
     return this.height;
+};
+Core.prototype.getTopics = function() {
+    return this.topics;
 };
 
 // Publish or broadcast events of interest

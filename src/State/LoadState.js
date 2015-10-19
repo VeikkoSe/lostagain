@@ -1,4 +1,4 @@
-function loadstate_constructor(sb) {
+function LoadState(sb) {
     'use strict';
 
     //var {game,wantedState} = params;
@@ -137,12 +137,12 @@ function loadstate_constructor(sb) {
 
     };
 
-    return {
+    return Object.freeze({
         init,
         draw,
         update,
         cleanup,
         subscribe
-    };
+    });
 
 }

@@ -1,7 +1,7 @@
 function RotationComponent(x, y, z) {
     'use strict';
 
-    var name = "RotationComponent";
+    var name = 'RotationComponent';
 
     return Object.freeze({
         getName: function() {
@@ -20,4 +20,5 @@ function RotationComponent(x, y, z) {
     });
 
 }
+
 

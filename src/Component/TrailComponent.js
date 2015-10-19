@@ -15,7 +15,7 @@ function TrailComponent(sprite, length, width, offSetFromCenter, offSetSideFromC
     var offSetSideFromCenter = offSetSideFromCenter;
 
     //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -66,6 +66,6 @@ function TrailComponent(sprite, length, width, offSetFromCenter, offSetSideFromC
             flow = [];
             texturecoordinates = [];
         }
-    };
+    });
 
 }

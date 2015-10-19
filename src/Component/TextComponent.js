@@ -9,7 +9,7 @@ function TextComponent() {
     var positionX;
     var positionY;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -45,7 +45,7 @@ function TextComponent() {
             return positionY;
 
         }
-    };
+    });
 
 }
 

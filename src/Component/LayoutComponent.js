@@ -4,14 +4,14 @@ function LayoutComponent(laS) {
     var name = "LayoutComponent";
     var layout = laS;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
         getLayout: function() {
             return layout;
         }
-    }
+    });
 
 }
 

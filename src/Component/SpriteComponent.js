@@ -7,10 +7,10 @@ function SpriteComponent(sprite) {
 
     //}
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }, sprite
-    };
+    });
 
 }

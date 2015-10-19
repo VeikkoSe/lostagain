@@ -5,10 +5,10 @@ function StarComponent() {
     var name = 'StarComponent';
     //}
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
-    };
+    });
 
 }

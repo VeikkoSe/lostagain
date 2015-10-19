@@ -1,13 +1,13 @@
 function RailsMovementComponent() {
     //constructor(plane) {
-    var name = "RailsMovementComponent";
+    var name = 'RailsMovementComponent';
     var routeEndXpos;
     var routeEndZpos;
     var routeDone;
     var speed;
     var angle;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -42,6 +42,6 @@ function RailsMovementComponent() {
             return angle;
         }
 
-    };
+    });
 
 }

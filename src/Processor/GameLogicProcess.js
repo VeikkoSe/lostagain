@@ -3,7 +3,7 @@
  * @param {object} sb sandbox
  * @return {object} Closure
  */
-function EntityProcess(sb) {
+function GameLogicProcess(sb) {
 
     // var gl = sb.getGL();
     //var camera = sb.getCamera();
@@ -12,6 +12,7 @@ function EntityProcess(sb) {
     var ec = sb.getEntityCreator();
 
     var init = function() {
+
         sb.subscribe('routeDone', function(name, entity) {
 
             var ms = em.getEntityByName('mothership');
@@ -33,7 +34,7 @@ function EntityProcess(sb) {
         });
 
         sb.subscribe('gameover', function(name, b) {
-            alert('game over. Refresh');
+            //alert('game over. Refresh');
         });
 
         sb.subscribe('enemyDeath', function(name, b) {
@@ -57,8 +58,8 @@ function EntityProcess(sb) {
 
         sb.subscribe('respawn', function(name, b) {
             var ms = em.getEntityByName('mothership');
-
-            if (ms.components.HealthComponent.getAmount() > 0) { //if mothership is destroyed we don't respawn
+            //if mothership is destroyed we don't respawn
+            if (ms.components.HealthComponent.getAmount() > 0) {
 
                 var ship = em.getEntityByName('ship');
 
@@ -78,10 +79,11 @@ function EntityProcess(sb) {
 
     };
 
-    return {
+    return Object.freeze({
         update: function() {
+
         }, draw: function() {
         }, init
-    };
+    });
 
 }

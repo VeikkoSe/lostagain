@@ -8,7 +8,7 @@ function MultiTrailComponent() {
         trailComponents.push(trailComponent);
     };
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -16,6 +16,6 @@ function MultiTrailComponent() {
             return trailComponents;
         },
         addTrail
-    };
+    });
 
 }

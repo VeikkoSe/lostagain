@@ -1,15 +1,12 @@
-function GasComponent(amount) {
+function GasComponent() {
     'use strict';
 
-    var name = "GasComponent";
+    var name = 'GasComponent';
 
-    var amount = amount;
-
-    //   }
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
-    }
+    });
 
 }

@@ -240,6 +240,6 @@ function PostProcess(sb) {
 
     };
 
-    return {update, draw, init};
+    return Object.freeze({update, draw, init});
 
 }

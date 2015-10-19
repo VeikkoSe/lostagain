@@ -1,4 +1,4 @@
-function mapstate_constructor(sb) {
+function MapState(sb) {
     'use strict';
 
     //constructor(canvas) {
@@ -105,12 +105,12 @@ function mapstate_constructor(sb) {
          */
     };
 
-    return {
+    return Object.freeze({
         init,
         subscribe,
         draw,
         update,
         cleanup
-    };
+    });
 
 }

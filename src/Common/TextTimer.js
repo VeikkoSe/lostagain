@@ -1,11 +1,7 @@
 function TextTimer(level) {
     'use strict';
-    //constructor(level) {
 
     var events = {};
-    //this.events['0'] = 'A';
-
-    //}
 
     var init = function() {
         events['2000'] = 'Lights!';
@@ -18,9 +14,9 @@ function TextTimer(level) {
     var getLevelText = function(level) {
         return events;
     };
-    return {
+    return Object.freeze({
         getLevelText,
         init
-    }
+    });
 
 }

@@ -1,8 +1,7 @@
 function MomentumComponent() {
     'use strict';
 
-    var name = "MomentumComponent";
-    var lt = 0;
+    var name = 'MomentumComponent';
     var turnSpeed = 100;
     var speed = 10;
     var acceleration = 50;
@@ -16,7 +15,7 @@ function MomentumComponent() {
     var routeEndYpos = 0;
     var routeEndZpos = 0;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -30,16 +29,16 @@ function MomentumComponent() {
             return speed;
         },
         setSpeed: function(v) {
-            speed = v
+            speed = v;
         },
         getAccelerationAmount: function() {
             return acceleration;
         },
         setAccelerationAmount: function(v) {
-            acceleration = v
+            acceleration = v;
         },
         setCurrentlyAccelerating: function(v) {
-            accelerationOn = v
+            accelerationOn = v;
         },
         getCurrentlyAccelerating: function() {
             return accelerationOn;
@@ -78,7 +77,7 @@ function MomentumComponent() {
             routeEndXpos = v;
         },
         getRouteEndXpos: function() {
-            return routeEndXpos
+            return routeEndXpos;
         },
         setRouteEndYpos: function(v) {
             routeEndYpos = v;
@@ -93,7 +92,7 @@ function MomentumComponent() {
             return routeEndZpos;
         }
 
-    };
+    });
 
 }
 

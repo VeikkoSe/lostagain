@@ -1,18 +1,15 @@
 function SatelliteComponent(sprite) {
     'use strict';
 
-    var name = "GuiComponent";
+    var name = 'GuiComponent';
 
-    var sprite = sprite;
-
-    //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
         getSprite: function() {
             return sprite;
         }
-    }
+    });
 
 }

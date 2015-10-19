@@ -119,10 +119,10 @@ function TeleportProcess(sb) {
         return ret;
 
     };
-    return {
+    return Object.freeze({
         draw, update, init: function() {
         }
-    };
+    });
 
 }
 

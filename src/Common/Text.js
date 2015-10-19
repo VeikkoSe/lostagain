@@ -2333,7 +2333,7 @@ function Text() {
 
     };
 
-    return {
+    return Object.freeze({
         textToC, init, buildData, subscribe: function() {
 
         },
@@ -2347,7 +2347,7 @@ function Text() {
             return position;
         }
 
-    }
+    });
 
 }
 

@@ -1,7 +1,7 @@
 function RenderableComponent() {
     'use strict';
 
-    var name = "RenderableComponent";
+    var name = 'RenderableComponent';
     var angleX = 0;
     var angleY = 0;
     var angleZ = 0;
@@ -13,7 +13,7 @@ function RenderableComponent() {
     var yWidth = 5;
     var zWidth = 5;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -59,7 +59,7 @@ function RenderableComponent() {
             return angleZ;
         },
         setAngleZ: function(v) {
-            angleZ = v
+            angleZ = v;
         },
         getXWidth: function() {
             return xWidth;
@@ -80,7 +80,7 @@ function RenderableComponent() {
         setZWidth: function(v) {
             zWidth = v;
         }
-    };
+    });
 
 }
 

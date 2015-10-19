@@ -1,7 +1,7 @@
 function MeshComponent() {
     'use strict';
 
-    var name = "MeshComponent";
+    var name = 'MeshComponent';
     var mesh = null;
     var width = 5;
 
@@ -19,7 +19,7 @@ function MeshComponent() {
             width = w;
         },
         getMesh: function() {
-            return mesh
+            return mesh;
         },
         setMesh: function(m) {
             mesh = m;
@@ -27,4 +27,3 @@ function MeshComponent() {
     });
 
 }
-

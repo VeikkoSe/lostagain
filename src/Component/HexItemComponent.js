@@ -1,16 +1,12 @@
-function HexItemComponent(itemName) {
+function HexItemComponent() {
     'use strict';
 
-    //constructor(itemName) {
+    var name = 'HexItemComponent';
 
-    var name = "HexItemComponent";
-    var itemName = itemName;
-
-    //}
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         }
-    }
+    });
 
 }

@@ -1,17 +1,14 @@
 function MultiExhaustComponent() {
     'use strict';
 
-    //constructor() {
     var name = 'MultiExhaustComponent';
     var exhaustComponents = [];
-
-    //}
 
     var addExhaust = function(exhaustComponent) {
         exhaustComponents.push(exhaustComponent);
     };
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -19,6 +16,6 @@ function MultiExhaustComponent() {
             return exhaustComponents;
         },
         addExhaust
-    };
+    });
 
 }

@@ -76,7 +76,7 @@ function TextProcess(sb) {
         // }
 
     };
-    return {
+    return Object.freeze({
         draw, update, init
-    }
+    });
 }

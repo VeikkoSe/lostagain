@@ -5,8 +5,6 @@ function AsteroidExplosion(sb, x, y, z, sizeString) {
     'use strict';
     //constructor(x, y, z) {
 
-    var sb = sb;
-
     var size = sizeString;
 
     var time = 0;
@@ -50,17 +48,23 @@ function AsteroidExplosion(sb, x, y, z, sizeString) {
         }
 
         gl.bindBuffer(gl.ARRAY_BUFFER, pointLifetimeBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lifetimes), gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER,
+            new Float32Array(lifetimes), gl.STATIC_DRAW);
+
         pointLifetimeBuffer.itemSize = 1;
         pointLifetimeBuffer.numItems = numParticles;
 
         gl.bindBuffer(gl.ARRAY_BUFFER, pointStartPositionsBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(startPositions), gl.STATIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER,
+            new Float32Array(startPositions), gl.STATIC_DRAW);
+
         pointStartPositionsBuffer.itemSize = 3;
         pointStartPositionsBuffer.numItems = numParticles;
 
         gl.bindBuffer(gl.ARRAY_BUFFER, pointEndPositionsBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(endPositions), gl.STATIC_DRAW);
+
+        gl.bufferData(gl.ARRAY_BUFFER,
+            new Float32Array(endPositions), gl.STATIC_DRAW);
         pointEndPositionsBuffer.itemSize = 3;
         pointEndPositionsBuffer.numItems = numParticles;
 
@@ -93,7 +97,7 @@ function AsteroidExplosion(sb, x, y, z, sizeString) {
             return zPos;
         }
 
-    }
+    };
 
 }
 

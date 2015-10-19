@@ -1,7 +1,7 @@
 function RespawnComponent() {
     'use strict';
 
-    var name = "RespawnComponent";
+    var name = 'RespawnComponent';
     //TODO: If we want to respawn near something
     //If not specified just spawn at a random spot near player
     var target;

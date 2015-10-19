@@ -1,8 +1,7 @@
 function CollisionComponent(group) {
     'use strict';
 
-    var name = "CollisionComponent";
-    var group = group;
+    var name = 'CollisionComponent';
     var xPos = null;
     var yPos = null;
     var zPos = null;
@@ -20,29 +19,27 @@ function CollisionComponent(group) {
         },
 
         setXPos: function(v) {
-            xPos = v
+            xPos = v;
         },
         setYPos: function(v) {
-            yPos = v
+            yPos = v;
         },
         setZPos: function(v) {
-            zPos = v
+            zPos = v;
         },
-
         setXWidth: function(v) {
-            xWidth = v
+            xWidth = v;
         },
         setYWidth: function(v) {
-            yWidth = v
+            yWidth = v;
         },
         setZWidth: function(v) {
-            zWidth = v
+            zWidth = v;
         },
         setEntity: function(v) {
-            entity = v
+            entity = v;
         },
-
-        getGroup: function(v) {
+        getGroup: function() {
             return group;
         },
         getXPos: function() {

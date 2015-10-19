@@ -1,12 +1,10 @@
 function ScoreComponent(amount, sprite) {
     'use strict';
 
-    //constructor(amount, sprite = null) {
     var name = 'ScoreComponent';
     var score = 0;
-    var sprite = sprite;
 
-    return {
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -22,6 +20,6 @@ function ScoreComponent(amount, sprite) {
         getSprite: function(v) {
             return sprite;
         }
-    }
+    });
 
 }

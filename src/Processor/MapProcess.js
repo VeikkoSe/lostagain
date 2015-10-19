@@ -74,9 +74,9 @@ function MapProcess(sb) {
 
         // }
     };
-    return {
+    return Object.freeze({
         update, draw, init: function() {
         }
-    };
+    });
 
 }

@@ -1,19 +1,17 @@
 function JumpAreaComponent(buffer, pts, x, y, z, color) {
     'use strict';
 
-    //constructor(x, y, z, color) {
-    var name = "JumpAreaComponent";
+    var name = 'JumpAreaComponent';
     var radius = 300;
     var pointAmount = 200;
     var xPos = x;
     var yPos = y;
     var zPos = z;
     var points = pts;
-    var color = color;
     var visible = true;
     var vertexPositionBuffer = buffer;
-    //}
-    return {
+
+    return Object.freeze({
         getName: function() {
             return name;
         },
@@ -49,6 +47,6 @@ function JumpAreaComponent(buffer, pts, x, y, z, color) {
             return vertexPositionBuffer;
         }
 
-    }
+    });
 
 }
