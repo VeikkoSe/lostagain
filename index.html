@@ -14,7 +14,7 @@
 <div>
     <canvas id="canvas"></canvas>
 </div>
-<!--<div id="debugarea"></div>-->
+
 <div id="fps" style="color:white;"></div>
 <div id="mp"></div>
 
@@ -26,148 +26,135 @@
 <script type="text/javascript" src="js/gl/webgl-utils.js"></script>
 <script type="text/javascript" src="js/gl/webgl-debug.js"></script>
 
-<!--<script type="text/javascript" src="js/unproject.js"></script>
-<script type='text/javascript' src='js/javascript-astar/astar.js'></script>-->
+<script type="text/javascript" src="src/common/actionMapper.js"></script>
 
-<!--<script type="text/javascript" src="src/Common/Globals.js"></script>-->
+<script type="text/javascript" src="src/state/introState.js"></script>
+<script type="text/javascript" src="src/state/gameState.js"></script>
+<script type="text/javascript" src="src/state/loadState.js"></script>
+<script type="text/javascript" src="src/state/menuState.js"></script>
+<script type="text/javascript" src="src/state/mapState.js"></script>
+<script type="text/javascript" src="src/state/endState.js"></script>
 
-<script type="text/javascript" src="src/Common/ActionMapper.js"></script>
-<!--
-    <script type="text/javascript" src="out/src/ActionMapper/MenuStateActionMapper.js"></script>
-    <script type="text/javascript" src="out/src/ActionMapper/MapStateActionMapper.js"></script>
-    <script type="text/javascript" src="out/src/ActionMapper/EndStateActionMapper.js"></script>
+<script type="text/javascript" src="src/common/Core_opengl.js"></script>
+<script type="text/javascript" src="src/common/stateEngine.js"></script>
 
+<script type="text/javascript" src="src/common/entity.js"></script>
+<script type="text/javascript" src="src/common/entityManager.js"></script>
 
-    <script type="text/javascript" src="out/src/ActionMapper/IntroStateActionMapper.js"></script>
--->
-<script type="text/javascript" src="src/State/IntroState.js"></script>
-<script type="text/javascript" src="src/State/GameState.js"></script>
-<script type="text/javascript" src="src/State/LoadState.js"></script>
+<script type="text/javascript" src="src/common/functions.js"></script>
+<script type="text/javascript" src="src/common/Plane.js"></script>
+<script type="text/javascript" src="src/common/hexagon.js"></script>
 
-<script type="text/javascript" src="src/State/MenuState.js"></script>
-<script type="text/javascript" src="src/State/MapState.js"></script>
-<script type="text/javascript" src="src/State/EndState.js"></script>
-
-<script type="text/javascript" src="src/Common/Core_opengl.js"></script>
-<script type="text/javascript" src="src/Common/StateEngine.js"></script>
-
-<script type="text/javascript" src="src/Common/Entity.js"></script>
-<script type="text/javascript" src="src/Common/EntityManager.js"></script>
-
-<script type="text/javascript" src="src/Common/functions.js"></script>
-<script type="text/javascript" src="src/Common/Plane.js"></script>
-<script type="text/javascript" src="src/Common/Hexagon.js"></script>
-
-<script type="text/javascript" src="src/Common/Camera.js"></script>
-<script type="text/javascript" src="src/Common/PhotonTorpedo.js"></script>
+<script type="text/javascript" src="src/common/camera.js"></script>
+<script type="text/javascript" src="src/common/photonTorpedo.js"></script>
 
 
-<script type="text/javascript" src="src/Common/Loader.js"></script>
-<script type="text/javascript" src="src/Common/Texture.js"></script>
-<script type="text/javascript" src="src/Common/Mesh.js"></script>
-<script type="text/javascript" src="src/Common/AssetManager.js"></script>
-<script type="text/javascript" src="src/Common/Sprite.js"></script>
+<script type="text/javascript" src="src/common/loader.js"></script>
+<script type="text/javascript" src="src/common/textureCreator.js"></script>
+<script type="text/javascript" src="src/common/mesh.js"></script>
+<script type="text/javascript" src="src/common/assetManager.js"></script>
+<script type="text/javascript" src="src/common/sprite.js"></script>
 
-<script type="text/javascript" src="src/Common/Text.js"></script>
-<script type="text/javascript" src="src/Common/ShaderManager.js"></script>
+<script type="text/javascript" src="src/common/text.js"></script>
+<script type="text/javascript" src="src/common/shaderManager.js"></script>
 
-<script type="text/javascript" src="src/Common/Layout.js"></script>
+<script type="text/javascript" src="src/common/layout.js"></script>
 
-<script type="text/javascript" src="src/Common/AsteroidExplosion.js"></script>
-<script type="text/javascript" src="src/Common/TextTimer.js"></script>
-<script type="text/javascript" src="src/Common/EntityCreator.js"></script>
+<script type="text/javascript" src="src/common/asteroidExplosion.js"></script>
+<script type="text/javascript" src="src/common/textTimer.js"></script>
+<script type="text/javascript" src="src/common/entityCreator.js"></script>
 
 
 
-<script type="text/javascript" src="src/Common/Sandbox.js"></script>
-<script type="text/javascript" src="src/Component/MeshComponent.js"></script>
-<script type="text/javascript" src="src/Component/VisibilityComponent.js"></script>
-<script type="text/javascript" src="src/Component/MomentumComponent.js"></script>
-<script type="text/javascript" src="src/Component/RenderableComponent.js"></script>
+<script type="text/javascript" src="src/common/sandbox.js"></script>
+<script type="text/javascript" src="src/component/meshComponent.js"></script>
+<script type="text/javascript" src="src/component/visibilityComponent.js"></script>
+<script type="text/javascript" src="src/component/momentumComponent.js"></script>
+<script type="text/javascript" src="src/component/renderableComponent.js"></script>
 
 
-<script type="text/javascript" src="src/Component/StarComponent.js"></script>
+<script type="text/javascript" src="src/component/starComponent.js"></script>
 
-<script type="text/javascript" src="src/Component/ControllableComponent.js"></script>
-<script type="text/javascript" src="src/Component/MovableComponent.js"></script>
-
-
-<script type="text/javascript" src="src/Component/MultiRenderableComponent.js"></script>
-<script type="text/javascript" src="src/Component/CameraTargetComponent.js"></script>
-<script type="text/javascript" src="src/Component/SelectableComponent.js"></script>
-<script type="text/javascript" src="src/Component/RespawnComponent.js"></script>
-
-<script type="text/javascript" src="src/Component/PlaneComponent.js"></script>
-<script type="text/javascript" src="src/Component/SpriteComponent.js"></script>
-<script type="text/javascript" src="src/Component/HealthComponent.js"></script>
-<script type="text/javascript" src="src/Component/ShieldComponent.js"></script>
-<script type="text/javascript" src="src/Component/EnemyComponent.js"></script>
-<script type="text/javascript" src="src/Component/PhotonTorpedoComponent.js"></script>
-<script type="text/javascript" src="src/Component/GunComponent.js"></script>
-<script type="text/javascript" src="src/Component/FaceComponent.js"></script>
-
-<script type="text/javascript" src="src/Component/RotationComponent.js"></script>
-
-<script type="text/javascript" src="src/Component/JumpAreaComponent.js"></script>
-
-<script type="text/javascript" src="src/Component/DrivableComponent.js"></script>
-<script type="text/javascript" src="src/Component/ExhaustComponent.js"></script>
-<script type="text/javascript" src="src/Component/TrailComponent.js"></script>
-<script type="text/javascript" src="src/Component/MultiTrailComponent.js"></script>
-<script type="text/javascript" src="src/Component/GuiComponent.js"></script>
-<script type="text/javascript" src="src/Component/AsteroidComponent.js"></script>
-<script type="text/javascript" src="src/Component/RadarComponent.js"></script>
-<script type="text/javascript" src="src/Component/CurrencyComponent.js"></script>
-<script type="text/javascript" src="src/Component/CollisionComponent.js"></script>
-<script type="text/javascript" src="src/Component/MapComponent.js"></script>
-<script type="text/javascript" src="src/Component/PrimitiveComponent.js"></script>
-<script type="text/javascript" src="src/Component/TextComponent.js"></script>
-<script type="text/javascript" src="src/Component/GasComponent.js"></script>
-<script type="text/javascript" src="src/Component/HexItemComponent.js"></script>
-<script type="text/javascript" src="src/Component/JumpHoldComponent.js"></script>
-<script type="text/javascript" src="src/Component/LayoutComponent.js"></script>
-<script type="text/javascript" src="src/Component/LaserComponent.js"></script>
-<script type="text/javascript" src="src/Component/SatelliteComponent.js"></script>
-<script type="text/javascript" src="src/Component/MultiExhaustComponent.js"></script>
-<script type="text/javascript" src="src/Component/RailsMovementComponent.js"></script>
-<script type="text/javascript" src="src/Component/ChaseComponent.js"></script>
-<script type="text/javascript" src="src/Component/ScoreComponent.js"></script>
-
-<script type="text/javascript" src="src/Processor/LinearMovementProcess.js"></script>
-
-<script type="text/javascript" src="src/Processor/MovementProcess.js"></script>
-<script type="text/javascript" src="src/Processor/AsteroidRenderProcess.js"></script>
+<script type="text/javascript" src="src/component/controllableComponent.js"></script>
+<script type="text/javascript" src="src/component/movableComponent.js"></script>
 
 
-<script type="text/javascript" src="src/Processor/CameraControllerProcess.js"></script>
-<script type="text/javascript" src="src/Processor/PrimitiveProcess.js"></script>
-<script type="text/javascript" src="src/Processor/TeleportProcess.js"></script>
-<script type="text/javascript" src="src/Processor/StarProcess.js"></script>
-<script type="text/javascript" src="src/Processor/ChaseProcess.js"></script>
-<script type="text/javascript" src="src/Processor/FaceProcess.js"></script>
-<script type="text/javascript" src="src/Processor/TextProcess.js"></script>
-<script type="text/javascript" src="src/Processor/GunProcess.js"></script>
-<script type="text/javascript" src="src/Processor/PostProcess.js"></script>
-<script type="text/javascript" src="src/Processor/LaserProcess.js"></script>
-<script type="text/javascript" src="src/Processor/ExhaustProcess.js"></script>
-<script type="text/javascript" src="src/Processor/TrailProcess.js"></script>
-<script type="text/javascript" src="src/Processor/ExplosionProcess.js"></script>
-<script type="text/javascript" src="src/Processor/LayoutProcess.js"></script>
-<script type="text/javascript" src="src/Processor/CollisionProcess.js"></script>
-<script type="text/javascript" src="src/Processor/MapProcess.js"></script>
-<script type="text/javascript" src="src/Processor/Text2dProcess.js"></script>
-<script type="text/javascript" src="src/Processor/TimedTextProcess.js"></script>
-<script type="text/javascript" src="src/Processor/ScoreProcess.js"></script>
-<script type="text/javascript" src="src/Processor/ShieldProcess.js"></script>
-<script type="text/javascript" src="src/Processor/PauseProcess.js"></script>
+<script type="text/javascript" src="src/component/multiRenderableComponent.js"></script>
+<script type="text/javascript" src="src/component/cameraTargetComponent.js"></script>
+<script type="text/javascript" src="src/component/selectableComponent.js"></script>
+<script type="text/javascript" src="src/component/respawnComponent.js"></script>
 
-<script type="text/javascript" src="src/Processor/GameLogicProcess.js"></script>
+<script type="text/javascript" src="src/component/planeComponent.js"></script>
+<script type="text/javascript" src="src/component/spriteComponent.js"></script>
+<script type="text/javascript" src="src/component/healthComponent.js"></script>
+<script type="text/javascript" src="src/component/shieldComponent.js"></script>
+<script type="text/javascript" src="src/component/enemyComponent.js"></script>
+<script type="text/javascript" src="src/component/photonTorpedoComponent.js"></script>
+<script type="text/javascript" src="src/component/gunComponent.js"></script>
+<script type="text/javascript" src="src/component/faceComponent.js"></script>
+
+<script type="text/javascript" src="src/component/rotationComponent.js"></script>
+
+<script type="text/javascript" src="src/component/jumpAreaComponent.js"></script>
+
+<script type="text/javascript" src="src/component/drivableComponent.js"></script>
+<script type="text/javascript" src="src/component/exhaustComponent.js"></script>
+<script type="text/javascript" src="src/component/trailComponent.js"></script>
+<script type="text/javascript" src="src/component/multiTrailComponent.js"></script>
+<script type="text/javascript" src="src/component/guiComponent.js"></script>
+<script type="text/javascript" src="src/component/asteroidComponent.js"></script>
+<script type="text/javascript" src="src/component/radarComponent.js"></script>
+<script type="text/javascript" src="src/component/currencyComponent.js"></script>
+<script type="text/javascript" src="src/component/collisionComponent.js"></script>
+<script type="text/javascript" src="src/component/mapComponent.js"></script>
+<script type="text/javascript" src="src/component/primitiveComponent.js"></script>
+<script type="text/javascript" src="src/component/textComponent.js"></script>
+<script type="text/javascript" src="src/component/gasComponent.js"></script>
+<script type="text/javascript" src="src/component/hexItemComponent.js"></script>
+<script type="text/javascript" src="src/component/jumpHoldComponent.js"></script>
+<script type="text/javascript" src="src/component/layoutComponent.js"></script>
+<script type="text/javascript" src="src/component/laserComponent.js"></script>
+<script type="text/javascript" src="src/component/satelliteComponent.js"></script>
+<script type="text/javascript" src="src/component/multiExhaustComponent.js"></script>
+<script type="text/javascript" src="src/component/railsMovementComponent.js"></script>
+<script type="text/javascript" src="src/component/chaseComponent.js"></script>
+<script type="text/javascript" src="src/component/scoreComponent.js"></script>
+
+<script type="text/javascript" src="src/processor/linearMovementProcess.js"></script>
+
+<script type="text/javascript" src="src/processor/movementProcess.js"></script>
+<script type="text/javascript" src="src/processor/asteroidRenderProcess.js"></script>
 
 
-<script type="text/javascript" src="src/Processor/RenderProcess.js"></script>
+<script type="text/javascript" src="src/processor/cameraControllerProcess.js"></script>
+<script type="text/javascript" src="src/processor/primitiveProcess.js"></script>
+<script type="text/javascript" src="src/processor/teleportProcess.js"></script>
+<script type="text/javascript" src="src/processor/starProcess.js"></script>
+<script type="text/javascript" src="src/processor/chaseProcess.js"></script>
+<script type="text/javascript" src="src/processor/faceProcess.js"></script>
+<script type="text/javascript" src="src/processor/textProcess.js"></script>
+<script type="text/javascript" src="src/processor/gunProcess.js"></script>
+<script type="text/javascript" src="src/processor/postProcess.js"></script>
+<script type="text/javascript" src="src/processor/laserProcess.js"></script>
+<script type="text/javascript" src="src/processor/exhaustProcess.js"></script>
+<script type="text/javascript" src="src/processor/trailProcess.js"></script>
+<script type="text/javascript" src="src/processor/explosionProcess.js"></script>
+<script type="text/javascript" src="src/processor/layoutProcess.js"></script>
+<script type="text/javascript" src="src/processor/collisionProcess.js"></script>
+<script type="text/javascript" src="src/processor/mapProcess.js"></script>
+<script type="text/javascript" src="src/processor/text2dProcess.js"></script>
+<script type="text/javascript" src="src/processor/timedTextProcess.js"></script>
+<script type="text/javascript" src="src/processor/scoreProcess.js"></script>
+<script type="text/javascript" src="src/processor/shieldProcess.js"></script>
+<script type="text/javascript" src="src/processor/pauseProcess.js"></script>
+
+<script type="text/javascript" src="src/processor/gameLogicProcess.js"></script>
 
 
-<script type="text/javascript" src="src/Common/Audio.js"></script>
+<script type="text/javascript" src="src/processor/renderProcess.js"></script>
+
+
+<script type="text/javascript" src="src/common/audio.js"></script>
 
 
 

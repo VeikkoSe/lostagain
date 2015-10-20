@@ -1,4 +1,4 @@
-function Texture(sandbox) {
+function textureCreator(sandbox) {
     'use strict';
 
     var loadedTexture = null;
