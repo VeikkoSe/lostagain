@@ -32,10 +32,17 @@ function getImages($maxSize, $path) {
     return $imagesBySize;
 }
 
-$max = 2048;
+
 $max = 4096;
 $path = "../resources/images/";
 $imageArray = getImages($max, $path);
+$total = 0;
+foreach ($imageArray as $size => $images) {  
+  $total += $size*$size;
+}
+echo (1024*1024)."\n";
+
+echo ($total)."\n";
 
 
 
@@ -172,9 +179,9 @@ foreach ($imageArray as $size => $images) {
 
 
 
-header('Content-Type: image/png');
+//header('Content-Type: image/png');
 
-imagepng($dest_img);
-imagedestroy($dest_img);
+//imagepng($dest_img);
+//imagedestroy($dest_img);
 
 
