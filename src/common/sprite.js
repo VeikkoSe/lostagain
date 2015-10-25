@@ -9,6 +9,7 @@ function sprite(sandbox) {
     var itemSize = 3;
     var numParticles = 1;
     var pointStartPositionsBuffer = null;
+    var spriteName = null;
 
     var load = function(name, noflip, repeat) {
 
@@ -16,6 +17,7 @@ function sprite(sandbox) {
 
         texture = t.getLoadedTexture();
         //var texture =;
+        spriteName = name;
 
         var pointStartPositionsBuffer = gl.createBuffer();
 
@@ -44,6 +46,9 @@ function sprite(sandbox) {
         },
         getBuffer: function() {
             return pointStartPositionsBuffer;
+        },
+        getName: function() {
+            return spriteName;
         }
     });
 }

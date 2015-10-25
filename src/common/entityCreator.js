@@ -38,6 +38,11 @@ function entityCreator() {
         mc.setMesh(mesh);
         e.addComponent(mc);
 
+        var shieldBubbleMesh = am.getMesh('fuel');
+
+        var shieldBubble = meshComponent();
+        shieldBubble.setMesh(shieldBubbleMesh);
+
         var moc = momentumComponent();
         moc.setTurnSpeed(250);
         moc.setSpeed(50);
@@ -58,7 +63,7 @@ function entityCreator() {
         pc.setPointStartPositionBuffer(sb.getGL().createBuffer());
 
         e.addComponent(pc);
-        e.addComponent(shieldComponent(3, am.getSprite('shield')));
+        e.addComponent(shieldComponent(3, am.getSprite('shield'), am.getMesh('shieldbubble'), 8));
 
         e.addComponent(collisionComponent('player'));
 
@@ -208,11 +213,25 @@ function entityCreator() {
         var e = em.addNew('enemymirror');
         var mesh = am.getMesh('enemy');
 
-        e.addComponent(chaseComponent(20));
         var m = meshComponent();
         m.setMesh(mesh);
         e.addComponent(m);
         e.addComponent(chaseComponent(50));
+
+        var pc = pulseGunComponent(am.getSprite('bigbullet'));
+
+        var bullets = [];
+        for (var i = 0; i < pc.getBulletsAmount(); i++) {
+            var bulVar = photonTorpedoComponent();
+            bullets.push(bulVar);
+        }
+
+        pc.setBullets(bullets);
+
+        pc.setPointStartPositionBuffer(sb.getGL().createBuffer());
+
+        e.addComponent(pc);
+
         //e.addComponent(EnemyComponent());
 
         //e.addComponent(HealthComponent(2));
@@ -223,6 +242,8 @@ function entityCreator() {
 
         rc.setXPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
         rc.setZPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
+        //rc.setXPos(randomCloseInt());
+        //rc.setZPos(randomCloseInt());
         e.addComponent(rc);
 
         e.addComponent(collisionComponent('enemy'));
@@ -250,6 +271,8 @@ function entityCreator() {
     var createMotherShip = function(target) {
 
         var e = em.addNew('mothership');
+
+        e.addComponent(shieldComponent(3, am.getSprite('shield'), am.getMesh('shieldbubble'), 20));
 
         e.addComponent(satelliteComponent(am.getMesh('satellite')));
 
@@ -280,7 +303,7 @@ function entityCreator() {
         e.addComponent(tc);
 
         e.addComponent(healthComponent(4, am.getSprite('hp')));
-        e.addComponent(shieldComponent(2, am.getSprite('shield')));
+
         e.addComponent(controllableComponent());
 
         e.addComponent(visibilityComponent());

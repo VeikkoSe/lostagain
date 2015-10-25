@@ -9,14 +9,13 @@ function gameState(sb) {
     var lastTime = 0;
 
     var processList = [];
+    var processListNoPause = [];
+    var pause = false;
     var startTime = null;
     var em = sb.getEntityManager();
 
     var fb = null;
     var running = true;
-    var pause = false;
-    var pProcess;
-    var cControllerProcess;
 
     var subscribe = function() {
 
@@ -49,7 +48,6 @@ function gameState(sb) {
         processList.push(movementProcess(sb));
         processList.push(exhaustProcess(sb));
         processList.push(trailProcess(sb));
-        processList.push(explosionProcess(sb));
         processList.push(collisionProcess(sb));
         processList.push(renderProcess(sb));
         processList.push(starProcess(sb));
@@ -60,13 +58,15 @@ function gameState(sb) {
         processList.push(text2dProcess(sb));
         processList.push(textProcess(sb));
         processList.push(layoutProcess(sb));
-
         processList.push(shieldProcess(sb));
 
-        cControllerProcess = cameraControllerProcess(sb);
-        pProcess = pauseProcess(sb);
-        pProcess.init();
-        cControllerProcess.init();
+        processListNoPause.push(explosionProcess(sb));
+        processListNoPause.push(cameraControllerProcess(sb));
+        processListNoPause.push(pauseProcess(sb));
+
+        for (var i = 0; i < processListNoPause.length; i++) {
+            processListNoPause[i].init();
+        }
 
         for (var i = 0; i < processList.length; i++) {
             processList[i].init();
@@ -81,6 +81,7 @@ function gameState(sb) {
     };
 
     var update = function() {
+        // console.time('Update');
 
         var timeNow = new Date().getTime();
 
@@ -89,40 +90,41 @@ function gameState(sb) {
         if (lastTime !== 0) {
 
             var totalElapsed = timeNow - startTime;
-
-            pProcess.update();
-            cControllerProcess.update();
-
-            if (!running || pause) {
-                return false;
-            }
             var elapsed = timeNow - lastTime;
             elapsedTotal += elapsed;
-            //skip lost frames
-            if (elapsed < 300) {
-                for (var i = 0; i < processList.length; i++) {
-                    processList[i].update(elapsed, totalElapsed);
-                }
+
+            for (var i = 0; i < processListNoPause.length; i++) {
+                processListNoPause[i].update(elapsed, totalElapsed);
             }
 
-            if (elapsedTotal >= 1000) {
+            if (running && !pause) {
 
-                var fps = frameCount;
+                //skip lost frames
+                if (elapsed < 300) {
+                    for (var i = 0; i < processList.length; i++) {
+                        processList[i].update(elapsed, totalElapsed);
+                    }
+                }
 
-                frameCount = 0;
-                elapsedTotal -= 1000;
+                if (elapsedTotal >= 1000) {
 
-                document.getElementById('fps').innerHTML = fps;
+                    var fps = frameCount;
 
+                    frameCount = 0;
+                    elapsedTotal -= 1000;
+
+                    document.getElementById('fps').innerHTML = fps;
+
+                }
             }
         }
         lastTime = timeNow;
-
+        //console.timeEnd('Update');
     };
 
     var draw = function() {
 
-
+        //console.time('Drawing');
 
         //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
@@ -145,13 +147,22 @@ function gameState(sb) {
         //  gl.disable(gl.BLEND);
 
         camera.resetDrawCalls();
+
+        for (var i = 0; i < processListNoPause.length; i++) {
+            for (var e = 0; e < em.entities.length; e++) {
+                var le = em.entities[e];
+                processListNoPause[i].draw(le);
+            }
+        }
+
         for (var i = 0; i < processList.length; i++) {
             for (var e = 0; e < em.entities.length; e++) {
                 var le = em.entities[e];
                 processList[i].draw(le);
             }
         }
-        //console.log(camera.getDrawCalls());
+        //console.timeEnd('Drawing');
+        // console.log(camera.getDrawCalls());
 
     };
 

@@ -59,7 +59,6 @@ function stateEngine() {
 
     var loadNewState = function(wantedState) {
 
-        console.log(wantedState);
         if (states.length > 0) {
 
             states[states.length - 1].cleanup();

@@ -120,7 +120,12 @@ function collisionProcess(sb) {
 
             createHit(hcp, scp);
 
-            if (hcp.getAmount() > 0) {
+            //we don't explode the ship when shield take damage
+            if (scp.getAmount() > 0) {
+                return;
+
+            }
+            else if (hcp.getAmount() > 0) {
                 sb.publish('explosion', pc);
             }
             else {

@@ -16,10 +16,6 @@ function layoutProcess(sb) {
     var vertBuffer;
     // var camera = sb.getCamera();
 
-    var em = sb.getEntityManager();
-
-    //var camera = sb.getCamera();
-
     var init = function() {
 
         vertexPositionBuffer = gl.createBuffer();

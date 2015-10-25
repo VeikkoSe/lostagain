@@ -13,7 +13,7 @@ function explosionProcess(sb) {
 
     var init = function() {
 
-        sprite = am.getSprite('currency');
+        sprite = am.getSprite('smoke');
 
         sb.subscribe('explosion', function(name, entity) {
 
@@ -86,7 +86,13 @@ function explosionProcess(sb) {
         shadermanager.setProgram(particleProgram);
         var mvMatrix = camera.getMVMatrix();
 
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
+        gl.uniform1i(particleProgram.samplerUniform, 0);
+
+// TODO TOO MENY DRAWCALLS, SOME BUG
         for (var i = 0; i < explosions.length; i++) {
+
             camera.mvPushMatrix();
 
             gl.bindBuffer(gl.ARRAY_BUFFER, explosions[i].getPointLifetimeBuffer());
@@ -97,10 +103,6 @@ function explosionProcess(sb) {
 
             gl.bindBuffer(gl.ARRAY_BUFFER, explosions[i].getPointEndPositionsBuffer());
             gl.vertexAttribPointer(particleProgram.pointEndPositionAttribute, explosions[i].getPointEndPositionsBuffer().itemSize, gl.FLOAT, false, 0, 0);
-
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
-            gl.uniform1i(particleProgram.samplerUniform, 0);
 
             gl.uniformMatrix4fv(particleProgram.uPMatrix, false, camera.getPMatrix());
             gl.uniformMatrix4fv(particleProgram.uMVMatrix, false, mvMatrix);
@@ -113,6 +115,7 @@ function explosionProcess(sb) {
             gl.drawArrays(gl.POINTS, 0, explosions[i].getPointLifetimeBuffer().numItems);
             camera.addDrawCall();
             camera.mvPopMatrix();
+
         }
 
         gl.enable(gl.DEPTH_TEST);

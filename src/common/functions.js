@@ -9,11 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function createHit(hc, sc) {
+    'use strict';
     var timeNow = new Date().getTime();
 
-    if (sc && sc.getLastHit() === 0) {
-
+    if (sc) {
         sc.setLastHit(timeNow);
+        if (sc.getLastShieldAdded() === 0) {
+
+            sc.setLastShieldAdded(timeNow); //TODO: Combine variables
+
+        }
     }
 
     if (sc && sc.getAmount() > 0) {
@@ -32,18 +37,19 @@ function createHit(hc, sc) {
 }
 
 function randomRangedInt() {
-
+    'use strict';
     var rnd = getRandomInt(500, -500);
     if (rnd > 300 ||
         rnd < -300) {
         return rnd;
     }
-    else
+    else {
         return randomRangedInt();
-};
+    }
+}
 
 function randomRangedIntFromPos(pos) {
-
+    'use strict';
     var rnd = getRandomInt(800 + pos, -800 + pos);
     if (rnd > 600 + pos ||
         rnd < -600 + pos) {
@@ -51,10 +57,10 @@ function randomRangedIntFromPos(pos) {
     }
     else
         return randomRangedIntFromPos(pos);
-};
+}
 
 function randomCloseInt() {
-
+    'use strict';
     return getRandomInt(30, -30);
 
 };
@@ -110,36 +116,8 @@ function viewport() {
     return {width: e[a + 'Width'], height: e[a + 'Height']};
 }
 
-function updateLightPosition() {
-    'use strict';
-    var x = $('#slider-x').slider('value');
-    var y = $('#slider-y').slider('value');
-    var z = $('#slider-z').slider('value');
-    $('#slider-x-value').html(x);
-    $('#slider-y-value').html(y);
-    $('#slider-z-value').html(z);
-}
-
-function updateCameraPosition() {
-    'use strict';
-    var x = $('#cslider-x').slider('value');
-    var y = $('#cslider-y').slider('value');
-    var z = $('#cslider-z').slider('value');
-
-    $('#cslider-x-value').html(x);
-    $('#cslider-y-value').html(y);
-    $('#cslider-z-value').html(z);
-}
-
-function updateRotation() {
-    'use strict';
-    var x = $('#rslider-x').slider('value');
-    $('#rotslider-x-value').html(x);
-
-}
-
 function intersectionpoint(A, B) {
-
+    'use strict';
 //http://stackoverflow.com/questions/2447361/3d-line-plane-intersection-with-simple-plane
     var r = -A[1] / B[1];
 
@@ -188,12 +166,17 @@ function isCloseOrbit(currentCoord, newCoord) {
 
 function mouseX(e) {
     'use strict';
-    if (e.pageX) return e.pageX;
-    else if (e.clientX)
+    if (e.pageX) {
+        return e.pageX;
+    }
+    else if (e.clientX) {
         return e.clientX + (document.documentElement.scrollLeft ?
                 document.documentElement.scrollLeft :
                 document.body.scrollLeft);
-    else return null;
+    }
+    else {
+        return null;
+    }
 }
 
 function isNumeric(n) {
@@ -203,23 +186,17 @@ function isNumeric(n) {
 
 function mouseY(e) {
     'use strict';
-    if (e.pageY) return e.pageY;
-    else if (e.clientY)
+    if (e.pageY) {
+        return e.pageY;
+    }
+    else if (e.clientY) {
         return e.clientY + (document.documentElement.scrollTop ?
                 document.documentElement.scrollTop :
                 document.body.scrollTop);
-    else return null;
-}
-
-function simpleWorldToViewX(x) {
-    'use strict';
-    return x / resolutionWidth;
-}
-
-function simpleWorldToViewY(y) {
-    'use strict';
-
-    return y / resolutionHeight;
+    }
+    else {
+        return null;
+    }
 }
 
 /*

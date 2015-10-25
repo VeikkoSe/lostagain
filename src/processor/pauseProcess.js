@@ -8,13 +8,7 @@ function pauseProcess(sb) {
         //need to store both eventually and show the onkeypress code
         // and use the onkeydown
         //
-        if ((oks[key] == false || typeof oks[key] === 'undefined') && ks[key] == true) {
-
-            return true;
-        }
-        else {
-            return false;
-        }
+        return ((oks[key] === false || typeof oks[key] === 'undefined') && ks[key] === true);
 
     };
     var update = function() {
