@@ -147,24 +147,26 @@ function entityCreator() {
 
     var createLayout = function(mothership, ship, radar, currency) {
         var e = em.addNew();
-        var lm = [];
+        var lm = layoutComponent(0.0, 0.0, am.getSprite('mothershipicon'));
 
-        var lt = layout(0, 0.95);
+        var lt = layoutComponent(0, 0, false, mothership.components.HealthComponent/*mothership.components.ScoreComponent*/);
+        lm.addChildren(lt);
+        /*
+         lt.addChildren(layoutComponent(0, 0, false, mothership.components.ScoreComponent, 8));
 
-        lt.addChildren(layout(0, 0, mothership.components.ScoreComponent, 8));
 
-        lm.push(lt);
 
-        var gt = layout(0, 0.1);
-        gt.addChildren(layout(5, 0, mothership.components.HealthComponent, 8));
-        gt.addChildren(layout(5, 10, mothership.components.ShieldComponent, 8));
-        lm.push(gt);
+         var gt = layoutComponent(0, 0.1,am.getSprite('mothershipicon'));
+         gt.addChildren(layoutComponent(5, 0, false, mothership.components.HealthComponent, 8));
+         gt.addChildren(layoutComponent(5, 10, false, mothership.components.ShieldComponent, 8));
+         lm.addChildren(gt);
 
-        var rt = layout(0, 0);
+         var rt = layoutComponent(0, 0,am.getSprite('shipicon'));
 
-        rt.addChildren(layout(5, 5, ship.components.HealthComponent, 8));
-        rt.addChildren(layout(5, 15, ship.components.ShieldComponent, 8));
-        lm.push(rt);
+         rt.addChildren(layoutComponent(5, 5, false, ship.components.HealthComponent, 8));
+         rt.addChildren(layoutComponent(5, 15, false, ship.components.ShieldComponent, 8));
+         lm.addChildren(rt);
+         */
         /*
          if (radar) {
 
@@ -178,7 +180,7 @@ function entityCreator() {
          lm.push(lh);
          }
          */
-        e.addComponent(layoutComponent(lm));
+        e.addComponent(lm);
 
     };
 

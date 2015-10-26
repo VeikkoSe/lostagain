@@ -23,7 +23,7 @@ function Core(width, height) {
     this.createModule(loader());
     this.createModule(camera());
     this.createModule(shaderManager());
-    this.createModule(layout());
+
     this.createModule(text());
     this.createModule(entityCreator());
     this.createModule(stateEngine());
@@ -85,15 +85,15 @@ Core.prototype.startSandbox = function() {
 
 Core.prototype.initModules = function() {
     'use strict';
-
+    //TODO: REFACTOR
     this.actionMapper = this.modules[0];
     this.entityManager = this.modules[1];
     this.assetManager = this.modules[2];
     this.camera = this.modules[4];
     this.sm = this.modules[5];
-    this.text = this.modules[7];
-    this.stateEngine = this.modules[9];
-    this.entityCreator = this.modules[8];
+    this.text = this.modules[6];
+    this.entityCreator = this.modules[7];
+    this.stateEngine = this.modules[8];
 
 };
 

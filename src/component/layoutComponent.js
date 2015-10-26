@@ -1,21 +1,56 @@
-function layoutComponent(laS) {
+function layoutComponent(xPos, yPos, icon, numberComponent) {
     'use strict';
 
     var name = 'LayoutComponent';
-    var layout = laS;
+
+    var children = [];
+    var size = 32;
 
     return Object.freeze({
+
         getName: function() {
             return name;
         },
-        getLayout: function() {
-            return layout;
+        getChildren: function() {
+            return children;
+        },
+        getXPos: function() {
+            return xPos;
+        },
+        setXPos: function(v) {
+            xPos = v;
+        },
+        getYPos: function() {
+            return yPos;
+        },
+        setIcon: function(v) {
+            icon = v;
+        },
+        getIcon: function() {
+            return icon;
+        },
+
+        getSize: function() {
+            return size;
+        },
+        setSize: function(v) {
+            size = v;
+        },
+        getComponent: function() {
+            return numberComponent;
+        },
+        addChildren: function(layoutComponent) {
+            children.push(layoutComponent);
+        },
+        init: function() {
+
+        },
+        start: function() {
+
+        },
+        subscribe: function() {
+
         }
     });
 
 }
-
-
-
-
-

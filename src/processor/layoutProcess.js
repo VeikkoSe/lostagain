@@ -54,7 +54,9 @@ function layoutProcess(sb) {
 
     var calculatePd = function(x, y, xminus, yminus, layout) {
 
-        var rh = sb.getResolutionHeight() / 256;
+        //console.log(x,y,xminus,yminus,layout);
+
+        var rh = sb.getResolutionHeight() / (sb.getResolutionHeight() / 2);
 
         var y2 = y + (simpleWorldToViewY(1) * layout.getSize() * rh);
         var x2 = x + (simpleWorldToViewX(1) * layout.getSize() * rh);
@@ -72,54 +74,60 @@ function layoutProcess(sb) {
             x = x2;
             x2 = tmp;
         }
+
         return setRectangle(x, y, x2, y2);
     };
 
-    var recursiveLayout = function(lloop, parent) {
+    var recursiveLayout = function(layoutComponent, parent) {
 
-        for (var i = 0; i < lloop.length; i++) {
+        var rh = sb.getResolutionHeight() / 256;
 
-            if (lloop[i].getComponent()) {
-                var rh = sb.getResolutionHeight() / 256;
+        //right side of the screen, we minus so we get correct coordinates regardless of window size
+        var x = (parent.getXPos()) + ((simpleWorldToViewX(1) * layoutComponent.getXPos()) * rh);
+        var y = (parent.getYPos()) + ((simpleWorldToViewY(1) * layoutComponent.getYPos()) * rh);
+        var xminus = false;
+        var yminus = false;
+        if (parent.getXPos() === 1) {
+            x = parent.getXPos() - ((simpleWorldToViewX(1) * layoutComponent.getXPos()) * rh);
+            xminus = true;
+        }
+        if (parent.getYPos() === 1) {
+            y = parent.getYPos() - ((simpleWorldToViewY(1) * layoutComponent.getYPos()) * rh);
+            yminus = true;
+        }
 
-                //right side of the screen, we minus so we get correct coordinates regardless of window size
-                var x = (parent.getXPos()) + ((simpleWorldToViewX(1) * lloop[i].getXPos()) * rh);
-                var y = (parent.getYPos()) + ((simpleWorldToViewY(1) * lloop[i].getYPos()) * rh);
-                var xminus = false;
-                var yminus = false;
-                if (parent.getXPos() === 1) {
-                    x = parent.getXPos() - ((simpleWorldToViewX(1) * lloop[i].getXPos()) * rh);
-                    xminus = true;
-                }
-                if (parent.getYPos() === 1) {
-                    y = parent.getYPos() - ((simpleWorldToViewY(1) * lloop[i].getYPos()) * rh);
-                    yminus = true;
-                }
+        var pd = calculatePd(x/* + add*/, y, xminus, yminus, layoutComponent);
 
-                //healt and shield icons are looped
-                var loop = 1;
-                if (lloop[i].getComponent().getAmount() && lloop[i].getComponent().getAmount() > 0) {
-                    loop = lloop[i].getComponent().getAmount();
-                }
-                else {
-                    loop = 0;
-                }
+        render(layoutComponent.getIcon(), pd);
 
-                if (loop > 0) {
-                    for (var h = 0; h < loop; h++) {
-                        var add = h * (simpleWorldToViewY(1) * lloop[i].getSize() * rh);
+        var numberComponent = layoutComponent.getComponent();
+        if (numberComponent) {
 
-                        var pd = calculatePd(x + add, y, xminus, yminus, lloop[i]);
-                        render(lloop[i], pd);
+            var amount = numberComponent.getAmount();
 
-                    }
+            for (var g = 0; g < amount; g++) {
+                if (numberComponent.getSprite()) {
+
+                    var add = g * (simpleWorldToViewY(1) * (layoutComponent.getSize() * rh));
+
+                    var psub = calculatePd(x + add, y, xminus, yminus, layoutComponent);
+                    render(numberComponent.getSprite(), psub);
+
                 }
 
-            }
-            if (lloop[i].getChildren().length > 0) {
-                recursiveLayout(lloop[i].getChildren(), lloop[i]);
             }
         }
+
+        var childAmount = layoutComponent.getChildren().length;
+        var children = layoutComponent.getChildren();
+
+        for (var i = 0; i < childAmount; i++) {
+            if (parent.getIcon()) {
+                children[i].setXPos(parent.getXPos() + (parent.getSize() * rh));
+            }
+            recursiveLayout(children[i], layoutComponent);
+        }
+
     };
 
     var setRectangle = function(x, y, x2, y2) {
@@ -140,7 +148,11 @@ function layoutProcess(sb) {
 
     };
 
-    var render = function(layout, pd) {
+    var render = function(layoutIcon, pd) {
+
+        if (typeof layoutIcon === 'undefined' || layoutIcon === false) {
+            return false;
+        }
 
         vertBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
@@ -152,7 +164,7 @@ function layoutProcess(sb) {
         gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
         gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
-        var texture = layout.getComponent().getSprite().getTexture();
+        var texture = layoutIcon.getTexture();
 
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -169,7 +181,7 @@ function layoutProcess(sb) {
 
             shadermanager.setProgram(program);
 
-            recursiveLayout(le.components.LayoutComponent.getLayout(), false);
+            recursiveLayout(le.components.LayoutComponent, le.components.LayoutComponent);
         }
 
     };
