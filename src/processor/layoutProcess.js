@@ -54,23 +54,22 @@ function layoutProcess(sb) {
 
     var calculatePd = function(x, y, xminus, yminus, layout) {
 
-        //console.log(x,y,xminus,yminus,layout);
-
         var rh = sb.getResolutionHeight() / (sb.getResolutionHeight() / 2);
 
         var y2 = y + (simpleWorldToViewY(1) * layout.getSize() * rh);
         var x2 = x + (simpleWorldToViewX(1) * layout.getSize() * rh);
 
+        var tmp;
         if (yminus) {
 
             y2 = y - (simpleWorldToViewY(1) * layout.getSize() * rh);
-            var tmp = y;
+            tmp = y;
             y = y2;
             y2 = tmp;
         }
         if (xminus) {
             x2 = x - (simpleWorldToViewX(1) * layout.getSize() * rh);
-            var tmp = x;
+            tmp = x;
             x = x2;
             x2 = tmp;
         }
@@ -80,51 +79,46 @@ function layoutProcess(sb) {
 
     var recursiveLayout = function(layoutComponent, parent) {
 
-        var rh = sb.getResolutionHeight() / 256;
+        var rh = sb.getResolutionHeight() / (sb.getResolutionHeight() / 2);
+
+        var childAmount = layoutComponent.getChildren().length;
+        var children = layoutComponent.getChildren();
 
         //right side of the screen, we minus so we get correct coordinates regardless of window size
-        var x = (parent.getXPos()) + ((simpleWorldToViewX(1) * layoutComponent.getXPos()) * rh);
-        var y = (parent.getYPos()) + ((simpleWorldToViewY(1) * layoutComponent.getYPos()) * rh);
-        var xminus = false;
-        var yminus = false;
-        if (parent.getXPos() === 1) {
-            x = parent.getXPos() - ((simpleWorldToViewX(1) * layoutComponent.getXPos()) * rh);
-            xminus = true;
-        }
-        if (parent.getYPos() === 1) {
-            y = parent.getYPos() - ((simpleWorldToViewY(1) * layoutComponent.getYPos()) * rh);
-            yminus = true;
+        var x = (layoutComponent.getXPos());
+        var y = (layoutComponent.getYPos());
+
+        if (layoutComponent.getXPos() > 1) {
+            x = parent.getXPos() + ((simpleWorldToViewX(1) * layoutComponent.getXPos()) * rh);
+            y = parent.getYPos() + ((simpleWorldToViewY(1) * layoutComponent.getYPos()) * rh);
         }
 
-        var pd = calculatePd(x/* + add*/, y, xminus, yminus, layoutComponent);
+        var xminus = false;
+        var yminus = false;
+
+        var pd = calculatePd(x, y, xminus, yminus, layoutComponent);
 
         render(layoutComponent.getIcon(), pd);
 
         var numberComponent = layoutComponent.getComponent();
+
         if (numberComponent) {
 
             var amount = numberComponent.getAmount();
+            if (numberComponent.getSprite() && amount > 0) {
+                for (var g = 0; g < amount; g++) {
 
-            for (var g = 0; g < amount; g++) {
-                if (numberComponent.getSprite()) {
-
-                    var add = g * (simpleWorldToViewY(1) * (layoutComponent.getSize() * rh));
+                    var add = (simpleWorldToViewY(1) * (parent.getSize() * rh)) + g * (simpleWorldToViewY(1) * (layoutComponent.getSize() * rh));
 
                     var psub = calculatePd(x + add, y, xminus, yminus, layoutComponent);
                     render(numberComponent.getSprite(), psub);
 
                 }
-
             }
         }
 
-        var childAmount = layoutComponent.getChildren().length;
-        var children = layoutComponent.getChildren();
-
         for (var i = 0; i < childAmount; i++) {
-            if (parent.getIcon()) {
-                children[i].setXPos(parent.getXPos() + (parent.getSize() * rh));
-            }
+
             recursiveLayout(children[i], layoutComponent);
         }
 
@@ -142,7 +136,7 @@ function layoutProcess(sb) {
 
             x2, y1,
             x1, y2,
-            x2, y2,
+            x2, y2
         ];
         return ret;
 
@@ -181,7 +175,8 @@ function layoutProcess(sb) {
 
             shadermanager.setProgram(program);
 
-            recursiveLayout(le.components.LayoutComponent, le.components.LayoutComponent);
+            recursiveLayout(le.components.LayoutComponent, false);
+
         }
 
     };

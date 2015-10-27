@@ -147,40 +147,30 @@ function entityCreator() {
 
     var createLayout = function(mothership, ship, radar, currency) {
         var e = em.addNew();
-        var lm = layoutComponent(0.0, 0.0, am.getSprite('mothershipicon'));
+        var lg = layoutComponent();
+        lg.setRoot(true);
+        var lm = layoutComponent(0.0, 0.06, am.getSprite('mothershipicon'));
 
-        var lt = layoutComponent(0, 0, false, mothership.components.HealthComponent/*mothership.components.ScoreComponent*/);
-        lm.addChildren(lt);
-        /*
-         lt.addChildren(layoutComponent(0, 0, false, mothership.components.ScoreComponent, 8));
+        var h = layoutComponent(5, 10, false, mothership.components.ShieldComponent);
+        h.setSize(8);
+        lm.addChildren(h);
 
+        var d = layoutComponent(5, 0, false, mothership.components.HealthComponent);
+        d.setSize(8);
+        lm.addChildren(d);
 
+        var ls = layoutComponent(0.0, 0.0, am.getSprite('shipicon'));
+        var j = layoutComponent(5, 10, false, ship.components.ShieldComponent);
+        j.setSize(8);
+        ls.addChildren(j);
 
-         var gt = layoutComponent(0, 0.1,am.getSprite('mothershipicon'));
-         gt.addChildren(layoutComponent(5, 0, false, mothership.components.HealthComponent, 8));
-         gt.addChildren(layoutComponent(5, 10, false, mothership.components.ShieldComponent, 8));
-         lm.addChildren(gt);
+        var a = layoutComponent(5, 0, false, ship.components.HealthComponent);
+        a.setSize(8);
+        ls.addChildren(a);
 
-         var rt = layoutComponent(0, 0,am.getSprite('shipicon'));
-
-         rt.addChildren(layoutComponent(5, 5, false, ship.components.HealthComponent, 8));
-         rt.addChildren(layoutComponent(5, 15, false, ship.components.ShieldComponent, 8));
-         lm.addChildren(rt);
-         */
-        /*
-         if (radar) {
-
-         var lb = layout_constructor(1, 1);
-         lb.addChildren(layout_constructor(5, 5, radar.components.RadarComponent, 55));
-         lm.push(lb);
-         }
-         if (currency) {
-         var lh = layout_constructor(0, 1);
-         lh.addChildren(layout_constructor(5, 5, currency.components.CurrencyComponent, 8));
-         lm.push(lh);
-         }
-         */
-        e.addComponent(lm);
+        lg.addChildren(ls);
+        lg.addChildren(lm);
+        e.addComponent(lg);
 
     };
 

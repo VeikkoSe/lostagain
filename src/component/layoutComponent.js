@@ -4,7 +4,8 @@ function layoutComponent(xPos, yPos, icon, numberComponent) {
     var name = 'LayoutComponent';
 
     var children = [];
-    var size = 32;
+    var size = 16;
+    var root = false;
 
     return Object.freeze({
 
@@ -29,7 +30,12 @@ function layoutComponent(xPos, yPos, icon, numberComponent) {
         getIcon: function() {
             return icon;
         },
-
+        setRoot: function(v) {
+            root = v;
+        },
+        getRoot: function() {
+            return root;
+        },
         getSize: function() {
             return size;
         },

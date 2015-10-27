@@ -37,8 +37,8 @@ function Core(width, height) {
 
     try {
 
-        //this.gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
-        this.gl = WebGLUtils.setupWebGL(canvas);
+        this.gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
+        //this.gl = WebGLUtils.setupWebGL(canvas);
 
     } catch (e) {
 

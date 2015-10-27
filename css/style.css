@@ -19,11 +19,7 @@ body {
      height: 100%;
      overflow: hidden;
  }
-#canvas {
-    //cursor:url('../resources/images/pointer.gif'),url(''),auto;
-   // width: 100%;
-   // height: 100%;
-}
+
 
 
 .matrixdisplay {
