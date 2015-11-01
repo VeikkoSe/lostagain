@@ -1,4 +1,4 @@
-function hexagon(size) {
+function hexagon(size, texture) {
     'use strict';
 
     var hexsizeX = size;
@@ -18,12 +18,10 @@ function hexagon(size) {
     var playerPos = [1, 1];
     var mapArray = [];
     var deniedAmount = 4;
-    var visited = [];
+    //var visited = [];
     var area = null;
     var textureCoordinates = null;
-    var texture = null;
 
-    //constructor(size) {
     var init = function() {
 
         for (var x = 0; x < hexsizeX; x++) {
@@ -36,20 +34,17 @@ function hexagon(size) {
 
         deniedBlocks();
         updateArea();
-
         area = createHexagonArea();
         textureCoordinates = createTextures();
 
-        var tc = texture_constructor(sb);
-        tc.load({name});
-
-        texture = tc.getLoadedTexture();
+        //var tc = texture_constructor(sb);
+        //tc.load({name});
 
     };
     // }
 
     var getPlayerPosXInWC = function() {
-        if (playerPos[1] % 2 == 0 && playerPos[1] != 0) {
+        if (playerPos[1] % 2 === 0 && playerPos[1] !== 0) {
             return playerPos[0] * 7;
         }
         else {
@@ -70,11 +65,11 @@ function hexagon(size) {
             var randX = randomIntFromInterval(0, hexsizeX - 1);
             var randY = randomIntFromInterval(0, hexsizeY - 1);
             //When we originally create the denied blocks we cannot allow the player default position
-            if (randX == playerPos[0] && randY == playerPos[1]) {
+            if (randX === playerPos[0] && randY === playerPos[1]) {
                 amount++;
             }
             //bossblock cannot be denied
-            else if (randX == bossPos[0] && randY == bossPos[1]) {
+            else if (randX === bossPos[0] && randY === bossPos[1]) {
                 amount++;
             }
             //only unique positions
@@ -89,11 +84,12 @@ function hexagon(size) {
     };
 
     var surround = function(x, y) {
-        if (y % 2 == 0 && y != 0) {
-            var pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y + 1]];
+        var pos;
+        if (y % 2 === 0 && y !== 0) {
+            pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y + 1]];
         }
         else {
-            var pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x + 1, y - 1]];
+            pos = [[x, y + 2], [x, y - 2], [x, y - 1], [x, y + 1], [x + 1, y - 1]];
             if (y !== 0) {
                 pos.push([x + 1, y + 1]);
             }
@@ -117,6 +113,7 @@ function hexagon(size) {
 
     var updateArea = function(movingUp, movingDown, movingLeft, movingRight, selecting) {
 
+
         //set all basepositions to "walkable"
         for (var x = 0; x < hexsizeX; x++) {
             mapArray[x] = [];
@@ -130,10 +127,11 @@ function hexagon(size) {
         }
 
         //player is surrounded with positions he can move
-        var surround = surround(playerPos[0], playerPos[1]);
+        var srd = surround(playerPos[0], playerPos[1]);
+
         for (var i = 0; i < surround.length; i++) {
-            mapArray[surround[i][0]][surround[i][1]][0] = movableBlock[0];
-            mapArray[surround[i][0]][surround[i][1]][1] = movableBlock[1];
+            mapArray[srd[i][0]][srd[i][1]][0] = movableBlock[0];
+            mapArray[srd[i][0]][srd[i][1]][1] = movableBlock[1];
         }
 
         //set the player pos with correct color
@@ -144,7 +142,7 @@ function hexagon(size) {
         mapArray[bossPos[0]][bossPos[1]][0] = bossBlock[0];
         mapArray[bossPos[0]][bossPos[1]][1] = bossBlock[1];
 
-        if (playerPos[1] % 2 == 0 && playerPos[1] != 0) {
+        if (playerPos[1] % 2 === 0 && playerPos[1] !== 0) {
 
             movingPosition(movingUp, movingDown, movingLeft, movingRight, selecting);
         }
@@ -170,16 +168,13 @@ function hexagon(size) {
     var possiblemove = function(x, y) {
         //we cant move to deneiedarea
         for (var j = 0; j < deniedArea.length; j++) {
-            if (x == deniedArea[j][0] && y == deniedArea[j][1]) {
+            if (x === deniedArea[j][0] && y === deniedArea[j][1]) {
                 return false;
             }
         }
 
-        if (x >= 0 && y >= 0 && y < hexsizeY && x < hexsizeX) {
-            return true;
-        }
+        return (x >= 0 && y >= 0 && y < hexsizeY && x < hexsizeX);
 
-        return false;
     };
 
     var setSelecting = function(selecting, x, y) {
@@ -189,23 +184,23 @@ function hexagon(size) {
 
             if (le.components.GasComponent) {
                 var gc = le.components.GasComponent;
-                if (gc.amount > 0 && selecting) {
+                if (gc.getAmount() > 0 && selecting) {
                     playerPos = [x, y];
-                    gc.amount--;
+                    gc.setAmount(gc.getAmount() - 1);
 
-                    game.stateEngine.changeState('gamestate');
-                    if (randomIntFromInterval(0, 1) == 1) {
+                    //game.stateEngine.changeState('gamestate');
+                    if (randomIntFromInterval(0, 1) === 1) {
                         // loadManager.loadLevel('third');
                         // game.currentLevel = 'third';
                     }
-                    else if (randomIntFromInterval(0, 1) == 0) {
+                    else if (randomIntFromInterval(0, 1) === 0) {
                         //loadManager.loadLevel('first');
                         //game.currentLevel = 'first';
                     }
-                    else {
-                        // loadManager.loadLevel('second');
-                        //game.currentLevel = 'second';
-                    }
+                    //else {
+                    // loadManager.loadLevel('second');
+                    //game.currentLevel = 'second';
+                    //}
 
                 }
             }
@@ -217,15 +212,15 @@ function hexagon(size) {
         var x = playerPos[0];
         var y = playerPos[1];
 
-        if (movingUp == 1) {
-            if (movingLeft == 1 && possiblemove(x - 1, y - 1)) {
+        if (movingUp === 1) {
+            if (movingLeft === 1 && possiblemove(x - 1, y - 1)) {
                 mapArray[x - 1][y - 1][0] = movingBlock[0];
                 mapArray[x - 1][y - 1][1] = movingBlock[1];
 
                 setSelecting(selecting, x - 1, y - 1);
 
             }
-            else if (movingRight == 1 && possiblemove(x, y - 1)) {
+            else if (movingRight === 1 && possiblemove(x, y - 1)) {
                 mapArray[x][y - 1][0] = movingBlock[0];
                 mapArray[x][y - 1][1] = movingBlock[1];
 
@@ -240,14 +235,14 @@ function hexagon(size) {
             }
         }
 
-        else if (movingDown == 1) {
-            if (movingLeft == 1 && possiblemove(x - 1, y + 1)) {
+        else if (movingDown === 1) {
+            if (movingLeft === 1 && possiblemove(x - 1, y + 1)) {
                 mapArray[x - 1][y + 1][0] = movingBlock[0];
                 mapArray[x - 1][y + 1][1] = movingBlock[1];
                 setSelecting(selecting, x - 1, y + 1);
 
             }
-            else if (movingRight == 1 && possiblemove(x, y + 1)) {
+            else if (movingRight === 1 && possiblemove(x, y + 1)) {
                 mapArray[x][y + 1][0] = movingBlock[0];
                 mapArray[x][y + 1][1] = movingBlock[1];
                 setSelecting(selecting, x, y + 1);
@@ -268,14 +263,14 @@ function hexagon(size) {
         var x = playerPos[0];
         var y = playerPos[1];
 
-        if (movingUp == 1) {
-            if (movingLeft == 1 && possiblemove(x, y - 1)) {
+        if (movingUp === 1) {
+            if (movingLeft === 1 && possiblemove(x, y - 1)) {
                 mapArray[x][y - 1][0] = movingBlock[0];
                 mapArray[x][y - 1][1] = movingBlock[1];
                 setSelecting(selecting, x, y - 1);
 
             }
-            else if (movingRight == 1 && possiblemove(x + 1, y - 1)) {
+            else if (movingRight === 1 && possiblemove(x + 1, y - 1)) {
                 mapArray[x + 1][y - 1][0] = movingBlock[0];
                 mapArray[x + 1][y - 1][1] = movingBlock[1];
                 setSelecting(selecting, x + 1, y - 1);
@@ -287,9 +282,9 @@ function hexagon(size) {
             }
         }
 
-        else if (movingDown == 1) {
-            if (movingLeft == 1 && possiblemove(x, y + 1)) {
-                if (y == 0) {
+        else if (movingDown === 1) {
+            if (movingLeft === 1 && possiblemove(x, y + 1)) {
+                if (y === 0) {
                     mapArray[x - 1][y + 1][0] = movingBlock[0];
                     mapArray[x - 1][y + 1][1] = movingBlock[1];
                     setSelecting(selecting, x - 1, y + 1);
@@ -301,8 +296,8 @@ function hexagon(size) {
 
                 }
             }
-            else if (movingRight == 1 && possiblemove(x + 1, y + 1)) {
-                if (y == 0) {
+            else if (movingRight === 1 && possiblemove(x + 1, y + 1)) {
+                if (y === 0) {
                     mapArray[x][y + 1][0] = movingBlock[0];
                     mapArray[x][y + 1][1] = movingBlock[1];
                     setSelecting(selecting, x, y + 1);
@@ -349,7 +344,7 @@ function hexagon(size) {
         ];
 
         for (var i = 0; i < tex.length; i++) {
-            if ((i + 1) % 2 == 0 && i != 0) {
+            if ((i + 1) % 2 === 0 && i !== 0) {
                 tex[i] = (tex[i] / 4) + (posY * (1 / 4));
             }
             else {
@@ -395,9 +390,9 @@ function hexagon(size) {
         var allTextures = [];
         for (var i = 0; i < hexsizeX; i++) {
             for (var k = 0; k < hexsizeY; k++) {
-                var oneTexture = oneTexture(mapArray[i][k][0], mapArray[i][k][1]);
-                for (var j = 0; j < oneTexture.length; j++) {
-                    allTextures.push(oneTexture[j]);
+                var oneT = oneTexture(mapArray[i][k][0], mapArray[i][k][1]);
+                for (var j = 0; j < oneT.length; j++) {
+                    allTextures.push(oneT[j]);
                 }
             }
         }
@@ -405,6 +400,7 @@ function hexagon(size) {
     };
 
     var createHexagonArea = function() {
+
 
         /*
 
@@ -418,7 +414,7 @@ function hexagon(size) {
 
          */
 
-        var oneHexagon = oneHexagon();
+        var oh = oneHexagon();
 
         var allHexagons = [];
 
@@ -427,14 +423,14 @@ function hexagon(size) {
             for (var y = 0; y < hexsizeY; y++) {
 
                 var addition = 0;
-                if ((y + 1) % 2 == 0)
+                if ((y + 1) % 2 === 0) {
                     addition = 3.5;
+                }
+                for (var h = 0; h < oh.length; h += 3) {
 
-                for (var h = 0; h < oneHexagon.length; h += 3) {
-
-                    allHexagons.push(oneHexagon[h] + (x * 7) + addition);
+                    allHexagons.push(oh[h] + (x * 7) + addition);
                     allHexagons.push(0);
-                    allHexagons.push(oneHexagon[h + 2] + (y * 2.5));
+                    allHexagons.push(oh[h + 2] + (y * 2.5));
 
                 }
             }
@@ -444,8 +440,31 @@ function hexagon(size) {
 
     };
 
-    return {
-        init
-    }
+    return Object.freeze({
+        init,
+        getTexture: function() {
+            return texture;
+        },
+        start: function() {
+
+        },
+        getArea: function() {
+            return area;
+        },
+        updateArea,
+        getTextureCoordinates: function() {
+            return textureCoordinates;
+        },
+        getHexsizeX: function() {
+            return hexsizeX;
+        },
+        getHexsizeY: function() {
+            return hexsizeY;
+        },
+        getHexsizeZ: function() {
+            return hexsizeZ;
+        }
+
+    });
 
 }

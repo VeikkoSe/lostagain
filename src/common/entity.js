@@ -19,11 +19,8 @@ function entity(id, name) {
 
     var hasComponent = function(name) {
 
-        if (components[name] !== undefined) {
-            return true;
-        }
+        return (components[name] !== undefined);
 
-        return false;
     };
 
     var addComponent = function(component) {

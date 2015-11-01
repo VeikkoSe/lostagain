@@ -1,16 +1,14 @@
-function camera() {
+function camera(resolutionWidth, resolutionHeight) {
     'use strict';
 
-    var gl, mvMatrix, pMatrix, cMatrix, pvMatrix,
+    var mvMatrix, pMatrix, cMatrix, pvMatrix,
         pvMatrixInverse, mvMatrixStack, drawCalls,
         distance, x, y, z, rotationX, rotationY,
         slideLeft, slideRight,
         slideUp, slideDown, centerPosition,
-        home, sb, pitch, mindistance, maxdistance;
+        home, pitch, mindistance, maxdistance;
 
     var init = function(sandbox) {
-
-        sb = sandbox;
 
         mvMatrix = mat4.create();
         pMatrix = mat4.create();
@@ -60,10 +58,6 @@ function camera() {
 
         //mat4.lookAt([x,y,z],[0,0,0],[0,1,0],mvMatrix);
 
-    };
-
-    var start = function() {
-        gl = sb.getGL();
     };
 
     var setDistance = function(d) {
@@ -132,7 +126,7 @@ function camera() {
     };
 
     var setPerspective = function() {
-        mat4.perspective(60, sb.getResolutionWidth() / sb.getResolutionHeight(), 0.1, 20000.0, pMatrix);
+        mat4.perspective(60, resolutionWidth / resolutionHeight, 0.1, 20000.0, pMatrix);
     };
 
     var lookAt = function(epos, direction) {
@@ -216,7 +210,7 @@ function camera() {
         },
         setPos,
         subscribe,
-        start,
+
         getDistance: function() {
             return distance;
         },

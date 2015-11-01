@@ -2,11 +2,10 @@
  *
  * Handles key press and publishes event so those that want them can use them
  */
-function actionMapper() {
+function actionMapper(pubsub) {
     'use strict';
 
     var currentlyPressedKeys = {};
-    var sb;
 
     var handleKeyDown = function(event) {
         currentlyPressedKeys[event.keyCode] = true;
@@ -16,8 +15,8 @@ function actionMapper() {
         currentlyPressedKeys[event.keyCode] = false;
     };
 
-    var init = function(sandbox) {
-        sb = sandbox;
+    var init = function() {
+        //sb = sandbox;
         document.onkeydown = handleKeyDown;
         document.onkeyup = handleKeyUp;
         document.onmousemove = handleMouseMove;
@@ -55,33 +54,30 @@ function actionMapper() {
             normalized = -(rawAmmount % 3 ? rawAmmount * 10 : rawAmmount / 3);
         }
 
-        sb.publish('mousewheel', normalized);
+        pubsub.publish('mousewheel', normalized);
 
     };
 
     var handleMouseMove = function(e) {
 
-        sb.publish('mousemove', e);
+        pubsub.publish('mousemove', e);
     };
 
     var handleMouseDown = function(event) {
 
-        sb.publish('mousedown', event);
+        pubsub.publish('mousedown', event);
 
     };
     var handleMouseUp = function(event) {
 
-        sb.publish('mouseup', event);
+        pubsub.publish('mouseup', event);
 
     };
 
-    var start = function() {
-
-    };
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
     return {
         init, subscribe: function() {
-        }, start, getCurrentlyPressedKeys: function() {
+        }, getCurrentlyPressedKeys: function() {
             return currentlyPressedKeys;
         }
 

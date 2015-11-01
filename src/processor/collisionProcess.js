@@ -1,4 +1,4 @@
-function collisionProcess(sb) {
+function collisionProcess(sb, pubsub) {
     'use strict';
 
     //constructor() {
@@ -8,7 +8,7 @@ function collisionProcess(sb) {
     //var that = this;
     var init = function() {
 
-        sb.subscribe('bulletcollision', function(name, enemy) {
+        pubsub.subscribe('bulletcollision', function(name, enemy) {
 
             var enemyEntity = enemy.getEntity();
             var hc = enemyEntity.components.HealthComponent;
@@ -17,13 +17,13 @@ function collisionProcess(sb) {
             createHit(hc, sc);
 
             if (hc.getAmount() > 0) {
-                sb.publish('explosion', enemyEntity.components.RenderableComponent);
+                pubsub.publish('explosion', enemyEntity.components.RenderableComponent);
             }
             else {
 
                 //hc.setAmount(0);
-                sb.publish('enemyDeath', enemyEntity);
-                sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
+                pubsub.publish('enemyDeath', enemyEntity);
+                pubsub.publish('bigexplosion', enemyEntity.components.RenderableComponent);
             }
         });
         /*
@@ -61,7 +61,7 @@ function collisionProcess(sb) {
 
          */
 
-        sb.subscribe('enemyhit', function(name, target) {
+        pubsub.subscribe('enemyhit', function(name, target) {
 
             //var enemy = collisionComponent;
 
@@ -73,24 +73,24 @@ function collisionProcess(sb) {
 
             //hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
-                sb.publish('smallexplosion', target.components.RenderableComponent);
+                pubsub.publish('smallexplosion', target.components.RenderableComponent);
             }
             else {
 
                 hc.setAmount(0);
-                sb.publish('bigexplosion', target.components.RenderableComponent);
+                pubsub.publish('bigexplosion', target.components.RenderableComponent);
                 if (target.getName() === 'mothership') {
                     //em.removeEntityByName(target.getName());
-                    sb.publish('gameover', true);
+                    pubsub.publish('gameover', true);
                 }
                 if (target.getName() === 'ship') {
-                    sb.publish('respawn', true);
+                    pubsub.publish('respawn', true);
                 }
 
             }
         });
 
-        sb.subscribe('collision', function(name, cComponents) {
+        pubsub.subscribe('collision', function(name, cComponents) {
 
             var enemy = (cComponents[0].getGroup() === 'enemy') ? cComponents[0] : cComponents[1];
 
@@ -102,15 +102,15 @@ function collisionProcess(sb) {
             //hc.setAmount(hc.getAmount() - 1);
 
             if (hc.getAmount() > 0) {
-                sb.publish('explosion', enemyEntity.components.RenderableComponent);
+                pubsub.publish('explosion', enemyEntity.components.RenderableComponent);
             }
             else {
                 hc.setAmount(0);
-                sb.publish('enemyDeath', enemyEntity);
-                sb.publish('bigexplosion', enemyEntity.components.RenderableComponent);
+                pubsub.publish('enemyDeath', enemyEntity);
+                pubsub.publish('bigexplosion', enemyEntity.components.RenderableComponent);
             }
 
-            var player = (cComponents[0].getGroup() == 'player') ? cComponents[0] : cComponents[1];
+            var player = (cComponents[0].getGroup() === 'player') ? cComponents[0] : cComponents[1];
 
             var playerEntity = player.getEntity();
             var hcp = playerEntity.components.HealthComponent;
@@ -121,25 +121,22 @@ function collisionProcess(sb) {
             createHit(hcp, scp);
 
             //we don't explode the ship when shield take damage
-            if (scp.getAmount() > 0) {
-                return;
 
-            }
-            else if (hcp.getAmount() > 0) {
-                sb.publish('explosion', pc);
+            if (scp.getAmount() < 1 && hcp.getAmount() > 0) {
+                pubsub.publish('explosion', pc);
             }
             else {
                 hcp.setAmount(0);
                 if (playerEntity.getName() === 'mothership') {
                     em.removeEntityByName(playerEntity.name);
-                    sb.publish('gameover', true);
+                    pubsub.publish('gameover', true);
                 }
                 if (playerEntity.getName() === 'ship') {
 
-                    sb.publish('respawn', true);
+                    pubsub.publish('respawn', true);
                 }
 
-                sb.publish('bigexplosion', pc);
+                pubsub.publish('bigexplosion', pc);
             }
 
         });
@@ -178,14 +175,14 @@ function collisionProcess(sb) {
         for (var i = 0; i < collisions.length; i++) {
             for (var j = 0; j < collisions.length; j++) {
                 if (j !== i &&
-                    collisions[i].getXPos() - collisions[i].getXWidth() >= collisions[j].getXPos() - collisions[j].getXWidth() &&
-                    collisions[i].getXPos() - collisions[i].getXWidth() <= collisions[j].getXPos() + collisions[j].getXWidth() &&
 
-                    collisions[i].getZPos() - collisions[i].getZWidth() >= collisions[j].getZPos() - collisions[j].getZWidth() &&
-                    collisions[i].getZPos() - collisions[i].getZWidth() <= collisions[j].getZPos() + collisions[j].getZWidth() &&
+                    collisions[i].getXPos() < collisions[j].getXPos() + collisions[j].getXWidth() &&
+                    collisions[i].getXPos() + collisions[i].getXWidth() > collisions[j].getXPos() &&
+                    collisions[i].getZPos() < collisions[j].getZPos() + collisions[j].getZWidth() &&
+                    collisions[i].getZWidth() + collisions[i].getZPos() > collisions[j].getZPos() &&
                     collisions[i].getGroup() !== collisions[j].getGroup()) {
 
-                    sb.publish('collision', [collisions[i], collisions[j]]);
+                    pubsub.publish('collision', [collisions[i], collisions[j]]);
 
                 }
             }

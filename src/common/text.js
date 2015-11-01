@@ -1,7 +1,7 @@
-function text() {
+function text(resolutionWidth, resolutionHeight) {
     'use strict';
 
-    var sb;
+    //var sb;
 
     var fontJson;
 
@@ -70,35 +70,35 @@ function text() {
                     //  1,0, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
 
                     //first point
-                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
-                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())) - yPosition,
+                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth)),
+                    (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
                     //second point
-                    xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
-                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())) - yPosition,
+                    xPosition + (scale * (xOffsetandAdvance / resolutionWidth)),
+                    (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
                     //third point
-                    xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
-                    (1 - (scale * (32 / sb.getResolutionHeight()))) - yPosition,
+                    xPosition + (scale * (xOffsetandAdvance / resolutionWidth)),
+                    (1 - (scale * (32 / resolutionHeight))) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
                     //first point
-                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
-                    (1 - (scale * (-1 * yOffsetandAdvance) / sb.getResolutionHeight())) - yPosition,
+                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth)),
+                    (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
                     //second point
-                    xPosition + (scale * (xOffsetandAdvance / sb.getResolutionWidth())),
-                    (1 - (scale * (32 / sb.getResolutionHeight()))) - yPosition,
+                    xPosition + (scale * (xOffsetandAdvance / resolutionWidth)),
+                    (1 - (scale * (32 / resolutionHeight))) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
                     //third point
-                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / sb.getResolutionWidth())),
-                    (1 - (scale * (32 / sb.getResolutionHeight()))) - yPosition,
+                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth)),
+                    (1 - (scale * (32 / resolutionHeight))) - yPosition,
                     //texture coordinates
                     0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
                 );
@@ -126,9 +126,9 @@ function text() {
 
     };
 
-    var init = function(sbin) {
+    var init = function() {
 
-        sb = sbin;
+        //sb = sbin;
 
         //created with fontxmltojson.php
         var xhttp = new XMLHttpRequest();
@@ -146,9 +146,7 @@ function text() {
         textToC, init, buildData, subscribe: function() {
 
         },
-        start: function() {
 
-        },
         setPosition(v) {
             position = v;
         },

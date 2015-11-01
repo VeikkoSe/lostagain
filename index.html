@@ -15,8 +15,14 @@
     <canvas id="canvas"></canvas>
 </div>
 
-<div id="fps" style="color:white;"></div>
+
 <div id="mp"></div>
+
+<div id="options">
+    <p><div class="soundoff" id="soundtoggle"></div>
+    <div id="fps" style="color:white;"></div>
+</div>
+
 
 
 
@@ -32,10 +38,10 @@
 <script type="text/javascript" src="src/state/gameState.js"></script>
 <script type="text/javascript" src="src/state/loadState.js"></script>
 <script type="text/javascript" src="src/state/menuState.js"></script>
-<script type="text/javascript" src="src/state/mapState.js"></script>
+<script type="text/javascript" src="src/state/levelupState.js"></script>
 <script type="text/javascript" src="src/state/endState.js"></script>
 
-<script type="text/javascript" src="src/common/Core_opengl.js"></script>
+<script type="text/javascript" src="src/common/core_opengl.js"></script>
 <script type="text/javascript" src="src/common/stateEngine.js"></script>
 
 <script type="text/javascript" src="src/common/entity.js"></script>
@@ -44,6 +50,7 @@
 <script type="text/javascript" src="src/common/functions.js"></script>
 <script type="text/javascript" src="src/common/Plane.js"></script>
 <script type="text/javascript" src="src/common/hexagon.js"></script>
+<script type="text/javascript" src="src/common/PubSub.js"></script>
 
 <script type="text/javascript" src="src/common/camera.js"></script>
 <script type="text/javascript" src="src/component/photonTorpedoComponent.js"></script>
@@ -64,8 +71,6 @@
 <script type="text/javascript" src="src/common/entityCreator.js"></script>
 
 
-
-<script type="text/javascript" src="src/common/sandbox.js"></script>
 <script type="text/javascript" src="src/component/meshComponent.js"></script>
 <script type="text/javascript" src="src/component/visibilityComponent.js"></script>
 <script type="text/javascript" src="src/component/momentumComponent.js"></script>
@@ -120,6 +125,7 @@
 <script type="text/javascript" src="src/component/chaseComponent.js"></script>
 <script type="text/javascript" src="src/component/scoreComponent.js"></script>
 
+
 <script type="text/javascript" src="src/processor/linearMovementProcess.js"></script>
 
 <script type="text/javascript" src="src/processor/movementProcess.js"></script>
@@ -141,12 +147,13 @@
 <script type="text/javascript" src="src/processor/explosionProcess.js"></script>
 <script type="text/javascript" src="src/processor/layoutProcess.js"></script>
 <script type="text/javascript" src="src/processor/collisionProcess.js"></script>
-<script type="text/javascript" src="src/processor/mapProcess.js"></script>
+<script type="text/javascript" src="src/processor/levelupProcess.js"></script>
 <script type="text/javascript" src="src/processor/text2dProcess.js"></script>
 <script type="text/javascript" src="src/processor/timedTextProcess.js"></script>
 <script type="text/javascript" src="src/processor/scoreProcess.js"></script>
 <script type="text/javascript" src="src/processor/shieldProcess.js"></script>
 <script type="text/javascript" src="src/processor/pauseProcess.js"></script>
+<script type="text/javascript" src="src/processor/menuProcess.js"></script>
 
 <script type="text/javascript" src="src/processor/gameLogicProcess.js"></script>
 

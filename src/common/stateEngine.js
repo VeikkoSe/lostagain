@@ -1,44 +1,49 @@
-function stateEngine() {
+function stateEngine(pubsub, possibleStates, loader) {
     'use strict';
 
-    var iState;
-    var gState;
-    var lState;
-    var mState;
-    var meState;
-    var eState;
-    var actionMapper;
-    var sb;
+    //var iState;
+    //var gState;
+    // var lState;
+    //var lUpState;
+    //var meState;
+    //var eState;
+    //var sb;
+    var elapsedTotal = 0;
+    var rotationAngle = 0;
+    var lastTime;
 
     var states = [];
-    var allStates = [];
+    //var allStates = [];
     var currentState = null;
 
     var cleanup = function() {
 
-        document.onkeydown = null;
-        document.onkeyup = null;
+        // document.onkeydown = null;
+        // document.onkeyup = null;
     };
 
     var getState = function(sn) {
 
-        switch (sn) {
-            case 'introstate':
-                return iState;
-            case 'gamestate':
-                return gState;
-            case 'loadstate':
-                return lState;
-            case 'menustate':
-                return meState;
-            case 'endstate':
-                return eState;
-            case 'mapstate':
-                return mState;
-        }
+        return possibleStates[sn];
+        /* switch (sn) {
+         case 'introstate':
+         return iState;
+         case 'gamestate':
+         return gState;
+         //case 'loadstate':
+         //    return lState;
+         case 'menustate':
+         return meState;
+         case 'endstate':
+         return eState;
+         case 'levelupstate':
+         return lUpState;
+         }
+         */
+
     };
 
-    var moveToLoadedStage = function(stateStr) {
+    var loadStage = function(stateStr) {
 
         var state = getState(stateStr);
 
@@ -49,6 +54,8 @@ function stateEngine() {
             states.pop();
         }
 
+        loader.loadAllAssets(stateStr);
+
         // store and init the new state
         states.push(state);
         currentState = state;
@@ -57,83 +64,73 @@ function stateEngine() {
 
     };
 
-    var loadNewState = function(wantedState) {
+    //var loadNewState = function(wantedState) {
 
-        if (states.length > 0) {
+    //if (states.length > 0) {
 
-            states[states.length - 1].cleanup();
-            states.pop();
-        }
+    //   states[states.length - 1].cleanup();
+    //   states.pop();
+    //}
 
-        // store and init the new state
+    // store and init the new state
 
-        var ls = getState('loadstate');
-        states.push(ls);
-        currentState = ls;
-        states[states.length - 1].init(wantedState);
+    //var ls = getState('loadstate');
+    //states.push(ls);
+    //currentState = ls;
+    //states[states.length - 1].init(wantedState);
 
-    };
-    var getCurrentState = function() {
-        return currentState;
-    };
+    //};
+    //var getCurrentState = function() {
+    //    return currentState;
+    //};
 
     var tick = function() {
 
         requestAnimFrame(function() {
             tick();
         });
-        var cs = getCurrentState();
-        //actionMapper.handleKeys();
-        cs.update();
-        cs.draw();
+        //var cs = getCurrentState();
 
-    };
+        //if(loader.getLoading()!==false) {
+        //    return;
+        //}
 
-    var subscribe = function() {
-
-    };
-
-    var start = function() {
-
-        iState = introState(sb);
-        gState = gameState(sb);
-
-        lState = loadState(sb);
-        mState = mapState(sb);
-        meState = menuState(sb);
-        eState = endState(sb);
-        actionMapper = sb.getActionMapper();
-
-        loadNewState('gamestate');
-
-        tick();
+        currentState.update();
+        currentState.draw();
 
     };
 
     var init = function(sandbox) {
 
-        sb = sandbox;
+        //sb = sandbox;
+
+        pubsub.subscribe('loadstage', function(name, wantedstate) {
+            loadStage(wantedstate);
+        });
+
+        //loadStage('gamestate');
+        loadStage('introstate');
+
+        tick();
 
     };
 
-    var startState = function() {
+    //var startState = function() {
 
-        sb.subscribe('movetoloadstate', function(name, wantedstate) {
+    //sb.subscribe('movetoloadstate', function(name, wantedstate) {
 
-            moveToLoadedStage(wantedstate);
-        });
+    //    moveToLoadedStage(wantedstate);
+    //});
 
-        sb.subscribe('loadstate', function(name, wantedstate) {
-            loadState(wantedstate);
-        });
-    };
+    //};
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
     return Object.freeze({
         tick,
         init,
-        subscribe,
-        start,
-        startState
+        subscribe: function() {
+        },
+
+        loadStage
 
     });
 

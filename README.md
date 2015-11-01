@@ -1,4 +1,6 @@
-Copypasteroids 2
+Lostagain
 ====
-webgl about asteroids and ships and space. Or something like that.
+webgl game about asteroids and ships and space.
+
+Todo: Some licence information
 

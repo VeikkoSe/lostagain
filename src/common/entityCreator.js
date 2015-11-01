@@ -1,20 +1,14 @@
-function entityCreator() {
+function entityCreator(gl, entityManager, assetManager) {
     'use strict';
-    var t, em, am, sb;
+    // var t, em,  sb;
+
+    var am = assetManager;
+    //var t = textureCreator;
+    var em = entityManager;
 
     var init = function(sandbox) {
 
-        sb = sandbox;
-    };
-
-    var start = function() {
-
-        em = sb.getEntityManager();
-        t = textureCreator(sb);
-        //sprite_loader = sprite(sb);
-
-        am = sb.getAssetManager();
-
+        // sb = sandbox;
     };
 
     var createShip = function() {
@@ -60,7 +54,7 @@ function entityCreator() {
 
         pc.setBullets(bullets);
 
-        pc.setPointStartPositionBuffer(sb.getGL().createBuffer());
+        pc.setPointStartPositionBuffer(gl.createBuffer());
 
         e.addComponent(pc);
         e.addComponent(shieldComponent(3, am.getSprite('shield'), am.getMesh('shieldbubble'), 8));
@@ -129,10 +123,27 @@ function entityCreator() {
     var createIntro = function() {
 
         var e = em.addNew();
-        var m = am.getMesh('start');
 
-        e.addComponent(renderableComponent());
-        e.addComponent(meshComponent({mesh: m}));
+        //e.addComponent(rotationComponent(10, 10, 10));
+
+        var rc = renderableComponent();
+        rc.setScale(1);
+        rc.setXPos(0);
+        rc.setYPos(0);
+        rc.setZPos(0);
+        e.addComponent(rc);
+
+        var mesh = am.getMesh('start');
+
+        var m = meshComponent();
+        m.setMesh(mesh);
+        e.addComponent(m);
+
+        // var e = em.addNew();
+        //var m = am.getMesh('start');
+
+        //e.addComponent(renderableComponent());
+        //e.addComponent(meshComponent({mesh: m}));
 
         return e;
     };
@@ -145,7 +156,7 @@ function entityCreator() {
         return e;
     };
 
-    var createLayout = function(mothership, ship, radar, currency) {
+    var createLayout = function(mothership, ship) {
         var e = em.addNew();
         var lg = layoutComponent();
         lg.setRoot(true);
@@ -220,7 +231,7 @@ function entityCreator() {
 
         pc.setBullets(bullets);
 
-        pc.setPointStartPositionBuffer(sb.getGL().createBuffer());
+        pc.setPointStartPositionBuffer(gl.createBuffer());
 
         e.addComponent(pc);
 
@@ -253,11 +264,11 @@ function entityCreator() {
     };
     var createRadar = function() {
 
-        var e = em.addNew();
+        // var e = em.addNew();
         //var sc = sprite_constructor(sb);
         //, 0.9, 0.74
-        e.addComponent(radarComponent(am.getSprite('radar')));
-        return e;
+        //e.addComponent(radarComponent(am.getSprite('radar')));
+        //return e;
     };
 
     var createMotherShip = function(target) {
@@ -291,7 +302,7 @@ function entityCreator() {
         e.addComponent(scoreComponent(am.getSprite('currency')));
         var tc = textComponent();
         tc.setPosition(0.03, 0.01);
-        tc.setTextBuffer(sb.getGL().createBuffer());
+        tc.setTextBuffer(gl.createBuffer());
         e.addComponent(tc);
 
         e.addComponent(healthComponent(4, am.getSprite('hp')));
@@ -301,11 +312,11 @@ function entityCreator() {
         e.addComponent(visibilityComponent());
 
         var points = circleXY(0, 0, 0, 300, 200);
-        var buffer = sb.getGL().createBuffer();
+        var buffer = gl.createBuffer();
         //var bd = sb.getGL().bufferData(gl.ARRAY_BUFFER, new Float32Array(points), sb.getGL().STATIC_DRAW);
 
-        sb.getGL().bindBuffer(sb.getGL().ARRAY_BUFFER, buffer);
-        sb.getGL().bufferData(sb.getGL().ARRAY_BUFFER, new Float32Array(points), sb.getGL().STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(points), gl.STATIC_DRAW);
 
         var jArea = jumpAreaComponent(buffer, points, 0, 0, 0, [0.23, 1.00, 0.63]);
 
@@ -331,18 +342,35 @@ function entityCreator() {
     };
     //for map
     var createBareMotherShip = function() {
-        // createBareMotherShip() {
 
         var e = em.addNew('baremothership');
-        var m = am.getMesh('mothership');
-        e.addComponent(meshComponent(m));
 
-        e.addComponent(renderableComponent());
+        //e.addComponent(shieldComponent(3, am.getSprite('shield'), am.getMesh('shieldbubble'), 20));
+
+        //e.addComponent(satelliteComponent(am.getMesh('satellite')));
+
+        var mesh = am.getMesh('mothership');
+
+        var m = meshComponent();
+        m.setMesh(mesh);
+        e.addComponent(m);
 
         e.addComponent(movableComponent());
         e.addComponent(hexItemComponent('player'));
 
+        e.addComponent(cameraTargetComponent());
+
+        e.addComponent(mapComponent());
+
+        var rc = renderableComponent();
+        rc.setScale(0.2);
+        rc.setXPos(0);
+        rc.setZPos(0);
+        rc.setYPos(1);
+        e.addComponent(rc);
+
         return e;
+
     };
     var createAsteroidField = function() {
 
@@ -396,7 +424,7 @@ function entityCreator() {
         var t = textComponent();
         t.setTexts('first');
         t.setPosition(0.5, 0.1);
-        t.setTextBuffer(sb.getGL().createBuffer());
+        t.setTextBuffer(gl.createBuffer());
         e.addComponent(t);
     };
     var createPlane = function() {
@@ -410,13 +438,13 @@ function entityCreator() {
          rc.setYPos(0);
          e.addComponent(rc);
          */
-        e.addComponent(planeComponent(new Plane(sb, 10)));
+        //e.addComponent(planeComponent(new Plane(sb, 10)));
         return e;
 
     };
 
     return {
-        start, init,
+        init,
         createText, createMap, createFuel,
         createAsteroidField, createBareMotherShip,
         createMotherShip, createRadar, createMirrorEnemy, createMine, createLayout,

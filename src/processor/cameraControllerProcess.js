@@ -1,4 +1,4 @@
-function cameraControllerProcess(sb) {
+function cameraControllerProcess(sb, pubsub) {
     'use strict';
 
     var camera = sb.getCamera();
@@ -10,15 +10,15 @@ function cameraControllerProcess(sb) {
     var init = function() {
         var mousedown = 0;
 
-        sb.subscribe('mousedown', function(name, e) {
+        pubsub.subscribe('mousedown', function(name, e) {
             mousedown = 1;
         });
 
-        sb.subscribe('mouseup', function(name, e) {
+        pubsub.subscribe('mouseup', function(name, e) {
             mousedown = 0;
         });
 
-        sb.subscribe('mousemove', function(name, e) {
+        pubsub.subscribe('mousemove', function(name, e) {
 
             if (mousedown === 1) {
                 if (mouseX - e.clientX > 0) {
@@ -32,7 +32,7 @@ function cameraControllerProcess(sb) {
 
         });
 
-        sb.subscribe('mousewheel', function(name, e) {
+        pubsub.subscribe('mousewheel', function(name, e) {
             if (e === -1) {
                 sb.getCamera().setDistance('10');
             }

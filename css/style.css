@@ -31,3 +31,25 @@ body {
 .matrixdisplay td {
     width:100px;
 }
+#canvas {
+    float:left;
+}
+
+#options {
+    color: #ffffff;
+    float:left;
+}
+
+
+.soundon {
+    background: url('../resources/images/soundon.png') 0 0;
+}
+
+.soundoff {
+    background: url('../resources/images/soundoff.png') 0 0;
+}
+
+.soundoff,.soundon {
+    width:128px;
+    height:128px;
+}

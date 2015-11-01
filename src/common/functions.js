@@ -3,10 +3,93 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var w = 1024;
     var h = 768;
-    var CORE = new Core(w, h);
-    CORE.startModules();
-    CORE.startGame();
+
+    var pubsub = new PubSub();
+
+    try {
+
+        var canvas = document.getElementById('canvas');
+
+        canvas.width = w;
+        canvas.height = h;
+
+        //var gl = WebGLDebugUtils.makeDebugContext(canvas.getContext('webgl', {alpha: false}));
+        var gl = WebGLUtils.setupWebGL(canvas);
+
+    } catch (e) {
+
+    }
+    if (!gl) {
+        alert('Could not initialise WebGL');
+    }
+
+    //var modules = [];
+
+    var CORE = core(gl, w, h);
+
+    var em = entityManager();
+    var tc = textureCreator(gl);
+    var am = assetManager(pubsub, mesh(gl, pubsub, tc), sprite(gl, tc));
+    //var tc = textureCreator(gl);
+
+    CORE.setEntityManagerModule(em);
+
+    CORE.setAssetManagerModule(am);
+    CORE.setActionMapperModule(actionMapper(pubsub));
+    CORE.setCameraModule(camera(w, h));
+    CORE.setTextModule(text(w, h));
+
+    // modules.push(loader());
+    CORE.setShaderManagerModule(shaderManager(gl));
+
+    CORE.setEntityCreatorModule(entityCreator(gl, em, am));
+    CORE.setAudioModule(audio());
+
+    CORE.startModules(function() {
+        CORE.setAudioMasterVolume(0);
+        var states = {
+            'gamestate': gameState(CORE, pubsub),
+            'introstate': introState(CORE, pubsub),
+            'levelupstate': levelupState(CORE, pubsub)
+
+        };
+        //introState(CORE),levelUpState(CORE) menuState(CORE)endState(CORE)
+        var se = stateEngine(pubsub, states, loader(pubsub, CORE.getEntityCreator(), CORE.getEntityManager()));
+        se.init();
+        //se.start();
+    });
+
+    //var states = [introState(sandbox(this)),
+    //    gameState(sandbox(this)),
+    //    levelUpState(sandbox(this)),
+    //   menuState(sandbox(this)),
+    //   endState(sandbox(this))];
+
+    //this.createModule();
+
+    document.getElementById('soundtoggle').onclick = function() {
+
+        swap('soundtoggle', CORE);
+    };
+
 });
+//Todo: better volume handling
+function swap(id, CORE) {
+    'use strict';
+
+    var e = document.getElementById(id);
+
+    if (e.className === 'soundon') {
+        e.className = 'soundoff';
+
+        CORE.setAudioMasterVolume(0);
+    }
+    else {
+
+        e.className = 'soundon';
+        CORE.setAudioMasterVolume(100);
+    }
+}
 
 function createHit(hc, sc) {
     'use strict';
@@ -68,6 +151,26 @@ function randomCloseInt() {
 function printMessage(msg) {
     'use strict';
     //$('#debugarea').html(msg);
+}
+
+function readCookie(name) {
+    'use strict';
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function setCookie(cname, cvalue, exdays) {
+    'use strict';
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
 }
 
 function pInt(nro) {

@@ -1,14 +1,12 @@
 /*
  * Loads assets
  */
-function assetManager() {
+function assetManager(pubsub, mesh, sprite) {
     'use strict';
     //  var sb = params;
-    var meshes, sprites, textures, loadingAmount, loadingMax, sb;
+    var meshes, sprites, textures, loadingAmount, loadingMax;
 
-    var init = function(sandbox) {
-
-        sb = sandbox;
+    var init = function() {
 
         meshes = [];
         textures = [];
@@ -16,19 +14,16 @@ function assetManager() {
         loadingMax = 0;
         sprites = [];
 
-    };
-
-    var start = function() {
-        sb.subscribe('assetload', function() {
+        pubsub.subscribe('assetload', function() {
 
             loadingAmount--;
 
             if (loadingAmount === 0) {
-
-                sb.publish('allassetsloaded', true);
+                pubsub.publish('allassetsloaded', true);
             }
 
         });
+
     };
 
     var getMesh = function(name) {
@@ -40,15 +35,16 @@ function assetManager() {
         loadingMax++;
 
         //var params = {name,game};
-        var m = mesh(sb);
-        m.loadMesh(name);
+        //console.log(name);
+        var m = mesh.load(name);
 
         meshes[name] = m;
-
-        return meshes[name];
+        return m;
+        // return meshes[name];
     };
 
     var getSprite = function(name, noflip, repeat) {
+
         if (sprites[name]) {
             return sprites[name];
         }
@@ -56,24 +52,20 @@ function assetManager() {
         //loadingMax++;
 
         //var params = {name,game};
-        var s = sprite(sb);
-        s.load(name, noflip, repeat);
-
+        //var s = sprite;
+        var s = sprite.load(name, noflip, repeat);
+        console.log(s);
         sprites[name] = s;
 
         return sprites[name];
     };
 
-    var subscribe = function() {
-
-    };
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
     return Object.freeze({
         getMesh,
         getSprite,
-        init,
-        subscribe,
-        start
+        init
+
     });
 
 }

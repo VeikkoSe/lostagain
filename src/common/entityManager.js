@@ -58,8 +58,7 @@ function entityManager() {
         entities,
         init: function() {
         },
-        start: function() {
-        },
+
         subscribe
     });
 

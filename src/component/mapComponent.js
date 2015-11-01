@@ -23,6 +23,22 @@ function mapComponent() {
     var selectMap = false;
 
     return Object.freeze({
+        getMovingUp: function() {
+            return movingUp;
+        },
+        getMovingDown: function() {
+            return movingDown;
+        },
+        getMovingLeft: function() {
+            return movingLeft;
+        },
+        getMovingRight: function() {
+            return movingRight;
+        },
+        getSelecting: function() {
+            return selecting;
+        },
+
         getName: function() {
             return name;
         }

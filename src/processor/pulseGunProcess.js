@@ -1,4 +1,4 @@
-function pulseGunProcess(sb) {
+function pulseGunProcess(sb, pubsub) {
     'use strict';
 
     var gl = sb.getGL();
@@ -81,7 +81,7 @@ function pulseGunProcess(sb) {
                     bullets[i].getZPos() <= collisions[j].getZPos() + collisions[j].getZWidth() &&
                     collisions[j].getGroup() === 'enemy' && bullets[i].getVisible() === 1) {
 
-                    sb.publish('bulletcollision', collisions[j]);
+                    pubsub.publish('bulletcollision', collisions[j]);
 
                 }
             }

@@ -26,7 +26,7 @@ function timedTextProcess(sb) {
                     }
                 }
 
-                if (tc.getCurrentString() != '') {
+                if (tc.getCurrentString() !== '') {
 
                     var str = tc.getCurrentString();
 

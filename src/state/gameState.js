@@ -1,4 +1,4 @@
-function gameState(sb) {
+function gameState(sb, pubsub) {
     'use strict';
 
     var elapsedTotal = 0;
@@ -23,15 +23,15 @@ function gameState(sb) {
 
     var init = function() {
 
-        sb.subscribe('movetoloadstate', function(name, wantedstate) {
+        pubsub.subscribe('movetoloadstate', function(name, wantedstate) {
             moveToLoadedStage(wantedstate);
         });
 
-        sb.subscribe('gameover', function() {
+        pubsub.subscribe('gameover', function() {
             running = false;
         });
 
-        sb.subscribe('pause', function() {
+        pubsub.subscribe('pause', function() {
             pause = !pause;
         });
 
@@ -39,20 +39,22 @@ function gameState(sb) {
         fb = gl.createFramebuffer();
 
         //order matters
-        processList.push(gameLogicProcess(sb));
+        processList.push(gameLogicProcess(sb, pubsub));
 
         processList.push(primitiveProcess(sb));
         processList.push(chaseProcess(sb));
         processList.push(faceProcess(sb));
-        processList.push(pulseGunProcess(sb));
-        processList.push(movementProcess(sb));
+        processList.push(pulseGunProcess(sb, pubsub));
+        processList.push(movementProcess(sb, pubsub));
         processList.push(exhaustProcess(sb));
         processList.push(trailProcess(sb));
-        processList.push(collisionProcess(sb));
+        processList.push(collisionProcess(sb, pubsub));
         processList.push(renderProcess(sb));
+        processListNoPause.push(cameraControllerProcess(sb, pubsub));
+
         processList.push(starProcess(sb));
         processList.push(teleportProcess(sb));
-        processList.push(laserProcess(sb));
+        processList.push(laserProcess(sb, pubsub));
         processList.push(timedTextProcess(sb));
         processList.push(scoreProcess(sb));
         processList.push(text2dProcess(sb));
@@ -60,8 +62,8 @@ function gameState(sb) {
         processList.push(layoutProcess(sb));
         processList.push(shieldProcess(sb));
 
-        processListNoPause.push(explosionProcess(sb));
-        processListNoPause.push(cameraControllerProcess(sb));
+        processListNoPause.push(explosionProcess(sb, pubsub));
+
         processListNoPause.push(pauseProcess(sb));
 
         for (var i = 0; i < processListNoPause.length; i++) {
@@ -147,16 +149,17 @@ function gameState(sb) {
         //  gl.disable(gl.BLEND);
 
         camera.resetDrawCalls();
-
-        for (var i = 0; i < processListNoPause.length; i++) {
+        var plnp = processListNoPause.length;
+        for (var i = 0; i < plnp; i++) {
             for (var e = 0; e < em.entities.length; e++) {
                 var le = em.entities[e];
                 processListNoPause[i].draw(le);
             }
         }
-
-        for (var i = 0; i < processList.length; i++) {
-            for (var e = 0; e < em.entities.length; e++) {
+        var pl = processList.length;
+        for (var i = 0; i < pl; i++) {
+            var el = em.entities.length;
+            for (var e = 0; e < el; e++) {
                 var le = em.entities[e];
                 processList[i].draw(le);
             }

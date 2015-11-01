@@ -1,9 +1,9 @@
 function chaseProcess(sb) {
     'use strict';
 
-    var routeDone = false;
+    //var routeDone = false;
 
-    var camera = sb.getCamera();
+    //var camera = sb.getCamera();
     var em = sb.getEntityManager();
 
     var update = function(deltatime, timeFromStart) {

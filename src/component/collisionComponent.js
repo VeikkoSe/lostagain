@@ -54,6 +54,7 @@ function collisionComponent(group) {
         getXWidth: function() {
             return xWidth;
         },
+
         getYWidth: function() {
             return yWidth;
         },
@@ -62,6 +63,9 @@ function collisionComponent(group) {
         },
         getEntity: function() {
             return entity;
+        },
+        getWidth: function() {
+            return xWidth;
         }
     });
 

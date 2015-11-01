@@ -1,5 +1,26 @@
-function introState(sb) {
+function introState(sb, pubsub) {
     'use strict';
+
+    var lastTime;
+
+    var frameCount;
+    var startTime;
+    var elapsedTotal = 0;
+    // var elapsedTotal = 0;
+    // var gl = sb.getGL();
+    //var camera = sb.getCamera();
+
+    // var frameCount = 0;
+    //var lastTime = 0;
+
+    //var processList = [];
+    //var processListNoPause = [];
+    //var pause = false;
+    //var startTime = null;
+    var em = sb.getEntityManager();
+
+    // var fb = null;
+    // var running = true;
 
     //var {game} = params;
 
@@ -16,57 +37,11 @@ function introState(sb) {
     var draw = function() {
 
         for (var i = 0; i < processList.length; i++) {
-            processList[i].draw(sb);
+            for (var e = 0; e < em.entities.length; e++) {
+                var le = em.entities[e];
+                processList[i].draw(le);
+            }
         }
-        /*
-         shadermanager.setProgram(shaderprogram);
-
-         gl.disable(gl.BLEND);
-         gl.enable(gl.DEPTH_TEST);
-
-
-         gl.uniform1f(shaderprogram.alphaUniform, 1);
-         gl.uniform1i(shaderprogram.uDrawColors, 0);
-         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-
-         //draw background
-         camera.mvPushMatrix();
-         mat4.scale(camera.getMVMatrix(), [0.05, 0.05, 0.05]);
-
-
-         gl.bindBuffer(gl.ARRAY_BUFFER, intro.vertexPositionBuffer);
-         gl.vertexAttribPointer(shaderprogram.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
-
-
-         gl.bindBuffer(gl.ARRAY_BUFFER, intro.normalPositionBuffer);
-         gl.vertexAttribPointer(shaderprogram.aVertexNormal, 3, gl.FLOAT, false, 0, 0);
-
-
-         gl.bindBuffer(gl.ARRAY_BUFFER, intro.texturePositionBuffer);
-         gl.vertexAttribPointer(shaderprogram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-
-         gl.activeTexture(gl.TEXTURE0);
-         gl.bindTexture(gl.TEXTURE_2D, intro.getTexture());
-
-
-         gl.uniform1i(shaderprogram.samplerUniform, 0);
-
-         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, intro.indexPositionBuffer);
-
-         gl.uniformMatrix4fv(shaderprogram.uPMatrix, false, camera.getPMatrix());
-         gl.uniformMatrix4fv(shaderprogram.uMVMatrix, false, camera.getMVMatrix());
-
-         var normalMatrix = mat3.create();
-         mat4.toInverseMat3(camera.getMVMatrix(), normalMatrix);
-         mat3.transpose(normalMatrix);
-         gl.uniformMatrix3fv(shaderprogram.uNMatrix, false, normalMatrix);
-
-
-         gl.drawElements(gl.TRIANGLES, intro.indexPositionBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-
-         camera.mvPopMatrix();
-         */
 
     };
 
@@ -77,6 +52,7 @@ function introState(sb) {
     var init = function() {
 
         processList.push(renderProcess(sb));
+        processList.push(menuProcess(sb, pubsub));
 
         /*
          document.onkeydown = actionMapper.handleKeyDown;
@@ -85,15 +61,26 @@ function introState(sb) {
          document.onmousedown = actionMapper.handleMouseDown;
          */
 
+        for (var i = 0; i < processList.length; i++) {
+            processList[i].init();
+        }
+
+        gl.viewport(0, 0, sb.getResolutionWidth(), sb.getResolutionHeight());
+        camera.setPerspective();
+
+        var mvMatrix = camera.getMVMatrix();
+        mat4.lookAt([0, 0, 2200], [0, 0, 0], [0, 1, 0], mvMatrix);
+        //mat4.identity(mvMatrix);
+        //mat4.translate(mvMatrix, [0, 0, -300]);
+
         gl.clearColor(1, 0, 0, 1.0);
         gl.clearDepth(1.0);
 
-        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-        camera.init();
-        camera.setPerspective();
+        //camera.init();
+        //camera.setPerspective();
+        /// var mvMatrix = camera.getMVMatrix();
 
-        mat4.identity(camera.getMVMatrix());
-        mat4.translate(camera.getMVMatrix(), [0, 0, -50]);
+        //mat4.lookAt([camera.getXPos(), camera.getYPos(), camera.getZPos()], [0, 0, 0], [0, 1, 0], mvMatrix);
 
     };
 
@@ -109,7 +96,37 @@ function introState(sb) {
     };
 
     var update = function() {
-        // actionMapper.handleKeys();
+
+        var timeNow = new Date().getTime();
+
+        frameCount++;
+
+        if (lastTime !== 0) {
+
+            var totalElapsed = timeNow - startTime;
+            var elapsed = timeNow - lastTime;
+            elapsedTotal += elapsed;
+
+            //skip lost frames
+            if (elapsed < 300) {
+                for (var i = 0; i < processList.length; i++) {
+                    processList[i].update(elapsed, totalElapsed);
+                }
+            }
+
+            if (elapsedTotal >= 1000) {
+
+                var fps = frameCount;
+
+                frameCount = 0;
+                elapsedTotal -= 1000;
+
+                document.getElementById('fps').innerHTML = fps;
+
+            }
+
+        }
+        lastTime = timeNow;
     };
 
     return Object.freeze({

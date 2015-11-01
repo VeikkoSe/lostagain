@@ -1,4 +1,4 @@
-function explosionProcess(sb) {
+function explosionProcess(sb, pubsub) {
     'use strict';
 
     var gl = sb.getGL();
@@ -15,19 +15,19 @@ function explosionProcess(sb) {
 
         sprite = am.getSprite('smoke');
 
-        sb.subscribe('explosion', function(name, entity) {
+        pubsub.subscribe('explosion', function(name, entity) {
 
             createNewMediumExplosion(entity.getXPos(), entity.getZPos());
 
         });
 
-        sb.subscribe('smallexplosion', function(name, entity) {
+        pubsub.subscribe('smallexplosion', function(name, entity) {
 
             createNewSmallExplosion(entity.getXPos(), entity.getZPos());
 
         });
 
-        sb.subscribe('bigexplosion', function(name, entity) {
+        pubsub.subscribe('bigexplosion', function(name, entity) {
 
             createNewBigExplosion(entity.getXPos(), entity.getZPos());
 
@@ -90,7 +90,7 @@ function explosionProcess(sb) {
         gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
         gl.uniform1i(particleProgram.samplerUniform, 0);
 
-// TODO TOO MENY DRAWCALLS, SOME BUG
+        // TODO TOO MENY DRAWCALLS, SOME BUG
         for (var i = 0; i < explosions.length; i++) {
 
             camera.mvPushMatrix();

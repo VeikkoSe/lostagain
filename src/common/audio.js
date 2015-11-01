@@ -1,68 +1,69 @@
 function audio() {
+    'use strict';
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    var context;
-    var source, sourceJs;
-    var analyser;
-    var buffer;
-    var url = './sound/music/adompotd.ogg';
-    var array = new Array();
+    var source;
+    //https://ourmusicbox.com/
+    //TODO: Add correct copyright notices
+    var sountrack = ['./sound/music/150413_Processed_Results---free_download.ogg',
+        './sound/music/150413_Crime_Lab---free_download.ogg',
+        './sound/music/150413_Weird_Electro---free_download.ogg',
+        './sound/music/150413_World_Spinning---free_download.ogg',
+        './sound/music/150413_Victory_Gaze---free_download.ogg'];
+    var url = sountrack[randomIntFromInterval(0, 4)];
 
-    var init = function() {
-        try {
-            if (typeof webkitAudioContext === 'function' || 'webkitAudioContext' in window) {
-                context = new webkitAudioContext();
-            }
-            else {
-                context = new AudioContext();
-            }
-        }
-        catch (e) {
-            $('#info').text('Web Audio API is not supported in this browser');
-        }
-
+    var getData = function() {
+        source = audioCtx.createBufferSource();
         var request = new XMLHttpRequest();
+
         request.open('GET', url, true);
-        request.responseType = "arraybuffer";
+
+        request.responseType = 'arraybuffer';
 
         request.onload = function() {
-            context.decodeAudioData(
-                request.response,
-                function(buffer) {
-                    if (!buffer) {
-                        // Error decoding file data
-                        return;
-                    }
+            var audioData = request.response;
 
-                    sourceJs = context.createScriptProcessor(2048, 1, 1);
-                    sourceJs.buffer = buffer;
-                    sourceJs.connect(context.destination);
-                    analyser = context.createAnalyser();
-                    analyser.smoothingTimeConstant = 0.6;
-                    analyser.fftSize = 512;
-
-                    source = context.createBufferSource();
+            audioCtx.decodeAudioData(audioData, function(buffer) {
                     source.buffer = buffer;
 
-                    source.connect(analyser);
-                    analyser.connect(sourceJs);
-                    source.connect(context.destination);
-
-                    sourceJs.onaudioprocess = function(e) {
-                        array = new Uint8Array(analyser.frequencyBinCount);
-                        analyser.getByteFrequencyData(array);
-                    };
-
+                    source.connect(audioCtx.destination);
+                    source.loop = true;
                     source.start(0);
                 },
 
-                function(error) {
-                    // Decoding error
-                }
-            );
+                function(e) {
+                    alert('Error with decoding audio data' + e.err);
+                });
+
         };
 
         request.send();
+    };
+
+    var setMasterVolume = function(percent) {
+
+        if (percent === 0) {
+            if (typeof source !== 'undefined') {
+                source.stop();
+            }
+        }
+        else {
+
+            getData();
+
+        }
     }
+
+    var init = function() {
+        //getData();
+
+        //source.start(0);
+    };
+    return Object.freeze({
+        setMasterVolume,
+        init, start: function() {
+        }
+    });
 }
 
 

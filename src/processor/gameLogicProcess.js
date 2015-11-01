@@ -3,16 +3,23 @@
  * @param {object} sb sandbox
  * @return {object} Closure
  */
-function gameLogicProcess(sb) {
+function gameLogicProcess(sb, pubsub) {
     'use strict';
 
     var em = sb.getEntityManager();
     var ec = sb.getEntityCreator();
+    var routeDoneCalculator = 0;
 
     var init = function() {
 
-        sb.subscribe('routeDone', function(name, entity) {
+        pubsub.subscribe('routeDone', function(name, entity) {
 
+            routeDoneCalculator++;
+            if (routeDoneCalculator > 1) {
+                routeDoneCalculator = 0;
+                pubsub.publish('loadstage', 'levelupstate');
+                return;
+            }
             var ms = em.getEntityByName('mothership');
             var rmc = ms.components.RailsMovementComponent;
 
@@ -31,11 +38,11 @@ function gameLogicProcess(sb) {
 
         });
 
-        sb.subscribe('gameover', function(name, b) {
+        pubsub.subscribe('gameover', function(name, b) {
             //alert('game over. Refresh');
         });
 
-        sb.subscribe('enemyDeath', function(name, b) {
+        pubsub.subscribe('enemyDeath', function(name, b) {
 
             var ms = em.getEntityByName('mothership');
             var sc = ms.components.ScoreComponent;
@@ -54,7 +61,7 @@ function gameLogicProcess(sb) {
 
         });
 
-        sb.subscribe('respawn', function(name, b) {
+        pubsub.subscribe('respawn', function(name, b) {
             var ms = em.getEntityByName('mothership');
             //if mothership is destroyed we don't respawn
             if (ms.components.HealthComponent.getAmount() > 0) {

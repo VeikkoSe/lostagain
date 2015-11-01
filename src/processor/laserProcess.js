@@ -1,4 +1,4 @@
-function laserProcess(sb) {
+function laserProcess(sb, pubsub) {
     'use strict';
 
     //var lastTime = 0;
@@ -62,7 +62,7 @@ function laserProcess(sb) {
                         le.components.HealthComponent.getAmount() > 0 &&
                         isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
 
-                        sb.publish('enemyhit', target);
+                        pubsub.publish('enemyhit', target);
                         //sb.publish("smallexplosion", target);
 
                         break; //shoot only one target at a time

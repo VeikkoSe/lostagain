@@ -1,4 +1,4 @@
-function movementProcess(sb) {
+function movementProcess(sb, pubsub) {
     'use strict';
 
     var em = sb.getEntityManager();
@@ -26,7 +26,7 @@ function movementProcess(sb) {
                     (isCloseOrbit(re.getXPos(), rc.getRouteEndXpos()) &&
                     isCloseOrbit(re.getZPos(), rc.getRouteEndZpos()))) {
                     rc.setRouteDone(true);
-                    sb.publish('routeDone');
+                    pubsub.publish('routeDone');
 
                 }
 
@@ -69,6 +69,7 @@ function movementProcess(sb) {
                 le.components.MomentumComponent.setCurrentlyAccelerating(0);
                 le.components.GunComponent.setShooting(0);
 
+                //up arrow
                 if (sb.getActionMapper().getCurrentlyPressedKeys()[38]) {
                     le.components.MomentumComponent.setCurrentlyAccelerating(1);
                 }

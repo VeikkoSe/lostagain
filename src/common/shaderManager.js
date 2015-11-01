@@ -1,16 +1,13 @@
-function shaderManager() {
+function shaderManager(gl) {
     'use strict';
 
-    var sb, allShaders, currentProgram, gl;
+    var sb, allShaders, currentProgram;
 
     var init = function(sandbox) {
-        sb = sandbox;
+        //sb = sandbox;
         allShaders = [];
         currentProgram = null;
 
-    };
-    var start = function() {
-        gl = sb.getGL();
     };
 
     var setProgram = function(program) {
@@ -104,7 +101,7 @@ function shaderManager() {
 
     var initMapShaders = function() {
 
-        var program = createP('map');
+        var program = createP('maps');
 
         program.aVertexPosition = gl.getAttribLocation(program, 'aVertexPosition');
         gl.enableVertexAttribArray(program.aVertexPosition);
@@ -131,24 +128,6 @@ function shaderManager() {
         program.uPMatrix = gl.getUniformLocation(program, 'uPMatrix');
         program.uMVMatrix = gl.getUniformLocation(program, 'uMVMatrix');
         program.uColor = gl.getUniformLocation(program, 'uColor');
-
-        return program;
-
-    };
-
-    var initVerticalBlurShaders = function() {
-
-        var program = createP('blurvertical');
-
-        program.aVertexPosition = gl.getAttribLocation(program, 'aVertexPosition');
-        gl.enableVertexAttribArray(program.aVertexPosition);
-
-        program.textureCoordAttribute = gl.getAttribLocation(program, 'aTextureCoord');
-        gl.enableVertexAttribArray(program.textureCoordAttribute);
-
-        program.uResolution = gl.getUniformLocation(program, 'uResolution');
-
-        program.samplerUniform = gl.getUniformLocation(program, 'uSampler');
 
         return program;
 
@@ -414,8 +393,8 @@ function shaderManager() {
         setProgram,
         subscribe: function() {
         },
-        init,
-        start
+        init
+
     });
 
 }
