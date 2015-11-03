@@ -1,4 +1,4 @@
-function renderProcess(sb) {
+function renderProcess(sb,helpers) {
     'use strict';
 
     var gl = sb.getGL();
@@ -76,9 +76,9 @@ function renderProcess(sb) {
 
             mat4.translate(mvMatrix, [rc.getXPos(), rc.getYPos(), rc.getZPos()]);
 
-            mat4.rotate(mvMatrix, degToRad(rc.getAngleY()), [0, 1, 0]);
-            mat4.rotate(mvMatrix, degToRad(rc.getAngleZ()), [0, 0, 1]);
-            mat4.rotate(mvMatrix, degToRad(rc.getAngleX()), [1, 0, 0]);
+            mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleY()), [0, 1, 0]);
+            mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleZ()), [0, 0, 1]);
+            mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleX()), [1, 0, 0]);
 
             if (rc.getScale() !== 1) {
                 mat4.scale(mvMatrix, [rc.getScale(), rc.getScale(), rc.getScale()]);
@@ -100,7 +100,7 @@ function renderProcess(sb) {
                 if (le.components.RotationComponent.getZ() > 0) {
                     zRot = 1;
                 }
-                mat4.rotate(camera.getMVMatrix(), degToRad(rotation), [xRot, yRot, zRot]);
+                mat4.rotate(camera.getMVMatrix(), helpers.degToRad(rotation), [xRot, yRot, zRot]);
             }
 
             gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getVertexPositionBuffer());
@@ -113,12 +113,12 @@ function renderProcess(sb) {
             gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
             //if texture don't change we don't rebind it
-            if (mc.getMesh().getTexture() !== oldTexture) {
+           // if (mc.getMesh().getTexture() !== oldTexture) {
                 gl.activeTexture(gl.TEXTURE0);
                 gl.bindTexture(gl.TEXTURE_2D, mc.getMesh().getTexture());
                 gl.uniform1i(program.samplerUniform, 0);
-                oldTexture = mc.getMesh().getTexture();
-            }
+             //   oldTexture = mc.getMesh().getTexture();
+            //}
 
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.getMesh().getIndexPositionBuffer());
 

@@ -2,12 +2,10 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/php" />
-      <excludeFolder url="file://$MODULE_DIR$/php/out" />
-      <excludeFolder url="file://$MODULE_DIR$/resources" />
-      <excludeFolder url="file://$MODULE_DIR$/resources/models" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Node.js v0.10.29 Core Modules" level="application" />
   </component>
 </module>

@@ -1,7 +1,3 @@
-/*
- *
- * Handles key press and publishes event so those that want them can use them
- */
 function actionMapper(pubsub) {
     'use strict';
 

@@ -1,18 +1,6 @@
-function core(gl, resolutionWidth, resolutionHeight) {
+function core(resolutionWidth, resolutionHeight) {
     'use strict';
 
-    //var modules = [];
-    //this.gl = null;
-
-    //var camera = null;
-    //var shaderManager = null;
-    //var text = null;
-    //var loader = null;
-
-    //this.topics = {};
-
-    // An topic identifier
-    //this.subUid = -1;
 
     var entityManagerModule;
 
@@ -28,44 +16,33 @@ function core(gl, resolutionWidth, resolutionHeight) {
     var shaderManagerModule;
     var audioModule;
 
-    //var assetManager = null;
-    //var entityManager = null;
-    //var actionMapper = null;
-    //this.map = null;
+    var gl;
 
-    //this.createModule(audio());
+    var isInt = function(value) {
+        var x = parseFloat(value);
+        return !isNaN(value) && (x | 0) === x;
+    };
 
-    //this.width = width;
-    //this.height = height;
+    var init = function() {
 
-    //var canvas = this.find('canvas');
-    //canvas.width = width;
-    //canvas.height = height;
 
-    //try {
+            var canvas = document.getElementById('canvas');
 
-    // this.gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl", {alpha: false}));
-    //this.gl = WebGLUtils.setupWebGL(canvas);
+            canvas.width = resolutionWidth;
+            canvas.height = resolutionHeight;
 
-    // } catch (e) {
+            //var gl = WebGLDebugUtils.makeDebugContext(canvas.getContext('webgl', {alpha: false}));
+            gl = WebGLUtils.setupWebGL(canvas);
 
-    //}
-    //if (!this.gl) {
-    //    alert('Could not initialise WebGL');
-    //}
 
-    //sm = shader_manager_constuctor(gl);
+    };
 
-//}
-    /*
-     Core.prototype.createModule = function(func) {
-     'use strict';
 
-     this.modules.push(func);
-     };
-     */
 
     var startModules = function(callback) {
+
+
+
 
         if (typeof entityCreatorModule === 'undefined' ||
             typeof entityCreatorModule === 'undefined' ||
@@ -76,7 +53,7 @@ function core(gl, resolutionWidth, resolutionHeight) {
             typeof shaderManagerModule === 'undefined' ||
             typeof audioModule === 'undefined'
         ) {
-            alert('Core modules missing!');
+            throw 'core: starting without mandatory modules';
         }
 
         entityManagerModule.init();
@@ -91,119 +68,9 @@ function core(gl, resolutionWidth, resolutionHeight) {
         callback();
     };
 
-//Core.prototype.startSandbox = function() {
-    // 'use strict';
-//    for (var i = 0; i < this.modules.length; i++) {
-    //       this.modules[i].start();
-//    }
-
-//};
-    /*
-     Core.prototype.initModules = function() {
-     'use strict';
-     //TODO: REFACTOR
-     this.actionMapper = this.modules[0];
-     this.entityManager = this.modules[1];
-     this.assetManager = this.modules[2];
-
-     this.camera = this.modules[3];
-     this.sm = this.modules[4];
-     this.text = this.modules[5];
-     this.entityCreator = this.modules[6];
-     this.stateEngine = this.modules[7];
-     //this.map = this.modules[8];
-
-     };
-
-     Core.prototype.find = function(elem) {
-     'use strict';
-     return document.getElementById(elem);
-     };
-     */
-//Core.prototype.getModule = function(index) {
-    //   'use strict';
-//    return this.modules[index];
-//};
-
-//Core.prototype.startGame = function() {
-//    'use strict';
-//    this.stateEngine.startState();
-//};
-
-    /*
-
-     // modules.push(loader());
-     CORE.setShaderManager(shaderManager(gl));
-
-
-     Core.prototype.getStateEngine = function() {
-     'use strict';
-     return this.stateEngine;
-     };
-
-     Core.prototype.getShaderManager = function() {
-     'use strict';
-     return this.sm;
-     };
-
-     Core.prototype.getEntityCreator = function() {
-     'use strict';
-     return this.entityCreator;
-     };
-
-     Core.prototype.getCamera = function() {
-     'use strict';
-     return this.camera;
-     };
-
-     Core.prototype.getCurrentlyPressedKeys = function() {
-     'use strict';
-     return this.camera;
-     };
-
-     Core.prototype.getAssetManager = function() {
-     'use strict';
-     return this.assetManager;
-     };
-
-     Core.prototype.getEntityManager = function() {
-     'use strict';
-     return this.entityManager;
-     };
-
-     Core.prototype.getLoader = function() {
-     'use strict';
-     return this.loader;
-     };
-
-
-     Core.prototype.getActionMapper = function() {
-     'use strict';
-     return this.actionMapper;
-     };
-
-     Core.prototype.getGL = function() {
-     'use strict';
-     return this.gl;
-     };
-
-     Core.prototype.getText = function() {
-     'use strict';
-     return this.text;
-     };
-
-     Core.prototype.getResolutionWidth = function() {
-     'use strict';
-     return this.width;
-     };
-
-     Core.prototype.getResolutionHeight = function() {
-     'use strict';
-     return this.height;
-     };
-     */
 
     return {
+        init,
         setEntityManagerModule: function(v) {
             entityManagerModule = v;
         },
@@ -249,9 +116,16 @@ function core(gl, resolutionWidth, resolutionHeight) {
             return assetManagerModule;
         },
         getResolutionWidth: function() {
+            if(!isInt(resolutionWidth)) {
+                throw Error('Core:Width is not a number');
+            }
+
             return resolutionWidth;
         },
         getResolutionHeight: function() {
+            if(!isInt(resolutionHeight)) {
+                throw Error('Core:Height is not a number');
+            }
             return resolutionHeight;
         },
         getText: function() {
@@ -267,15 +141,6 @@ function core(gl, resolutionWidth, resolutionHeight) {
 
             audioModule.setMasterVolume(percent);
         }
-        /*
-         ,
-         geetEntityManagerModule(entityManager());
-         CORE.setEntityCreatorModule(entityCreator());
-         CORE.setAssetManagerModule(assetManager());
-         CORE.setActionMapperModule(actionMapper(pubsub));
-         CORE.setCameraModule(camera(w,h));
-         CORE.setTextModule(text(w,h));
-         */
 
     };
 }

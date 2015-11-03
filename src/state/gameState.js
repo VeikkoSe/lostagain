@@ -1,4 +1,4 @@
-function gameState(sb, pubsub) {
+function gameState(sb, pubsub,helpers) {
     'use strict';
 
     var elapsedTotal = 0;
@@ -44,17 +44,17 @@ function gameState(sb, pubsub) {
         processList.push(primitiveProcess(sb));
         processList.push(chaseProcess(sb));
         processList.push(faceProcess(sb));
-        processList.push(pulseGunProcess(sb, pubsub));
-        processList.push(movementProcess(sb, pubsub));
-        processList.push(exhaustProcess(sb));
-        processList.push(trailProcess(sb));
-        processList.push(collisionProcess(sb, pubsub));
-        processList.push(renderProcess(sb));
+        processList.push(pulseGunProcess(sb, pubsub,helpers));
+        processList.push(movementProcess(sb, pubsub,helpers));
+        processList.push(exhaustProcess(sb,helpers));
+        processList.push(trailProcess(sb,helpers));
+        processList.push(collisionProcess(sb, pubsub,helpers));
+        processList.push(renderProcess(sb,helpers));
         processListNoPause.push(cameraControllerProcess(sb, pubsub));
 
         processList.push(starProcess(sb));
-        processList.push(teleportProcess(sb));
-        processList.push(laserProcess(sb, pubsub));
+        processList.push(teleportProcess(sb,helpers));
+        processList.push(laserProcess(sb, pubsub,helpers));
         processList.push(timedTextProcess(sb));
         processList.push(scoreProcess(sb));
         processList.push(text2dProcess(sb));

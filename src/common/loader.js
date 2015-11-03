@@ -79,7 +79,7 @@ function loader(pubsub, entityCreator, entityManager) {
                 var mothership = ec.createMotherShip(target);
                 var ship = ec.createShip();
 
-                if (false) {
+                if (true) {
                     for (var i = 0; i < 3; i++) {
                         ec.createDestroyer(mothership);
                     }

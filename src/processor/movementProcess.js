@@ -1,4 +1,4 @@
-function movementProcess(sb, pubsub) {
+function movementProcess(sb, pubsub,helpers) {
     'use strict';
 
     var em = sb.getEntityManager();
@@ -21,10 +21,10 @@ function movementProcess(sb, pubsub) {
 
                 var re = le.components.RenderableComponent;
 
-                if ((isNumeric(rc.getRouteEndXpos()) &&
-                    isNumeric(rc.getRouteEndZpos())) &&
-                    (isCloseOrbit(re.getXPos(), rc.getRouteEndXpos()) &&
-                    isCloseOrbit(re.getZPos(), rc.getRouteEndZpos()))) {
+                if ((helpers.isNumeric(rc.getRouteEndXpos()) &&
+                    helpers.isNumeric(rc.getRouteEndZpos())) &&
+                    (helpers.isCloseOrbit(re.getXPos(), rc.getRouteEndXpos()) &&
+                    helpers.isCloseOrbit(re.getZPos(), rc.getRouteEndZpos()))) {
                     rc.setRouteDone(true);
                     pubsub.publish('routeDone');
 
@@ -100,9 +100,9 @@ function movementProcess(sb, pubsub) {
 
                 if (mm.getCurrentlyAccelerating() === 1) {
 
-                    var dirVectorX = Math.cos(degToRad(re.getAngleY()));
+                    var dirVectorX = Math.cos(helpers.degToRad(re.getAngleY()));
                     //result works but re.zPos is minus instead of addition in the end
-                    var dirVectorZ = Math.sin(degToRad(re.getAngleY()));
+                    var dirVectorZ = Math.sin(helpers.degToRad(re.getAngleY()));
 
                     var tx = mm.getVelocityX();
                     var tz = mm.getVelocityZ();

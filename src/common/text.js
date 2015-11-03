@@ -1,4 +1,4 @@
-function text(resolutionWidth, resolutionHeight) {
+function text(resolutionWidth, resolutionHeight,helpers) {
     'use strict';
 
     //var sb;
@@ -47,8 +47,8 @@ function text(resolutionWidth, resolutionHeight) {
                 continue;
             }
 
-            var yOffsetandAdvance = yAdvance - pInt(letters[i].yoffset);
-            var xOffset = pInt(letters[i].xoffset);
+            var yOffsetandAdvance = yAdvance - helpers.pInt(letters[i].yoffset);
+            var xOffset = helpers.pInt(letters[i].xoffset);
             var xOffsetandAdvance = xOffset + xAdvance;
             var scale = 1;
 
@@ -60,65 +60,65 @@ function text(resolutionWidth, resolutionHeight) {
                 var yPosition = yPos;
                 ret.push(
                     //first triangle and two texture coordinates
-                    //  1, 1,             0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
-                    //  0, 1,                          0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y)),
-                    //  0, 0,0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    //  1, 1,             0.0, this.formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), this.formatPixel(helpers.pInt(letters[i].y)),
+                    //  0, 1,                          0.0, this.formatPixel(helpers.pInt(letters[i].x)), this.formatPixel(helpers.pInt(letters[i].y)),
+                    //  0, 0,0.0, this.formatPixel(helpers.pInt(letters[i].x)), this.formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
-                    //  1,1, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y)),
-                    //  0,0, 0.0, this.formatPixel(pInt(letters[i].x)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
-                    //  1,0, 0.0, this.formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), this.formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
+                    //  1,1, 0.0, this.formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), this.formatPixel(helpers.pInt(letters[i].y)),
+                    //  0,0, 0.0, this.formatPixel(helpers.pInt(letters[i].x)), this.formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height)),
+                    //  1,0, 0.0, this.formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), this.formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height))
 
                     //first point
-                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth)),
+                    xPosition + (scale * ((xOffsetandAdvance + helpers.pInt(letters[i].width)) / resolutionWidth)),
                     (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)) - yPosition,
                     //texture coordinates
-                    0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    0.0, formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), formatPixel(helpers.pInt(letters[i].y)),
                     //second point
                     xPosition + (scale * (xOffsetandAdvance / resolutionWidth)),
                     (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)) - yPosition,
                     //texture coordinates
-                    0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
+                    0.0, formatPixel(helpers.pInt(letters[i].x)), formatPixel(helpers.pInt(letters[i].y)),
                     //third point
                     xPosition + (scale * (xOffsetandAdvance / resolutionWidth)),
                     (1 - (scale * (32 / resolutionHeight))) - yPosition,
                     //texture coordinates
-                    0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    0.0, formatPixel(helpers.pInt(letters[i].x)), formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
                     //first point
-                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth)),
+                    xPosition + (scale * ((xOffsetandAdvance + helpers.pInt(letters[i].width)) / resolutionWidth)),
                     (1 - (scale * (-1 * yOffsetandAdvance) / resolutionHeight)) - yPosition,
                     //texture coordinates
-                    0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
+                    0.0, formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), formatPixel(helpers.pInt(letters[i].y)),
                     //second point
                     xPosition + (scale * (xOffsetandAdvance / resolutionWidth)),
                     (1 - (scale * (32 / resolutionHeight))) - yPosition,
                     //texture coordinates
-                    0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    0.0, formatPixel(helpers.pInt(letters[i].x)), formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height)),
                     //third point
-                    xPosition + (scale * ((xOffsetandAdvance + pInt(letters[i].width)) / resolutionWidth)),
+                    xPosition + (scale * ((xOffsetandAdvance + helpers.pInt(letters[i].width)) / resolutionWidth)),
                     (1 - (scale * (32 / resolutionHeight))) - yPosition,
                     //texture coordinates
-                    0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
+                    0.0, formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height))
                 );
 
             }
             else {
                 ret.push(
                     //first triangle and two texture coordinates
-                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance, 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
-                    xOffsetandAdvance, yOffsetandAdvance, 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y)),
-                    xOffsetandAdvance, yOffsetandAdvance - pInt(letters[i].height), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
+                    xOffsetandAdvance + helpers.pInt(letters[i].width), yOffsetandAdvance, 0.0, formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), formatPixel(helpers.pInt(letters[i].y)),
+                    xOffsetandAdvance, yOffsetandAdvance, 0.0, formatPixel(helpers.pInt(letters[i].x)), formatPixel(helpers.pInt(letters[i].y)),
+                    xOffsetandAdvance, yOffsetandAdvance - helpers.pInt(letters[i].height), 0.0, formatPixel(helpers.pInt(letters[i].x)), formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height)),
 
                     //second triangle and two texture coordinates
-                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance, 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y)),
-                    xOffsetandAdvance, yOffsetandAdvance - pInt(letters[i].height), 0.0, formatPixel(pInt(letters[i].x)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height)),
-                    xOffsetandAdvance + pInt(letters[i].width), yOffsetandAdvance - pInt(letters[i].height), 0.0, formatPixel(pInt(letters[i].x) + pInt(letters[i].width)), formatPixel(pInt(letters[i].y) + pInt(letters[i].height))
+                    xOffsetandAdvance + helpers.pInt(letters[i].width), yOffsetandAdvance, 0.0, formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), formatPixel(helpers.pInt(letters[i].y)),
+                    xOffsetandAdvance, yOffsetandAdvance - helpers.pInt(letters[i].height), 0.0, formatPixel(helpers.pInt(letters[i].x)), formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height)),
+                    xOffsetandAdvance + helpers.pInt(letters[i].width), yOffsetandAdvance - helpers.pInt(letters[i].height), 0.0, formatPixel(helpers.pInt(letters[i].x) + helpers.pInt(letters[i].width)), formatPixel(helpers.pInt(letters[i].y) + helpers.pInt(letters[i].height))
                 );
             }
 
-            xAdvance += pInt(letters[i].xadvance);
+            xAdvance += helpers.pInt(letters[i].xadvance);
 
         }
 

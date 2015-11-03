@@ -1,4 +1,4 @@
-function laserProcess(sb, pubsub) {
+function laserProcess(sb, pubsub,helpers) {
     'use strict';
 
     //var lastTime = 0;
@@ -60,7 +60,7 @@ function laserProcess(sb, pubsub) {
                     //var hc = targets[i].components.HealthComponent;
                     if (target.components.HealthComponent.getAmount() > 0 &&
                         le.components.HealthComponent.getAmount() > 0 &&
-                        isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
+                        helpers.isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
 
                         pubsub.publish('enemyhit', target);
                         //sb.publish("smallexplosion", target);
@@ -92,7 +92,7 @@ function laserProcess(sb, pubsub) {
 
                 if (target.components.HealthComponent.getAmount() > 0 &&
                     le.components.HealthComponent.getAmount() > 0 &&
-                    isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
+                    helpers.isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
 
                     shadermanager.setProgram(simplestProgram);
 

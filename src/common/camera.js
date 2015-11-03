@@ -1,4 +1,4 @@
-function camera(resolutionWidth, resolutionHeight) {
+function camera(resolutionWidth, resolutionHeight,helpers) {
     'use strict';
 
     var mvMatrix, pMatrix, cMatrix, pvMatrix,
@@ -45,7 +45,7 @@ function camera(resolutionWidth, resolutionHeight) {
 
         //initial pos
 
-        //rotationX = degToRad(60);
+
         rotationY = 0;
 
         slideLeft = false;
@@ -86,10 +86,10 @@ function camera(resolutionWidth, resolutionHeight) {
     var setYRotation = function(rot) {
 
         if (rot.charAt(0) === '-') {
-            rotationY -= degToRad(parseInt(rot.substring(1), 10));
+            rotationY -= helpers.degToRad(parseInt(rot.substring(1), 10));
         }
         else {
-            rotationY += degToRad(parseInt(rot, 10));
+            rotationY += helpers.degToRad(parseInt(rot, 10));
         }
     };
     var getYRotation = function() {

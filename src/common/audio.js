@@ -1,18 +1,21 @@
-function audio() {
+function audio(helpers) {
     'use strict';
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     var source;
     //https://ourmusicbox.com/
     //TODO: Add correct copyright notices
-    var sountrack = ['./sound/music/150413_Processed_Results---free_download.ogg',
-        './sound/music/150413_Crime_Lab---free_download.ogg',
-        './sound/music/150413_Weird_Electro---free_download.ogg',
-        './sound/music/150413_World_Spinning---free_download.ogg',
-        './sound/music/150413_Victory_Gaze---free_download.ogg'];
-    var url = sountrack[randomIntFromInterval(0, 4)];
+    var sountrack = [
+        './resources/sound/music/150413_Processed_Results---free_download.ogg',
+        './resources/sound/music/150413_Crime_Lab---free_download.ogg',
+        './resources/sound/music/150413_Weird_Electro---free_download.ogg',
+        './resources/sound/music/150413_World_Spinning---free_download.ogg',
+        './resources/sound/music/150413_Victory_Gaze---free_download.ogg'];
+
 
     var getData = function() {
+        var url = sountrack[helpers.randomIntFromInterval(0, 4)];
+
         source = audioCtx.createBufferSource();
         var request = new XMLHttpRequest();
 

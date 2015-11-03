@@ -1,4 +1,4 @@
-function collisionProcess(sb, pubsub) {
+function collisionProcess(sb, pubsub,helpers) {
     'use strict';
 
     //constructor() {
@@ -14,7 +14,7 @@ function collisionProcess(sb, pubsub) {
             var hc = enemyEntity.components.HealthComponent;
             var sc = enemyEntity.components.ShieldComponent;
 
-            createHit(hc, sc);
+            helpers.createHit(hc, sc);
 
             if (hc.getAmount() > 0) {
                 pubsub.publish('explosion', enemyEntity.components.RenderableComponent);
@@ -39,8 +39,8 @@ function collisionProcess(sb, pubsub) {
          var enemyHc = enemy.components.HealthComponent;
          var enemySc = enemy.components.ShieldComponent;
 
-         createHit(hc, sc);
-         createHit(enemyHc, enemySc);
+         helpers.createHit(hc, sc);
+         helpers.createHit(enemyHc, enemySc);
 
 
          //hc.setAmount(hc.getAmount() - 1);
@@ -69,7 +69,7 @@ function collisionProcess(sb, pubsub) {
             var hc = target.components.HealthComponent;
             var sc = target.components.ShieldComponent;
 
-            createHit(hc, sc);
+            helpers.createHit(hc, sc);
 
             //hc.setAmount(hc.getAmount() - 1);
             if (hc.getAmount() > 0) {
@@ -98,7 +98,7 @@ function collisionProcess(sb, pubsub) {
             var hc = enemyEntity.components.HealthComponent;
             var sc = enemyEntity.components.ShieldComponent;
 
-            createHit(hc, sc);
+            helpers.createHit(hc, sc);
             //hc.setAmount(hc.getAmount() - 1);
 
             if (hc.getAmount() > 0) {
@@ -118,7 +118,7 @@ function collisionProcess(sb, pubsub) {
             //renderable contains xyz of object so we know where to explode
             var pc = playerEntity.components.RenderableComponent;
 
-            createHit(hcp, scp);
+            helpers.createHit(hcp, scp);
 
             //we don't explode the ship when shield take damage
 

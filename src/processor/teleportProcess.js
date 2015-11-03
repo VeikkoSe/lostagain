@@ -1,4 +1,4 @@
-function teleportProcess(sb) {
+function teleportProcess(sb,helpers) {
     'use strict';
 
     //class TeleportProcess extends processor {
@@ -29,13 +29,13 @@ function teleportProcess(sb) {
 
             //TODO: change to vectors
             ms.components.JumpAreaComponent.setPoints(
-                circleXY(ms.components.RenderableComponent.getXPos(),
+                helpers.circleXY(ms.components.RenderableComponent.getXPos(),
                     0,
                     ms.components.RenderableComponent.getZPos(),
                     ms.components.JumpAreaComponent.getRadius(),
                     ms.components.JumpAreaComponent.getPointAmount()));
 
-            if (!isInCircle(ms.components.RenderableComponent.getXPos(),
+            if (!helpers.isInCircle(ms.components.RenderableComponent.getXPos(),
                     ms.components.RenderableComponent.getZPos(),
                     ms.components.JumpAreaComponent.getRadius(),
                     ship.components.RenderableComponent.getXPos(),

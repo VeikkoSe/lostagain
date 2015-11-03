@@ -1,4 +1,4 @@
-function entityCreator(gl, entityManager, assetManager) {
+function entityCreator(gl, entityManager, assetManager,helper) {
     'use strict';
     // var t, em,  sb;
 
@@ -104,8 +104,8 @@ function entityCreator(gl, entityManager, assetManager) {
         e.addComponent(collisionComponent('enemy'));
         var rc = renderableComponent();
 
-        rc.setXPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
-        rc.setZPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
+        rc.setXPos(helper.randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
+        rc.setZPos(helper.randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
         //rc.setXPos(randomRangedInt());
         //rc.setZPos(randomRangedInt());
 
@@ -132,7 +132,7 @@ function entityCreator(gl, entityManager, assetManager) {
         rc.setYPos(0);
         rc.setZPos(0);
         e.addComponent(rc);
-
+        //e.addComponent(rotationComponent(10, 10, 10));
         var mesh = am.getMesh('start');
 
         var m = meshComponent();
@@ -198,8 +198,8 @@ function entityCreator(gl, entityManager, assetManager) {
         var rc = renderableComponent();
         rc.setScale(5);
 
-        rc.setXPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
-        rc.setZPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
+        rc.setXPos(helper.randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
+        rc.setZPos(helper.randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
         e.addComponent(rc);
 
         e.addComponent(respawnComponent());
@@ -243,8 +243,8 @@ function entityCreator(gl, entityManager, assetManager) {
 
         var rc = renderableComponent();
 
-        rc.setXPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
-        rc.setZPos(randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
+        rc.setXPos(helper.randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getXPos()));
+        rc.setZPos(helper.randomRangedIntFromPos(spawnRelated.components.RenderableComponent.getZPos()));
         //rc.setXPos(randomCloseInt());
         //rc.setZPos(randomCloseInt());
         e.addComponent(rc);
@@ -311,7 +311,7 @@ function entityCreator(gl, entityManager, assetManager) {
 
         e.addComponent(visibilityComponent());
 
-        var points = circleXY(0, 0, 0, 300, 200);
+        var points = helper.circleXY(0, 0, 0, 300, 200);
         var buffer = gl.createBuffer();
         //var bd = sb.getGL().bufferData(gl.ARRAY_BUFFER, new Float32Array(points), sb.getGL().STATIC_DRAW);
 
@@ -390,8 +390,8 @@ function entityCreator(gl, entityManager, assetManager) {
 
         var rc = renderableComponent();
         rc.setScale(50);
-        rc.setXPos(randomRangedInt());
-        rc.setZPos(randomRangedInt());
+        rc.setXPos(helper.randomRangedInt());
+        rc.setZPos(helper.randomRangedInt());
         e.addComponent(rc);
 
         e.addComponent(rotationComponent(10, 10, 10));

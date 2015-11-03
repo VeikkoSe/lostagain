@@ -54,7 +54,7 @@ function assetManager(pubsub, mesh, sprite) {
         //var params = {name,game};
         //var s = sprite;
         var s = sprite.load(name, noflip, repeat);
-        console.log(s);
+
         sprites[name] = s;
 
         return sprites[name];

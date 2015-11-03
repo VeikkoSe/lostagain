@@ -1,4 +1,4 @@
-function trailProcess(sb) {
+function trailProcess(sb,helpers) {
     'use strict';
 
     //constructor() {
@@ -32,8 +32,8 @@ function trailProcess(sb) {
         var posX = re.getXPos();
         var posZ = re.getZPos();
 
-        var unitX = Math.cos(degToRad(re.getAngleY()));
-        var unitZ = Math.sin(degToRad(re.getAngleY()));
+        var unitX = Math.cos(helpers.degToRad(re.getAngleY()));
+        var unitZ = Math.sin(helpers.degToRad(re.getAngleY()));
 
         var rendX = (posX - (unitX * ec.getOffSetSideFromCenter())) - ((-1 * unitZ) * ec.getOffSetFromCenter());
         var rendZ = (posZ + (unitZ * ec.getOffSetSideFromCenter())) + (unitX * ec.getOffSetFromCenter());

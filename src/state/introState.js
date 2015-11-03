@@ -1,4 +1,4 @@
-function introState(sb, pubsub) {
+function introState(sb, pubsub,helpers) {
     'use strict';
 
     var lastTime;
@@ -39,6 +39,7 @@ function introState(sb, pubsub) {
         for (var i = 0; i < processList.length; i++) {
             for (var e = 0; e < em.entities.length; e++) {
                 var le = em.entities[e];
+
                 processList[i].draw(le);
             }
         }
@@ -51,7 +52,7 @@ function introState(sb, pubsub) {
 
     var init = function() {
 
-        processList.push(renderProcess(sb));
+        processList.push(renderProcess(sb,helpers));
         processList.push(menuProcess(sb, pubsub));
 
         /*
@@ -69,9 +70,11 @@ function introState(sb, pubsub) {
         camera.setPerspective();
 
         var mvMatrix = camera.getMVMatrix();
-        mat4.lookAt([0, 0, 2200], [0, 0, 0], [0, 1, 0], mvMatrix);
+        mat4.lookAt([0, 0, 1200], [0, 0, 0], [0, 1, 0], mvMatrix);
         //mat4.identity(mvMatrix);
         //mat4.translate(mvMatrix, [0, 0, -300]);
+
+
 
         gl.clearColor(1, 0, 0, 1.0);
         gl.clearDepth(1.0);

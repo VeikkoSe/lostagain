@@ -1,4 +1,4 @@
-function levelupState(sb, pubsub) {
+function levelupState(sb, pubsub,helpers) {
     'use strict';
 
     var processList = [];
@@ -14,7 +14,7 @@ function levelupState(sb, pubsub) {
 
         processList = [];
 
-        processList.push(renderProcess(sb));
+        processList.push(renderProcess(sb,helpers));
         processList.push(menuProcess(sb, pubsub));
         processList.push(levelupProcess(sb));
         processList.push(cameraControllerProcess(sb, pubsub));
