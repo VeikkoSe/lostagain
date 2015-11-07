@@ -11,8 +11,8 @@ function oldLoadState(sb) {
 
     var camera = sb.getCamera();
 
-    var shadermanager = sb.getShaderManager();
-    var shaderprogram = shadermanager.useShader('simplest');
+    var material = sb.getMaterial();
+    var shaderprogram = material.useShader('simplest');
     //var wantedstate = '';
 
     var points = [];

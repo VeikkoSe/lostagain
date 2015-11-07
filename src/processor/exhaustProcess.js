@@ -6,8 +6,8 @@ function exhaustProcess(sb,helpers) {
 
     var gl = sb.getGL();
 
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('per-fragment-lighting');
+    var material = sb.getMaterial();
+    var program = material.useShader('per-fragment-lighting');
 
     var init = function() {
 
@@ -56,7 +56,7 @@ function exhaustProcess(sb,helpers) {
 
 
                     //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-                    shadermanager.setProgram(program);
+                    material.setProgram(program);
 
                     gl.uniform1f(program.alphaUniform, 1);
                     gl.uniform1i(program.uDrawColors, 0);

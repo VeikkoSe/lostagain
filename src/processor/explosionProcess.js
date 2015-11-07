@@ -3,8 +3,8 @@ function explosionProcess(sb, pubsub) {
 
     var gl = sb.getGL();
     var am = sb.getAssetManager();
-    var shadermanager = sb.getShaderManager();
-    var particleProgram = shadermanager.useShader('lifetimeparticle');
+    var material = sb.getMaterial();
+    var particleProgram = material.useShader('lifetimeparticle');
     var explosions = [];
 
     var camera = sb.getCamera();
@@ -51,7 +51,7 @@ function explosionProcess(sb, pubsub) {
 
     var createNewSmallExplosion = function(x, z) {
         //slow
-
+        sb.getAudio().playSound(9,0);
         var particle = asteroidExplosion(sb, x, 0, z, 'small');
         particle.init();
 
@@ -61,7 +61,7 @@ function explosionProcess(sb, pubsub) {
 
     var createNewMediumExplosion = function(x, z) {
         //slow
-
+        sb.getAudio().playSound(9,0);
         var particle = asteroidExplosion(sb, x, 0, z, 'medium');
         particle.init();
 
@@ -70,7 +70,7 @@ function explosionProcess(sb, pubsub) {
     };
 
     var createNewBigExplosion = function(x, z) {
-
+        sb.getAudio().playSound(9,0);
         var particle = asteroidExplosion(sb, x, 0, z, 'large');
         particle.init();
 
@@ -80,10 +80,13 @@ function explosionProcess(sb, pubsub) {
 
     var draw = function(le) {
 
+
+
+
         gl.disable(gl.DEPTH_TEST);
         gl.enable(gl.BLEND);
 
-        shadermanager.setProgram(particleProgram);
+        material.setProgram(particleProgram);
         var mvMatrix = camera.getMVMatrix();
 
         gl.activeTexture(gl.TEXTURE0);

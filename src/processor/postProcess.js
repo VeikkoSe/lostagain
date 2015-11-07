@@ -10,9 +10,9 @@ function postProcess(sb) {
     //var framebuffer = null;
     //var renderbuffer = null;
 
-    var shadermanager = sb.getShaderManager();
-    var blurVertical = shadermanager.useShader("simplest");
-    var blurHorizontal = shadermanager.useShader("blurhorizontal");
+    var material = sb.getMaterial();
+    var blurVertical = material.useShader("simplest");
+    var blurHorizontal = material.useShader("blurhorizontal");
 
     var texture = null;
     var texture2 = null;
@@ -145,7 +145,7 @@ function postProcess(sb) {
 
         //var program = createProgramFromScripts(gl, ["vshader", "fshader"], ["a_position"]);
         //gl.useProgram(program);
-        shadermanager.setProgram(blurVertical);
+        material.setProgram(blurVertical);
 
 // create an empty texture
         var tex = gl.createTexture();
@@ -185,7 +185,7 @@ function postProcess(sb) {
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer2);
         //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        shadermanager.setProgram(blurVertical);
+        material.setProgram(blurVertical);
 
         //gl.clearColor(0, 0, 0, 1); // red
         //gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -214,7 +214,7 @@ function postProcess(sb) {
     var secondPass = function() {
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         //sm.setProgram(blurHorizontalProgram);
-        shadermanager.setProgram(blurHorizontal);
+        material.setProgram(blurHorizontal);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
         //this.setRectangle(0, 0, gl.viewportWidth,  gl.viewportHeight);

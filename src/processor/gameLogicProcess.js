@@ -15,7 +15,7 @@ function gameLogicProcess(sb, pubsub) {
         pubsub.subscribe('routeDone', function(name, entity) {
 
             routeDoneCalculator++;
-            if (routeDoneCalculator > 1) {
+            if (routeDoneCalculator > 777) {
                 routeDoneCalculator = 0;
                 pubsub.publish('loadstage', 'levelupstate');
                 return;

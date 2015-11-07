@@ -41,22 +41,6 @@ function helpers() {
         randomCloseInt,
         randomRangedInt,
 
-        //Todo: better volume handling
-        swap: function(id, CORE) {
-
-            var e = document.getElementById(id);
-
-            if (e.className === 'soundon') {
-                e.className = 'soundoff';
-
-                CORE.setAudioMasterVolume(0);
-            }
-            else {
-
-                e.className = 'soundon';
-                CORE.setAudioMasterVolume(100);
-            }
-        },
 
         createHit: function(hc, sc) {
 

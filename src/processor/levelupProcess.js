@@ -6,8 +6,8 @@ function levelupProcess(sb) {
     var vertexPositionBuffer = gl.createBuffer();
     var texturePositionBuffer = gl.createBuffer();
     var em = sb.getEntityManager();
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('maps');
+    var material = sb.getMaterial();
+    var program = material.useShader('maps');
     var hg;
     var am = sb.getAssetManager();
 
@@ -44,7 +44,7 @@ function levelupProcess(sb) {
 
         if (le.components.MapComponent) {
 
-            shadermanager.setProgram(program);
+            material.setProgram(program);
 
             camera.mvPushMatrix();
             gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());

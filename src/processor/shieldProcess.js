@@ -2,8 +2,8 @@ function shieldProcess(sb) {
     'use strict';
 
     var em = sb.getEntityManager();
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('per-fragment-lighting');
+    var material = sb.getMaterial();
+    var program = material.useShader('per-fragment-lighting');
     var camera = sb.getCamera();
     var gl = sb.getGL();
 
@@ -66,7 +66,7 @@ function shieldProcess(sb) {
                 gl.disable(gl.DEPTH_TEST);
 
                 //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-                shadermanager.setProgram(program);
+                material.setProgram(program);
 
                 //gl.uniform3fv(this.shaderProgram.uMaterialDiffuse, mc.mesh.diffuse);
 

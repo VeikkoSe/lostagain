@@ -4,8 +4,8 @@ function textProcess(sb) {
 
     var camera = sb.getCamera();
 
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('font');
+    var material = sb.getMaterial();
+    var program = material.useShader('font');
 
     var am = sb.getAssetManager();
 
@@ -53,7 +53,7 @@ function textProcess(sb) {
 
             camera.mvPushMatrix();
             var mvMatrix = camera.getMVMatrix();
-            shadermanager.setProgram(program);
+            material.setProgram(program);
 
             mat4.scale(mvMatrix, [0.2, 0.2, 0.2]);
 

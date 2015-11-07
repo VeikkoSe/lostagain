@@ -17,6 +17,8 @@ function gameState(sb, pubsub,helpers) {
     var fb = null;
     var running = true;
 
+    var lastUsedHeap = 0;  // remember the heap size
+
     var subscribe = function() {
 
     };
@@ -80,9 +82,33 @@ function gameState(sb, pubsub,helpers) {
 
         startTime = new Date().getTime();
 
+        sb.getAudio().startMusic(1,0,true);
+        sb.getAudio().playSound(8,0,true);
+
+        //setTimeout(checkMemory, 100); // test 10 times per second
+
     };
 
+
+    // --- enter your code here ---
+    //new Object();
+    // --- end of your code ---
+
+    //var diff = window.performance.memory.usedJSHeapSize - before;
+
+
+    var  checkMemory = function() {
+
+        //if (window.performance.memory.usedJSHeapSize < lastUsedHeap)
+            //console.log('Garbage collected!');
+        //lastUsedHeap = window.performance.memory.usedJSHeapSize;
+    }
+
+
+
     var update = function() {
+
+        checkMemory();
         // console.time('Update');
 
         var timeNow = new Date().getTime();
@@ -106,6 +132,9 @@ function gameState(sb, pubsub,helpers) {
                     for (var i = 0; i < processList.length; i++) {
                         processList[i].update(elapsed, totalElapsed);
                     }
+                }
+                if(elapsedTotal%100===0) {
+                    checkMemory();
                 }
 
                 if (elapsedTotal >= 1000) {

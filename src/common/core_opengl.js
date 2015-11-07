@@ -13,7 +13,7 @@ function core(resolutionWidth, resolutionHeight) {
     var cameraModule;
 
     var textModule;
-    var shaderManagerModule;
+    var materialModule;
     var audioModule;
 
     var gl;
@@ -31,8 +31,8 @@ function core(resolutionWidth, resolutionHeight) {
             canvas.width = resolutionWidth;
             canvas.height = resolutionHeight;
 
-            //var gl = WebGLDebugUtils.makeDebugContext(canvas.getContext('webgl', {alpha: false}));
-            gl = WebGLUtils.setupWebGL(canvas);
+            gl = WebGLDebugUtils.makeDebugContext(canvas.getContext('webgl', {alpha: false}));
+            //gl = WebGLUtils.setupWebGL(canvas);
 
 
     };
@@ -50,7 +50,7 @@ function core(resolutionWidth, resolutionHeight) {
             typeof actionMapperModule === 'undefined' ||
             typeof cameraModule === 'undefined' ||
             typeof textModule === 'undefined' ||
-            typeof shaderManagerModule === 'undefined' ||
+            typeof materialModule === 'undefined' ||
             typeof audioModule === 'undefined'
         ) {
             throw 'core: starting without mandatory modules';
@@ -62,7 +62,7 @@ function core(resolutionWidth, resolutionHeight) {
         actionMapperModule.init();
         cameraModule.init();
         textModule.init();
-        shaderManagerModule.init();
+        materialModule.init();
         audioModule.init();
 
         callback();
@@ -90,8 +90,8 @@ function core(resolutionWidth, resolutionHeight) {
         setTextModule: function(v) {
             textModule = v;
         },
-        setShaderManagerModule: function(v) {
-            shaderManagerModule = v;
+        setMaterialModule: function(v) {
+            materialModule = v;
         },
         setAudioModule: function(v) {
             audioModule = v;
@@ -109,8 +109,8 @@ function core(resolutionWidth, resolutionHeight) {
         getEntityCreator: function() {
             return entityCreatorModule;
         },
-        getShaderManager: function() {
-            return shaderManagerModule;
+        getMaterial: function() {
+            return materialModule;
         },
         getAssetManager: function() {
             return assetManagerModule;
@@ -136,11 +136,8 @@ function core(resolutionWidth, resolutionHeight) {
         },
         getAudio: function() {
             return audioModule;
-        },
-        setAudioMasterVolume: function(percent) {
-
-            audioModule.setMasterVolume(percent);
         }
+
 
     };
 }

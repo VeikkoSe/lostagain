@@ -17,7 +17,8 @@ function levelupState(sb, pubsub,helpers) {
         processList.push(renderProcess(sb,helpers));
         processList.push(menuProcess(sb, pubsub));
         processList.push(levelupProcess(sb));
-        processList.push(cameraControllerProcess(sb, pubsub));
+        //processList.push(cameraControllerProcess(sb, pubsub,false));
+        processList.push(starMoveProcess(sb));
 
         for (var i = 0; i < processList.length; i++) {
             processList[i].init();
@@ -27,12 +28,20 @@ function levelupState(sb, pubsub,helpers) {
         camera.setPerspective();
 
         var mvMatrix = camera.getMVMatrix();
-        mat4.lookAt([0, 0, 5], [0, 0, 0], [0, 1, 0], mvMatrix);
+
 
         gl.clearColor(1, 0, 0, 1.0);
         gl.clearDepth(1.0);
         //mat4.translate(camera.mvMatrix, [-50, 0, -10]);
         startTime = new Date().getTime();
+
+        camera.setXPos(36);
+        camera.setYPos(220);
+        camera.setZPos(60);
+
+        mat4.lookAt([camera.getXPos(), camera.getYPos(), camera.getZPos()], [0, 0, 0], [0, 1, 0], mvMatrix);
+
+
     };
 
     var draw = function() {
@@ -47,7 +56,6 @@ function levelupState(sb, pubsub,helpers) {
                 processList[i].draw(le);
             }
         }
-
     };
 
     var update = function() {
@@ -77,12 +85,9 @@ function levelupState(sb, pubsub,helpers) {
                 elapsedTotal -= 1000;
 
                 document.getElementById('fps').innerHTML = fps;
-
             }
-
         }
         lastTime = timeNow;
-
     };
 
     var cleanup = function() {

@@ -3,17 +3,18 @@ function planeProcess(sb) {
     var gl = sb.getGL();
     var camera = sb.getCamera();
 
-    var em = sb.getEntityManager();
-    var shadermanager = sb.getShaderManager();
-    var simplestProgram = shadermanager.useShader('simplest');
+    //var em = sb.getEntityManager();
+    var material = sb.getMaterial();
+    var simplestProgram = material.useShader('simplest');
 
     var draw = function(le) {
 
-        shadermanager.setProgram(simplestProgram);
+
         // for (var e = 0; e < em.entities.length; e++) {
         //   var le = em.entities[e];
 
         if (le.components.PlaneComponent) {
+            material.setProgram(simplestProgram);
 
             var ftc = le.components.PlaneComponent;
             var mvMatrix = camera.getMVMatrix();

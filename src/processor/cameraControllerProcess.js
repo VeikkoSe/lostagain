@@ -1,4 +1,4 @@
-function cameraControllerProcess(sb, pubsub) {
+function cameraControllerProcess(sb, pubsub,staticCamera) {
     'use strict';
 
     var camera = sb.getCamera();
@@ -6,6 +6,9 @@ function cameraControllerProcess(sb, pubsub) {
     var mouseX = 0;
     //var mouseY = 0;
     var degreeAlt = Math.PI / 180;
+    var tmpX = 0;
+    var tmpY = 0;
+    var tmpZ = 0;
 
     var init = function() {
         var mousedown = 0;
@@ -18,28 +21,30 @@ function cameraControllerProcess(sb, pubsub) {
             mousedown = 0;
         });
 
-        pubsub.subscribe('mousemove', function(name, e) {
+        if(!staticCamera) {
+            pubsub.subscribe('mousemove', function(name, e) {
 
-            if (mousedown === 1) {
-                if (mouseX - e.clientX > 0) {
-                    camera.setYRotation('20');
+                if (mousedown === 1) {
+                    if (mouseX - e.clientX > 0) {
+                        camera.setYRotation('20');
+                    }
+                    else {
+                        camera.setYRotation('-20');
+                    }
+                }
+                mouseX = e.clientX;
+
+            });
+
+            pubsub.subscribe('mousewheel', function(name, e) {
+                if (e === -1) {
+                    sb.getCamera().setDistance('10');
                 }
                 else {
-                    camera.setYRotation('-20');
+                    sb.getCamera().setDistance('-10');
                 }
-            }
-            mouseX = e.clientX;
-
-        });
-
-        pubsub.subscribe('mousewheel', function(name, e) {
-            if (e === -1) {
-                sb.getCamera().setDistance('10');
-            }
-            else {
-                sb.getCamera().setDistance('-10');
-            }
-        });
+            });
+        }
     };
 
     var update = function(deltatime) {
@@ -65,6 +70,13 @@ function cameraControllerProcess(sb, pubsub) {
 
                 mat4.lookAt([camera.getXPos(), camera.getYPos(), camera.getZPos()], [re.getXPos(), 0, re.getZPos()], [0, 1, 0], mvMatrix);
 
+                if(camera.getXPos()!==tmpX || camera.getYPos()!==tmpY || camera.getZPos()!==tmpZ)
+                {
+                    console.log(tmpX,tmpY,tmpZ);
+                    tmpX = camera.getXPos();
+                    tmpY = camera.getYPos();
+                    tmpZ = camera.getZPos();
+                }
             }
 
         }

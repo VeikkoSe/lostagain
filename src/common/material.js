@@ -1,4 +1,4 @@
-function shaderManager(gl) {
+function material(gl) {
     'use strict';
 
     var sb, allShaders, currentProgram;

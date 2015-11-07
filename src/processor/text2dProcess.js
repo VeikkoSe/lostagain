@@ -1,8 +1,8 @@
 function text2dProcess(sb) {
     'use strict';
 
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('gui');
+    var material = sb.getMaterial();
+    var program = material.useShader('gui');
 
     var text = sb.getText();
     var camera = sb.getCamera();
@@ -76,7 +76,7 @@ function text2dProcess(sb) {
                 return true;
             }
 
-            shadermanager.setProgram(program);
+            material.setProgram(program);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
             gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);

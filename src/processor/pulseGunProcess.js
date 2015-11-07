@@ -2,8 +2,8 @@ function pulseGunProcess(sb, pubsub,helpers) {
     'use strict';
 
     var gl = sb.getGL();
-    var shadermanager = sb.getShaderManager();
-    var particleProgram3d = shadermanager.useShader('particle3d');
+    var material = sb.getMaterial();
+    var particleProgram3d = material.useShader('particle3d');
 
     //var lastTime = 0;
     var camera = sb.getCamera();
@@ -31,7 +31,7 @@ function pulseGunProcess(sb, pubsub,helpers) {
             for (var i = 0; i < bulletsAmount; i++) {
 
                 if (bullets[i].getVisible() === 0) {
-
+                    sb.getAudio().playSound(6,0);
                     ammo.setBulletShot(timeNow);
                     bullets[i].setVisible(1);
                     bullets[i].setBirthTime(timeNow);
@@ -154,7 +154,7 @@ function pulseGunProcess(sb, pubsub,helpers) {
             //var pc = le.components.PhotonTorpedoComponent;
             var ptc = le.components.PulseGunComponent;
 
-            shadermanager.setProgram(particleProgram3d);
+            material.setProgram(particleProgram3d);
 
             var bullets = ptc.getBullets();
             positions.length = 0;

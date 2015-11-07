@@ -5,7 +5,7 @@ function pulseGunComponent(sprite) {
     var name = 'PulseGunComponent';
 
     var bulletsAmount = 80;
-    var bulletReloadSpeed = 250;
+    var bulletReloadSpeed = 400;
     var bullets = [];
     var bulletShot = 0;
 

@@ -5,8 +5,8 @@ function trailProcess(sb,helpers) {
     //this.exhaustAmount = 200;
     //this.exhaustInterval = 50;
     //this.exhaustTrail = [];
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('trail');
+    var material = sb.getMaterial();
+    var program = material.useShader('trail');
     var em = sb.getEntityManager();
     //var lastTime = 0;
     //var exhaustProgram = sm.init('exhaust');
@@ -210,7 +210,7 @@ function trailProcess(sb,helpers) {
 
         if (ec.getPoints().length > 8) {
 
-            shadermanager.setProgram(program);
+            material.setProgram(program);
 
             //gl.enable(gl.BLEND);
             //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);

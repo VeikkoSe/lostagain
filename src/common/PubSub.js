@@ -1,4 +1,6 @@
 function PubSub() {
+    'use strict';
+
     this.subUid = -1;
     this.topics = {};
 }

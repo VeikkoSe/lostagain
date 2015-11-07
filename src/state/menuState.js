@@ -4,12 +4,12 @@ function menuState(sb) {
     var wall = null;
     var gl = sb.getGL();
 
-    var shadermanager = sb.getShaderManager();
-    var shaderprogram = shadermanager.useShader('simplest');
+    var material = sb.getMaterial();
+    var shaderprogram = material.useShader('simplest');
     var camera = sb.getCamera();
 
     var draw = function() {
-
+        return;
 
         //gl.disable(gl.BLEND);
         //gl.enable(gl.DEPTH_TEST);

@@ -6,8 +6,8 @@ function layoutProcess(sb) {
 
     var gl = sb.getGL();
 
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('gui');
+    var material = sb.getMaterial();
+    var program = material.useShader('gui');
 
     var camera = sb.getCamera();
     var points = [];
@@ -173,7 +173,7 @@ function layoutProcess(sb) {
 
         if (le.components.LayoutComponent) {
 
-            shadermanager.setProgram(program);
+            material.setProgram(program);
 
             recursiveLayout(le.components.LayoutComponent, false);
 

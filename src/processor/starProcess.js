@@ -9,8 +9,8 @@ function starProcess(sb) {
     var em = sb.getEntityManager();
     var camera = sb.getCamera();
 
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('star');
+    var material = sb.getMaterial();
+    var program = material.useShader('star');
 
     var numParticles = 1000;
 
@@ -57,7 +57,7 @@ function starProcess(sb) {
 
             var mvMatrix = camera.getMVMatrix();
             // sm.setProgram(starProgram);
-            shadermanager.setProgram(program);
+            material.setProgram(program);
             camera.mvPushMatrix();
             //gl.uniform3fv(program.uCameraPos, [camera.getXPos(), camera.getYPos(), camera.getZPos()]);
 

@@ -160,8 +160,8 @@ function hexagon(size, texture) {
             mapArray[x][y][1] = deniedBlock[1];
 
         }
-
-        textureCoordinates = createTextures();
+        //TODO: too slow, need to figure why it was used
+        //textureCoordinates = createTextures();
 
     };
 

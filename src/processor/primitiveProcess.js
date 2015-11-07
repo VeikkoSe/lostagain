@@ -4,8 +4,8 @@ function primitiveProcess(sb) {
     var gl = sb.getGL();
     var vertexPositionBuffer = gl.createBuffer();
 
-    var shadermanager = sb.getShaderManager();
-    var program = shadermanager.useShader('simplest');
+    var material = sb.getMaterial();
+    var program = material.useShader('simplest');
 
     var camera = sb.getCamera();
 
@@ -16,7 +16,7 @@ function primitiveProcess(sb) {
 
         if (le.components.PrimitiveComponent && le.components.RenderableComponent) {
 
-            sm.setProgram(program);
+            material.setProgram(program);
             //var re = le.components.Renderable;
             //var p = {x: re.xPos, y: re.yPos, z: re.zPos};
 

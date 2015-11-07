@@ -11,8 +11,8 @@ function laserProcess(sb, pubsub,helpers) {
     var camera = sb.getCamera();
 
     var em = sb.getEntityManager();
-    var shadermanager = sb.getShaderManager();
-    var simplestProgram = shadermanager.useShader('simplest');
+    var material = sb.getMaterial();
+    var simplestProgram = material.useShader('simplest');
 
     //this.texture = null;
     // this.framebuffer = gl.createFramebuffer();
@@ -94,7 +94,7 @@ function laserProcess(sb, pubsub,helpers) {
                     le.components.HealthComponent.getAmount() > 0 &&
                     helpers.isInCircle(shooter.getXPos(), shooter.getZPos(), 100, rc.getXPos(), rc.getZPos())) {
 
-                    shadermanager.setProgram(simplestProgram);
+                    material.setProgram(simplestProgram);
 
                     points = railXY(shooter.getXPos(), shooter.getYPos(), shooter.getZPos(), rc.getXPos(), rc.getYPos(), rc.getZPos());
 

@@ -5,8 +5,8 @@ function teleportProcess(sb,helpers) {
     //}
     //constructor() {
 
-    var shadermanager = sb.getShaderManager();
-    var simplestProgram = shadermanager.useShader('simplest');
+    var material = sb.getMaterial();
+    var simplestProgram = material.useShader('simplest');
 
     var em = sb.getEntityManager();
     var gl = sb.getGL();
@@ -81,7 +81,7 @@ function teleportProcess(sb,helpers) {
 
         if (le.components.JumpAreaComponent && le.components.JumpAreaComponent.getVisible() === true) {
 
-            shadermanager.setProgram(simplestProgram);
+            material.setProgram(simplestProgram);
 
             var mvMatrix = camera.getMVMatrix();
 

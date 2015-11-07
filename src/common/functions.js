@@ -30,13 +30,18 @@ document.addEventListener('DOMContentLoaded', function() {
         CORE.setTextModule(text(w, h,helpf));
 
         // modules.push(loader());
-        CORE.setShaderManagerModule(shaderManager(gl));
+        CORE.setMaterialModule(material(gl));
 
         CORE.setEntityCreatorModule(entityCreator(gl, em, am, helpf));
         CORE.setAudioModule(audio(helpf));
 
         CORE.startModules(function() {
-            CORE.setAudioMasterVolume(0);
+
+            CORE.getAudio().useSound(0);
+            CORE.getAudio().setEffectsVolume(parseFloat(document.getElementById('effectsVolume').value));
+            CORE.getAudio().setMusicVolume(parseFloat(document.getElementById('musicVolume').value));
+            CORE.getAudio().setMasterVolume(parseFloat(document.getElementById('masterVolume').value));
+
             var states = {
                 'gamestate': gameState(CORE, pubsub,helpf),
                 'introstate': introState(CORE, pubsub,helpf),
@@ -50,8 +55,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         document.getElementById('soundtoggle').onclick = function() {
-            helpf.swap('soundtoggle', CORE);
+            var e = document.getElementById('soundtoggle');
+
+            if (e.className === 'soundon') {
+                e.className = 'soundoff';
+                CORE.getAudio().useSound(0);
+
+            }
+            else {
+                e.className = 'soundon';
+                CORE.getAudio().useSound(1);
+            }
         };
+
+        document.getElementById('masterVolume').onchange = function(e) {
+
+            CORE.getAudio().setMasterVolume(parseFloat(this.value));
+        };
+        document.getElementById('musicVolume').onchange = function(e) {
+
+            CORE.getAudio().setMusicVolume(parseFloat(this.value));
+        };
+
+        document.getElementById('effectsVolume').onchange = function(e) {
+
+            CORE.getAudio().setEffectsVolume(parseFloat(this.value));
+        };
+
+
 
     }
     catch (err) {
@@ -62,3 +93,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
+
