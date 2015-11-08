@@ -1,7 +1,6 @@
 function core(resolutionWidth, resolutionHeight) {
     'use strict';
 
-
     var entityManagerModule;
 
     var entityCreatorModule;
@@ -25,24 +24,17 @@ function core(resolutionWidth, resolutionHeight) {
 
     var init = function() {
 
+        var canvas = document.getElementById('canvas');
 
-            var canvas = document.getElementById('canvas');
+        canvas.width = resolutionWidth;
+        canvas.height = resolutionHeight;
 
-            canvas.width = resolutionWidth;
-            canvas.height = resolutionHeight;
-
-            gl = WebGLDebugUtils.makeDebugContext(canvas.getContext('webgl', {alpha: false}));
-            //gl = WebGLUtils.setupWebGL(canvas);
-
+        //gl = WebGLDebugUtils.makeDebugContext(canvas.getContext('webgl', {alpha: false}));
+        gl = WebGLUtils.setupWebGL(canvas);
 
     };
 
-
-
     var startModules = function(callback) {
-
-
-
 
         if (typeof entityCreatorModule === 'undefined' ||
             typeof entityCreatorModule === 'undefined' ||
@@ -67,7 +59,6 @@ function core(resolutionWidth, resolutionHeight) {
 
         callback();
     };
-
 
     return {
         init,
@@ -116,14 +107,14 @@ function core(resolutionWidth, resolutionHeight) {
             return assetManagerModule;
         },
         getResolutionWidth: function() {
-            if(!isInt(resolutionWidth)) {
+            if (!isInt(resolutionWidth)) {
                 throw Error('Core:Width is not a number');
             }
 
             return resolutionWidth;
         },
         getResolutionHeight: function() {
-            if(!isInt(resolutionHeight)) {
+            if (!isInt(resolutionHeight)) {
                 throw Error('Core:Height is not a number');
             }
             return resolutionHeight;
@@ -137,7 +128,6 @@ function core(resolutionWidth, resolutionHeight) {
         getAudio: function() {
             return audioModule;
         }
-
 
     };
 }

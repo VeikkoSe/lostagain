@@ -33,7 +33,7 @@ function starMoveProcess(sb) {
         for (var i = 0; i < numParticles; i++) {
 
             startPositions.push(randomBetween(2200, -2200));
-            startPositions.push(randomBetween(100,-800));
+            startPositions.push(randomBetween(100, -800));
             startPositions.push(randomBetween(300, -800));
             //pointsize
             startPositions.push(randomBetween(1, 1));
@@ -79,13 +79,12 @@ function starMoveProcess(sb) {
 
     var update = function() {
 
-
-        for(var i = 0;i<startPositions.length;i+=4) {
-            if(startPositions[i]< -110) {
+        for (var i = 0; i < startPositions.length; i += 4) {
+            if (startPositions[i] < -110) {
                 startPositions[i] = 1000;
             }
             else {
-                startPositions[i] = startPositions[i]-5;
+                startPositions[i] = startPositions[i] - 5;
             }
         }
     }

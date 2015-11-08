@@ -29,7 +29,7 @@ function text2dProcess(sb) {
 
         //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textBuffer), gl.STATIC_DRAW);
 
-        sprite = am.getSprite('font', true);
+        //sprite = am.getSprite('font', true);
 
     };
 
@@ -83,10 +83,12 @@ function text2dProcess(sb) {
             gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
 
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(tc.getTextBuffer()), gl.STATIC_DRAW);
-
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
-            gl.uniform1i(program.samplerUniform, 0);
+            material.useTexture('image');
+            /*
+             gl.activeTexture(gl.TEXTURE0);
+             gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
+             gl.uniform1i(program.samplerUniform, 0);
+             */
 
             gl.drawArrays(gl.TRIANGLES, 0, tc.getTextBuffer().length / 5);
             camera.addDrawCall();

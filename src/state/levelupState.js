@@ -1,4 +1,4 @@
-function levelupState(sb, pubsub,helpers) {
+function levelupState(sb, pubsub, helpers) {
     'use strict';
 
     var processList = [];
@@ -14,7 +14,7 @@ function levelupState(sb, pubsub,helpers) {
 
         processList = [];
 
-        processList.push(renderProcess(sb,helpers));
+        processList.push(renderProcess(sb, helpers));
         processList.push(menuProcess(sb, pubsub));
         processList.push(levelupProcess(sb));
         //processList.push(cameraControllerProcess(sb, pubsub,false));
@@ -29,7 +29,6 @@ function levelupState(sb, pubsub,helpers) {
 
         var mvMatrix = camera.getMVMatrix();
 
-
         gl.clearColor(1, 0, 0, 1.0);
         gl.clearDepth(1.0);
         //mat4.translate(camera.mvMatrix, [-50, 0, -10]);
@@ -40,7 +39,6 @@ function levelupState(sb, pubsub,helpers) {
         camera.setZPos(60);
 
         mat4.lookAt([camera.getXPos(), camera.getYPos(), camera.getZPos()], [0, 0, 0], [0, 1, 0], mvMatrix);
-
 
     };
 

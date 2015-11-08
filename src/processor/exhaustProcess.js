@@ -1,4 +1,4 @@
-function exhaustProcess(sb,helpers) {
+function exhaustProcess(sb, helpers) {
     'use strict';
 
     var em = sb.getEntityManager();
@@ -94,9 +94,12 @@ function exhaustProcess(sb,helpers) {
 
                     gl.bindBuffer(gl.ARRAY_BUFFER, ec.getMesh().getTexturePositionBuffer());
                     gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
-                    gl.activeTexture(gl.TEXTURE0);
-                    gl.bindTexture(gl.TEXTURE_2D, ec.getMesh().getTexture());
-                    gl.uniform1i(program.samplerUniform, 0);
+                    material.useTexture('image');
+                    /*
+                     gl.activeTexture(gl.TEXTURE0);
+                     gl.bindTexture(gl.TEXTURE_2D, ec.getMesh().getTexture());
+                     gl.uniform1i(program.samplerUniform, 0);
+                     */
 
                     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ec.getMesh().getIndexPositionBuffer());
 

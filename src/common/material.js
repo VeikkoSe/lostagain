@@ -1,12 +1,19 @@
-function material(gl) {
+function material(gl, am) {
     'use strict';
 
-    var sb, allShaders, currentProgram;
+    var allShaders, currentProgram, currentTexture;
+    var texture;
+    var maptiles;
 
-    var init = function(sandbox) {
-        //sb = sandbox;
+    var init = function() {
+
         allShaders = [];
         currentProgram = null;
+
+        texture = am.getTexture('image');
+        //maptiles = am.getTexture('maptiles');
+
+
 
     };
 
@@ -15,8 +22,34 @@ function material(gl) {
         if (currentProgram !== program.name) {
             gl.useProgram(program);
             currentProgram = program.name;
+
         }
         return true;
+    };
+
+    var useTexture = function(name) {
+
+        //var name = 'image';
+
+        if (currentTexture !== name && texture.loaded === true) {
+
+            console.log(texture);
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            gl.uniform1i(currentProgram.samplerUniform, 0);
+
+            currentTexture = name;
+        }
+    };
+
+    var useShader = function(name) {
+        if (allShaders[name]) {
+            return allShaders[name];
+        }
+
+        allShaders[name] = possibleShaders(name)();
+        return allShaders[name];
+
     };
 
     var possibleShaders = function(name) {
@@ -41,16 +74,6 @@ function material(gl) {
         return shaders[name];
     };
 
-    var useShader = function(name) {
-        if (allShaders[name]) {
-            return allShaders[name];
-        }
-
-        allShaders[name] = possibleShaders(name)();
-        return allShaders[name];
-
-    };
-
     var createP = function(id) {
         var program = gl.createProgram();
         gl.createProgram();
@@ -60,7 +83,7 @@ function material(gl) {
         gl.linkProgram(program);
 
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-            alert('Could not initialise shaders');
+           throw new Error('Could not initialise shaders');
         }
 
         program.name = id;
@@ -145,9 +168,9 @@ function material(gl) {
 
         program.uResolution = gl.getUniformLocation(program, 'uResolution');
 
-        if (id == 'blurhorizontal') {
-            program.samplerUniform2 = gl.getUniformLocation(program, 'uSampler2');
-        }
+        //if (id === 'blurhorizontal') {
+         //   program.samplerUniform2 = gl.getUniformLocation(program, 'uSampler2');
+        //}
         program.samplerUniform = gl.getUniformLocation(program, 'uSampler');
 
         return program;
@@ -356,7 +379,7 @@ function material(gl) {
 
         var xhttpF = new XMLHttpRequest();
         xhttpF.onreadystatechange = function() {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
                 fsSource = xhttpF.responseText;
             }
         };
@@ -393,8 +416,9 @@ function material(gl) {
         setProgram,
         subscribe: function() {
         },
-        init
-
+        init,
+        useTexture
     });
 
 }
+

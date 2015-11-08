@@ -14,23 +14,24 @@ document.addEventListener('DOMContentLoaded', function() {
         var CORE = core(w, h);
         CORE.init();
 
-
         var gl = CORE.getGL();
 
         var em = entityManager();
-        var tc = textureCreator(gl);
-        var am = assetManager(pubsub, mesh(gl, pubsub, tc), sprite(gl, tc));
+        var tc = new Texture(gl);
+        //var s = new Sprite(gl, tc);
+
+        var am = assetManager(pubsub, mesh(gl, pubsub, tc), tc);
         //var tc = textureCreator(gl);
 
         CORE.setEntityManagerModule(em);
 
         CORE.setAssetManagerModule(am);
         CORE.setActionMapperModule(actionMapper(pubsub));
-        CORE.setCameraModule(camera(w, h,helpf));
-        CORE.setTextModule(text(w, h,helpf));
+        CORE.setCameraModule(camera(w, h, helpf));
+        CORE.setTextModule(text(w, h, helpf));
 
         // modules.push(loader());
-        CORE.setMaterialModule(material(gl));
+        CORE.setMaterialModule(material(gl, am));
 
         CORE.setEntityCreatorModule(entityCreator(gl, em, am, helpf));
         CORE.setAudioModule(audio(helpf));
@@ -43,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
             CORE.getAudio().setMasterVolume(parseFloat(document.getElementById('masterVolume').value));
 
             var states = {
-                'gamestate': gameState(CORE, pubsub,helpf),
-                'introstate': introState(CORE, pubsub,helpf),
-                'levelupstate': levelupState(CORE, pubsub,helpf)
+                'gamestate': gameState(CORE, pubsub, helpf),
+                'introstate': introState(CORE, pubsub, helpf),
+                'levelupstate': levelupState(CORE, pubsub, helpf)
 
             };
             //introState(CORE),levelUpState(CORE) menuState(CORE)endState(CORE)
@@ -82,15 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
             CORE.getAudio().setEffectsVolume(parseFloat(this.value));
         };
 
-
-
     }
     catch (err) {
         throw err;
         //var err = new Error();
-        //console.log(err.stack);
+        console.log(err.stack);
     }
-
 
 });
 

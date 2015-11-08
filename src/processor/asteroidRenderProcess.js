@@ -164,9 +164,11 @@ function asteroidRenderProcess(sb) {
                 gl.uniform1f(ambientProgram.uElapsed, 0);
                 lastTime = timeNow;
 
-                gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, monstermap);
-                gl.uniform1i(ambientProgram.uVisibility, 0);
+                material.useTexture('image');
+                /*gl.activeTexture(gl.TEXTURE0);
+                 gl.bindTexture(gl.TEXTURE_2D, monstermap);
+                 gl.uniform1i(ambientProgram.uVisibility, 0);
+                 */
 
                 gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
                 gl.vertexAttribPointer(ambientProgram.aVertexPosition, 3, gl.FLOAT, false, 36, 0);

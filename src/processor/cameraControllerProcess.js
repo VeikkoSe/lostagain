@@ -1,4 +1,4 @@
-function cameraControllerProcess(sb, pubsub,staticCamera) {
+function cameraControllerProcess(sb, pubsub, staticCamera) {
     'use strict';
 
     var camera = sb.getCamera();
@@ -21,7 +21,7 @@ function cameraControllerProcess(sb, pubsub,staticCamera) {
             mousedown = 0;
         });
 
-        if(!staticCamera) {
+        if (!staticCamera) {
             pubsub.subscribe('mousemove', function(name, e) {
 
                 if (mousedown === 1) {
@@ -70,9 +70,8 @@ function cameraControllerProcess(sb, pubsub,staticCamera) {
 
                 mat4.lookAt([camera.getXPos(), camera.getYPos(), camera.getZPos()], [re.getXPos(), 0, re.getZPos()], [0, 1, 0], mvMatrix);
 
-                if(camera.getXPos()!==tmpX || camera.getYPos()!==tmpY || camera.getZPos()!==tmpZ)
-                {
-                    console.log(tmpX,tmpY,tmpZ);
+                if (camera.getXPos() !== tmpX || camera.getYPos() !== tmpY || camera.getZPos() !== tmpZ) {
+                    // console.log(tmpX,tmpY,tmpZ);
                     tmpX = camera.getXPos();
                     tmpY = camera.getYPos();
                     tmpZ = camera.getZPos();

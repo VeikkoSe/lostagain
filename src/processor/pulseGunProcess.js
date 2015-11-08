@@ -1,4 +1,4 @@
-function pulseGunProcess(sb, pubsub,helpers) {
+function pulseGunProcess(sb, pubsub, helpers) {
     'use strict';
 
     var gl = sb.getGL();
@@ -31,7 +31,7 @@ function pulseGunProcess(sb, pubsub,helpers) {
             for (var i = 0; i < bulletsAmount; i++) {
 
                 if (bullets[i].getVisible() === 0) {
-                    sb.getAudio().playSound(6,0);
+                    sb.getAudio().playSound(6, 0);
                     ammo.setBulletShot(timeNow);
                     bullets[i].setVisible(1);
                     bullets[i].setBirthTime(timeNow);
@@ -179,9 +179,12 @@ function pulseGunProcess(sb, pubsub,helpers) {
 
                 gl.vertexAttribPointer(particleProgram3d.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
 
-                gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
-                gl.uniform1i(particleProgram3d.samplerUniform, 0);
+                material.useTexture('image');
+                /*
+                 gl.activeTexture(gl.TEXTURE0);
+                 gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
+                 gl.uniform1i(particleProgram3d.samplerUniform, 0);
+                 */
 
                 gl.uniform4f(particleProgram3d.colorUniform, 1, 1, 1, 1);
 

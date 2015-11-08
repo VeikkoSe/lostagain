@@ -1,4 +1,4 @@
-function renderProcess(sb,helpers) {
+function renderProcess(sb, helpers) {
     'use strict';
 
     var gl = sb.getGL();
@@ -112,13 +112,11 @@ function renderProcess(sb,helpers) {
             gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getTexturePositionBuffer());
             gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
-            //if texture don't change we don't rebind it
-           // if (mc.getMesh().getTexture() !== oldTexture) {
-                gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, mc.getMesh().getTexture());
-                gl.uniform1i(program.samplerUniform, 0);
-             //   oldTexture = mc.getMesh().getTexture();
-            //}
+            // gl.activeTexture(gl.TEXTURE0);
+            //gl.bindTexture(gl.TEXTURE_2D, mc.getMesh().getTexture());
+            // gl.uniform1i(program.samplerUniform, 0);
+
+            material.useTexture('image');
 
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mc.getMesh().getIndexPositionBuffer());
 

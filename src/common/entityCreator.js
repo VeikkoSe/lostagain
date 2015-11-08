@@ -1,4 +1,4 @@
-function entityCreator(gl, entityManager, assetManager,helper) {
+function entityCreator(gl, entityManager, assetManager, helper) {
     'use strict';
     // var t, em,  sb;
 
@@ -44,7 +44,7 @@ function entityCreator(gl, entityManager, assetManager,helper) {
 
         e.addComponent(controllableComponent());
 
-        var pc = pulseGunComponent(am.getSprite('bigbullet'));
+        var pc = pulseGunComponent('bigbullet');
 
         var bullets = [];
         for (var i = 0; i < pc.getBulletsAmount(); i++) {
@@ -57,13 +57,13 @@ function entityCreator(gl, entityManager, assetManager,helper) {
         pc.setPointStartPositionBuffer(gl.createBuffer());
 
         e.addComponent(pc);
-        e.addComponent(shieldComponent(3, am.getSprite('shield'), am.getMesh('shieldbubble'), 8));
+        e.addComponent(shieldComponent(3, 'shield', am.getMesh('shieldbubble'), 8));
 
         e.addComponent(collisionComponent('player'));
 
         e.addComponent(gunComponent());
 
-        e.addComponent(healthComponent(3, am.getSprite('hp')));
+        e.addComponent(healthComponent(3, 'hp'));
 
         //var exMesh = am.getSprite('exhausttrail');
         var exMesh = am.getMesh('exhaustcone');
@@ -73,11 +73,11 @@ function entityCreator(gl, entityManager, assetManager,helper) {
         mec.addExhaust(exhaustComponent(exMesh, -3, 1.5));
         e.addComponent(mec);
 
-        var sprite = am.getSprite('exhausttrail');
+        //var sprite = am.getSprite('exhausttrail');
 
         var mtc = multiTrailComponent();
-        mtc.addTrail(trailComponent(sprite, 30, 1, 3.5, 1));
-        mtc.addTrail(trailComponent(sprite, 30, 1, -3.5, 1));
+        mtc.addTrail(trailComponent('exhausttrail', 30, 1, 3.5, 1));
+        mtc.addTrail(trailComponent('exhausttrail', 30, 1, -3.5, 1));
         e.addComponent(mtc);
 
         return e;
@@ -111,7 +111,7 @@ function entityCreator(gl, entityManager, assetManager,helper) {
 
         e.addComponent(rc);
 
-        e.addComponent(shieldComponent(0, am.getSprite('shield')));
+        e.addComponent(shieldComponent(0, 'shield'));
         e.addComponent(healthComponent(1));
 
         e.addComponent(respawnComponent());
@@ -160,7 +160,7 @@ function entityCreator(gl, entityManager, assetManager,helper) {
         var e = em.addNew();
         var lg = layoutComponent();
         lg.setRoot(true);
-        var lm = layoutComponent(0.0, 0.06, am.getSprite('mothershipicon'));
+        var lm = layoutComponent(0.0, 0.06, 'mothershipicon');
 
         var h = layoutComponent(5, 10, false, mothership.components.ShieldComponent);
         h.setSize(8);
@@ -170,7 +170,7 @@ function entityCreator(gl, entityManager, assetManager,helper) {
         d.setSize(8);
         lm.addChildren(d);
 
-        var ls = layoutComponent(0.0, 0.0, am.getSprite('shipicon'));
+        var ls = layoutComponent(0.0, 0.0, 'shipicon');
         var j = layoutComponent(5, 10, false, ship.components.ShieldComponent);
         j.setSize(8);
         ls.addChildren(j);
@@ -221,7 +221,7 @@ function entityCreator(gl, entityManager, assetManager,helper) {
         e.addComponent(m);
         e.addComponent(chaseComponent(50));
 
-        var pc = pulseGunComponent(am.getSprite('bigbullet'));
+        var pc = pulseGunComponent('bigbullet');
 
         var bullets = [];
         for (var i = 0; i < pc.getBulletsAmount(); i++) {
@@ -259,7 +259,7 @@ function entityCreator(gl, entityManager, assetManager,helper) {
 
         var e = em.addNew();
 
-        e.addComponent(currencyComponent(am.getSprite('currency')));
+        e.addComponent(currencyComponent('currency'));
         return e;
     };
     var createRadar = function() {
@@ -275,7 +275,7 @@ function entityCreator(gl, entityManager, assetManager,helper) {
 
         var e = em.addNew('mothership');
 
-        e.addComponent(shieldComponent(3, am.getSprite('shield'), am.getMesh('shieldbubble'), 20));
+        e.addComponent(shieldComponent(3, 'shield', am.getMesh('shieldbubble'), 20));
 
         e.addComponent(satelliteComponent(am.getMesh('satellite')));
 
@@ -299,13 +299,13 @@ function entityCreator(gl, entityManager, assetManager,helper) {
         rc.setYPos(0);
         e.addComponent(rc);
 
-        e.addComponent(scoreComponent(am.getSprite('currency')));
+        e.addComponent(scoreComponent('currency'));
         var tc = textComponent();
         tc.setPosition(0.03, 0.01);
         tc.setTextBuffer(gl.createBuffer());
         e.addComponent(tc);
 
-        e.addComponent(healthComponent(4, am.getSprite('hp')));
+        e.addComponent(healthComponent(4, 'hp'));
 
         e.addComponent(controllableComponent());
 
@@ -331,7 +331,7 @@ function entityCreator(gl, entityManager, assetManager,helper) {
         mec.addExhaust(exhaustComponent(exMesh, -2, 9));
         e.addComponent(mec);
 
-        var sprite = am.getSprite('exhausttrail');
+        var sprite = 'exhausttrail';
 
         var mtc = multiTrailComponent();
         mtc.addTrail(trailComponent(sprite, 15, 1, 5, 8));

@@ -1,4 +1,4 @@
-function text(resolutionWidth, resolutionHeight,helpers) {
+function text(resolutionWidth, resolutionHeight, helpers) {
     'use strict';
 
     //var sb;

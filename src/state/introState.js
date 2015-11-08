@@ -1,4 +1,4 @@
-function introState(sb, pubsub,helpers) {
+function introState(sb, pubsub, helpers) {
     'use strict';
 
     var lastTime;
@@ -52,7 +52,7 @@ function introState(sb, pubsub,helpers) {
 
     var init = function() {
 
-        processList.push(renderProcess(sb,helpers));
+        processList.push(renderProcess(sb, helpers));
         processList.push(menuProcess(sb, pubsub));
 
         /*
@@ -73,8 +73,6 @@ function introState(sb, pubsub,helpers) {
         mat4.lookAt([0, 0, 1200], [0, 0, 0], [0, 1, 0], mvMatrix);
         //mat4.identity(mvMatrix);
         //mat4.translate(mvMatrix, [0, 0, -300]);
-
-
 
         gl.clearColor(1, 0, 0, 1.0);
         gl.clearDepth(1.0);

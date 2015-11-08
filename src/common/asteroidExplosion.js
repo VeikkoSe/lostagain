@@ -1,17 +1,18 @@
 /*
  * Handles creating the point sprites that represent explosion
  */
-function asteroidExplosion(sb, x, y, z, sizeString) {
+function asteroidExplosion(sb) {
     'use strict';
 
-    var size = sizeString;
+    //var size = sizeString;
 
     var time = 0;
     var numParticles = 500;
-    var xPos = x;
-    var yPos = y;
-    var zPos = z;
+    var xPos;
+    var yPos;
+    var zPos;
     var gl = sb.getGL();
+    var visible = 0;
 
     var pointEndPositionsBuffer = gl.createBuffer();
     var pointLifetimeBuffer = gl.createBuffer();
@@ -28,22 +29,22 @@ function asteroidExplosion(sb, x, y, z, sizeString) {
             startPositions.push((Math.random() * 0.25) - 0.125);
             startPositions.push((Math.random() * 0.25) - 0.125);
             startPositions.push((Math.random() * 0.25) - 0.125);
-            if (size === 'small') {
-                endPositions.push((Math.random() * 10) - 5);
-                endPositions.push((Math.random() * 10) - 5);
-                endPositions.push((Math.random() * 10) - 5);
-            }
-            else if (size === 'medium') {
-                endPositions.push((Math.random() * 30) - 20);
-                endPositions.push((Math.random() * 30) - 20);
-                endPositions.push((Math.random() * 30) - 20);
-            }
-            else if (size === 'large') {
+            //if (size === 'small') {
+            endPositions.push((Math.random() * 10) - 5);
+            endPositions.push((Math.random() * 10) - 5);
+            endPositions.push((Math.random() * 10) - 5);
+            // }
+            /*else if (size === 'medium') {
+             endPositions.push((Math.random() * 30) - 20);
+             endPositions.push((Math.random() * 30) - 20);
+             endPositions.push((Math.random() * 30) - 20);
+             }
+             else if (size === 'large') {
 
-                endPositions.push((Math.random() * 50) - 40);
-                endPositions.push((Math.random() * 50) - 40);
-                endPositions.push((Math.random() * 50) - 40);
-            }
+             endPositions.push((Math.random() * 50) - 40);
+             endPositions.push((Math.random() * 50) - 40);
+             endPositions.push((Math.random() * 50) - 40);
+             }*/
         }
 
         gl.bindBuffer(gl.ARRAY_BUFFER, pointLifetimeBuffer);
@@ -94,6 +95,21 @@ function asteroidExplosion(sb, x, y, z, sizeString) {
         },
         getZPos: function() {
             return zPos;
+        },
+        setXPos: function(v) {
+            xPos = v;
+        },
+        setYPos: function(v) {
+            yPos = v;
+        },
+        setZPos: function(v) {
+            zPos = v;
+        },
+        setVisible: function(v) {
+            visible = v;
+        },
+        getVisible: function() {
+            return visible;
         }
 
     });

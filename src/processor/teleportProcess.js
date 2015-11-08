@@ -1,4 +1,4 @@
-function teleportProcess(sb,helpers) {
+function teleportProcess(sb, helpers) {
     'use strict';
 
     //class TeleportProcess extends processor {

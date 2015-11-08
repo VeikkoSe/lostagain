@@ -30,7 +30,7 @@ function textProcess(sb) {
         var textBuffer = text.buildData(characterArray, true);
 
         //var texture = t.loadedTexture;
-        sprite = am.getSprite('font');
+        //sprite = am.getSprite('font');
 
         gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
         size = textBuffer.length / 5;
@@ -60,10 +60,12 @@ function textProcess(sb) {
             gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
             gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 20, 0);
             gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 20, 12);
-
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
-            gl.uniform1i(program.samplerUniform, 0);
+            material.useTexture('image');
+            /*
+             gl.activeTexture(gl.TEXTURE0);
+             gl.bindTexture(gl.TEXTURE_2D, sprite.getTexture());
+             gl.uniform1i(program.samplerUniform, 0);
+             */
 
             gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
             gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);

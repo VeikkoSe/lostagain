@@ -4,7 +4,6 @@
     <title>Lost Again</title>
 
     <meta http-equiv="content-type" content="text/html; charset=utf8">
-
     <link href="resources/css/style.css" type="text/css" rel="stylesheet"/>
 
 
@@ -21,89 +20,60 @@
     <p><div class="soundoff" id="soundtoggle"></div>
     <h3>Sound</h3>
     <div>
-    <label>Master volume: </label><input value="1" id="masterVolume" min="0" max="1" step="0.1" type="range" />
+    <label for="masterVolume">Master volume: </label><input value="0.5" id="masterVolume" min="0" max="1" step="0.1" type="range" />
     </div>
     <div>
-    <label>Music volume: </label><input value="0.2" id="musicVolume" min="0" max="0.2" step="0.05" type="range" />
+    <label for="musicVolume">Music volume: </label><input value="0.1" id="musicVolume" min="0" max="0.25" step="0.05" type="range" />
     </div>
     <div>
-    <label>Effects volume: </label><input value="1" id="effectsVolume" min="0" max="1" step="0.1" type="range" />
+    <label for="effectsVolume">Effects volume: </label><input value="0.5" id="effectsVolume" min="0" max="1" step="0.1" type="range" />
     </div>
-
-
-
-
     <h3>General</h3>
-    <label>FPS: </label><div id="fps" style="color:white;"></div>
+    <label style="float:left;">FPS:&nbsp;</label><span id="fps" style="color:white;float:left;"></span>
 </div>
-
-
-
 
 <script type="text/javascript" src="lib/glMatrix-0.9.5.min.js"></script>
 <script type="text/javascript" src="lib/webgl-utils.js"></script>
 <script type="text/javascript" src="lib/webgl-debug.js"></script>
-
 <script type="text/javascript" src="src/common/BufferLoader.js"></script>
-
 <script type="text/javascript" src="src/common/helpers.js"></script>
-
 <script type="text/javascript" src="src/common/actionMapper.js"></script>
-
 <script type="text/javascript" src="src/state/introState.js"></script>
 <script type="text/javascript" src="src/state/gameState.js"></script>
 <script type="text/javascript" src="src/state/loadState.js"></script>
 <script type="text/javascript" src="src/state/menuState.js"></script>
 <script type="text/javascript" src="src/state/levelupState.js"></script>
 <script type="text/javascript" src="src/state/endState.js"></script>
-
 <script type="text/javascript" src="src/common/core_opengl.js"></script>
 <script type="text/javascript" src="src/common/stateEngine.js"></script>
-
 <script type="text/javascript" src="src/common/entity.js"></script>
 <script type="text/javascript" src="src/common/entityManager.js"></script>
-
 <script type="text/javascript" src="src/common/functions.js"></script>
 <script type="text/javascript" src="src/common/Plane.js"></script>
 <script type="text/javascript" src="src/common/hexagon.js"></script>
 <script type="text/javascript" src="src/common/PubSub.js"></script>
-
 <script type="text/javascript" src="src/common/camera.js"></script>
 <script type="text/javascript" src="src/component/photonTorpedoComponent.js"></script>
-
-
 <script type="text/javascript" src="src/common/loader.js"></script>
 <script type="text/javascript" src="src/common/textureCreator.js"></script>
 <script type="text/javascript" src="src/common/mesh.js"></script>
 <script type="text/javascript" src="src/common/assetManager.js"></script>
-<script type="text/javascript" src="src/common/sprite.js"></script>
-
 <script type="text/javascript" src="src/common/text.js"></script>
 <script type="text/javascript" src="src/common/material.js"></script>
-
-
 <script type="text/javascript" src="src/common/asteroidExplosion.js"></script>
 <script type="text/javascript" src="src/common/textTimer.js"></script>
 <script type="text/javascript" src="src/common/entityCreator.js"></script>
-
-
 <script type="text/javascript" src="src/component/meshComponent.js"></script>
 <script type="text/javascript" src="src/component/visibilityComponent.js"></script>
 <script type="text/javascript" src="src/component/momentumComponent.js"></script>
 <script type="text/javascript" src="src/component/renderableComponent.js"></script>
-
-
 <script type="text/javascript" src="src/component/starComponent.js"></script>
-
 <script type="text/javascript" src="src/component/controllableComponent.js"></script>
 <script type="text/javascript" src="src/component/movableComponent.js"></script>
-
-
 <script type="text/javascript" src="src/component/multiRenderableComponent.js"></script>
 <script type="text/javascript" src="src/component/cameraTargetComponent.js"></script>
 <script type="text/javascript" src="src/component/selectableComponent.js"></script>
 <script type="text/javascript" src="src/component/respawnComponent.js"></script>
-
 <script type="text/javascript" src="src/component/planeComponent.js"></script>
 <script type="text/javascript" src="src/component/spriteComponent.js"></script>
 <script type="text/javascript" src="src/component/healthComponent.js"></script>
@@ -113,16 +83,12 @@
 <script type="text/javascript" src="src/component/gunComponent.js"></script>
 <script type="text/javascript" src="src/component/faceComponent.js"></script>
 <script type="text/javascript" src="src/component/invulnerabilityComponent.js"></script>
-
 <script type="text/javascript" src="src/component/rotationComponent.js"></script>
-
 <script type="text/javascript" src="src/component/jumpAreaComponent.js"></script>
-
 <script type="text/javascript" src="src/component/drivableComponent.js"></script>
 <script type="text/javascript" src="src/component/exhaustComponent.js"></script>
 <script type="text/javascript" src="src/component/trailComponent.js"></script>
 <script type="text/javascript" src="src/component/multiTrailComponent.js"></script>
-
 <script type="text/javascript" src="src/component/asteroidComponent.js"></script>
 <script type="text/javascript" src="src/component/radarComponent.js"></script>
 <script type="text/javascript" src="src/component/currencyComponent.js"></script>
@@ -130,7 +96,6 @@
 <script type="text/javascript" src="src/component/mapComponent.js"></script>
 <script type="text/javascript" src="src/component/primitiveComponent.js"></script>
 <script type="text/javascript" src="src/component/textComponent.js"></script>
-
 <script type="text/javascript" src="src/component/hexItemComponent.js"></script>
 <script type="text/javascript" src="src/component/jumpHoldComponent.js"></script>
 <script type="text/javascript" src="src/component/layoutComponent.js"></script>
@@ -140,14 +105,9 @@
 <script type="text/javascript" src="src/component/railsMovementComponent.js"></script>
 <script type="text/javascript" src="src/component/chaseComponent.js"></script>
 <script type="text/javascript" src="src/component/scoreComponent.js"></script>
-
-
 <script type="text/javascript" src="src/processor/linearMovementProcess.js"></script>
-
 <script type="text/javascript" src="src/processor/movementProcess.js"></script>
 <script type="text/javascript" src="src/processor/asteroidRenderProcess.js"></script>
-
-
 <script type="text/javascript" src="src/processor/cameraControllerProcess.js"></script>
 <script type="text/javascript" src="src/processor/primitiveProcess.js"></script>
 <script type="text/javascript" src="src/processor/teleportProcess.js"></script>
@@ -171,24 +131,9 @@
 <script type="text/javascript" src="src/processor/shieldProcess.js"></script>
 <script type="text/javascript" src="src/processor/pauseProcess.js"></script>
 <script type="text/javascript" src="src/processor/menuProcess.js"></script>
-
 <script type="text/javascript" src="src/processor/gameLogicProcess.js"></script>
-
-
 <script type="text/javascript" src="src/processor/renderProcess.js"></script>
-
-
 <script type="text/javascript" src="src/common/audio.js"></script>
-
-
-
-
-
-
-
-
-
-
 
 
 </body>

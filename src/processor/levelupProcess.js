@@ -14,7 +14,7 @@ function levelupProcess(sb) {
     var camera = sb.getCamera();
 
     var init = function() {
-        hg = hexagon(4, am.getSprite('maptiles'));
+        hg = hexagon(4);
         hg.init();
     };
 
@@ -58,10 +58,12 @@ function levelupProcess(sb) {
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hg.getTextureCoordinates()), gl.STATIC_DRAW);
 
             gl.vertexAttribPointer(program.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
-
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, hg.getTexture().getTexture());
-            gl.uniform1i(program.samplerUniform, 0);
+            material.useTexture('image');
+            /*
+             gl.activeTexture(gl.TEXTURE0);
+             gl.bindTexture(gl.TEXTURE_2D, hg.getTexture().getTexture());
+             gl.uniform1i(program.samplerUniform, 0);
+             */
 
             gl.drawArrays(gl.TRIANGLES, 0, (hg.getHexsizeX() * (hg.getHexsizeY())) * 12);
 

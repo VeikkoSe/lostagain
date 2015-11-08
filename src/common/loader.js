@@ -80,7 +80,7 @@ function loader(pubsub, entityCreator, entityManager) {
                 var ship = ec.createShip();
 
                 if (true) {
-                    for (var i = 0; i < 3; i++) {
+                    for (var i = 0; i < 2; i++) {
                         ec.createDestroyer(mothership);
                     }
                     //ec.createSatellite(mothership);

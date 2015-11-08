@@ -158,11 +158,15 @@ function layoutProcess(sb) {
         gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
         gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
-        var texture = layoutIcon.getTexture();
+        material.useTexture('image');
+        /*
+         var texture = layoutIcon.getTexture();
 
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.uniform1i(program.samplerUniform, 0);
+
+         gl.activeTexture(gl.TEXTURE0);
+         gl.bindTexture(gl.TEXTURE_2D, texture);
+         gl.uniform1i(program.samplerUniform, 0);
+         */
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         camera.addDrawCall();

@@ -1,4 +1,4 @@
-function trailProcess(sb,helpers) {
+function trailProcess(sb, helpers) {
     'use strict';
 
     //constructor() {
@@ -211,16 +211,10 @@ function trailProcess(sb,helpers) {
         if (ec.getPoints().length > 8) {
 
             material.setProgram(program);
-
+            material.useTexture('image');
             //gl.enable(gl.BLEND);
             //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
             //gl.disable(gl.DEPTH_TEST);
-
-            gl.activeTexture(gl.TEXTURE0);
-
-            gl.bindTexture(gl.TEXTURE_2D, ec.getSprite().getTexture());
-
-            gl.uniform1i(program.samplerUniform, 0);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, texturePositionBuffer);
             gl.vertexAttribPointer(program.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);

@@ -1,11 +1,9 @@
-function collisionProcess(sb, pubsub,helpers) {
+function collisionProcess(sb, pubsub, helpers) {
     'use strict';
 
-    //constructor() {
     var collisions = [];
     var em = sb.getEntityManager();
 
-    //var that = this;
     var init = function() {
 
         pubsub.subscribe('bulletcollision', function(name, enemy) {
@@ -123,27 +121,25 @@ function collisionProcess(sb, pubsub,helpers) {
             //we don't explode the ship when shield take damage
 
             if (scp.getAmount() < 1 && hcp.getAmount() > 0) {
+
                 pubsub.publish('explosion', pc);
             }
-            else {
+            else if (scp.getAmount() < 1 && hcp.getAmount() < 1) {
+
                 hcp.setAmount(0);
                 if (playerEntity.getName() === 'mothership') {
                     em.removeEntityByName(playerEntity.name);
                     pubsub.publish('gameover', true);
                 }
                 if (playerEntity.getName() === 'ship') {
-
                     pubsub.publish('respawn', true);
                 }
-
                 pubsub.publish('bigexplosion', pc);
             }
 
         });
 
     };
-
-    //}
 
     var update = function() {
 

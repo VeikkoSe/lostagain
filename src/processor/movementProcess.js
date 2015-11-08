@@ -1,4 +1,4 @@
-function movementProcess(sb, pubsub,helpers) {
+function movementProcess(sb, pubsub, helpers) {
     'use strict';
 
     var em = sb.getEntityManager();

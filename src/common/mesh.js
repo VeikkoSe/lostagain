@@ -174,9 +174,9 @@ function mesh(gl, pubsub, textureCreator) {
                 }
             };
 
-            textureCreator.load(name, false, false, function(t) {
-                texture = t;
-            });
+            //textureCreator.load(name, false, false, function(t) {
+            //    texture = t;
+            //});
 
             return {
                 getVertexPositionBuffer: function() {

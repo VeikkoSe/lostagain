@@ -71,14 +71,14 @@ function audio() {
 
     var useSound = function(onoff) {
         muteGain.gain.value = 0;
-        if(onoff===1) {
+        if (onoff === 1) {
             muteGain.gain.value = 1;
 
         }
-        console.log(muteGain.gain.value);
+        //console.log(muteGain.gain.value);
     };
 
-    var  processAudio = function(e) {
+    var processAudio = function(e) {
         var buffer = e.inputBuffer.getChannelData(0);
 
         var isClipping = false;
@@ -90,9 +90,8 @@ function audio() {
                 break;
             }
         }
-        console.log(isClipping);
-    }
-
+        //console.log(isClipping);
+    };
 
     var playSound = function(index, pos, loop) {
 
@@ -125,7 +124,6 @@ function audio() {
         var meter = audioCtx.createScriptProcessor(2048, 1, 1);
         meter.onaudioprocess = processAudio;
 
-
         muteGain.connect(destination);
         masterGain.connect(muteGain);
         musicGain.connect(masterGain);
@@ -133,7 +131,6 @@ function audio() {
 
         muteGain.connect(meter);
         meter.connect(destination);
-
 
     };
     return Object.freeze({

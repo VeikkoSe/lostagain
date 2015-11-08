@@ -41,7 +41,6 @@ function helpers() {
         randomCloseInt,
         randomRangedInt,
 
-
         createHit: function(hc, sc) {
 
             var timeNow = new Date().getTime();
@@ -103,8 +102,6 @@ function helpers() {
 
             return parseInt(nro, 10);
         },
-
-
 
         randomIntFromInterval: function(min, max) {
 

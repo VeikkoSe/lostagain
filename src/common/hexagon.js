@@ -1,4 +1,4 @@
-function hexagon(size, texture) {
+function hexagon(size) {
     'use strict';
 
     var hexsizeX = size;
@@ -442,9 +442,9 @@ function hexagon(size, texture) {
 
     return Object.freeze({
         init,
-        getTexture: function() {
-            return texture;
-        },
+        //getTexture: function() {
+        //    return texture;
+        //},
         start: function() {
 
         },

@@ -6,7 +6,7 @@ function starProcess(sb) {
     var pointStartPositionsBuffer = gl.createBuffer();
     var startPositions = [];
     var colors = [];
-    var em = sb.getEntityManager();
+    //var em = sb.getEntityManager();
     var camera = sb.getCamera();
 
     var material = sb.getMaterial();

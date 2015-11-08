@@ -1,4 +1,4 @@
-function laserProcess(sb, pubsub,helpers) {
+function laserProcess(sb, pubsub, helpers) {
     'use strict';
 
     //var lastTime = 0;

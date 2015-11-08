@@ -1,4 +1,4 @@
-function camera(resolutionWidth, resolutionHeight,helpers) {
+function camera(resolutionWidth, resolutionHeight, helpers) {
     'use strict';
 
     var mvMatrix, pMatrix, cMatrix, pvMatrix,
@@ -44,7 +44,6 @@ function camera(resolutionWidth, resolutionHeight,helpers) {
         //var clickPosition = null;
 
         //initial pos
-
 
         rotationY = 0;
 
@@ -165,6 +164,13 @@ function camera(resolutionWidth, resolutionHeight,helpers) {
     var addDrawCall = function() {
         drawCalls++;
     };
+    var resetDrawCalls = function() {
+        drawCalls = 0;
+    };
+    var getDrawCalls = function() {
+        return drawCalls;
+
+    };
 
     return Object.freeze({
         mvPopMatrix,
@@ -215,14 +221,8 @@ function camera(resolutionWidth, resolutionHeight,helpers) {
             return distance;
         },
         addDrawCall,
-        getDrawCalls: function() {
-            return drawCalls;
-
-        },
-        resetDrawCalls: function() {
-            drawCalls = 0;
-
-        }
+        getDrawCalls,
+        resetDrawCalls
 
     });
 

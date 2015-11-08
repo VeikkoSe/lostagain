@@ -11,8 +11,8 @@ function postProcess(sb) {
     //var renderbuffer = null;
 
     var material = sb.getMaterial();
-    var blurVertical = material.useShader("simplest");
-    var blurHorizontal = material.useShader("blurhorizontal");
+    var blurVertical = material.useShader('simplest');
+    var blurHorizontal = material.useShader('blurhorizontal');
 
     var texture = null;
     var texture2 = null;

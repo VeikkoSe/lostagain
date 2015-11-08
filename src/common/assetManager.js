@@ -1,10 +1,10 @@
 /*
  * Loads assets
  */
-function assetManager(pubsub, mesh, sprite) {
+function assetManager(pubsub, mesh, textureCreator) {
     'use strict';
     //  var sb = params;
-    var meshes, sprites, textures, loadingAmount, loadingMax;
+    var meshes, textures, textures, loadingAmount, loadingMax;
 
     var init = function() {
 
@@ -12,7 +12,7 @@ function assetManager(pubsub, mesh, sprite) {
         textures = [];
         loadingAmount = 0;
         loadingMax = 0;
-        sprites = [];
+        textures = [];
 
         pubsub.subscribe('assetload', function() {
 
@@ -43,27 +43,28 @@ function assetManager(pubsub, mesh, sprite) {
         // return meshes[name];
     };
 
-    var getSprite = function(name, noflip, repeat) {
+    var getTexture = function(name, noflip, repeat) {
 
-        if (sprites[name]) {
-            return sprites[name];
+        if (textures[name]) {
+            return textures[name];
         }
         //loadingAmount++;
         //loadingMax++;
 
         //var params = {name,game};
         //var s = sprite;
-        var s = sprite.load(name, noflip, repeat);
 
-        sprites[name] = s;
+        var s = textureCreator.load(name, noflip, repeat);
 
-        return sprites[name];
+        textures[name] = s;
+
+        return textures[name];
     };
 
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
     return Object.freeze({
         getMesh,
-        getSprite,
+        getTexture,
         init
 
     });

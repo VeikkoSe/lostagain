@@ -32,10 +32,12 @@ function menuState(sb) {
         gl.bindBuffer(gl.ARRAY_BUFFER, wall.texturePositionBuffer);
         gl.vertexAttribPointer(shaderprogram.textureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
 
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, wall.texture);
-
-        gl.uniform1i(shaderprogram.samplerUniform, 0);
+        material.useTexture();
+        /*
+         gl.activeTexture(gl.TEXTURE0);
+         gl.bindTexture(gl.TEXTURE_2D, wall.texture);
+         gl.uniform1i(shaderprogram.samplerUniform, 0);
+         */
 
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wall.indexPositionBuffer);
 
