@@ -1,4 +1,4 @@
-function gameState(sb, pubsub, helpers) {
+function gameState(sb, pubsub, processList, processListNoPause) {
     'use strict';
 
     var elapsedTotal = 0;
@@ -8,18 +8,25 @@ function gameState(sb, pubsub, helpers) {
     var frameCount = 0;
     var lastTime = 0;
 
-    var processList = [];
-    var processListNoPause = [];
+    var material = sb.getMaterial();
+    var program = material.useShader('screenquad');
+
+    //var processList = [];
+    //var processListNoPause = [];
     var pause = false;
     var startTime = null;
     var em = sb.getEntityManager();
 
-    var fb = null;
+    //var fb = null;
     var running = true;
 
-    var lastUsedHeap = 0;  // remember the heap size
+    var frameBuffer;
+
+    //var lastUsedHeap = 0;  // remember the heap size
 
     var ep, cp, pp;
+    var screenQuadVBO;
+    var rttTexture;
 
     var subscribe = function() {
 
@@ -27,9 +34,13 @@ function gameState(sb, pubsub, helpers) {
 
     var init = function() {
 
-        pubsub.subscribe('movetoloadstate', function(name, wantedstate) {
-            moveToLoadedStage(wantedstate);
-        });
+
+
+        //frameBuffer = gl.createFramebuffer();
+
+        //pubsub.subscribe('movetoloadstate', function(name, wantedstate) {
+        //   moveToLoadedStage(wantedstate);
+        //});
 
         pubsub.subscribe('gameover', function() {
             running = false;
@@ -39,57 +50,20 @@ function gameState(sb, pubsub, helpers) {
             pause = !pause;
         });
 
-        processList = [];
-        fb = gl.createFramebuffer();
+        //processList = [];
+        //fb = gl.createFramebuffer();
 
-        //order matters
-        processList.push(gameLogicProcess(sb, pubsub));
-
-        processList.push(chaseProcess(sb));
-        processList.push(faceProcess(sb));
-        processList.push(pulseGunProcess(sb, pubsub, helpers));
-        processList.push(movementProcess(sb, pubsub, helpers));
-
-        processList.push(trailProcess(sb, helpers));
-        processList.push(collisionProcess(sb, pubsub, helpers));
-        processList.push(timedTextProcess(sb));
-        processList.push(scoreProcess(sb));
-
-        processList.push(textProcess(sb));
-
-        processList.push(starProcess(sb));
-
-        //simplest shader
-        processList.push(teleportProcess(sb, helpers));
-        processList.push(laserProcess(sb, pubsub, helpers));
-        processList.push(primitiveProcess(sb));
-
-        //gui shader
-        processList.push(text2dProcess(sb));
-        processList.push(layoutProcess(sb));
-
-        //per-fragment shader
-        processList.push(exhaustProcess(sb, helpers));
-        processList.push(renderProcess(sb, helpers));
-        processList.push(shieldProcess(sb));
-
-        ep = explosionProcess(sb, pubsub);
-        cp = cameraControllerProcess(sb, pubsub);
-        pp = pauseProcess(sb);
-
-        processListNoPause.push(ep);
-        processListNoPause.push(cp);
-        processListNoPause.push(pp);
+        //processList.push(processes);
 
         for (var i = 0; i < processListNoPause.length; i++) {
             processListNoPause[i].init();
         }
 
-        for (var i = 0; i < processList.length; i++) {
-            processList[i].init();
+        for (var d = 0; d < processList.length; d++) {
+            processList[d].init();
         }
 
-        gl.viewport(0, 0, sb.getResolutionWidth(), sb.getResolutionHeight());
+        gl.viewport(0, 0, 512, 512);
 
         camera.setPerspective();
 
@@ -99,7 +73,47 @@ function gameState(sb, pubsub, helpers) {
         sb.getAudio().playSound(8, 0, true);
 
         //setTimeout(checkMemory, 100); // test 10 times per second
+        initTextureFramebuffer();
 
+        var verts = [
+            // First triangle:
+            1.0, 1.0,
+            -1.0, 1.0,
+            -1.0, -1.0,
+            // Second triangle:
+            -1.0, -1.0,
+            1.0, -1.0,
+            1.0, 1.0
+        ];
+        screenQuadVBO = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, screenQuadVBO);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW);
+
+    };
+
+    var initTextureFramebuffer = function() {
+
+        frameBuffer = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, frameBuffer);
+
+        rttTexture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, rttTexture);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+        //gl.generateMipmap(gl.TEXTURE_2D);
+
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 512, 512, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+
+        var renderbuffer = gl.createRenderbuffer();
+        gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);
+        gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, 512, 512);
+
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, rttTexture, 0);
+        gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, renderbuffer);
+
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     };
 
     // --- enter your code here ---
@@ -113,7 +127,7 @@ function gameState(sb, pubsub, helpers) {
         //if (window.performance.memory.usedJSHeapSize < lastUsedHeap)
         //console.log('Garbage collected!');
         //lastUsedHeap = window.performance.memory.usedJSHeapSize;
-    }
+    };
 
     var update = function() {
 
@@ -139,8 +153,8 @@ function gameState(sb, pubsub, helpers) {
 
                 //skip lost frames
                 if (elapsed < 300) {
-                    for (var i = 0; i < processList.length; i++) {
-                        processList[i].update(elapsed, totalElapsed);
+                    for (var d = 0; d < processList.length; d++) {
+                        processList[d].update(elapsed, totalElapsed);
                     }
                 }
                 if (elapsedTotal % 100 === 0) {
@@ -154,7 +168,7 @@ function gameState(sb, pubsub, helpers) {
                     frameCount = 0;
                     elapsedTotal -= 1000;
 
-                    document.getElementById('fps').innerHTML = fps;
+                    document.getElementById('fps').innerHTML = fps.toString();
 
                 }
             }
@@ -165,71 +179,76 @@ function gameState(sb, pubsub, helpers) {
 
     var draw = function() {
 
+        var pMatrix = camera.getPMatrix();
         //console.time('Drawing');
 
-        //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-        //gl.disable(gl.BLEND);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, frameBuffer);
+        gl.viewport(0, 0, 512, 512);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        mat4.perspective(60, 512 / 512, 0.1, 2000.0, pMatrix);
         gl.enable(gl.DEPTH_TEST);
 
-        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+        // gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+        //gl.disable(gl.BLEND);
 
-        //gl.clearColor(1, 1, 0, 1); // red
-        //gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.clearColor(0, 0, 1, 1); // red
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        //gl.enable(gl.DEPTH_TEST);
+        //gl.bindRenderbuffer(gl.RENDERBUFFER, renderBuffer);
 
-        //gl.enable(gl.BLEND);
-        //gl.disable(gl.DEPTH_TEST);
-        //gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+        //gl.disable(gl.BLEND);
 
-        //if(this.postProcessState) {
+        //gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
-        //camera.setDistance(350);
+        // camera.resetDrawCalls();
 
-        //  gl.disable(gl.BLEND);
-
-        /*
-         var plnp = processListNoPause.length;
-         for (var i = 0; i < plnp; i++) {
-         var el = em.entities.length;
-         console.log(em);
-         console.log = function() {}
-         for (var e = 0; e < el; e++) {
-         var le = em.entities[e];
-         */
-
-        camera.resetDrawCalls();
-
-        ep.draw();
-        cp.draw();
-        pp.draw();
-
-        //    }
-        //}
+        for (var i = 0; i < processListNoPause.length; i++) {
+            processListNoPause[i].draw();
+        }
 
         var pl = processList.length;
         var el = em.entities.length;
         for (var e = 0; e < el; e++) {
-            for (var i = 0; i < pl; i++) {
+            for (var d = 0; d < pl; d++) {
 
                 var le = em.entities[e];
-                processList[i].draw(le);
+                processList[d].draw(le);
             }
         }
-        //console.timeEnd('Drawing');
-        //console.log('drawCallsE2: ' + camera.getDrawCalls());
+
+        gl.bindTexture(gl.TEXTURE_2D, rttTexture);
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+
+        //console.log(rttTexture);
+        material.setProgram(program);
+
+        //WE RENDER THE CAPTURED TEXTURE
+
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+        gl.viewport(0, 0, 512, 512);
+
+        // gl.clearColor(0, 1, 0, 1); // red
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        mat4.perspective(60, 512 / 512, 0.1, 2000.0, pMatrix);
+
+        gl.activeTexture(gl.TEXTURE0);
+        //  console.log(rttTexture);
+        gl.uniform1i(program.samplerUniform, 0);
+        gl.bindTexture(gl.TEXTURE_2D, rttTexture);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, screenQuadVBO);
+        gl.enableVertexAttribArray(program.vertexPositionNDC);
+        gl.vertexAttribPointer(program.vertexPositionNDC, 2, gl.FLOAT, false, 0, 0);
+
+        // Draw 6 vertexes => 2 triangles:
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
 
     };
 
     var cleanup = function() {
-        /*
-         document.onkeydown = null;
-         document.onkeyup = null;
-         document.onmousemove = null;
-         document.onmousedown = null;
-         actionMapper = null;
-         currentlyPressedKeys = {};
-         em.clearAll();
-         */
+
     };
 
     return Object.freeze({

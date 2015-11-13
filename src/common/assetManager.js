@@ -4,12 +4,12 @@
 function assetManager(pubsub, mesh, textureCreator) {
     'use strict';
     //  var sb = params;
-    var meshes, textures, textures, loadingAmount, loadingMax;
+    var meshes, textures, loadingAmount, loadingMax;
 
     var init = function() {
 
         meshes = [];
-        textures = [];
+
         loadingAmount = 0;
         loadingMax = 0;
         textures = [];

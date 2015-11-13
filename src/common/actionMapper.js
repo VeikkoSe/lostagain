@@ -12,7 +12,7 @@ function actionMapper(pubsub) {
     };
 
     var init = function() {
-        //sb = sandbox;
+
         document.onkeydown = handleKeyDown;
         document.onkeyup = handleKeyUp;
         document.onmousemove = handleMouseMove;

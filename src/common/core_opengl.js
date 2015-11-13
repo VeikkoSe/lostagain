@@ -29,8 +29,8 @@ function core(resolutionWidth, resolutionHeight) {
         canvas.width = resolutionWidth;
         canvas.height = resolutionHeight;
 
-        //gl = WebGLDebugUtils.makeDebugContext(canvas.getContext('webgl', {alpha: false}));
-        gl = WebGLUtils.setupWebGL(canvas);
+        gl = WebGLDebugUtils.makeDebugContext(canvas.getContext('webgl', {alpha: false}));
+        //gl = WebGLUtils.setupWebGL(canvas);
 
     };
 

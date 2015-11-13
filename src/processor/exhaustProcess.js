@@ -74,17 +74,17 @@ function exhaustProcess(sb, helpers) {
                     var posX = rc.getXPos();
                     var posZ = rc.getZPos();
 
-                    var unitX = Math.cos(helpers.degToRad(rc.getAngleY()));
-                    var unitZ = Math.sin(helpers.degToRad(rc.getAngleY()));
+                    var unitX = Math.cos(rc.getAngleY());
+                    var unitZ = Math.sin(rc.getAngleY());
 
                     var rendX = (posX - (unitX * ec.getOffSetSideFromCenter())) - ((-1 * unitZ) * ec.getOffSetFromCenter());
                     var rendZ = (posZ + (unitZ * ec.getOffSetSideFromCenter())) + (unitX * ec.getOffSetFromCenter());
 
                     mat4.translate(mvMatrix, [rendX, rc.getYPos(), rendZ]);
 
-                    mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleY()), [0, 1, 0]);
-                    mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleZ()), [0, 0, 1]);
-                    mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleX()), [1, 0, 0]);
+                    mat4.rotate(mvMatrix, rc.getAngleY(), [0, 1, 0]);
+                    mat4.rotate(mvMatrix, rc.getAngleZ(), [0, 0, 1]);
+                    mat4.rotate(mvMatrix, rc.getAngleX(), [1, 0, 0]);
 
                     gl.bindBuffer(gl.ARRAY_BUFFER, ec.getMesh().getVertexPositionBuffer());
                     gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);

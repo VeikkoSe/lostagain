@@ -13,8 +13,6 @@ function material(gl, am) {
         texture = am.getTexture('image');
         //maptiles = am.getTexture('maptiles');
 
-
-
     };
 
     var setProgram = function(program) {
@@ -31,15 +29,16 @@ function material(gl, am) {
 
         //var name = 'image';
 
-        if (currentTexture !== name && texture.loaded === true) {
+        //if (currentTexture !== name && texture.loaded === true) {
 
-            console.log(texture);
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.uniform1i(currentProgram.samplerUniform, 0);
+        gl.activeTexture(gl.TEXTURE0);
 
-            currentTexture = name;
-        }
+        gl.uniform1i(currentProgram.samplerUniform, 0);
+
+        currentTexture = name;
+        //}
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+
     };
 
     var useShader = function(name) {
@@ -54,6 +53,7 @@ function material(gl, am) {
 
     var possibleShaders = function(name) {
         var shaders = {
+            'screenquad': initScreenQuad,
             'test': initTestShaders,
             'particle': initParticleShaders,
             'maps': initMapShaders,
@@ -83,11 +83,24 @@ function material(gl, am) {
         gl.linkProgram(program);
 
         if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-           throw new Error('Could not initialise shaders');
+            throw new Error('Could not initialise shaders');
         }
 
         program.name = id;
 
+        return program;
+
+    };
+
+    var initScreenQuad = function() {
+
+        var program = createP('screenquad');
+
+        program.vertexPositionNDC = gl.getAttribLocation(program, 'vertexPositionNDC');
+        gl.enableVertexAttribArray(program.vertexPositionNDC);
+
+        program.samplerUniform = gl.getUniformLocation(program, 'uSampler');
+        program.offset = gl.getUniformLocation(program, 'offset');
         return program;
 
     };
@@ -169,7 +182,7 @@ function material(gl, am) {
         program.uResolution = gl.getUniformLocation(program, 'uResolution');
 
         //if (id === 'blurhorizontal') {
-         //   program.samplerUniform2 = gl.getUniformLocation(program, 'uSampler2');
+        //   program.samplerUniform2 = gl.getUniformLocation(program, 'uSampler2');
         //}
         program.samplerUniform = gl.getUniformLocation(program, 'uSampler');
 
@@ -394,16 +407,15 @@ function material(gl, am) {
         gl.shaderSource(fsshader, fsSource);
         gl.compileShader(fsshader);
         if (!gl.getShaderParameter(fsshader, gl.COMPILE_STATUS)) {
-            alert(gl.getShaderInfoLog(fsshader));
-            return null;
+            throw new Error(gl.getShaderInfoLog(fsshader));
+
         }
 
         vsshader = gl.createShader(gl.VERTEX_SHADER);
         gl.shaderSource(vsshader, vsSource);
         gl.compileShader(vsshader);
         if (!gl.getShaderParameter(vsshader, gl.COMPILE_STATUS)) {
-            alert(gl.getShaderInfoLog(vsshader));
-            return null;
+            throw new Error(gl.getShaderInfoLog(vsshader));
         }
 
         gl.attachShader(program, vsshader);

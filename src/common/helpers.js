@@ -157,10 +157,11 @@ function helpers() {
          }
          },
          */
-        degToRad: function(degrees) {
+        /*degToRad: function(degrees) {
 
-            return degrees * Math.PI / 180;
-        },
+         return degrees * Math.PI / 180;
+         },
+         */
 
         isClose: function(currentCoord, newCoord) {
 

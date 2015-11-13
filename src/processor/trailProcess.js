@@ -32,8 +32,8 @@ function trailProcess(sb, helpers) {
         var posX = re.getXPos();
         var posZ = re.getZPos();
 
-        var unitX = Math.cos(helpers.degToRad(re.getAngleY()));
-        var unitZ = Math.sin(helpers.degToRad(re.getAngleY()));
+        var unitX = Math.cos(re.getAngleY());
+        var unitZ = Math.sin(re.getAngleY());
 
         var rendX = (posX - (unitX * ec.getOffSetSideFromCenter())) - ((-1 * unitZ) * ec.getOffSetFromCenter());
         var rendZ = (posZ + (unitZ * ec.getOffSetSideFromCenter())) + (unitX * ec.getOffSetFromCenter());

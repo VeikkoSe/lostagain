@@ -1,4 +1,4 @@
-function mesh(gl, pubsub, textureCreator) {
+function mesh(gl, pubsub) {
     'use strict';
     // var {name,game} = params;
     //var sb = sandbox;
@@ -9,8 +9,8 @@ function mesh(gl, pubsub, textureCreator) {
         var z = 2;
 
         var ns = [];
-        for (var i = 0; i < vs.length; i++) { //for each vertex, initialize normal x, normal y, normal z
-            ns[i] = 0.0;
+        for (var h = 0; h < vs.length; h++) { //for each vertex, initialize normal x, normal y, normal z
+            ns[h] = 0.0;
         }
 
         for (var i = 0; i < ind.length; i = i + 3) { //we work on triads of vertices to calculate normals so i = i+3 (i = indices index)
@@ -48,12 +48,12 @@ function mesh(gl, pubsub, textureCreator) {
             }
         }
         //normalize the result
-        for (var i = 0; i < vs.length; i = i + 3) { //the increment here is because each vertex occurs with an offset of 3 in the array (due to x, y, z contiguous values)
+        for (var g = 0; g < vs.length; g = g + 3) { //the increment here is because each vertex occurs with an offset of 3 in the array (due to x, y, z contiguous values)
 
             var nn = [];
-            nn[x] = ns[i + x];
-            nn[y] = ns[i + y];
-            nn[z] = ns[i + z];
+            nn[x] = ns[g + x];
+            nn[y] = ns[g + y];
+            nn[z] = ns[g + z];
 
             var len = Math.sqrt((nn[x] * nn[x]) + (nn[y] * nn[y]) + (nn[z] * nn[z]));
             if (len === 0) {
@@ -64,9 +64,9 @@ function mesh(gl, pubsub, textureCreator) {
             nn[y] = nn[y] / len;
             nn[z] = nn[z] / len;
 
-            ns[i + x] = nn[x];
-            ns[i + y] = nn[y];
-            ns[i + z] = nn[z];
+            ns[g + x] = nn[x];
+            ns[g + y] = nn[y];
+            ns[g + z] = nn[z];
         }
 
         return ns;

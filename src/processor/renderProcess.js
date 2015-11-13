@@ -76,9 +76,9 @@ function renderProcess(sb, helpers) {
 
             mat4.translate(mvMatrix, [rc.getXPos(), rc.getYPos(), rc.getZPos()]);
 
-            mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleY()), [0, 1, 0]);
-            mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleZ()), [0, 0, 1]);
-            mat4.rotate(mvMatrix, helpers.degToRad(rc.getAngleX()), [1, 0, 0]);
+            mat4.rotate(mvMatrix, rc.getAngleY(), [0, 1, 0]);
+            mat4.rotate(mvMatrix, rc.getAngleZ(), [0, 0, 1]);
+            mat4.rotate(mvMatrix, rc.getAngleX(), [1, 0, 0]);
 
             if (rc.getScale() !== 1) {
                 mat4.scale(mvMatrix, [rc.getScale(), rc.getScale(), rc.getScale()]);
@@ -100,7 +100,7 @@ function renderProcess(sb, helpers) {
                 if (le.components.RotationComponent.getZ() > 0) {
                     zRot = 1;
                 }
-                mat4.rotate(camera.getMVMatrix(), helpers.degToRad(rotation), [xRot, yRot, zRot]);
+                mat4.rotate(camera.getMVMatrix(), rotation, [xRot, yRot, zRot]);
             }
 
             gl.bindBuffer(gl.ARRAY_BUFFER, mc.getMesh().getVertexPositionBuffer());

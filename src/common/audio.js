@@ -10,9 +10,10 @@ function audio() {
     var musicGain = audioCtx.createGain();
     var effectGain = audioCtx.createGain();
     var muteGain = audioCtx.createGain();
+    var loaded = false;
 
     var finishedLoading = function(buffer) {
-
+        loaded = true;
         loadedBuffer = buffer;
     };
 
@@ -42,8 +43,8 @@ function audio() {
     var startMusic = function(index, pos, loop) {
 
         var loopSound = ( typeof loop === 'undefined') ? false : loop;
-
-        if (loadedBuffer === null) {
+        //console.log(typeof loadedBuffer);
+        if (!loaded) {
             return false;
         }
 
@@ -96,7 +97,9 @@ function audio() {
     var playSound = function(index, pos, loop) {
 
         var loopSound = ( typeof loop === 'undefined') ? false : loop;
-
+        if (!loaded) {
+            return false;
+        }
         //if(loadedBuffer===null) {
         //  return false;
         //}

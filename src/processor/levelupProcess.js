@@ -1,4 +1,4 @@
-function levelupProcess(sb) {
+function levelupProcess(sb, hg) {
     'use strict';
 
     var gl = sb.getGL();
@@ -8,13 +8,11 @@ function levelupProcess(sb) {
     var em = sb.getEntityManager();
     var material = sb.getMaterial();
     var program = material.useShader('maps');
-    var hg;
-    var am = sb.getAssetManager();
 
     var camera = sb.getCamera();
 
     var init = function() {
-        hg = hexagon(4);
+
         hg.init();
     };
 
@@ -58,7 +56,7 @@ function levelupProcess(sb) {
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(hg.getTextureCoordinates()), gl.STATIC_DRAW);
 
             gl.vertexAttribPointer(program.aTextureCoord, 2, gl.FLOAT, false, 0, 0);
-            material.useTexture('image');
+            material.useTexture('image'); //TODO image is wrong. needs to be maptiles
             /*
              gl.activeTexture(gl.TEXTURE0);
              gl.bindTexture(gl.TEXTURE_2D, hg.getTexture().getTexture());

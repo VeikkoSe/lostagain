@@ -178,7 +178,7 @@ function loader(pubsub, entityCreator, entityManager) {
 
         //camera.mvPushMatrix();
 
-        mat4.rotate(mvMatrix, degToRad(rotationAngle), [0, 0, 1]);
+        mat4.rotate(mvMatrix, rotationAngle, [0, 0, 1]);
 
         gl.uniformMatrix4fv(program.uPMatrix, false, camera.getPMatrix());
         gl.uniformMatrix4fv(program.uMVMatrix, false, mvMatrix);

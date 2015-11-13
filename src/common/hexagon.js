@@ -152,9 +152,9 @@ function hexagon(size) {
         }
 
         //set 3 random denied blocks
-        for (var i = 0; i < deniedArea.length; i++) {
-            var x = deniedArea[i][0];
-            var y = deniedArea[i][1];
+        for (var d = 0; d < deniedArea.length; d++) {
+            var x = deniedArea[d][0];
+            var y = deniedArea[d][1];
 
             mapArray[x][y][0] = deniedBlock[0];
             mapArray[x][y][1] = deniedBlock[1];
@@ -460,9 +460,6 @@ function hexagon(size) {
         },
         getHexsizeY: function() {
             return hexsizeY;
-        },
-        getHexsizeZ: function() {
-            return hexsizeZ;
         }
 
     });

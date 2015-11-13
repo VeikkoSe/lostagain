@@ -16,8 +16,9 @@ function entityManager() {
     };
     var removeEntityByName = function(name) {
         for (var e = 0; e < entities.length; e++) {
-            if (entities[e].getName() == name)
+            if (entities[e].getName() === name) {
                 entities.splice(e, 1);
+            }
 
         }
 
@@ -25,8 +26,9 @@ function entityManager() {
 
     var removeEntityById = function(id) {
         for (var e = 0; e < entities.length; e++) {
-            if (entities[e].getId() == id)
+            if (entities[e].getId() === id) {
                 entities.splice(e, 1);
+            }
 
         }
 
@@ -34,8 +36,9 @@ function entityManager() {
 
     var getEntityByName = function(name) {
         for (var e = 0; e < entities.length; e++) {
-            if (entities[e].getName() == name)
+            if (entities[e].getName() === name) {
                 return entities[e];
+            }
         }
     };
 

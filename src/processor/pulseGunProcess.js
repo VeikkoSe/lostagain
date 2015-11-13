@@ -114,8 +114,8 @@ function pulseGunProcess(sb, pubsub, helpers) {
             }
             else {
 
-                var posX = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.cos(helpers.degToRad(bullets[i].getAngle()));
-                var posZ = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.sin(helpers.degToRad(bullets[i].getAngle()));
+                var posX = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.cos(bullets[i].getAngle());
+                var posZ = bullets[i].getSpeed() * ( deltatime / 1000.0 ) * Math.sin(bullets[i].getAngle());
 
                 bullets[i].setXPos(bullets[i].getXPos() + posX);
                 bullets[i].setZPos(bullets[i].getZPos() - posZ);

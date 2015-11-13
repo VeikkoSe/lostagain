@@ -100,9 +100,9 @@ function movementProcess(sb, pubsub, helpers) {
 
                 if (mm.getCurrentlyAccelerating() === 1) {
 
-                    var dirVectorX = Math.cos(helpers.degToRad(re.getAngleY()));
+                    var dirVectorX = Math.cos(re.getAngleY());
                     //result works but re.zPos is minus instead of addition in the end
-                    var dirVectorZ = Math.sin(helpers.degToRad(re.getAngleY()));
+                    var dirVectorZ = Math.sin(re.getAngleY());
 
                     var tx = mm.getVelocityX();
                     var tz = mm.getVelocityZ();
@@ -121,21 +121,24 @@ function movementProcess(sb, pubsub, helpers) {
                 }
                 if (mm.getRotatingRight() === 1) {
 
-                    if (re.getAngleY() >= 360)
+                    if (re.getAngleY() >= 360) {
                         re.setAngleY(0);
-
-                    if (re.getAngleY() < 0)
+                    }
+                    if (re.getAngleY() < 0) {
                         re.setAngleY(360);
+                    }
 
                     re.setAngleY(re.getAngleY() - mm.getTurnSpeed() * (deltatime / 1000));
                 }
                 if (mm.getRotatingLeft() === 1) {
 
-                    if (re.getAngleY() >= 360)
+                    if (re.getAngleY() >= 2) {
                         re.setAngleY(0);
+                    }
 
-                    if (re.getAngleY() < 0)
-                        re.setAngleY(360);
+                    if (re.getAngleY() < 0) {
+                        re.setAngleY(2);
+                    }
                     re.setAngleY(re.getAngleY() + mm.getTurnSpeed() * (deltatime / 1000));
                 }
 

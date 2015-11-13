@@ -8,7 +8,7 @@ function camera(resolutionWidth, resolutionHeight, helpers) {
         slideUp, slideDown, centerPosition,
         home, pitch, mindistance, maxdistance;
 
-    var init = function(sandbox) {
+    var init = function() {
 
         mvMatrix = mat4.create();
         pMatrix = mat4.create();
@@ -19,13 +19,13 @@ function camera(resolutionWidth, resolutionHeight, helpers) {
         mindistance = 40;
         maxdistance = 200;
         distance = 120;
-        pitch = 70;
+        pitch = 1.3;
 
         //mat4.identity(mvMatrix);
 
         x = 0;
         z = 70;
-        y = Math.tan(pitch * (Math.PI / 180)) * z;
+        y = Math.tan(pitch) * z;
 
         home = [x, y, z];
 
@@ -85,10 +85,10 @@ function camera(resolutionWidth, resolutionHeight, helpers) {
     var setYRotation = function(rot) {
 
         if (rot.charAt(0) === '-') {
-            rotationY -= helpers.degToRad(parseInt(rot.substring(1), 10));
+            rotationY -= parseInt(rot.substring(1), 10);
         }
         else {
-            rotationY += helpers.degToRad(parseInt(rot, 10));
+            rotationY += parseInt(rot, 10);
         }
     };
     var getYRotation = function() {

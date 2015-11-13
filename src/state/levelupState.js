@@ -1,7 +1,7 @@
-function levelupState(sb, pubsub, helpers) {
+function levelupState(sb, processList) {
     'use strict';
 
-    var processList = [];
+    //var processList = [];
     var frameCount = 0;
     var lastTime = 0;
     var elapsedTotal = 0;
@@ -12,13 +12,7 @@ function levelupState(sb, pubsub, helpers) {
 
     var init = function() {
 
-        processList = [];
-
-        processList.push(renderProcess(sb, helpers));
-        processList.push(menuProcess(sb, pubsub));
-        processList.push(levelupProcess(sb));
-        //processList.push(cameraControllerProcess(sb, pubsub,false));
-        processList.push(starMoveProcess(sb));
+        //processList = [];
 
         for (var i = 0; i < processList.length; i++) {
             processList[i].init();

@@ -5,7 +5,7 @@ function cameraControllerProcess(sb, pubsub, staticCamera) {
     var em = sb.getEntityManager();
     var mouseX = 0;
     //var mouseY = 0;
-    var degreeAlt = Math.PI / 180;
+    //var degreeAlt = Math.PI / 180;
     var tmpX = 0;
     var tmpY = 0;
     var tmpZ = 0;
@@ -57,12 +57,12 @@ function cameraControllerProcess(sb, pubsub, staticCamera) {
 
                 var mvMatrix = camera.getMVMatrix();
 
-                var x = camera.getDistance() * Math.cos(camera.getYRotation() * degreeAlt) + re.getXPos();
-                var z = camera.getDistance() * Math.sin(camera.getYRotation() * degreeAlt) + re.getZPos();
+                var x = camera.getDistance() * Math.cos(camera.getYRotation()) + re.getXPos();
+                var z = camera.getDistance() * Math.sin(camera.getYRotation()) + re.getZPos();
                 //
                 var zComponent = re.getZPos() - camera.getZPos();
                 var xComponent = re.getXPos() - camera.getXPos();
-                var y = Math.sqrt(zComponent * zComponent + xComponent * xComponent) * Math.tan(camera.getPitch() * degreeAlt);
+                var y = Math.sqrt(zComponent * zComponent + xComponent * xComponent) * Math.tan(camera.getPitch());
 
                 camera.setXPos(x);
                 camera.setYPos(y);

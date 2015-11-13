@@ -1,4 +1,4 @@
-function introState(sb, pubsub, helpers) {
+function introState(sb, processList) {
     'use strict';
 
     var lastTime;
@@ -6,31 +6,9 @@ function introState(sb, pubsub, helpers) {
     var frameCount;
     var startTime;
     var elapsedTotal = 0;
-    // var elapsedTotal = 0;
-    // var gl = sb.getGL();
-    //var camera = sb.getCamera();
 
-    // var frameCount = 0;
-    //var lastTime = 0;
-
-    //var processList = [];
-    //var processListNoPause = [];
-    //var pause = false;
-    //var startTime = null;
     var em = sb.getEntityManager();
 
-    // var fb = null;
-    // var running = true;
-
-    //var {game} = params;
-
-    //var shadermanager = shader_manager_constuctor();
-    //var shaderprogram = shadermanager.init("per-fragment-lighting");
-    //var assetmanager = asset_manager_constructor();
-    //var camera = game.camera;
-    //var intro = assetmanager.getMesh('start');
-    //  var actionMapper = intro_action_mapper(sb);
-    var processList = [];
     var camera = sb.getCamera();
     var gl = sb.getGL();
 
@@ -52,16 +30,6 @@ function introState(sb, pubsub, helpers) {
 
     var init = function() {
 
-        processList.push(renderProcess(sb, helpers));
-        processList.push(menuProcess(sb, pubsub));
-
-        /*
-         document.onkeydown = actionMapper.handleKeyDown;
-         document.onkeyup = actionMapper.handleKeyUp;
-         document.onmousemove = actionMapper.handleMouseMove;
-         document.onmousedown = actionMapper.handleMouseDown;
-         */
-
         for (var i = 0; i < processList.length; i++) {
             processList[i].init();
         }
@@ -71,29 +39,14 @@ function introState(sb, pubsub, helpers) {
 
         var mvMatrix = camera.getMVMatrix();
         mat4.lookAt([0, 0, 1200], [0, 0, 0], [0, 1, 0], mvMatrix);
-        //mat4.identity(mvMatrix);
-        //mat4.translate(mvMatrix, [0, 0, -300]);
 
         gl.clearColor(1, 0, 0, 1.0);
         gl.clearDepth(1.0);
 
-        //camera.init();
-        //camera.setPerspective();
-        /// var mvMatrix = camera.getMVMatrix();
-
-        //mat4.lookAt([camera.getXPos(), camera.getYPos(), camera.getZPos()], [0, 0, 0], [0, 1, 0], mvMatrix);
-
     };
 
     var cleanup = function() {
-        /*
-         document.onkeydown = null;
-         document.onkeyup = null;
-         document.onmousemove = null;
-         document.onmousedown = null;
-         actionMapper = null;
-         currentlyPressedKeys = {};
-         */
+
     };
 
     var update = function() {
